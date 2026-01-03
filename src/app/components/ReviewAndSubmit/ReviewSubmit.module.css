@@ -1,0 +1,204 @@
+.container {
+  background-color: #f5f5f5;
+  min-height: 100vh;
+  padding: 24px;
+}
+
+.header {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.stepBadge {
+  display: inline-flex;
+  align-items: center;
+  background-color: #e0eaff;
+  border: 1px solid #9bb5fd;
+  border-radius: 20px;
+  padding: 6px 9px;
+  margin-bottom: 12px;
+}
+
+.stepText {
+  font-size: 13px;
+  color: #024870;
+  margin: 0;
+  font-weight: 500;
+}
+
+.title {
+  font-size: 23px;
+  font-weight: bold;
+  color: #28292c;
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+.description {
+  font-size: 15px;
+  color: #727272;
+  margin: 10px 0 0 0;
+  padding: 0;
+}
+
+.content {
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.reviewSection {
+  margin-bottom: 24px;
+}
+
+.reviewSection:last-of-type {
+  margin-bottom: 24px;
+}
+
+.sectionTitle {
+  font-size: 16px;
+  font-weight: 600;
+  color: #28292c;
+  margin: 0 0 16px 0;
+  padding: 0;
+}
+
+.summaryCard {
+  background-color: #f9f9f9;
+  border: 1px solid #e0e0e0;
+  border-radius: 6px;
+  padding: 16px;
+}
+
+.summaryItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.summaryItem:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #727272;
+}
+
+.value {
+  font-size: 14px;
+  font-weight: 600;
+  color: #28292c;
+}
+
+.termsBox {
+  background-color: #f0f4f8;
+  border-left: 4px solid #024870;
+  padding: 16px;
+  border-radius: 4px;
+}
+
+.termsText {
+  font-size: 14px;
+  color: #28292c;
+  margin: 0 0 12px 0;
+  padding: 0;
+}
+
+.termsList {
+  margin: 0;
+  padding: 0 0 0 20px;
+}
+
+.termsList li {
+  font-size: 14px;
+  color: #28292c;
+  margin-bottom: 8px;
+}
+
+.termsList li:last-child {
+  margin-bottom: 0;
+}
+
+.agreementSection {
+  margin-top: 24px;
+}
+
+.agreementLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.agreementCheckbox {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+.agreementText {
+  font-size: 14px;
+  color: #28292c;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.discardButton,
+.backButton,
+.submitButton {
+  padding: 10px 24px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.discardButton {
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+.discardButton:hover {
+  background-color: #e0e0e0;
+}
+
+.backButton {
+  background-color: white;
+  color: #024870;
+  border: 1px solid #024870;
+}
+
+.backButton:hover {
+  background-color: #f5f5f5;
+}
+
+.submitButton {
+  background-color: #024870;
+  color: white;
+}
+
+.submitButton:hover:not(:disabled) {
+  background-color: #003356;
+}
+
+.submitButtonDisabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+.submitButtonDisabled:hover {
+  background-color: #ccc;
+}
