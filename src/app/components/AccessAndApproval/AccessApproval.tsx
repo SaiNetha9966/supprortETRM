@@ -74,10 +74,42 @@ export const AccessApproval: React.FC<AccessApprovalProps> = () => {
                 {/* Buttons */}
                 <div className="lg:col-span-1 flex items-end justify-start lg:justify-end gap-4">
                   <Buttons variant="secondary">Cancel</Buttons>
-                  <Buttons variant="primary">Add</Buttons>
+                  <Buttons variant="primary" onClick={handleAddUser}>Add</Buttons>
                 </div>
               </div>
             </div>
+            {/* Added Users Section */}
+            {addedUsers.length > 0 && (
+              <div className="border border-[#e0e0e0] rounded-lg p-4">
+                <h3 className="font-['Roboto',sans-serif] font-bold text-[#4a4a4a] text-sm md:text-base mb-4">
+                  Added Users
+                </h3>
+                <div className="space-y-2">
+                  {addedUsers.map((user, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between bg-[#f9f9f9] p-3 rounded border border-[#e8e8e8]"
+                    >
+                      <div className="flex flex-col gap-1">
+                        <p className="font-['Roboto',sans-serif] font-medium text-[#4a4a4a] text-sm">
+                          {user.email}
+                        </p>
+                        <p className="font-['Roboto',sans-serif] text-[#727272] text-xs">
+                          {user.tools}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => handleRemoveUser(index)}
+                        className="text-[#d32f2f] hover:bg-[#ffebee] p-2 rounded"
+                      >
+                        ✕ Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+            
           </div>
         </div>
       </div>
