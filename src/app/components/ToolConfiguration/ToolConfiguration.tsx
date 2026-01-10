@@ -1,7 +1,9 @@
 import { useState } from "react";
 import ToolCard from "./ToolCard";
 import ToolConfigForm from "./ToolConfigForm";
+import AddToolsModal from "./AddToolsModal";
 import svgPaths from "../../../imports/svg-7usnlwj5e7";
+import './ToolConfiguration.css';
 
 export default function ToolConfiguration() {
   const [selectedTools, setSelectedTools] = useState<string[]>([
@@ -11,6 +13,7 @@ export default function ToolConfiguration() {
     "Tool Builder 2",
   ]);
   const [newToolRequest, setNewToolRequest] = useState("");
+  const [showAddToolsModal, setShowAddToolsModal] = useState(false);
 
   const toggleTool = (toolName: string) => {
     setSelectedTools((prev) =>
@@ -27,6 +30,18 @@ export default function ToolConfiguration() {
     }
   };
 
+  const allTools = [
+    { name: "Teams Site", platform: "AlixPartner Platform", recommended: true },
+    { name: "Tool Builder", platform: "AlixPartner Platform", recommended: true },
+    { name: "Container Utilization Optimizer", platform: "AlixPartner Platform", recommended: true },
+    { name: "Company Health Check", platform: "AlixPartner Platform", recommended: false },
+    { name: "Radial Tool (ROA)", platform: "AlixPartner Platform", recommended: false },
+    { name: "Spend X-Ray", platform: "AlixPartner Platform", recommended: false },
+    { name: "Project Management Tool", platform: "AlixPartner Platform", recommended: false },
+    { name: "Analytics Dashboard", platform: "AlixPartner Platform", recommended: false },
+    { name: "Risk Assessment Tool", platform: "AlixPartner Platform", recommended: false },
+  ];
+
   return (
     <div className="bg-[#f5f5f5] flex min-h-screen items-start justify-center p-3 sm:p-4 md:p-6">
       <div className="flex w-full max-w-[960px] flex-col gap-3 sm:gap-4 md:gap-5">
@@ -39,32 +54,35 @@ export default function ToolConfiguration() {
               <h2 className="text-[17px] sm:text-[18px] md:text-[19px] font-bold text-[#28292c]">
                 Tools Selection
               </h2>
-              <p className="text-[13px] sm:text-[14px] md:text-[15px] font-medium text-[#727272]">
-                Choose from recommended tools based on your project type
+              <p className="text-[16px] font-normal leading-[22px] tracking-[0%] text-[#727272]">
+                Based on your project details, the tools below are recommended. You may deselect any tools you do not require or add additional tools as needed.
               </p>
 
-              {/* Success Banner */}
-              <div className="bg-[#f1f6f0] border border-[#a5d192] rounded-lg p-3 flex items-center gap-[6px]">
-                <svg
-                  className="size-4 sm:size-5 shrink-0"
-                  fill="none"
-                  viewBox="0 0 20 20"
-                >
-                  <path d={svgPaths.p37293980} fill="#498E2B" />
+              <div className="info-alert">
+                <svg className="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <line x1="12" y1="16" x2="12" y2="12"></line>
+                  <line x1="12" y1="8" x2="12.01" y2="8"></line>
                 </svg>
-                <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#3f702a]">
-                  {selectedTools.length} Tools selected
-                </p>
+                <span>This request will create a new project and initiate onboarding.</span>
               </div>
             </div>
 
             {/* Recommended Tools */}
-            <div className="bg-[#f7f7f7] rounded-lg p-4 sm:p-5">
+            <div className=" rounded-lg p-4 sm:p-5">
               <div className="flex flex-col gap-4 sm:gap-5">
-                <div>
-                  <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a] mb-2">
-                    Recommended Tools
-                  </h3>
+                <div className="flex flex-col gap-4 sm:gap-5">
+                  <div className="flex items-center justify-between gap-4">
+                    <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a]">
+                      Tools Selected ({selectedTools.length})
+                    </h3>
+                    <button onClick={() => setShowAddToolsModal(true)} className="flex items-center gap-1 px-4 py-2 border border-[#498E2B] text-[#498E2B] rounded-lg hover:bg-[#f1f6f0] transition-colors text-[12px] sm:text-[13px] md:text-[14px] font-medium">
+                      <svg className="size-4" fill="none" viewBox="0 0 20 20">
+                        <path d="M10 3V17M3 10H17" stroke="#498E2B" strokeWidth="2" strokeLinecap="round" />
+                      </svg>
+                      Add More Tools
+                    </button>
+                  </div>
                   <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#4a4a4a]">
                     Playbook Engine: Recommended tools based on your project
                   </p>
@@ -213,10 +231,15 @@ export default function ToolConfiguration() {
           </div>
         </div>
 
+        {/* Add Tools Modal */}
+        <AddToolsModal
+          isOpen={showAddToolsModal}
+          onClose={() => setShowAddToolsModal(false)}
+          selectedTools={selectedTools}
+          onToggleTool={toggleTool}
+          allTools={allTools}
+        />
       </div>
     </div>
   );
 }
-
-
-
