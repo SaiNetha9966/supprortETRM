@@ -39,80 +39,23 @@ export const AccessApproval: React.FC<AccessApprovalProps> = () => {
     setApprovers((prev) => ({ ...prev, [role]: value }));
   };
 
+  const [suggestions, setSuggestions] = useState<string[]>([]);
+  const emailList = ["john.doe@example.com", "jane.smith@example.com", "admin@company.com", "support@company.com",];
+
+  const handleEmailChange = (value: string) => {
+    setUserEmail(value);
+    if (value.length > 0) {
+      const filteredSuggestions = emailList.filter(email =>
+        email.toLowerCase().includes(value.toLowerCase())
+      );
+      setSuggestions(filteredSuggestions);
+    } else {
+      setSuggestions([]);
+    }
+  }
+
   return (
     <>
-      <div className="bg-white rounded-lg shadow-sm">
-        <div className="p-4 md:p-6">
-          <div className="flex flex-col gap-4">
-            <h2 className="font-['Roboto',sans-serif] font-bold text-[#4a4a4a] text-base md:text-[17px]">
-              Add User
-            </h2>
-
-            <div className="border border-[#8dca7e] rounded-lg p-4">
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
-                {/* User Email Input */}
-                <div className="lg:col-span-1">
-                  <SearchInput
-                    label="User Email ID"
-                    value={userEmail}
-                    required
-                    onChange={setUserEmail}
-                  />
-                </div>
-
-                {/* Tools Access Dropdown */}
-                <div className="lg:col-span-1">
-                  <Dropdown
-                    label="Tools Access"
-                    value={toolsAccess}
-                    required
-                    hasInfo
-                    onChange={setToolsAccess}
-                  />
-                </div>
-
-                {/* Buttons */}
-                <div className="lg:col-span-1 flex items-end justify-start lg:justify-end gap-4">
-                  <Buttons variant="secondary">Cancel</Buttons>
-                  <Buttons variant="primary" onClick={handleAddUser}>Add</Buttons>
-                </div>
-              </div>
-            </div>
-            {/* Added Users Section */}
-            {addedUsers.length > 0 && (
-              <div className="border border-[#e0e0e0] rounded-lg p-4">
-                <h3 className="font-['Roboto',sans-serif] font-bold text-[#4a4a4a] text-sm md:text-base mb-4">
-                  Added Users
-                </h3>
-                <div className="space-y-2">
-                  {addedUsers.map((user, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center justify-between bg-[#f9f9f9] p-3 rounded border border-[#e8e8e8]"
-                    >
-                      <div className="flex flex-col gap-1">
-                        <p className="font-['Roboto',sans-serif] font-medium text-[#4a4a4a] text-sm">
-                          {user.email}
-                        </p>
-                        <p className="font-['Roboto',sans-serif] text-[#727272] text-xs">
-                          {user.tools}
-                        </p>
-                      </div>
-                      <button
-                        onClick={() => handleRemoveUser(index)}
-                        className="text-[#d32f2f] hover:bg-[#ffebee] p-2 rounded"
-                      >
-                        ✕ Remove
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-            
-          </div>
-        </div>
-      </div>
       <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
         <div className="flex flex-col gap-8">
           <div className="flex flex-col gap-2">
@@ -160,6 +103,98 @@ export const AccessApproval: React.FC<AccessApprovalProps> = () => {
               value={approvers.projectManager}
               onChange={(val) => setApprovers({ ...approvers, projectManager: val })}
             />
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-white rounded-lg shadow-sm">
+        <div className="p-4 md:p-6">
+          <div className="flex flex-col gap-4">
+            <h2 className="font-['Roboto',sans-serif] font-bold text-[#4a4a4a] text-base md:text-[17px]">
+              User Selection & Tool Access
+            </h2>
+            <p className="font-['Roboto',sans-serif] font-medium text-[#727272] text-sm md:text-[15px]">
+              Assign users and specify the tools they require access to.
+            </p>
+
+            <div className="border border-[#8dca7e] rounded-lg p-4">
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 lg:gap-6">
+                {/* User Email Input */}
+                <div className="lg:col-span-1">
+                  <SearchInput
+                    label="User Email ID"
+                    value={userEmail}
+                    required
+                    onChange={handleEmailChange}
+                  />
+                  {/* Suggestions Dropdown */}
+                  {suggestions.length > 0 && (
+                    <ul className="absolute bg-white border rounded mt-1">
+                      {suggestions.map((email, idx) => (
+                        <li key={idx} className="p-2 hover:bg-gray-100 cursor-pointer" onClick={() => {
+                          setUserEmail(email);
+                          setSuggestions([]);
+                        }}
+                        >
+                          {email}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+
+                {/* Tools Access Dropdown */}
+                <div className="lg:col-span-1">
+                  <Dropdown
+                    label="Tools Access"
+                    value={toolsAccess}
+                    required
+                    hasInfo
+                    onChange={setToolsAccess}
+                  />
+                </div>
+
+                {/* Buttons */}
+                <div className="lg:col-span-1 flex items-end justify-start lg:justify-end gap-4">
+                  <Buttons variant="secondary">Cancel</Buttons>
+                  <Buttons variant="primary" onClick={handleAddUser}>Add</Buttons>
+                </div>
+              </div>
+            </div>
+
+
+            {/* Added Users Section */}
+            {addedUsers.length > 0 && (
+              <div className="border border-[#e0e0e0] rounded-lg p-4">
+                <h3 className="font-['Roboto',sans-serif] font-bold text-[#4a4a4a] text-sm md:text-base mb-4">
+                  Added Users
+                </h3>
+                <div className="space-y-2">
+                  {addedUsers.map((user, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center justify-between bg-[#f9f9f9] p-3 rounded border border-[#e8e8e8]"
+                    >
+                      <div className="flex flex-col gap-1">
+                        <p className="font-['Roboto',sans-serif] font-medium text-[#4a4a4a] text-sm">
+                          {user.email}
+                        </p>
+                        <p className="font-['Roboto',sans-serif] text-[#727272] text-xs">
+                          {user.tools}
+                        </p>
+                      </div>
+                      <button
+                        onClick={() => handleRemoveUser(index)}
+                        className="text-[#d32f2f] hover:bg-[#ffebee] p-2 rounded"
+                      >
+                        ✕ Remove
+                      </button>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+
           </div>
         </div>
       </div>
