@@ -8,15 +8,18 @@ import { ActionButtons } from './components/ActionButtons/ActionButtons';
 import ToolConfiguration from './components/ToolConfiguration/ToolConfiguration';
 import { AccessApproval } from './components/AccessAndApproval/AccessApproval';
 import { ReviewSubmit } from './components/ReviewAndSubmit/ReviewSubmit';
+import NonClientProjectForm from './components/NonClientPage/NonClientProjectForm';
 
-type StepType = 'project-details' | 'tool-configuration' | 'access-approval' | 'review-submit';
+type StepType = 'newclient-intro' | 'project-details' | 'tool-configuration' | 'access-approval' | 'review-submit';
 
 export default function App() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
-  const [currentStep, setCurrentStep] = useState<StepType>('project-details');
+  const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   console.log('Current Step:', currentStep);
   const [pageTittle, setPageTittle] = useState('Project Details');
   const [pageDesc, setPageDesc] = useState('Provide project details to initiate setup. This process may take a few minutes.');
+  const [purpose, setPurpose] = useState<string>("");
+  const [existingProject, setExistingProject] = useState<string>("");
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -36,6 +39,9 @@ export default function App() {
   const handleContinue = () => {
     console.log('Continue clicked from step:', currentStep);
     switch (currentStep) {
+      case 'newclient-intro':
+        setCurrentStep('project-details');
+        break;
       case 'project-details':
         setCurrentStep('tool-configuration');
         setPageTittle('Tool Configuration');
@@ -83,13 +89,31 @@ export default function App() {
     }
   };
 
+
   return (
     <div className={styles.app}>
-      <Header onMenuToggle={toggleSidebar} />
-      <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} currentStep={currentStep} />
+      {
+        currentStep === 'newclient-intro' && (
+          <NonClientProjectForm onContinue={handleContinue} />
+        )
+      }
+
+      {
+        currentStep !== 'newclient-intro' && (
+          <>
+            <Header onMenuToggle={toggleSidebar} />
+            <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} currentStep={currentStep} />
+          </>
+
+        )
+
+      }
+
       <main className={styles.mainContent}>
         <div className={styles.contentWrapper}>
-          <ProjectSetup pageTittle={pageTittle} pageDesc={pageDesc} />
+          {
+            currentStep !== 'newclient-intro' && (<ProjectSetup pageTittle={pageTittle} pageDesc={pageDesc} />
+            )}
 
           {/* Step 1: Project Details */}
           {currentStep === 'project-details' && (
