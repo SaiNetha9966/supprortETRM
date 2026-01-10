@@ -64,7 +64,8 @@ export default function ToolConfiguration() {
                   <line x1="12" y1="16" x2="12" y2="12"></line>
                   <line x1="12" y1="8" x2="12.01" y2="8"></line>
                 </svg>
-                <span>This request will create a new project and initiate onboarding.</span>
+                <span>Changes here may impact approvals and fulfillment timelines.
+.</span>
               </div>
             </div>
 
@@ -118,37 +119,14 @@ export default function ToolConfiguration() {
               </div>
             </div>
 
-            {/* All Available Tools */}
-            <div className="flex flex-col gap-4 sm:gap-5">
-              <div>
-                <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a] mb-2">
-                  All Available Tools
-                </h3>
-                <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#4a4a4a]">
-                  Select the tools you need for your projects
-                </p>
-              </div>
-
-              <div className="border border-[#8dca7e] rounded-lg p-3 sm:p-4 flex items-center justify-center">
-                <button className="flex items-center gap-[2px] text-[#4a4a4a] hover:opacity-70 transition-opacity">
-                  <svg className="size-4 sm:size-5" fill="none" viewBox="0 0 20 20">
-                    <path d={svgPaths.p121ff280} fill="#4A4A4A" />
-                  </svg>
-                  <span className="text-[11px] sm:text-[12px] md:text-[13px] font-medium tracking-[0.26px]">
-                    Add Tools
-                  </span>
-                </button>
-              </div>
-            </div>
-
             {/* Request New Tool */}
             <div className="flex flex-col gap-4 sm:gap-5">
               <div>
                 <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a] mb-2">
-                  Request New Tool
+                  Custom Tool Request
                 </h3>
                 <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#4a4a4a]">
-                  Need something not listed? Specify additional tools here
+                  If the required tool is not listed, specify additional details below
                 </p>
               </div>
 
@@ -157,7 +135,7 @@ export default function ToolConfiguration() {
                   <textarea
                     value={newToolRequest}
                     onChange={(e) => setNewToolRequest(e.target.value)}
-                    placeholder="Placeholder"
+                    placeholder="Describe the tool name and intended use"
                     className="px-3 py-[6px] text-[12px] sm:text-[13px] md:text-[14px] text-[#4a4a4a] placeholder:text-[#878787] resize-none outline-none min-h-[60px]"
                     maxLength={80}
                   />
@@ -165,13 +143,6 @@ export default function ToolConfiguration() {
                     <span className="text-[10px] sm:text-[11px] md:text-[12px] text-[#878787]">
                       {newToolRequest.length}/80
                     </span>
-                  </div>
-                  <div className="flex justify-end p-[2px]">
-                    <svg className="size-3" fill="none" viewBox="0 0 12 12">
-                      <path d={svgPaths.p1f40fc00} fill="#CCCCCC" />
-                      <path d="M5 11H6.75L11 6.75V5L5 11Z" fill="#CCCCCC" />
-                      <path d="M1 11H3L11 3V1L1 11Z" fill="#CCCCCC" />
-                    </svg>
                   </div>
                 </div>
                 <button
@@ -224,7 +195,7 @@ export default function ToolConfiguration() {
                 platform="AlixPartner Platform"
               />
               <ToolConfigForm
-                toolName="Tool Builder"
+                toolName="Container Utilization Optimizer"
                 platform="AlixPartner Platform"
               />
             </div>
