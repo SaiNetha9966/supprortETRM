@@ -104,8 +104,9 @@ export const ProjectDetails: React.FC = () => {
             onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
           >
             <option value="">Select type of project</option>
-            <option value="internal">Internal</option>
-            <option value="external">External</option>
+            <option value="internal">Development</option>
+            <option value="external">Proof of concept</option>
+            <option value="platform">Platform build</option>
           </select>
         </div>
 
@@ -146,9 +147,8 @@ export const ProjectDetails: React.FC = () => {
             onChange={(e) => setFormData({ ...formData, dataType: e.target.value })}
           >
             <option value="">Select option</option>
-            <option value="personal">Personal</option>
-            <option value="protected">Protected</option>
-            <option value="none">None</option>
+            <option value="yes">Yes</option>
+            <option value="no">No</option>
           </select>
         </div>
       </div>
