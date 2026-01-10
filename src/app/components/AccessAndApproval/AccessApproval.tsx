@@ -73,16 +73,19 @@ export const AccessApproval: React.FC<AccessApprovalProps> = () => {
               label="Partner - Managing Director"
               value={approvers.partnerMD}
               onChange={(val) => setApprovers({ ...approvers, partnerMD: val })}
+              tooltip="Primary approver for this request."
             />
             <SearchInput
               label="Secondary Partner Managing Director"
               value={approvers.secondaryPartnerMD}
               onChange={(val) => setApprovers({ ...approvers, secondaryPartnerMD: val })}
+              tooltip="Acts as an alternate approver if applicable."
             />
             <SearchInput
               label="Information Owner"
               value={approvers.informationOwner}
               onChange={(val) => setApprovers({ ...approvers, informationOwner: val })}
+              tooltip="Acts on behalf of the information owner."
             />
           </div>
 
@@ -92,16 +95,19 @@ export const AccessApproval: React.FC<AccessApprovalProps> = () => {
               label="Delegate Information Owner"
               value={approvers.delegateIO}
               onChange={(val) => setApprovers({ ...approvers, delegateIO: val })}
+              tooltip='Acts on behalf of the Information Owner'
             />
             <SearchInput
               label="Approvers"
               value={approvers.approvers}
               onChange={(val) => setApprovers({ ...approvers, approvers: val })}
+              tooltip="Additional approvers may be required based on selected tools or data sensitivity."
             />
             <SearchInput
               label="Project Manager"
               value={approvers.projectManager}
               onChange={(val) => setApprovers({ ...approvers, projectManager: val })}
+              tooltip="Primary operational contact for the project."
             />
           </div>
         </div>
