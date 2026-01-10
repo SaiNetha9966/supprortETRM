@@ -16,6 +16,7 @@ export default function App() {
   const [currentStep, setCurrentStep] = useState<StepType>('project-details');
   console.log('Current Step:', currentStep);
   const [pageTittle, setPageTittle] = useState('Project Details');
+  const [pageDesc, setPageDesc] = useState('Provide project details to initiate setup. This process may take a few minutes.');
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -38,14 +39,17 @@ export default function App() {
       case 'project-details':
         setCurrentStep('tool-configuration');
         setPageTittle('Tool Configuration');
+        setPageDesc("Select and configure the tools required for this project. This step may take a few minutes.");
         break;
       case 'tool-configuration':
         setCurrentStep('access-approval');
         setPageTittle('Access & Approval');
+        setPageDesc("Define approvers and assign user access for the selected tools. This step may take a few minutes.");
         break;
       case 'access-approval':
         setCurrentStep('review-submit');
         setPageTittle('Review & Submit');
+        setPageDesc("Review all details below before submitting this request for approval.");
         break;
       case 'review-submit':
         setCurrentStep('project-details');
@@ -85,13 +89,13 @@ export default function App() {
       <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} currentStep={currentStep} />
       <main className={styles.mainContent}>
         <div className={styles.contentWrapper}>
-          <ProjectSetup pageTittle={pageTittle} />
+          <ProjectSetup pageTittle={pageTittle} pageDesc={pageDesc} />
 
           {/* Step 1: Project Details */}
           {currentStep === 'project-details' && (
             <>
               <ProjectDetails />
-              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} />
+              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} isContinueDisabled={true} />
             </>
           )}
 
@@ -99,26 +103,30 @@ export default function App() {
           {currentStep === 'tool-configuration' && (
             <>
               <ToolConfiguration />
-              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} />
+              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} isBackButtinShoewn={true} isContinueDisabled={true} />
             </>
           )}
 
           {/* Step 3: Access & Approval */}
           {currentStep === 'access-approval' && (
             <>
-              <AccessApproval/>
-              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} />
+              <AccessApproval />
+              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} isBackButtinShoewn={true} isContinueDisabled={true} />
             </>
 
           )}
 
           {/* Step 4: Review & Submit */}
           {currentStep === 'review-submit' && (
-            <ReviewSubmit
-              onSubmit={handleContinue}
-              onDiscard={handleDiscard}
-              onBack={handleBack}
-            />
+            <>
+              <ReviewSubmit
+                onSubmit={handleContinue}
+                onDiscard={handleDiscard}
+                onBack={handleBack}
+              />
+              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} isBackButtinShoewn={true} isSubmitDisabled={true} />
+            </>
+
           )}
         </div>
       </main>

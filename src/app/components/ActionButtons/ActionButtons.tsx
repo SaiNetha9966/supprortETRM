@@ -5,9 +5,11 @@ interface ActionButtonsProps {
   onDiscard?: () => void;
   onContinue?: () => void;
   isBackButtinShoewn?: boolean;
+  isContinueDisabled?: boolean;
+  isSubmitDisabled?: boolean;
 }
 
-export const ActionButtons: React.FC<ActionButtonsProps> = ({ onDiscard, onContinue, isBackButtinShoewn }) => {
+export const ActionButtons: React.FC<ActionButtonsProps> = ({ onDiscard, onContinue, isBackButtinShoewn, isContinueDisabled, isSubmitDisabled }) => {
   return (
     <div className={styles.container}>
       <button className={`${styles.button} ${styles.discardButton}`} onClick={onDiscard}>
@@ -21,9 +23,21 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({ onDiscard, onConti
             </button>
           )
         }
-        <button className={`${styles.button} ${styles.continueButton}`} onClick={onContinue}>
-          Continue
-        </button>
+        {
+          isContinueDisabled && (
+            <button className={`${styles.button} ${styles.continueButton}`} onClick={onContinue}>
+              Continue
+            </button>
+          )
+        }
+        {
+          isSubmitDisabled && (
+            <button className={`${styles.button} ${styles.continueButton}`} onClick={onContinue}>
+              Submit
+            </button>
+          )
+        }
+
       </div>
 
     </div>

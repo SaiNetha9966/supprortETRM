@@ -3,9 +3,10 @@ import styles from './ProjectSetup.module.css';
 
 interface ProjectSetupProps {
   pageTittle: string;
+  pageDesc: string;
 }
 
-export const ProjectSetup: React.FC<ProjectSetupProps> = ({ pageTittle }) => {
+export const ProjectSetup: React.FC<ProjectSetupProps> = ({ pageTittle, pageDesc }) => {
   const stepTextMap: Record<string, string> = {
     'Tool Configuration': 'Step 2 of 4',
     'Access & Approval': 'Step 3 of 4',
@@ -23,7 +24,7 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({ pageTittle }) => {
         </div>
       )}
       <h2 className={styles.title}>{pageTittle}</h2>
-      <p className={styles.subtitle}>This process could take a few minutes</p>
+      <p className={styles.subtitle}>{pageDesc}</p>
       <div className={styles.progressBar}>
         <div className={styles.progressFill} />
       </div>
