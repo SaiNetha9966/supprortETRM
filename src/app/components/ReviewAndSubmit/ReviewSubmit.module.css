@@ -85,7 +85,7 @@
   line-height: 100%;
   letter-spacing: 0%;
   color: #28292C;
-    padding-bottom: 6px;
+  padding-bottom: 6px;
 }
 
 .cardSubtitle {
@@ -115,9 +115,12 @@
   width: 14.98px;
   height: 14.98px;
   display: block;
-  margin-top: 2.52px; /* matches design top offset */
-  margin-left: 2.5px; /* matches design left offset */
-  color: inherit; /* use current text color */
+  margin-top: 2.52px;
+  /* matches design top offset */
+  margin-left: 2.5px;
+  /* matches design left offset */
+  color: inherit;
+  /* use current text color */
 }
 
 .editButton svg path {
@@ -164,7 +167,7 @@
 
 .toolsGrid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
   gap: 12px;
 }
 

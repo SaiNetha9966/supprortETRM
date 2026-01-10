@@ -119,39 +119,121 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({ onSubmit, onDiscard,
               <div className={styles.label}>Tool Builder</div>
               <div className={styles.value}>{sampleTools.toolBuilder}</div>
             </div>
+            <div>
+              <div className={styles.label}>Container Utilization Optimizer
+              </div>
+              <div className={styles.value}>{sampleTools.toolBuilder}</div>
+            </div>
+            <div>
+              <div className={styles.label}>Company Health Check
+
+              </div>
+              <div className={styles.value}>{sampleTools.toolBuilder}</div>
+            </div>
+            <div>
+              <div className={styles.label}>Radial Tool (ROA)
+
+              </div>
+              <div className={styles.value}>{sampleTools.toolBuilder}</div>
+            </div>
+            <div>
+              <div className={styles.label}>Spend X-Ray
+              </div>
+              <div className={styles.value}>{sampleTools.toolBuilder}</div>
+            </div>
+
           </div>
         </div>
 
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>Tool Specification</div>
+            <div className={styles.cardTitle}>Tool Specification </div>
             <EditButton />
           </div>
-          
           <div className={styles.toolsGrid}>
-              <div>
+            <div style={{ backgroundColor: '#F7F7F7', width: '280px', height: '177px', padding: '12px', gap: '16px' }}>
               <div className={styles.label}>Teams Site</div>
-              <div className={styles.value}>Trust external Domain?</div>
+              <div className={styles.value}>{sampleTools.teamsSite}</div>
+              <div className={styles.label}>Trust External Domain?:</div>
               <div className={styles.value}>Yes</div>
-            </div>
 
-                          <div>
-              <div className={styles.label}>Teams Builder</div>
-              <div className={styles.value}>Trust external Domain?</div>
+              <div className={styles.label}>External Domain Name?:
+              </div>
+              <div className={styles.value}>
+                www.externaldomain.com</div>
+            </div>
+            <div style={{ backgroundColor: '#F7F7F7', width: '280px', height: '177px', padding: '12px', gap: '16px' }}>
+              <div className={styles.label}>Teams Site</div>
+              <div className={styles.value}>{sampleTools.teamsSite}</div>
+              <div className={styles.label}>Trust External Domain?:</div>
               <div className={styles.value}>Yes</div>
-            </div>
 
-            <div>
-              <div className={styles.label}>What is the Domain Name?.</div>
-              <div className={styles.value}>alexpartner.com</div>
+              <div className={styles.label}>External Domain Name?:
+              </div>
+              <div className={styles.value}>
+                www.externaldomain.com</div>
             </div>
-            <div>
-              <div className={styles.label}>What is the Domain Name?.</div>
-              <div className={styles.value}>alexpartner.com</div>
+            <div style={{ backgroundColor: '#F7F7F7', width: '280px', height: '177px', padding: '12px', gap: '16px' }}>
+              <div className={styles.label}>Teams Site</div>
+              <div className={styles.value}>{sampleTools.teamsSite}</div>
+              <div className={styles.label}>Trust External Domain?:</div>
+              <div className={styles.value}>Yes</div>
+
+              <div className={styles.label}>External Domain Name?:
+              </div>
+              <div className={styles.value}>
+                www.externaldomain.com</div>
+            </div>
+            <div style={{ backgroundColor: '#F7F7F7', width: '280px', height: '177px', padding: '12px', gap: '16px' }}>
+              <div className={styles.label}>Teams Site</div>
+              <div className={styles.value}>{sampleTools.teamsSite}</div>
+              <div className={styles.label}>Trust External Domain?:</div>
+              <div className={styles.value}>Yes</div>
+
+              <div className={styles.label}>External Domain Name?:
+              </div>
+              <div className={styles.value}>
+                www.externaldomain.com</div>
+            </div>
+            <div style={{ backgroundColor: '#F7F7F7', width: '280px', height: '177px', padding: '12px', gap: '16px' }}>
+              <div className={styles.label}>Teams Site</div>
+              <div className={styles.value}>{sampleTools.teamsSite}</div>
+              <div className={styles.label}>Trust External Domain?:</div>
+              <div className={styles.value}>Yes</div>
+
+              <div className={styles.label}>External Domain Name?:
+              </div>
+              <div className={styles.value}>
+                www.externaldomain.com</div>
+            </div>
+            <div style={{ backgroundColor: '#F7F7F7', width: '280px', height: '177px', padding: '12px', gap: '16px' }}>
+              <div className={styles.label}>Teams Site</div>
+              <div className={styles.value}>{sampleTools.teamsSite}</div>
+              <div className={styles.label}>Trust External Domain?:</div>
+              <div className={styles.value}>Yes</div>
+
+              <div className={styles.label}>External Domain Name?:
+              </div>
+              <div className={styles.value}>
+                www.externaldomain.com</div>
             </div>
           </div>
         </div>
 
+        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
+          <div className={styles.cardHeader}>
+            <div className={styles.cardTitle}>Approvers</div>
+            <EditButton />
+          </div>
+          <div className={styles.approverGrid}>
+            {sampleApprovers.map((p) => (
+              <div key={p.id} className={styles.approverItem}>
+                <div className={styles.approverTitle}>{p.title}</div>
+                <div className={styles.approverName}>{p.name}</div>
+              </div>
+            ))}
+          </div>
+        </div>
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>Access Control</div>
@@ -184,20 +266,6 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({ onSubmit, onDiscard,
           </div>
         </div>
 
-        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
-          <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>Approvers</div>
-            <EditButton />
-          </div>
-          <div className={styles.approverGrid}>
-            {sampleApprovers.map((p) => (
-              <div key={p.id} className={styles.approverItem}>
-                <div className={styles.approverTitle}>{p.title}</div>
-                <div className={styles.approverName}>{p.name}</div>
-              </div>
-            ))}
-          </div>
-        </div>
       </div>
     </div>
   );
