@@ -39,9 +39,6 @@ export default function App() {
   const handleContinue = () => {
     console.log('Continue clicked from step:', currentStep);
     switch (currentStep) {
-      case 'newclient-intro':
-        setCurrentStep('project-details');
-        break;
       case 'project-details':
         setCurrentStep('tool-configuration');
         setPageTittle('Tool Configuration');
@@ -70,6 +67,9 @@ export default function App() {
       case 'review-submit':
         setCurrentStep('project-details');
         break;
+      case 'newclient-intro':
+        setCurrentStep('project-details');
+        break;
     }
   };
 
@@ -86,40 +86,44 @@ export default function App() {
       case 'review-submit':
         setCurrentStep('access-approval');
         break;
+      case 'project-details':
+        setCurrentStep('newclient-intro');
+        break;
+      default:
+        break;
     }
   };
 
 
   return (
     <div className={styles.app}>
-      {
-        currentStep === 'newclient-intro' && (
-          <NonClientProjectForm onContinue={handleContinue} />
-        )
-      }
-
+      <Header onMenuToggle={toggleSidebar} />
       {
         currentStep !== 'newclient-intro' && (
-          <>
-            <Header onMenuToggle={toggleSidebar} />
-            <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} currentStep={currentStep} />
-          </>
-
+          <Sidebar isOpen={sidebarOpen} onClose={closeSidebar} currentStep={currentStep} />
         )
-
       }
-
       <main className={styles.mainContent}>
         <div className={styles.contentWrapper}>
           {
-            currentStep !== 'newclient-intro' && (<ProjectSetup pageTittle={pageTittle} pageDesc={pageDesc} />
-            )}
+            currentStep !== 'newclient-intro' && (
+              <ProjectSetup pageTittle={pageTittle} pageDesc={pageDesc} />
+
+            )
+          }
+
+          {/* step 0: new client intro */}
+          {currentStep === 'newclient-intro' && (
+            <>
+              <NonClientProjectForm onContinue={handleContinue} />
+            </>
+          )}
 
           {/* Step 1: Project Details */}
           {currentStep === 'project-details' && (
             <>
               <ProjectDetails />
-              <ActionButtons onDiscard={handleDiscard} onContinue={handleContinue} isContinueDisabled={true} />
+              <ActionButtons onDiscard={handleBack} onContinue={handleContinue} isContinueDisabled={true} />
             </>
           )}
 
