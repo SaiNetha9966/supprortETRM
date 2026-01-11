@@ -44,7 +44,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue 
             Select whether you are requesting new access or removing existing access.
           </p>
           <div className="radio-group">
-            <label className="radio-card">
+            <label className="radio-card" style={{ border: purpose === 'onboarding' ? '2px solid #498E2B' : '2px solid #CCCCCC' }}>
               <input
                 type="radio"
                 name="purpose"
@@ -58,7 +58,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue 
               </div>
             </label>
 
-            <label className="radio-card">
+            <label className="radio-card" style={{ border: purpose === 'offboarding' ? '2px solid #498E2B' : '2px solid #CCCCCC' }}>
               <input
                 type="radio"
                 name="purpose"
@@ -82,7 +82,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue 
               Choose whether to link this request to an existing project or create a new project
             </p>
             <div className="radio-group">
-              <label className="radio-card">
+              <label className="radio-card" style={{ border: existingProject === 'yes' ? '2px solid #498E2B' : '2px solid #CCCCCC' }}>
                 <input
                   type="radio"
                   name="existingProject"
@@ -96,7 +96,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue 
                 </div>
               </label>
 
-              <label className="radio-card">
+              <label className="radio-card" style={{ border: existingProject === 'no' ? '2px solid #498E2B' : '2px solid #CCCCCC' }}>
                 <input
                   type="radio"
                   name="existingProject"
