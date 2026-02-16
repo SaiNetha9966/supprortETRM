@@ -62,8 +62,6 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
           New Request
           <ExpandMoreIcon />
         </div>
-        <div className={styles.navItem}>Offboarding</div>
-        <div className={styles.navItem}>Tools BOM</div>
       </nav>
        <div className={styles.iconButton}>
           <svg width="2" height="26" viewBox="0 0 2 26" fill="none" xmlns="http://www.w3.org/2000/svg">

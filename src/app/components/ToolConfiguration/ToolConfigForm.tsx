@@ -1,16 +1,35 @@
 import { useState } from "react";
 import svgPaths from "../../../imports/svg-7usnlwj5e7";
+
 interface ToolConfigFormProps {
+  toolId: string;
   toolName: string;
   platform: string;
+  onChange: (field: string, value: any) => void;
 }
 
-export default function ToolConfigForm({ toolName, platform }: ToolConfigFormProps) {
+export default function ToolConfigForm({ toolId, toolName, platform, onChange }: ToolConfigFormProps) {
   const [trustDomain, setTrustDomain] = useState("");
   const [domainName, setDomainName] = useState("");
 
+  const handleTrustDomainChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setTrustDomain(value);
+    onChange("trustExternalDomain", value);
+    if (value !== "yes") {
+      setDomainName("");
+      onChange("externalDomainName", "");
+    }
+  };
+
+  const handleDomainNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setDomainName(value);
+    onChange("externalDomainName", value);
+  };
+
   return (
-    <div className="bg-[#f7f7f7] rounded-lg p-4 sm:p-5">
+    <div className="border border-[#CCCCCC] rounded-lg p-4 sm:p-5">
       <div className="flex flex-col gap-4 sm:gap-5">
         {/* Header */}
         <div>
@@ -24,11 +43,9 @@ export default function ToolConfigForm({ toolName, platform }: ToolConfigFormPro
           </div>
           <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#4a4a4a]">{platform}</p>
         </div>
-
-        {/* Form Fields - Responsive Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
-          {/* Dropdown */}
-          <div className="flex flex-col gap-[6px]">
+        <div className="flex gap-[32px]">
+          {/* Trust external Domain */}
+          <div className="flex flex-col gap-[6px] w-[269.33px]">
             <label className="flex items-center gap-1 text-[12px] sm:text-[13px] md:text-[14px] font-medium">
               <span className="text-[#4a4a4a]">Trust external Domain?</span>
               <span className="text-[#cb282e]">*</span>
@@ -36,8 +53,8 @@ export default function ToolConfigForm({ toolName, platform }: ToolConfigFormPro
             <div className="relative">
               <select
                 value={trustDomain}
-                onChange={(e) => setTrustDomain(e.target.value)}
-                className="w-full bg-white border border-[#ccc] rounded px-2 py-[6px] text-[12px] sm:text-[13px] md:text-[14px] text-[#878787] appearance-none pr-8 outline-none focus:border-[#498e2b] transition-colors"
+                onChange={handleTrustDomainChange}
+                className="w-full h-[32px] bg-white border border-[#ccc] rounded px-2 text-[12px] sm:text-[13px] md:text-[14px] text-[#878787] appearance-none pr-8 outline-none focus:border-[#498e2b] transition-colors"
               >
                 <option value="">Select an option</option>
                 <option value="yes">Yes</option>
@@ -53,20 +70,21 @@ export default function ToolConfigForm({ toolName, platform }: ToolConfigFormPro
             </div>
           </div>
 
-          {/* Text Input */}
-          <div className="flex flex-col gap-[6px]">
-            <label className="flex items-center gap-1 text-[12px] sm:text-[13px] md:text-[14px] font-medium text-[#b2b2b2]">
-              <span>What is the Domain Name?</span>
-              <span>*</span>
-            </label>
-            <input
-              type="text"
-              value={domainName}
-              onChange={(e) => setDomainName(e.target.value)}
-              placeholder="Enter domain name"
-              className="bg-white border border-[#ccc] rounded px-2 py-[6px] text-[12px] sm:text-[13px] md:text-[14px] text-[#4a4a4a] placeholder:text-[#878787] outline-none focus:border-[#498e2b] transition-colors"
-            />
-          </div>
+          {/* External Domain Name */}
+          {trustDomain === "yes" && (
+            <div className="flex flex-col gap-[6px] w-[269.33px]">
+              <label className="flex items-center gap-1 text-[12px] sm:text-[13px] md:text-[14px] font-medium">
+                <span className="text-[#4a4a4a]">External Domain Name?</span>
+                <span className="text-[#cb282e]">*</span>
+              </label>
+              <input
+                type="text"
+                value={domainName}
+                onChange={handleDomainNameChange}
+                className="w-full h-[32px] bg-white border border-[#ccc] rounded px-2 text-[12px] sm:text-[13px] md:text-[14px] text-[#878787] focus:outline-none focus:border-[#498e2b]"
+              />
+            </div>
+          )}
         </div>
       </div>
     </div>

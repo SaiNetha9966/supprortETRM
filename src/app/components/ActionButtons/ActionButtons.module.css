@@ -25,7 +25,14 @@
   align-items: center;
   justify-content: center;
 }
-
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    margin-top: 40px;
+    padding-top: 32px;
+    border-top: 1px solid #e0e0e0;
+}
 .discardButton {
   background-color: white;
   color: #498e2b;
@@ -44,6 +51,15 @@
 
 .continueButton:hover {
   background-color: #498e2b;
+}
+
+.disabledButton {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.disabledButton:hover {
+  background-color: #8dca7e;
 }
 
 /* Tablet screens (768px - 1024px) */

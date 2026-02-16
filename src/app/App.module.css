@@ -5,6 +5,24 @@
   font-family: 'Roboto', sans-serif;
 }
 
+.centerWrapper {
+  display: flex;
+  justify-content: center;
+  /* horizontal */
+  align-items: center;
+  /* vertical */
+  position: fixed;
+  /* overlay the whole screen */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: #e8e8e8;
+  /* optional, match app background */
+  z-index: 999;
+  /* ensure it sits above sidebar/header */
+}
+
 .mainContent {
   position: fixed;
   top: 68px;

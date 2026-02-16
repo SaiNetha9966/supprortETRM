@@ -30,11 +30,12 @@
 }
 
 .progressFill {
-  width: 20%;
   height: 100%;
   background-color: #498e2b;
   border-radius: 240px;
+  transition: width 0.3s ease; /* smooth animation */
 }
+
 
 .progressText {
   font-family: 'Roboto', sans-serif;

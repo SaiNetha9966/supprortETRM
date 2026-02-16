@@ -1,0 +1,107 @@
+trigger: none
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: ETRM2.0-reactjs
+  - group: BackslashSecret
+  - name: nodeVersion
+    value: '20.x'
+  - name: artifactName
+    value: 'etrm-reactjs-build'
+  
+stages:
+  - stage: Scan
+    displayName: "Scan"
+    jobs:
+      - job: Scan
+        displayName: Scan
+        steps:
+          # Checkout source
+              - task: Backslash-Security-Scan@0
+                displayName: Backslash PR Scan
+                condition: eq(variables['Build.Reason'], 'PullRequest')
+                inputs:
+                  authToken: "$(Backslash-Token)"
+                  ignoreBlock: 'false'
+                  organization: 'alixpartners-dev'
+                  prScan: 'true'
+                   
+              - task: Backslash-Security-Scan@0
+                displayName: Backslash Full Scan
+                #condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main)'))
+                inputs:
+                  authToken: "$(Backslash-Token)"
+                  ignoreBlock: 'false'
+                  organization: 'alixpartners-dev'
+                  prScan: 'false'
+
+  - stage: Build
+    displayName: "Build"
+    jobs:
+      - job: Build
+        displayName: Build
+        steps:
+          # Checkout source
+          - checkout: self
+
+          # Install Node.js
+          - task: NodeTool@0
+            inputs:
+              versionSpec: '$(nodeVersion)'
+            displayName: 'Install Node.js'
+
+          # Install dependencies
+          - script: |
+              cd ETRM
+              npm install
+            displayName: 'Install npm dependencies'
+
+          # Build React app
+          - script: |
+              cd ETRM
+              npm run build
+            displayName: 'Build React application'
+
+
+          # Archive build folder
+          - task: ArchiveFiles@2
+            inputs:
+              rootFolderOrFile: 'ETRM/dist'
+              includeRootFolder: false
+              archiveType: 'zip'
+              archiveFile: '$(Build.ArtifactStagingDirectory)/$(artifactName).zip'
+              replaceExistingArchive: true
+            displayName: 'Archive React build'
+
+          # Publish artifact
+          - task: PublishBuildArtifacts@1
+            inputs:
+              pathToPublish: '$(Build.ArtifactStagingDirectory)'
+              artifactName: 'drop'
+            displayName: 'Publish build artifact'
+
+  
+  # - stage: Deploy
+  #   displayName: "Deploy"
+  #   dependsOn: 
+  #     - Build
+  #     - Scan
+  #   jobs:
+  #     - job: Deploy
+  #       displayName: Deploy
+  #       steps:
+
+  #         - download: current
+  #           artifact: drop
+  #           displayName: Download build artifact
+          
+  #         # Deploy to Azure Web App
+  #         - task: AzureWebApp@1
+  #           inputs:
+  #             azureSubscription: '$(service_connection_name)'
+  #             appType: 'webAppLinux'
+  #             appName: '$(web_app_name)'
+  #             package: '$(Pipeline.Workspace)/drop/$(artifactName).zip'
+  #           displayName: 'Deploy to Azure Web App'

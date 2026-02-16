@@ -108,7 +108,7 @@
   font-family: 'Roboto', sans-serif;
   font-weight: 400;
   font-size: 14px;
-  color: #878787;
+  color: #282926;
   line-height: 19px;
   cursor: pointer;
   appearance: none;
@@ -146,7 +146,7 @@
   color: #878787;
   line-height: 16px;
   resize: vertical;
-  min-height: 77px;
+  min-height: 20px;
   width: 100%;
   box-sizing: border-box;
 }
@@ -297,4 +297,6 @@
   .select {
     height: 44px;
   }
+
+
 }

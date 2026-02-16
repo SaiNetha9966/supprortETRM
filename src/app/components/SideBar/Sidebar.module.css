@@ -1,6 +1,7 @@
 .sidebar {
   background-color: #f5f5f5;
-  width: 220px;
+  width: 260px;
+  height: 632px;
   position: fixed;
   top: 48px;
   left: 0;
@@ -66,6 +67,22 @@
   fill: white;
 }
 
+/* Default icons */
+.menuIcon img {
+  filter: none;
+}
+
+/* Active → white */
+.menuItem.active .menuIcon img {
+  filter: brightness(0) invert(1);
+}
+
+/* Disabled → black */
+.menuItem.disabled .menuIcon img {
+  filter: brightness(0);
+}
+
+
 .menuLabel {
   font-family: 'Roboto', sans-serif;
   font-weight: 500;
@@ -80,9 +97,6 @@
   color: #4a4a4a;
 }
 
-.menuItem.disabled .menuLabel {
-  color: #b2b2b2;
-}
 
 .overlay {
   display: none;
