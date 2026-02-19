@@ -1,0 +1,101 @@
+/* src/styles/OffboardingScope.css */
+.container {
+  background-color: white;
+  border-radius: 8px;
+}
+
+.header {
+  margin-bottom: 12px;
+}
+
+.title {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
+    font-size: 17px;
+    color: #4a4a4a;
+    margin-bottom: 8px;
+}
+
+.description {
+  /* font-family: 'Roboto', sans-serif;
+  font-weight: 500;
+  font-size: 15px;
+  color: #727272;
+  line-height: 20px;
+  margin-bottom: 12px; */
+
+color: var(--Text-Light, #727272);
+/* Body/L/400 */
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 22px; /* 137.5% */
+}
+.options-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.option-card {
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: border-color 0.2s, background-color 0.2s;
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+}
+
+.option-card input[type="radio"] {
+  margin-top: 0.3rem;
+  accent-color: #2e7d32;
+}
+
+.option-content h3 {
+overflow: hidden;
+color: var(--Text-Dark, #4A4A4A);
+text-overflow: ellipsis;
+/* Body/L/500 */
+font-family: Roboto;
+font-size: 16px;
+font-style: normal;
+font-weight: 500;
+line-height: 22px; /* 137.5% */
+}
+
+.option-content p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    color: #727272;
+    margin-bottom: 10px;
+}
+
+
+.option-card.selected {
+border: 2px solid var(--Green-Shades-Green-3, #498E2B);
+  background-color: transparent     ;
+}
+
+
+
+/* 🔹 Responsive */
+@media (max-width: 480px) {
+  .offboarding-container {
+    padding: 1rem;
+  }
+
+  .actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn {
+    width: 100%;
+  }
+}

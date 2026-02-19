@@ -4,6 +4,7 @@ import styles from './ExistingProjectDetails.module.css';
 import svgPaths from '../../../imports/svg-m590sprq1z';
 import { fetchExistingProjectMetadata } from '../../service/api';
 import { formatDate } from '../Utils/UiUtilis';
+import OffboardingScope from './OffboardingScope';
 
 const AlertIcon: React.FC = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -16,7 +17,9 @@ export const ExistingProjectDetails: React.FC<{
   onMetadataLoaded?: (metadata: any | null) => void;
   existingProjectDetailsFormData: any;
   setExistingProjectDetailsFormData: React.Dispatch<React.SetStateAction<any>>;
-}> = ({ data, onMetadataLoaded, existingProjectDetailsFormData, setExistingProjectDetailsFormData }) => {
+  setIsOffBoardSideBar:React.Dispatch<React.SetStateAction<any>>;
+  purpose:string;
+}> = ({ data, onMetadataLoaded, existingProjectDetailsFormData, setExistingProjectDetailsFormData,purpose,setIsOffBoardSideBar }) => {
   console.log('ExistingProjectDetails data:', data);
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
   const selectedProjectKey: string = existingProjectDetailsFormData?.selectedProjectKey ?? '';
@@ -54,9 +57,17 @@ export const ExistingProjectDetails: React.FC<{
     };
     loadMetadata();
   }, [selectedProjectKey]);
+  useEffect(() =>{
+    if(purpose === "offboarding")
+    {
+    setIsOffBoardSideBar(true)
+    }
+    else{
+    setIsOffBoardSideBar(false)
+    }
+  })
 
   const hasMatch = Boolean(existingProject);
-
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -159,6 +170,11 @@ export const ExistingProjectDetails: React.FC<{
           </div>
         </div>
       )}
+      {
+        purpose === "offboarding" &&(
+      <OffboardingScope/>
+        )
+      }
     </div>
   );
 };

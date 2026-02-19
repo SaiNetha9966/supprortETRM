@@ -4,10 +4,13 @@ import svgPaths from '../../../imports/svg-m590sprq1z';
 import styles from '../../components/ActionButtons/ActionButtons.module.css';
 interface NonClientProjectFormProps {
   onContinue: (existingProject: string) => void;
+  purpose : string;
+  setPurpose: React.Dispatch<React.SetStateAction<any>>;
+  setPageTittle: React.Dispatch<React.SetStateAction<any>>;
+
 }
 
-const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue }) => {
-  const [purpose, setPurpose] = useState<string>('');
+const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue,purpose,setPurpose,setPageTittle }) => {
   const [existingProject, setExistingProject] = useState<string>('');
 
   const AlertIcon: React.FC = () => (
@@ -53,7 +56,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue 
                     name="existingProject"
                     value="yes"
                     checked={existingProject === 'yes'}
-                    onChange={(e) => {setExistingProject(e.target.value); setPurpose('')}}
+                    onChange={(e) => {setExistingProject(e.target.value); setPurpose('');setPageTittle("Project & Offboarding Scope")}}
                   />
                   <div className="radio-content">
                     <div className="radio-title">Yes</div>
