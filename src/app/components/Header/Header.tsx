@@ -4,12 +4,7 @@ import svgPaths from '../../../imports/svg-m590sprq1z';
 
 const AlixLogo: React.FC = () => (
   <svg width="18.897" height="21" viewBox="0 0 18.8967 21" fill="none">
-    <path 
-      clipRule="evenodd" 
-      fillRule="evenodd" 
-      d={svgPaths.pa93f100} 
-      fill="white" 
-    />
+    <path clipRule="evenodd" fillRule="evenodd" d={svgPaths.pa93f100} fill="white" />
   </svg>
 );
 
@@ -57,21 +52,27 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
       </div>
       <div className={styles.rightSection}>
         <nav className={`${styles.navigation} ${menuOpen ? styles.open : ''}`}>
-        <div className={styles.navItem}>Dashboard</div>
-        <div className={`${styles.navItem} ${styles.active}`}>
-          New Request
-          <ExpandMoreIcon />
-        </div>
-      </nav>
-       <div className={styles.iconButton}>
-          <svg width="2" height="26" viewBox="0 0 2 26" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect width="2" height="26" fill="#727272"/>
+          <div className={styles.navItem}>Dashboard</div>
+          <div className={`${styles.navItem} ${styles.active}`}>
+            New Request
+            <ExpandMoreIcon />
+          </div>
+        </nav>
+        <div className={styles.iconButton}>
+          <svg
+            width="2"
+            height="26"
+            viewBox="0 0 2 26"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <rect width="2" height="26" fill="#727272" />
           </svg>
-      </div>
+        </div>
         <div className={styles.iconButton}>
           <NotificationIcon />
           <div className={styles.badge}>4</div>
-        </div>  
+        </div>
         <div className={styles.iconButton}>
           <HelpIcon />
         </div>

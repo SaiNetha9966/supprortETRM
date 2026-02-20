@@ -40,7 +40,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     Array<{ name: string; email: string; tools: string[] }>
   >([]);
   const [expandedUsers, setExpandedUsers] = useState<Set<number>>(new Set());
-    const [selected, setSelected] = useState<string[]>([]);
+  const [selected, setSelected] = useState<string[]>([]);
 
   // Suggestions for user email input
   const [userEmailSuggestions, setUserEmailSuggestions] = useState<string[]>([]);
@@ -69,20 +69,19 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
   );
 
   const toTitleCase = (value: string) =>
-    value
-      .replace(/[-_]+/g, ' ')
-      .replace(/\b\w/g, (char) => char.toUpperCase());
+    value.replace(/[-_]+/g, ' ').replace(/\b\w/g, (char) => char.toUpperCase());
 
   const getToolNameFromSlug = (slug: string) => {
-    const match = allTools.find((tool: any) =>
-      toSlug(tool?.ToolName ?? tool?.Tool_name ?? tool?.name ?? '') === slug
+    const match = allTools.find(
+      (tool: any) => toSlug(tool?.ToolName ?? tool?.Tool_name ?? tool?.name ?? '') === slug
     );
     return match?.ToolName ?? match?.Tool_name ?? match?.name ?? toTitleCase(slug);
   };
 
-  const selectedToolsList = existingProject === 'yes'
-    ? (existingToolFormData?.selectedTools ?? [])
-    : (formData?.selectedTools ?? []);
+  const selectedToolsList =
+    existingProject === 'yes'
+      ? (existingToolFormData?.selectedTools ?? [])
+      : (formData?.selectedTools ?? []);
 
   const existingToolSlugs = new Set(
     (existingProjectMetadata?.result?.existingtools ?? []).map((slug: string) => toSlug(slug))
@@ -112,8 +111,8 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
 
   const toolOptions = selectedToolNames.map((name) => {
     const slug = toSlug(name);
-    const match = allTools.find((tool: any) =>
-      toSlug(tool?.ToolName ?? tool?.Tool_name ?? tool?.name ?? '') === slug
+    const match = allTools.find(
+      (tool: any) => toSlug(tool?.ToolName ?? tool?.Tool_name ?? tool?.name ?? '') === slug
     );
     return {
       label: name,
@@ -137,7 +136,10 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
         const [name, tools] = Object.entries(entry)[0] ?? [];
         if (!name) return acc;
         const toolList = Array.isArray(tools) ? tools : [tools];
-        acc[name as string] = [...(acc[name as string] ?? []), ...toolList.filter(Boolean).map(String)];
+        acc[name as string] = [
+          ...(acc[name as string] ?? []),
+          ...toolList.filter(Boolean).map(String),
+        ];
         return acc;
       }, {});
     }
@@ -149,9 +151,10 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     if (existingProject !== 'yes') return;
     if (hasInitializedExisting.current) return;
 
-    const record = existingProjectMetadata?.result?.existing_record_id
-      ?? existingProjectMetadata?.result
-      ?? existingProjectMetadata;
+    const record =
+      existingProjectMetadata?.result?.existing_record_id ??
+      existingProjectMetadata?.result ??
+      existingProjectMetadata;
     if (!record) return;
 
     setFormData((prev: any) => ({
@@ -159,12 +162,15 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       primaryPmdPartner: prev.primaryPmdPartner || record.managing_director || '',
       secondoryPmdPartner: prev.secondoryPmdPartner || record.secondary_managing_director || '',
       informationOwner: prev.informationOwner || record.md || '',
-      delegateIformationOwner: prev.delegateIformationOwner || record.delegated_information_owner || '',
+      delegateIformationOwner:
+        prev.delegateIformationOwner || record.delegated_information_owner || '',
       projectManager: prev.projectManager || record.project_manager || '',
       approvers: prev.approvers || record.approvers || '',
     }));
 
-    const nameValue = normalizeNameValueMap(record.namevalue ?? record.nameValuePairs ?? record.nameValue ?? {});
+    const nameValue = normalizeNameValueMap(
+      record.namevalue ?? record.nameValuePairs ?? record.nameValue ?? {}
+    );
     initialExistingUsersCount.current = Object.keys(nameValue).length;
     const mappedUsers = Object.entries(nameValue).map(([name, tools]) => ({
       name,
@@ -242,9 +248,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
   // Helper to get email suggestions
   const getEmailSuggestions = (input: string) => {
     if (!input) return [];
-    return emailList.filter((email: string) =>
-      email.toLowerCase().includes(input.toLowerCase())
-    );
+    return emailList.filter((email: string) => email.toLowerCase().includes(input.toLowerCase()));
   };
 
   // Helper to get name suggestions
@@ -252,8 +256,9 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     if (!input) return [];
     const normalizedInput = input.toLowerCase();
     return userList
-      .filter((user: any) =>
-        typeof user?.name === 'string' && user.name.toLowerCase().includes(normalizedInput)
+      .filter(
+        (user: any) =>
+          typeof user?.name === 'string' && user.name.toLowerCase().includes(normalizedInput)
       )
       .map((user: any) => user.name);
   };
@@ -317,7 +322,12 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
   };
 
   // Handle approver input change (for all fields)
-  const handleApproverInputChange = (role: string, field: string, value: string, isMultiple: boolean) => {
+  const handleApproverInputChange = (
+    role: string,
+    field: string,
+    value: string,
+    isMultiple: boolean
+  ) => {
     if (isMultiple) {
       // Track the search input separately
       setApproverSearchInput((prev) => ({
@@ -340,7 +350,12 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
   };
 
   // Handle approver suggestion click
-  const handleApproverSuggestionClick = (role: string, field: string, email: string, isMultiple: boolean) => {
+  const handleApproverSuggestionClick = (
+    role: string,
+    field: string,
+    email: string,
+    isMultiple: boolean
+  ) => {
     // if (isMultiple) {
     //   // For multiple selections, add to array
     //   const currentApprovers = formData[field] || [];
@@ -359,13 +374,12 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     //   }));
     // } else {
 
-      // For single selection
-      handleChange(field, email);
-      setApproverSuggestions((prev) => ({
-        ...prev,
-        [role]: [],
-      }));
-
+    // For single selection
+    handleChange(field, email);
+    setApproverSuggestions((prev) => ({
+      ...prev,
+      [role]: [],
+    }));
 
     // }
   };
@@ -376,64 +390,69 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     const updatedApprovers = currentApprovers.filter((e: string) => e !== email);
     handleChange(field, updatedApprovers);
   };
-    const usersList = data?.result?.users || [];
+  const usersList = data?.result?.users || [];
 
   // Add user logic
-const handleAddUser = () => {
-  const toolsForUser = selected.length ? selected : toolsAccess;
-  const toolsForUserDisplay = toolsForUser.map(getToolNameFromSlug);
-  const normalizedEmail = userEmail.trim();
-  const isEmailAllowed = emailList.some((email: string) => email.toLowerCase() === normalizedEmail.toLowerCase());
-  if (!normalizedEmail) return;
-  if (!isEmailAllowed) {
-    alert('Please select a user email from the list.');
-    return;
-  }
-  if (!toolsForUser.length) {
-    alert('Please select at least one tool access.');
-    return;
-  }
+  const handleAddUser = () => {
+    const toolsForUser = selected.length ? selected : toolsAccess;
+    const toolsForUserDisplay = toolsForUser.map(getToolNameFromSlug);
+    const normalizedEmail = userEmail.trim();
+    const isEmailAllowed = emailList.some(
+      (email: string) => email.toLowerCase() === normalizedEmail.toLowerCase()
+    );
+    if (!normalizedEmail) return;
+    if (!isEmailAllowed) {
+      alert('Please select a user email from the list.');
+      return;
+    }
+    if (!toolsForUser.length) {
+      alert('Please select at least one tool access.');
+      return;
+    }
 
-  const derivedName = userEmail
-    .split('@')[0]
-    .split('.')
-    .map((n) => n.charAt(0).toUpperCase() + n.slice(1))
-    .join(' ');
-  const displayName = findNameByEmail(normalizedEmail, userList) || derivedName;
+    const derivedName = userEmail
+      .split('@')[0]
+      .split('.')
+      .map((n) => n.charAt(0).toUpperCase() + n.slice(1))
+      .join(' ');
+    const displayName = findNameByEmail(normalizedEmail, userList) || derivedName;
 
-  // Update local addedUsers state
-  setAddedUsers((s) => [...s, { name: displayName, email: normalizedEmail, tools: toolsForUserDisplay }]);
+    // Update local addedUsers state
+    setAddedUsers((s) => [
+      ...s,
+      { name: displayName, email: normalizedEmail, tools: toolsForUserDisplay },
+    ]);
 
-  // Auto-expand the newly added user
-  setExpandedUsers((prev) => {
-    const newSet = new Set(prev);
-    newSet.add(addedUsers.length);
-    return newSet;
-  });
+    // Auto-expand the newly added user
+    setExpandedUsers((prev) => {
+      const newSet = new Set(prev);
+      newSet.add(addedUsers.length);
+      return newSet;
+    });
 
-  setFormData((prev) => ({
-    ...prev,
-    userSelectionsAndToolAcees: [
-      ...prev.userSelectionsAndToolAcees,
-      {
-        email:  normalizedEmail,
-        toolAccess: toolsForUserDisplay,
-      },
-    ],
-        nameValuePairs: [
-          ...prev.nameValuePairs,
-          {
-            [displayName]: toolsForUser,
-          },
-        ],
-  }));
+    setFormData((prev) => ({
+      ...prev,
+      userSelectionsAndToolAcees: [
+        ...prev.userSelectionsAndToolAcees,
+        {
+          email: normalizedEmail,
+          toolAccess: toolsForUserDisplay,
+        },
+      ],
+      nameValuePairs: [
+        ...prev.nameValuePairs,
+        {
+          [displayName]: toolsForUser,
+        },
+      ],
+    }));
 
-  // Reset inputs
-  setUserEmail('');
-  setToolsAccess([]);
-  setUserEmailSuggestions([]);
-  setSelected([]);
-};
+    // Reset inputs
+    setUserEmail('');
+    setToolsAccess([]);
+    setUserEmailSuggestions([]);
+    setSelected([]);
+  };
 
   const handleClearUserAccess = () => {
     setUserEmail('');
@@ -479,9 +498,7 @@ const handleAddUser = () => {
           const hasTools = user.tools.includes(tool);
           return {
             ...user,
-            tools: hasTools
-              ? user.tools.filter((t) => t !== tool)
-              : [...user.tools, tool],
+            tools: hasTools ? user.tools.filter((t) => t !== tool) : [...user.tools, tool],
           };
         }
         return user;
@@ -499,8 +516,8 @@ const handleAddUser = () => {
               ? { ...entry, toolAccess: updatedUser.tools }
               : entry
           );
-          const hasSelection = selectionsUpdated.some((entry: any) =>
-            (entry?.email || '').toLowerCase() === updatedEmail
+          const hasSelection = selectionsUpdated.some(
+            (entry: any) => (entry?.email || '').toLowerCase() === updatedEmail
           );
           const finalSelections = hasSelection
             ? selectionsUpdated
@@ -514,7 +531,9 @@ const handleAddUser = () => {
             }
             return pair;
           });
-          const hasPair = pairsUpdated.some((pair: any) => Object.keys(pair || {})[0] === updatedName);
+          const hasPair = pairsUpdated.some(
+            (pair: any) => Object.keys(pair || {})[0] === updatedName
+          );
           const finalPairs = hasPair
             ? pairsUpdated
             : [...pairsUpdated, { [updatedName]: updatedUser.tools }];
@@ -569,28 +588,29 @@ const handleAddUser = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
             {approverFields.map(({ label, field, role, tooltip, isMultiple }) => (
               <div className="relative" key={field}>
-
-                    <SearchInput
-                      label={label}
-                      required
-                      value={formData[field]}
-                      onChange={(val) => handleApproverInputChange(role, field, val, isMultiple)}
-                      tooltip={tooltip}
-                      disabled={existingProject === 'yes'}
-                    />
-                    {approverSuggestions[role]?.length > 0 && (
-                      <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg top-full">
-                        {approverSuggestions[role].map((email, idx) => (
-                          <li
-                            key={idx}
-                            className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                            onClick={() => handleApproverSuggestionClick(role, field, email, isMultiple)}
-                          >
-                            {email}
-                          </li>
-                        ))}
-                      </ul>
-                    )}
+                <SearchInput
+                  label={label}
+                  required
+                  value={formData[field]}
+                  onChange={(val) => handleApproverInputChange(role, field, val, isMultiple)}
+                  tooltip={tooltip}
+                  disabled={existingProject === 'yes'}
+                />
+                {approverSuggestions[role]?.length > 0 && (
+                  <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg top-full">
+                    {approverSuggestions[role].map((email, idx) => (
+                      <li
+                        key={idx}
+                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                        onClick={() =>
+                          handleApproverSuggestionClick(role, field, email, isMultiple)
+                        }
+                      >
+                        {email}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
             ))}
           </div>
@@ -612,7 +632,9 @@ const handleAddUser = () => {
               <div className="info-alert" style={{ marginTop: '-8px' }}>
                 <AlertIcon />
                 <span>
-                  {initialExistingUsersCount.current} user{initialExistingUsersCount.current === 1 ? '' : 's'} already has access to this project. You may add new users or grant additional tool access.
+                  {initialExistingUsersCount.current} user
+                  {initialExistingUsersCount.current === 1 ? '' : 's'} already has access to this
+                  project. You may add new users or grant additional tool access.
                 </span>
               </div>
             )}
@@ -653,7 +675,7 @@ const handleAddUser = () => {
                     label="Tools Access"
                     value={toolsAccess}
                     required
-                     hasInfo
+                    hasInfo
                     onChange={setToolsAccess}
                     selected={selected}
                     setSelected={setSelected}
@@ -663,7 +685,9 @@ const handleAddUser = () => {
 
                 {/* Buttons */}
                 <div className="lg:col-span-1 flex items-end justify-start lg:justify-end gap-4">
-                  <Buttons variant="secondary" onClick={handleClearUserAccess}>Clear</Buttons>
+                  <Buttons variant="secondary" onClick={handleClearUserAccess}>
+                    Clear
+                  </Buttons>
                   <Buttons variant="primary" onClick={handleAddUser}>
                     Add
                   </Buttons>
@@ -686,7 +710,8 @@ const handleAddUser = () => {
                           {user.email}
                         </p>
                         <span className="px-3 py-1 bg-[#F1F1F1] text-[#727272] rounded-full text-xs font-medium whitespace-nowrap">
-                          Limited Access ({user.tools.length} Tool{user.tools.length !== 1 ? 's' : ''})
+                          Limited Access ({user.tools.length} Tool
+                          {user.tools.length !== 1 ? 's' : ''})
                         </span>
                       </div>
                       <div className="flex items-center gap-2">
@@ -711,7 +736,12 @@ const handleAddUser = () => {
                             stroke="currentColor"
                             viewBox="0 0 24 24"
                           >
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 9l-7 7-7-7"
+                            />
                           </svg>
                         </button>
                       </div>

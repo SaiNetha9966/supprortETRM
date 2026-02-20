@@ -61,19 +61,15 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({
     //   <p className={styles.progressText}>{progressPercent} % completed</p>
     // </div>
 
-     <div className={styles.container}>
+    <div className={styles.container}>
       <h2 className={styles.title}>{pageTittle}</h2>
       <p className={styles.subtitle}>{pageDesc}</p>
 
       <div className={styles.progressBar}>
-        <div
-          className={styles.progressFill}
-          style={{ width: `${progressPercent}%` }}
-        />
+        <div className={styles.progressFill} style={{ width: `${progressPercent}%` }} />
       </div>
 
       <p className={styles.progressText}>{progressPercent}% completed</p>
     </div>
-
   );
 };

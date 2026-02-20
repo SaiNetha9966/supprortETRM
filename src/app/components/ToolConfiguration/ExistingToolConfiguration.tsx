@@ -1,8 +1,8 @@
-import { useState } from "react";
-import ToolCard from "./ToolCard";
-import ToolConfigForm from "./ToolConfigForm";
-import AddToolsModal from "./AddToolsModal";
-import svgPaths from "../../../imports/svg-7usnlwj5e7";
+import { useState } from 'react';
+import ToolCard from './ToolCard';
+import ToolConfigForm from './ToolConfigForm';
+import AddToolsModal from './AddToolsModal';
+import svgPaths from '../../../imports/svg-7usnlwj5e7';
 import './ToolConfiguration.css';
 
 interface Tool {
@@ -35,7 +35,8 @@ export default function ExistingToolConfiguration({
 
   const getToolName = (tool: any) => tool?.ToolName ?? tool?.Tool_name ?? tool?.name ?? '';
   const getToolCategory = (tool: any) => tool?.Category ?? tool?.category ?? tool?.platform ?? '';
-  const isToolRecommended = (tool: any) => Boolean(tool?.Recommended ?? tool?.recommended ?? tool?.default);
+  const isToolRecommended = (tool: any) =>
+    Boolean(tool?.Recommended ?? tool?.recommended ?? tool?.default);
 
   const existingToolCards = existingToolKeys.map((key) => {
     const keySlug = toSlug(key);
@@ -48,7 +49,7 @@ export default function ExistingToolConfiguration({
     };
   });
   const selectedTools: Tool[] = existingToolFormData?.selectedTools ?? [];
-  const newToolRequest: string = existingToolFormData?.customToolRequest ?? "";
+  const newToolRequest: string = existingToolFormData?.customToolRequest ?? '';
   const [showAddToolsModal, setShowAddToolsModal] = useState(false);
 
   const toggleTool = (toolId: string) => {
@@ -63,7 +64,9 @@ export default function ExistingToolConfiguration({
         };
       }
 
-      const toolToAdd = allToolsFromApi.find((tool) => tool.ToolId === toolId || (tool as any).id === toolId);
+      const toolToAdd = allToolsFromApi.find(
+        (tool) => tool.ToolId === toolId || (tool as any).id === toolId
+      );
       if (!toolToAdd) return prev;
 
       return {
@@ -72,10 +75,11 @@ export default function ExistingToolConfiguration({
           ...prevSelectedTools,
           {
             Category: toolToAdd.Category,
-            Recommended: toolToAdd.Recommended || toolToAdd.recommended || toolToAdd.default || false,
+            Recommended:
+              toolToAdd.Recommended || toolToAdd.recommended || toolToAdd.default || false,
             ToolId: toolToAdd.ToolId,
             ToolName: toolToAdd.ToolName,
-            ToolTip: toolToAdd.ToolTip || "NA",
+            ToolTip: toolToAdd.ToolTip || 'NA',
           },
         ],
       };
@@ -93,9 +97,7 @@ export default function ExistingToolConfiguration({
       const selectedTool = prevSelectedTools.find((tool: Tool) => tool.ToolId === toolId);
       const toolName = selectedTool?.ToolName || '';
       const updatedSpecs = prevSpecs.map((spec: any) =>
-        spec.toolName === toolName
-          ? { ...spec, [field]: value }
-          : spec
+        spec.toolName === toolName ? { ...spec, [field]: value } : spec
       );
 
       if (!updatedSpecs.find((spec: any) => spec.toolName === toolName)) {
@@ -132,14 +134,25 @@ export default function ExistingToolConfiguration({
                 </p>
 
                 <div className="info-alert">
-                  <svg className="alert-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <svg
+                    className="alert-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
                     <circle cx="12" cy="12" r="10"></circle>
                     <line x1="12" y1="16" x2="12" y2="12"></line>
                     <line x1="12" y1="8" x2="12.01" y2="8"></line>
                   </svg>
                   <div className="flex flex-col">
-                    <span>{existingToolCards?.length} tools are already associated with this project.</span>
-                    <span>You may add additional tools. Existing tools cannot be removed in this request.</span>
+                    <span>
+                      {existingToolCards?.length} tools are already associated with this project.
+                    </span>
+                    <span>
+                      You may add additional tools. Existing tools cannot be removed in this
+                      request.
+                    </span>
                   </div>
                 </div>
               </div>
@@ -181,7 +194,8 @@ export default function ExistingToolConfiguration({
                     New Tools to Be Added ({selectedTools.length})
                   </h3>
                   <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#727272]">
-                    Add tools that are not currently associated with this project. Existing tools are shown above for reference and cannot be modified in this request.
+                    Add tools that are not currently associated with this project. Existing tools
+                    are shown above for reference and cannot be modified in this request.
                   </p>
                 </div>
                 <button
@@ -189,7 +203,12 @@ export default function ExistingToolConfiguration({
                   className="flex items-center gap-1 px-4 py-2 border border-[#498E2B] text-[#498E2B] rounded-lg hover:bg-[#f1f6f0] transition-colors text-[12px] sm:text-[13px] md:text-[14px] font-medium whitespace-nowrap flex-shrink-0"
                 >
                   <svg className="size-4" fill="none" viewBox="0 0 20 20">
-                    <path d="M10 3V17M3 10H17" stroke="#498E2B" strokeWidth="2" strokeLinecap="square" />
+                    <path
+                      d="M10 3V17M3 10H17"
+                      stroke="#498E2B"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                    />
                   </svg>
                   Add Tools
                 </button>
@@ -209,7 +228,6 @@ export default function ExistingToolConfiguration({
                 ))}
               </div>
             )}
-
           </div>
         </div>
 
@@ -221,15 +239,15 @@ export default function ExistingToolConfiguration({
                   Custom Tool Request
                 </h3>
                 <p className="text-[12px] sm:text-[13px] md:text-[16px] text-[#4a4a4a]">
-                  Use this section to request a tool which is not present in list of available tools below, if no custom tool is required you may skip
-                  the section.
+                  Use this section to request a tool which is not present in list of available tools
+                  below, if no custom tool is required you may skip the section.
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 md:gap-5 items-stretch sm:items-center">
                 <div className="flex-1 bg-white border border-[#ccc] rounded flex flex-col">
                   <textarea
-                    style={{ minHeight: "10px" }}
+                    style={{ minHeight: '10px' }}
                     value={newToolRequest}
                     onChange={(e) =>
                       setExistingToolFormData((prev: any) => ({
@@ -260,7 +278,8 @@ export default function ExistingToolConfiguration({
                 Tools Specification
               </h2>
               <p className="text-[13px] sm:text-[14px] md:text-[15px] font-medium text-[#727272]">
-                Existing tool configurations are shown for reference only. No changes are required unless new tools are added.
+                Existing tool configurations are shown for reference only. No changes are required
+                unless new tools are added.
               </p>
 
               {/* Info Banner */}
@@ -280,7 +299,9 @@ export default function ExistingToolConfiguration({
                   toolName={tool.ToolName}
                   toolId={tool.ToolId}
                   platform={tool.Category}
-                  onChange={(field: string, value: any) => handleToolConfigChange(tool.ToolId, field, value)}
+                  onChange={(field: string, value: any) =>
+                    handleToolConfigChange(tool.ToolId, field, value)
+                  }
                 />
               ))}
             </div>

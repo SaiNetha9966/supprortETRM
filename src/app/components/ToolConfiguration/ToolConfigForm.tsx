@@ -1,5 +1,5 @@
-import { useState } from "react";
-import svgPaths from "../../../imports/svg-7usnlwj5e7";
+import { useState } from 'react';
+import svgPaths from '../../../imports/svg-7usnlwj5e7';
 
 interface ToolConfigFormProps {
   toolId: string;
@@ -8,24 +8,29 @@ interface ToolConfigFormProps {
   onChange: (field: string, value: any) => void;
 }
 
-export default function ToolConfigForm({ toolId, toolName, platform, onChange }: ToolConfigFormProps) {
-  const [trustDomain, setTrustDomain] = useState("");
-  const [domainName, setDomainName] = useState("");
+export default function ToolConfigForm({
+  toolId,
+  toolName,
+  platform,
+  onChange,
+}: ToolConfigFormProps) {
+  const [trustDomain, setTrustDomain] = useState('');
+  const [domainName, setDomainName] = useState('');
 
   const handleTrustDomainChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setTrustDomain(value);
-    onChange("trustExternalDomain", value);
-    if (value !== "yes") {
-      setDomainName("");
-      onChange("externalDomainName", "");
+    onChange('trustExternalDomain', value);
+    if (value !== 'yes') {
+      setDomainName('');
+      onChange('externalDomainName', '');
     }
   };
 
   const handleDomainNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setDomainName(value);
-    onChange("externalDomainName", value);
+    onChange('externalDomainName', value);
   };
 
   return (
@@ -71,7 +76,7 @@ export default function ToolConfigForm({ toolId, toolName, platform, onChange }:
           </div>
 
           {/* External Domain Name */}
-          {trustDomain === "yes" && (
+          {trustDomain === 'yes' && (
             <div className="flex flex-col gap-[6px] w-[269.33px]">
               <label className="flex items-center gap-1 text-[12px] sm:text-[13px] md:text-[14px] font-medium">
                 <span className="text-[#4a4a4a]">External Domain Name?</span>

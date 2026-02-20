@@ -17,30 +17,15 @@ const ProjectSetupIcon: React.FC<{ active?: boolean }> = ({ active }) => (
 );
 
 const ToolConfigIcon: React.FC = () => (
-  <img
-    src={ToolConfigIconSvg}
-    alt=""
-    width="16"
-    height="16"
-  />
+  <img src={ToolConfigIconSvg} alt="" width="16" height="16" />
 );
 
 const AccessApprovalIcon: React.FC = () => (
-  <img
-    src={AccessApprovalSvg}
-    alt=""
-    width="16"
-    height="16"
-  />
+  <img src={AccessApprovalSvg} alt="" width="16" height="16" />
 );
 
 const ReviewSubmitIcon: React.FC = () => (
-  <img
-    src={ReviewSubmitSvg}
-    alt=""
-    width="16"
-    height="16"
-  />
+  <img src={ReviewSubmitSvg} alt="" width="16" height="16" />
 );
 
 interface MenuItem {
@@ -58,12 +43,17 @@ interface SidebarProps {
   existingProject?: string;
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentStep, existingProject }) => {
+export const Sidebar: React.FC<SidebarProps> = ({
+  isOpen,
+  onClose,
+  currentStep,
+  existingProject,
+}) => {
   const menuItems: MenuItem[] = [
     {
       id: 'project-setup',
       label: existingProject === 'yes' ? 'Project Details' : 'Project Setup',
-      icon: currentStep === 'project-details' ?  <ProjectSetupIcon /> : <ReviewSubmitIcon/>,
+      icon: currentStep === 'project-details' ? <ProjectSetupIcon /> : <ReviewSubmitIcon />,
       active: currentStep === 'project-details',
       disabled: currentStep !== 'project-details',
     },
@@ -94,7 +84,9 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose, currentStep, 
     <>
       <div className={`${styles.overlay} ${isOpen ? styles.show : ''}`} onClick={onClose} />
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-        <h2 className={styles.title}>{existingProject === 'yes' ? 'Non Client Existing Project' : 'Non Client New Project'}</h2>
+        <h2 className={styles.title}>
+          {existingProject === 'yes' ? 'Non Client Existing Project' : 'Non Client New Project'}
+        </h2>
         <nav>
           {menuItems.map((item) => (
             <div

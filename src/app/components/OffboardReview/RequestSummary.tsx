@@ -1,4 +1,4 @@
-    interface FieldProps {
+interface FieldProps {
   label: string;
   value: string;
 }

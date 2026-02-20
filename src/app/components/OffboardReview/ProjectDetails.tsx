@@ -1,4 +1,4 @@
-import svgPaths from "../../../imports/svg-0ywn1y5h0h";
+import svgPaths from '../../../imports/svg-0ywn1y5h0h';
 
 interface FieldProps {
   label: string;
@@ -23,7 +23,12 @@ export function ProjectDetails() {
           <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
             <div className="w-5 h-5 relative">
               <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
-                <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 14.9757 14.9757">
+                <svg
+                  className="absolute block inset-0"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 14.9757 14.9757"
+                >
                   <path d={svgPaths.p42c2a80} fill="currentColor" />
                 </svg>
               </div>

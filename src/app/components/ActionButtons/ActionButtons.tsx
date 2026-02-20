@@ -24,63 +24,49 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
 }) => {
   return (
     <div className={styles.container}>
-      {
-        !isNewClientPage && (
-          <button className={`${styles.button} ${styles.discardButton}`} onClick={onDiscard}>
-            Discard
-          </button>
-        )
-      }
+      {!isNewClientPage && (
+        <button className={`${styles.button} ${styles.discardButton}`} onClick={onDiscard}>
+          Discard
+        </button>
+      )}
 
       <div style={{ display: 'flex', gap: '12px' }}>
-        {
-          isBackButtinShoewn && (
-            <button className={`${styles.button} ${styles.discardButton}`} onClick={onBackButton}>
-              Back
+        {isBackButtinShoewn && (
+          <button className={`${styles.button} ${styles.discardButton}`} onClick={onBackButton}>
+            Back
+          </button>
+        )}
+        {isContinueDisabled && (
+          <button
+            className={`${styles.button} ${styles.continueButton} ${disableContinue ? styles.disabledButton : ''}`}
+            onClick={onContinue}
+            disabled={disableContinue}
+          >
+            Continue
+          </button>
+        )}
+        {isSubmitDisabled && (
+          <button
+            className={`${styles.button} ${styles.continueButton} ${disableContinue ? styles.disabledButton : ''}`}
+            onClick={onContinue}
+            disabled={disableContinue}
+          >
+            Submit
+          </button>
+        )}
+        {isNewClientPage && (
+          <>
+            <button className={`${styles.button} ${styles.discardButton}`}>
+              Back to Dashboard
             </button>
-          )
-        }
-        {
-          isContinueDisabled && (
-            <button
-              className={`${styles.button} ${styles.continueButton} ${disableContinue ? styles.disabledButton : ''}`}
-              onClick={onContinue}
-              disabled={disableContinue}
-            >
-              Continue
-            </button>
-          )
-        }
-        {
-          isSubmitDisabled && (
-            <button
-              className={`${styles.button} ${styles.continueButton} ${disableContinue ? styles.disabledButton : ''}`}
-              onClick={onContinue}
-              disabled={disableContinue}
-            >
-              Submit
-            </button>
-          )
-        }
-        {
-          isNewClientPage && (
-            <>
-              <button className={`${styles.button} ${styles.discardButton}`} >
-                Back to Dashboard
-              </button>
-            </>
-          )
-        }
-        {
-          isNewClientPage && (
-            <button className={`${styles.button} ${styles.continueButton}`} onClick={onContinue}>
-              Continue to Form
-            </button>
-          )
-        }
-
+          </>
+        )}
+        {isNewClientPage && (
+          <button className={`${styles.button} ${styles.continueButton}`} onClick={onContinue}>
+            Continue to Form
+          </button>
+        )}
       </div>
-
     </div>
   );
 };

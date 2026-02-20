@@ -4,7 +4,7 @@ import styles from './ExistingProjectDetails.module.css';
 import svgPaths from '../../../imports/svg-m590sprq1z';
 import { fetchExistingProjectMetadata } from '../../service/api';
 import { formatDate } from '../Utils/UiUtilis';
-import  OffboardingScope  from './OffboardingScope';
+import OffboardingScope from './OffboardingScope';
 
 const AlertIcon: React.FC = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -17,12 +17,20 @@ export const ExistingProjectDetails: React.FC<{
   onMetadataLoaded?: (metadata: any | null) => void;
   existingProjectDetailsFormData: any;
   setExistingProjectDetailsFormData: React.Dispatch<React.SetStateAction<any>>;
-  setIsOffBoardSideBar:React.Dispatch<React.SetStateAction<any>>;
-  purpose:string;
-  onSelectOffBoardingScope:(value:string) => void;
-  selectOffboadingScope:string
-  
-}> = ({ data, onMetadataLoaded, existingProjectDetailsFormData, setExistingProjectDetailsFormData,purpose,setIsOffBoardSideBar,onSelectOffBoardingScope,selectOffboadingScope }) => {
+  setIsOffBoardSideBar: React.Dispatch<React.SetStateAction<any>>;
+  purpose: string;
+  onSelectOffBoardingScope: (value: string) => void;
+  selectOffboadingScope: string;
+}> = ({
+  data,
+  onMetadataLoaded,
+  existingProjectDetailsFormData,
+  setExistingProjectDetailsFormData,
+  purpose,
+  setIsOffBoardSideBar,
+  onSelectOffBoardingScope,
+  selectOffboadingScope,
+}) => {
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
   const selectedProjectKey: string = existingProjectDetailsFormData?.selectedProjectKey ?? '';
   const existingProject: any | null = existingProjectDetailsFormData?.existingProject ?? null;
@@ -43,7 +51,8 @@ export const ExistingProjectDetails: React.FC<{
     const loadMetadata = async () => {
       try {
         const response = await fetchExistingProjectMetadata(selectedProjectKey);
-        const metadata = response?.result?.existing_record_id ?? response?.result ?? response ?? null;
+        const metadata =
+          response?.result?.existing_record_id ?? response?.result ?? response ?? null;
         setExistingProjectDetailsFormData((prev: any) => ({
           ...prev,
           existingProject: metadata,
@@ -59,30 +68,29 @@ export const ExistingProjectDetails: React.FC<{
     };
     loadMetadata();
   }, [selectedProjectKey]);
-  useEffect(() =>{
-    if(purpose === "offboarding")
-    {
-    setIsOffBoardSideBar(true)
+  useEffect(() => {
+    if (purpose === 'offboarding') {
+      setIsOffBoardSideBar(true);
+    } else {
+      setIsOffBoardSideBar(false);
     }
-    else{
-    setIsOffBoardSideBar(false)
-    }
-  })
+  });
 
   const hasMatch = Boolean(existingProject);
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Project Overview {selectOffboadingScope === "tools" ? "(Read-Only)" :"" }</h2>
-        <p className={styles.description}>Search & select existing project. You can search by ETRM Project ID or Project Code Name.</p>
-      
+        <h2 className={styles.title}>
+          Project Overview {selectOffboadingScope === 'tools' ? '(Read-Only)' : ''}
+        </h2>
+        <p className={styles.description}>
+          Search & select existing project. You can search by ETRM Project ID or Project Code Name.
+        </p>
 
-         <div className={styles.infoAlertBlue}>
-                  <AlertIcon />
-                  <span>
-                    Please confirm Project Details before proceeding with offboarding request.
-                  </span>
-                </div>
+        <div className={styles.infoAlertBlue}>
+          <AlertIcon />
+          <span>Please confirm Project Details before proceeding with offboarding request.</span>
+        </div>
       </div>
 
       {/* Project Search Section */}
@@ -144,42 +152,63 @@ export const ExistingProjectDetails: React.FC<{
           </div>
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>SAP Project ID</p>
-            <p className={styles.detailValue}>{existingProject?.sap_project_id ?? existingProject?.sapProjectId ?? ''}</p>
+            <p className={styles.detailValue}>
+              {existingProject?.sap_project_id ?? existingProject?.sapProjectId ?? ''}
+            </p>
           </div>
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Project Code Name</p>
-            <p className={styles.detailValue}>{existingProject?.project_code_name ?? existingProject?.codename ?? existingProject?.projectCodeName ?? ''}</p>
+            <p className={styles.detailValue}>
+              {existingProject?.project_code_name ??
+                existingProject?.codename ??
+                existingProject?.projectCodeName ??
+                ''}
+            </p>
           </div>
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Project Type</p>
-            <p className={styles.detailValue}>{existingProject?.project_type ?? existingProject?.projectType ?? ''}</p>
+            <p className={styles.detailValue}>
+              {existingProject?.project_type ?? existingProject?.projectType ?? ''}
+            </p>
           </div>
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Estimated Start Date</p>
-            <p className={styles.detailValue}>{formatDate(existingProject?.estimated_start_date ?? existingProject?.estimatedStartDate ?? '')}</p>
+            <p className={styles.detailValue}>
+              {formatDate(
+                existingProject?.estimated_start_date ?? existingProject?.estimatedStartDate ?? ''
+              )}
+            </p>
           </div>
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Estimated End Date</p>
-            <p className={styles.detailValue}>{formatDate(existingProject?.estimated_end_date ?? existingProject?.estimatedEndDate ?? '')}</p>
+            <p className={styles.detailValue}>
+              {formatDate(
+                existingProject?.estimated_end_date ?? existingProject?.estimatedEndDate ?? ''
+              )}
+            </p>
           </div>
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Personal or Protected Data Involved?</p>
-            <p className={styles.detailValue}>{existingProject?.are_you_planning_to_use_any_personal_or_protected_data ?? existingProject?.personalOrprotectedData ?? ''}</p>
+            <p className={styles.detailValue}>
+              {existingProject?.are_you_planning_to_use_any_personal_or_protected_data ??
+                existingProject?.personalOrprotectedData ??
+                ''}
+            </p>
           </div>
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Describe your project and its goals</p>
-            <p className={styles.detailValue}>{existingProject?.please_describe ?? existingProject?.description ?? ''}</p>
+            <p className={styles.detailValue}>
+              {existingProject?.please_describe ?? existingProject?.description ?? ''}
+            </p>
           </div>
         </div>
       )}
-      {
-        purpose === "offboarding" &&(
-      <OffboardingScope
-         onSelectOffBoardingScope={onSelectOffBoardingScope}
-         selectOffboadingScope={selectOffboadingScope}
-      />
-        )
-      }
+      {purpose === 'offboarding' && (
+        <OffboardingScope
+          onSelectOffBoardingScope={onSelectOffBoardingScope}
+          selectOffboadingScope={selectOffboadingScope}
+        />
+      )}
     </div>
   );
 };

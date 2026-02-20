@@ -1,4 +1,4 @@
-import svgPaths from "../../../imports/svg-0ywn1y5h0h";
+import svgPaths from '../../../imports/svg-0ywn1y5h0h';
 
 export function DataHandling() {
   return (
@@ -9,7 +9,12 @@ export function DataHandling() {
           <div className="flex gap-1.5">
             <div className="w-5 h-5 relative shrink-0">
               <div className="absolute inset-[8.33%]">
-                <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 16.6667 16.6667">
+                <svg
+                  className="absolute block inset-0"
+                  fill="none"
+                  preserveAspectRatio="none"
+                  viewBox="0 0 16.6667 16.6667"
+                >
                   <path d={svgPaths.p36290900} fill="#006176" />
                 </svg>
               </div>

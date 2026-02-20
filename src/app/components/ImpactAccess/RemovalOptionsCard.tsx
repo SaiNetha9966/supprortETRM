@@ -1,5 +1,5 @@
-import svgPaths from "../../../imports/svg-ncq7ewl48m";
-import { useState } from "react";
+import svgPaths from '../../../imports/svg-ncq7ewl48m';
+import { useState } from 'react';
 
 type RemovalOption = 'users' | 'tools';
 

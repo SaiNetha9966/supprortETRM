@@ -1,4 +1,4 @@
-import svgPaths from "../../../imports/svg-0ywn1y5h0h";
+import svgPaths from '../../../imports/svg-0ywn1y5h0h';
 
 interface CheckboxItemProps {
   label: string;
@@ -8,11 +8,18 @@ interface CheckboxItemProps {
 function CheckboxItem({ label, checked = true }: CheckboxItemProps) {
   return (
     <div className="flex items-center gap-2 h-4">
-      <div className={`w-4 h-4 rounded-sm flex items-center justify-center ${checked ? 'bg-[#498e2b]' : 'border-2 border-gray-300'}`}>
+      <div
+        className={`w-4 h-4 rounded-sm flex items-center justify-center ${checked ? 'bg-[#498e2b]' : 'border-2 border-gray-300'}`}
+      >
         {checked && (
           <div className="w-3.5 h-3.5 relative">
             <div className="absolute bottom-1/4 left-[16.67%] right-[8.33%] top-[20.83%]">
-              <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 10.5 7.58333">
+              <svg
+                className="absolute block inset-0"
+                fill="none"
+                preserveAspectRatio="none"
+                viewBox="0 0 10.5 7.58333"
+              >
                 <path d={svgPaths.p998df00} fill="white" />
               </svg>
             </div>
@@ -36,13 +43,19 @@ export function OffboardingConfirmation() {
             <div className="flex gap-1.5">
               <div className="w-5 h-5 relative shrink-0">
                 <div className="absolute inset-[8.33%]">
-                  <svg className="absolute block inset-0" fill="none" preserveAspectRatio="none" viewBox="0 0 16.6667 16.6667">
+                  <svg
+                    className="absolute block inset-0"
+                    fill="none"
+                    preserveAspectRatio="none"
+                    viewBox="0 0 16.6667 16.6667"
+                  >
                     <path d={svgPaths.p36290900} fill="#006176" />
                   </svg>
                 </div>
               </div>
               <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                Offboarding selected users means they will lose access to this project. Tools and data remain unchanged for all users.
+                Offboarding selected users means they will lose access to this project. Tools and
+                data remain unchanged for all users.
               </p>
             </div>
           </div>

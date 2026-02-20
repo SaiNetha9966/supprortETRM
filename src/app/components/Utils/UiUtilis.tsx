@@ -1,4 +1,4 @@
- const getOrdinal = (n: number): string => {
+const getOrdinal = (n: number): string => {
   const v = n % 100;
   if (v >= 11 && v <= 13) return 'th';
   switch (n % 10) {
@@ -24,8 +24,8 @@ export const formatDate = (isoDate: string): string => {
   return `${month} ${day}${ordinal}, ${year}`;
 };
 
-export const calculateProgress = (formData: any,): number => {
- const allFields: string[] = [
+export const calculateProgress = (formData: any): number => {
+  const allFields: string[] = [
     'sapProjectId',
     'projectCodeName',
     'projectType',
@@ -51,16 +51,14 @@ export const calculateProgress = (formData: any,): number => {
   });
 
   return Math.round((filled.length / allFields.length) * 100);
+};
 
-}
-
-   export const findNameByEmail = (email: string , userList: any[]) => {
-    if (!email) return '';
-    const e = email.trim();
-    const user = userList.find((u: any) => (u.emailID || '').toLowerCase() === e.toLowerCase());
-    return user?.name || email;
-  };
-
+export const findNameByEmail = (email: string, userList: any[]) => {
+  if (!email) return '';
+  const e = email.trim();
+  const user = userList.find((u: any) => (u.emailID || '').toLowerCase() === e.toLowerCase());
+  return user?.name || email;
+};
 
 export const mapFormDataToApiPayload = (formData: any) => {
   const normalizeToolsArray = (input: any): string[] => {
@@ -68,7 +66,10 @@ export const mapFormDataToApiPayload = (formData: any) => {
     for (let i = 0; i < 3; i += 1) {
       if (typeof value === 'string') {
         const trimmed = value.trim();
-        if ((trimmed.startsWith('[') && trimmed.endsWith(']')) || (trimmed.startsWith('"') && trimmed.endsWith('"'))) {
+        if (
+          (trimmed.startsWith('[') && trimmed.endsWith(']')) ||
+          (trimmed.startsWith('"') && trimmed.endsWith('"'))
+        ) {
           try {
             value = JSON.parse(trimmed);
             continue;
@@ -81,9 +82,7 @@ export const mapFormDataToApiPayload = (formData: any) => {
     }
 
     const arrayValue = Array.isArray(value) ? value.flat(Infinity) : [value];
-    return arrayValue
-      .map((item) => (item == null ? '' : String(item).trim()))
-      .filter(Boolean);
+    return arrayValue.map((item) => (item == null ? '' : String(item).trim())).filter(Boolean);
   };
 
   const normalizeNameValuePairs = (pairs: any[]): any[] => {
@@ -106,11 +105,11 @@ export const mapFormDataToApiPayload = (formData: any) => {
     estimated_end_date: formatDate(formData.estimatedEndDate),
     are_you_planning_to_use_any_personal_or_protected_data: formData.personalOrprotectedData,
     please_describe: formData.description,
-    requested_by: "Navneet Agarwal",
+    requested_by: 'Navneet Agarwal',
     tools: formData.selectedTools.map((tool: any) => ({
       tool_id: tool.ToolId ?? tool.toolId ?? tool.id,
-      trust_external_domain: tool.trustExternalDomain || "",
-      external_domain_name: tool.externalDomainName || "",
+      trust_external_domain: tool.trustExternalDomain || '',
+      external_domain_name: tool.externalDomainName || '',
     })),
     custom_tool_request: formData.customToolRequest,
     managing_director: formData.primaryPmdPartner,
@@ -121,6 +120,6 @@ export const mapFormDataToApiPayload = (formData: any) => {
     approvers: Array.isArray(formData.approvers) ? formData.approvers : [formData.approvers],
     namevalue: normalizeNameValuePairs(formData.nameValuePairs),
     memo_to_approving_md: formData.memoToApprovainMd,
-    confirmation: formData.confirmation ? "yes" : "no",
+    confirmation: formData.confirmation ? 'yes' : 'no',
   };
-}
+};

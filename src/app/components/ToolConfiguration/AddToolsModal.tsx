@@ -1,7 +1,6 @@
-import React, { useState } from "react";
-import ReactDOM from "react-dom";
-import { X, Info, CheckCircle2, Search } from "lucide-react";
-
+import React, { useState } from 'react';
+import ReactDOM from 'react-dom';
+import { X, Info, CheckCircle2, Search } from 'lucide-react';
 
 interface AddToolsModalProps {
   isOpen: boolean;
@@ -20,14 +19,16 @@ export default function AddToolsModal({
   data,
   existingToolKeys,
 }: AddToolsModalProps) {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [activeTab, setActiveTab] = useState("ALL TOOLS");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('ALL TOOLS');
 
   if (!isOpen) return null;
 
   const generateTabs = () => {
-    const allToolsTab = ["ALL TOOLS"];
-    const categories = data?.result?.tools ? [...new Set(data.result.tools.map((tool: any) => tool.Category))] : [];
+    const allToolsTab = ['ALL TOOLS'];
+    const categories = data?.result?.tools
+      ? [...new Set(data.result.tools.map((tool: any) => tool.Category))]
+      : [];
     return [...allToolsTab, ...categories];
   };
 
@@ -71,7 +72,7 @@ export default function AddToolsModal({
   const totalSelectedCount = existingCount + newlySelectedCount;
   const filteredTools = toolsCatalog.filter((tool: any) => {
     const matchesSearch = tool.ToolName?.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesTab = activeTab === "ALL TOOLS" || tool.Category === activeTab;
+    const matchesTab = activeTab === 'ALL TOOLS' || tool.Category === activeTab;
     return matchesSearch && matchesTab;
   });
 
@@ -79,10 +80,7 @@ export default function AddToolsModal({
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-10 flex items-center justify-center">
       {/* Overlay */}
-      <div
-       className="absolute inset-0 bg-gray-300 bg-opacity-70"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-gray-300 bg-opacity-70" onClick={onClose} />
 
       {/* Modal */}
       <div className="relative w-full max-w-[920px] mx-auto px-4 md:px-6 lg:px-0 z-10">
@@ -91,9 +89,7 @@ export default function AddToolsModal({
             {/* Header */}
             <div className="flex items-start justify-between mb-3">
               <div>
-                <h1 className="text-lg md:text-[19px] font-bold text-[#28292c] mb-2">
-                  Add Tools
-                </h1>
+                <h1 className="text-lg md:text-[19px] font-bold text-[#28292c] mb-2">Add Tools</h1>
                 <p className="text-sm md:text-[15px] font-medium text-[#727272]">
                   Select one or more tools to add to this project.
                 </p>
@@ -114,7 +110,7 @@ export default function AddToolsModal({
                   <CheckCircle2 size={20} className="text-[#498E2B] shrink-0" />
                   <span className="text-sm text-[#3f702a] font-normal">
                     {newlySelectedCount} Tool
-                    {newlySelectedCount !== 1 ? "s" : ""} selected
+                    {newlySelectedCount !== 1 ? 's' : ''} selected
                   </span>
                 </div>
               </div>
@@ -129,8 +125,8 @@ export default function AddToolsModal({
                     onClick={() => setActiveTab(tab)}
                     className={`px-3 py-2.5 text-xs md:text-sm font-medium uppercase whitespace-nowrap transition-colors ${
                       activeTab === tab
-                        ? "text-[#498e2b] border-b-2 border-[#498e2b]"
-                        : "text-[#4a4a4a] hover:text-[#498e2b]"
+                        ? 'text-[#498e2b] border-b-2 border-[#498e2b]'
+                        : 'text-[#4a4a4a] hover:text-[#498e2b]'
                     }`}
                   >
                     {tab}
@@ -171,13 +167,13 @@ export default function AddToolsModal({
                     });
 
                   return (
-                  <ToolCard
-                    key={tool.ToolId}
-                    tool={tool}
-                    isSelected={isSelected}
-                    onToggle={() => onToggleTool(tool.ToolId)}
-                    disabled={isExisting}
-                  />
+                    <ToolCard
+                      key={tool.ToolId}
+                      tool={tool}
+                      isSelected={isSelected}
+                      onToggle={() => onToggleTool(tool.ToolId)}
+                      disabled={isExisting}
+                    />
                   );
                 })}
               </div>
@@ -227,18 +223,16 @@ function ToolCard({ tool, isSelected, onToggle, disabled = false }: ToolCardProp
       disabled={disabled}
       className={`relative rounded-lg border-2 p-4 text-left transition-all ${
         disabled
-          ? "bg-[#f5f5f5] border-[#ccc] cursor-not-allowed opacity-60"
+          ? 'bg-[#f5f5f5] border-[#ccc] cursor-not-allowed opacity-60'
           : isSelected
-          ? "bg-[#dff0db] border-[#498e2b]"
-          : "bg-white border-[#ccc] hover:border-[#498e2b]"
+            ? 'bg-[#dff0db] border-[#498e2b]'
+            : 'bg-white border-[#ccc] hover:border-[#498e2b]'
       }`}
     >
       <div className="flex items-start gap-2">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5">
-            <h3 className="text-base font-medium text-[#4a4a4a] truncate">
-              {tool?.ToolName}
-            </h3>
+            <h3 className="text-base font-medium text-[#4a4a4a] truncate">{tool?.ToolName}</h3>
             <Info size={16} className="text-[#4a4a4a] shrink-0" />
           </div>
           <p className="text-sm text-[#4a4a4a] mb-2">{tool?.Category}</p>
@@ -248,9 +242,7 @@ function ToolCard({ tool, isSelected, onToggle, disabled = false }: ToolCardProp
             </span>
           )}
         </div>
-        {isSelected && (
-          <CheckCircle2 size={24} className="text-[#498E2B] shrink-0" />
-        )}
+        {isSelected && <CheckCircle2 size={24} className="text-[#498E2B] shrink-0" />}
       </div>
     </button>
   );

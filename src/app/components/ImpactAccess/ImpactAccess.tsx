@@ -1,26 +1,19 @@
+import { RemovalOptionsCard } from './RemovalOptionsCard';
+import { ToolsCard } from './ToolsCard';
+import { UsersCard } from './UsersCard';
 
-
-import { RemovalOptionsCard } from "./RemovalOptionsCard";
-import { ToolsCard } from "./ToolsCard";
-import { UsersCard } from "./UsersCard";
-
-interface ImpactAccessProps{
-  selectOffboadingScope:string
+interface ImpactAccessProps {
+  selectOffboadingScope: string;
 }
 
- export const ImpactAccess: React.FC<ImpactAccessProps> = ({selectOffboadingScope }) => {
-  
+export const ImpactAccess: React.FC<ImpactAccessProps> = ({ selectOffboadingScope }) => {
   return (
-    <div >
-          <div>
-            <ToolsCard selectOffboadingScope={selectOffboadingScope} />
-            {
-              selectOffboadingScope ==="users" && (
-               <RemovalOptionsCard />
-              )
-            }
-            <UsersCard selectOffboadingScope={selectOffboadingScope} />
-          </div>
-       </div>
+    <div>
+      <div>
+        <ToolsCard selectOffboadingScope={selectOffboadingScope} />
+        {selectOffboadingScope === 'users' && <RemovalOptionsCard />}
+        <UsersCard selectOffboadingScope={selectOffboadingScope} />
+      </div>
+    </div>
   );
-}
+};
