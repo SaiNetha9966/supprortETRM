@@ -8,7 +8,7 @@ interface UserCardProps {
 }
 
 interface UsersSummaryProps {
-  selectOffboadingScope:string;
+  selectOffboadingScope: string;
 }
 
 function UserCard({ name, email, access, status }: UserCardProps) {
@@ -61,100 +61,88 @@ function UserCard({ name, email, access, status }: UserCardProps) {
   );
 }
 
-export const UsersSummary:React.FC<UsersSummaryProps> = ({selectOffboadingScope}) => {
+export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScope }) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">
-            {
-              selectOffboadingScope==="project" && (
-                 <h2 className="font-bold text-[19px] text-[#4a4a4a]">Users Losing Access to this Project (All users)</h2>
-              )
-            }
-              {
-              selectOffboadingScope==="tools" && (
-                 <h2 className="font-bold text-[19px] text-[#4a4a4a]">Users Losing Access to Selected Tools</h2>
-              )
-            }
-                          {
-              selectOffboadingScope==="users" && (
-                 <h2 className="font-bold text-[19px] text-[#4a4a4a]">Users Impact Summary</h2>
-              )
-            }
-            {
-              selectOffboadingScope==="users" && (
-            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
-              <div className="w-5 h-5 relative">
-                <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
-                  <svg
-                    className="absolute block inset-0"
-                    fill="none"
-                    preserveAspectRatio="none"
-                    viewBox="0 0 14.9757 14.9757"
-                  >
-                    <path d={svgPaths.p42c2a80} fill="currentColor" />
-                  </svg>
+            {selectOffboadingScope === 'project' && (
+              <h2 className="font-bold text-[19px] text-[#4a4a4a]">
+                Users Losing Access to this Project (All users)
+              </h2>
+            )}
+            {selectOffboadingScope === 'tools' && (
+              <h2 className="font-bold text-[19px] text-[#4a4a4a]">
+                Users Losing Access to Selected Tools
+              </h2>
+            )}
+            {selectOffboadingScope === 'users' && (
+              <h2 className="font-bold text-[19px] text-[#4a4a4a]">Users Impact Summary</h2>
+            )}
+            {selectOffboadingScope === 'users' && (
+              <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
+                <div className="w-5 h-5 relative">
+                  <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
+                    <svg
+                      className="absolute block inset-0"
+                      fill="none"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 14.9757 14.9757"
+                    >
+                      <path d={svgPaths.p42c2a80} fill="currentColor" />
+                    </svg>
+                  </div>
                 </div>
-              </div>
-              <span className="font-medium text-[13px] tracking-[0.26px]">Edit</span>
-            </button>
-              )
-            }
-
+                <span className="font-medium text-[13px] tracking-[0.26px]">Edit</span>
+              </button>
+            )}
           </div>
-            {
-              selectOffboadingScope === "users" && (
-          <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
-
-             <div className="flex gap-1.5">
-              <div className="w-5 h-5 relative shrink-0">
-                <div className="absolute inset-[8.33%]">
-                  <svg
-                    className="absolute block inset-0"
-                    fill="none"
-                    preserveAspectRatio="none"
-                    viewBox="0 0 16.6667 16.6667"
-                  >
-                    <path d={svgPaths.p36290900} fill="#006176" />
-                  </svg>
+          {selectOffboadingScope === 'users' && (
+            <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
+              <div className="flex gap-1.5">
+                <div className="w-5 h-5 relative shrink-0">
+                  <div className="absolute inset-[8.33%]">
+                    <svg
+                      className="absolute block inset-0"
+                      fill="none"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 16.6667 16.6667"
+                    >
+                      <path d={svgPaths.p36290900} fill="#006176" />
+                    </svg>
+                  </div>
                 </div>
+                <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
+                  Selected users will lose access to this project. Project tools and data will
+                  remain unchanged.
+                </p>
               </div>
-              <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                Selected users will lose access to this project. Project tools and data will remain
-                unchanged.
-              </p>
             </div>
-</div>
-              )
-            }
+          )}
 
-              {
-              selectOffboadingScope === "tools" && (
-          <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
-
-                            <div className="flex gap-1.5">
-              <div className="w-5 h-5 relative shrink-0">
-                <div className="absolute inset-[8.33%]">
-                  <svg
-                    className="absolute block inset-0"
-                    fill="none"
-                    preserveAspectRatio="none"
-                    viewBox="0 0 16.6667 16.6667"
-                  >
-                    <path d={svgPaths.p36290900} fill="#006176" />
-                  </svg>
+          {selectOffboadingScope === 'tools' && (
+            <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
+              <div className="flex gap-1.5">
+                <div className="w-5 h-5 relative shrink-0">
+                  <div className="absolute inset-[8.33%]">
+                    <svg
+                      className="absolute block inset-0"
+                      fill="none"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 16.6667 16.6667"
+                    >
+                      <path d={svgPaths.p36290900} fill="#006176" />
+                    </svg>
+                  </div>
                 </div>
+                <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
+                  These users currently have access to the selected tools and will lose access only
+                  to those tools after approval.
+                </p>
               </div>
-              <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                These users currently have access to the selected tools and will lose access only to those tools after approval.
-              </p>
             </div>
-            </div>
-
-              )
-            }
-
+          )}
         </div>
 
         <div className="flex flex-col gap-4">
@@ -180,4 +168,4 @@ export const UsersSummary:React.FC<UsersSummaryProps> = ({selectOffboadingScope}
       </div>
     </section>
   );
-}
+};

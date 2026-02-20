@@ -6,10 +6,10 @@ import { RequestSummary } from './RequestSummary';
 import { Tools } from './Tools';
 import { UsersSummary } from './UsersSummary';
 
-interface OffBoardReviewProps{
-  selectOffboadingScope:string;
+interface OffBoardReviewProps {
+  selectOffboadingScope: string;
 }
-export const OffBoardReview: React.FC<OffBoardReviewProps> =({selectOffboadingScope}) =>{
+export const OffBoardReview: React.FC<OffBoardReviewProps> = ({ selectOffboadingScope }) => {
   return (
     <div>
       <RequestSummary />
@@ -20,4 +20,4 @@ export const OffBoardReview: React.FC<OffBoardReviewProps> =({selectOffboadingSc
       <OffboardingConfirmation selectOffboadingScope={selectOffboadingScope} />
     </div>
   );
-}
+};

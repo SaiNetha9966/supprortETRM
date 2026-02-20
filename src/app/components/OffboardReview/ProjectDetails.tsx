@@ -4,8 +4,8 @@ interface FieldProps {
   label: string;
   value: string;
 }
-interface ProjectDetailsProps{
-  selectOffboadingScope:string;
+interface ProjectDetailsProps {
+  selectOffboadingScope: string;
 }
 
 function Field({ label, value }: FieldProps) {
@@ -17,32 +17,29 @@ function Field({ label, value }: FieldProps) {
   );
 }
 
-export const  ProjectDetails: React.FC<ProjectDetailsProps> = ({selectOffboadingScope})=> {
+export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboadingScope }) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[19px] text-[#4a4a4a]">Project Details</h2>
-          {
-            selectOffboadingScope === "users" && (
-                         <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
-            <div className="w-5 h-5 relative">
-              <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
-                <svg
-                  className="absolute block inset-0"
-                  fill="none"
-                  preserveAspectRatio="none"
-                  viewBox="0 0 14.9757 14.9757"
-                >
-                  <path d={svgPaths.p42c2a80} fill="currentColor" />
-                </svg>
+          {selectOffboadingScope === 'users' && (
+            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
+              <div className="w-5 h-5 relative">
+                <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
+                  <svg
+                    className="absolute block inset-0"
+                    fill="none"
+                    preserveAspectRatio="none"
+                    viewBox="0 0 14.9757 14.9757"
+                  >
+                    <path d={svgPaths.p42c2a80} fill="currentColor" />
+                  </svg>
+                </div>
               </div>
-            </div>
-            <span className="font-medium text-[13px] tracking-[0.26px]">Edit</span>
-          </button>
-            )
-          }
-
+              <span className="font-medium text-[13px] tracking-[0.26px]">Edit</span>
+            </button>
+          )}
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -64,4 +61,4 @@ export const  ProjectDetails: React.FC<ProjectDetailsProps> = ({selectOffboading
       </div>
     </section>
   );
-}
+};

@@ -8,11 +8,11 @@ interface Tool {
   checked: boolean;
 }
 
-interface DataHandlingProps{
-  selectOffboadingScope:string;
+interface DataHandlingProps {
+  selectOffboadingScope: string;
 }
 
-export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingScope}) => {
+export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScope }) => {
   const [allChecked, setAllChecked] = useState(false);
   const [tools, setTools] = useState<Tool[]>([
     { id: '1', name: 'Tools Site', action: '', checked: false },
@@ -40,18 +40,17 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
           <p className="font-['Roboto',sans-serif] font-normal text-[16px] leading-[22px] text-[#727272] whitespace-pre-wrap">
             Choose how data should be handled for each offboarded tool.
           </p>
-          <div className="flex justify-end" 
-          // style={{
-          //   display:"flex",
-          //   height: "32px",
-          //   minWidth:"94pz",
-          //   padding:"0,0,12px",
-          //   justifyContent:"center",
-          //   alignItems:"center",gap:"2px"
-          // }}
-          >
-           
-          </div>
+          <div
+            className="flex justify-end"
+            // style={{
+            //   display:"flex",
+            //   height: "32px",
+            //   minWidth:"94pz",
+            //   padding:"0,0,12px",
+            //   justifyContent:"center",
+            //   alignItems:"center",gap:"2px"
+            // }}
+          ></div>
         </div>
 
         <div className="bg-white border-b border-[#e7e7e7] overflow-x-auto">
@@ -60,13 +59,30 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
               <tr className="bg-white border-b border-[#e7e7e7]">
                 <th className="text-left px-2.5 py-4">
                   <div className="flex gap-2 items-center">
-                   <div
-
-                   className="cursor-pointer flex items-center justify-center" style={{ borderRadius: '2px', border: '1px solid #878787', background: allChecked ? '#498e2b' : '#FFF',  width: '16px', height: '16px', }}
-                    
-                    onClick={handleCheckAll} >
-                       {allChecked && ( <svg width="10" height="8" viewBox="0 0 10 8" fill="none"> <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" /> </svg> )}
-                        </div>
+                    <div
+                      className="cursor-pointer flex items-center justify-center"
+                      style={{
+                        borderRadius: '2px',
+                        border: '1px solid #878787',
+                        background: allChecked ? '#498e2b' : '#FFF',
+                        width: '16px',
+                        height: '16px',
+                      }}
+                      onClick={handleCheckAll}
+                    >
+                      {allChecked && (
+                        <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                          {' '}
+                          <path
+                            d="M1 4L3.5 6.5L9 1"
+                            stroke="white"
+                            strokeWidth="1.5"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />{' '}
+                        </svg>
+                      )}
+                    </div>
                     <p className="flex-1 font-['Roboto',sans-serif] font-medium text-[14px] leading-5 tracking-[0.25px] text-[#1a1a1a]">
                       Tool Name
                     </p>
@@ -86,7 +102,7 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
                 </th>
                    )
                 } */}
-                 
+
                 {/* <th className="text-right px-2.5 py-4">
                   <div className="flex justify-end">
                     <button className="bg-white border border-[#8dca7e] rounded-sm px-3 py-2 min-w-[94px] flex gap-0.5 items-center justify-center">
@@ -108,21 +124,25 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
                     </button>
                   </div>
                 </th> */}
-          <th className="text-left px-2.5 py-4">
-          <button 
-                      className="bg-white border border-[#498E2B] rounded-sm px-3 py-2 min-w-[94px] flex items-center justify-center gap-1">
-                      <p className="font-['Roboto',sans-serif] font-medium text-[15px] leading-[13px] tracking-[0.3px] text-[#498E2B]">
-                        Bulk Action
-                      </p>
-                      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20" fill="none">
-                        <path 
-                          d="M14.6464 6.66699L10.0006 11.3026L5.35486 6.66699L3.92773 8.09412L10.0006 14.167L16.0735 8.09412L14.6464 6.66699Z" 
-                          fill="#498E2B"
-                        />
-                      </svg>
-                    </button>
-          </th>
-              
+                <th className="text-left px-2.5 py-4">
+                  <button className="bg-white border border-[#498E2B] rounded-sm px-3 py-2 min-w-[94px] flex items-center justify-center gap-1">
+                    <p className="font-['Roboto',sans-serif] font-medium text-[15px] leading-[13px] tracking-[0.3px] text-[#498E2B]">
+                      Bulk Action
+                    </p>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="20"
+                      height="20"
+                      viewBox="0 0 20 20"
+                      fill="none"
+                    >
+                      <path
+                        d="M14.6464 6.66699L10.0006 11.3026L5.35486 6.66699L3.92773 8.09412L10.0006 14.167L16.0735 8.09412L14.6464 6.66699Z"
+                        fill="#498E2B"
+                      />
+                    </svg>
+                  </button>
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -130,26 +150,32 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
                 <tr key={tool.id} className="bg-white border-b border-[#e7e7e7]">
                   <td className="px-2.5 py-4">
                     <div className="flex gap-2 items-center">
-
                       <div
-  className="cursor-pointer flex items-center justify-center"
-  style={{
-    borderRadius: '2px',
-    border: '1px solid #878787',
-    background: tool.checked ? '#498e2b' : '#FFF',
-    width: '16px',
-    height: '16px',
-  }}
-  onClick={() => handleCheckTool(tool.id)}
->
-  {tool.checked && (
-   <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 14 14" fill="none">
-<path d="M6.27172 10.5003L2.33398 6.70821L3.64625 5.44447L6.27172 7.97285L11.5208 2.91699L12.834 4.18073L6.27172 10.5003Z" fill="white"/>
-</svg>
-  )}
-</div>
-
-
+                        className="cursor-pointer flex items-center justify-center"
+                        style={{
+                          borderRadius: '2px',
+                          border: '1px solid #878787',
+                          background: tool.checked ? '#498e2b' : '#FFF',
+                          width: '16px',
+                          height: '16px',
+                        }}
+                        onClick={() => handleCheckTool(tool.id)}
+                      >
+                        {tool.checked && (
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            viewBox="0 0 14 14"
+                            fill="none"
+                          >
+                            <path
+                              d="M6.27172 10.5003L2.33398 6.70821L3.64625 5.44447L6.27172 7.97285L11.5208 2.91699L12.834 4.18073L6.27172 10.5003Z"
+                              fill="white"
+                            />
+                          </svg>
+                        )}
+                      </div>
 
                       <p className="flex-1 font-['Roboto',sans-serif] font-normal text-[14px] leading-5 text-[#3b3b3b]">
                         {tool.name}
@@ -179,8 +205,7 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
                     </div>
                   </td>
 
-
-{/* 
+                  {/* 
                     {
                       selectOffboadingScope==="project" && (
                   <td className="px-2.5 py-4">
@@ -209,8 +234,6 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
                       )
                     } */}
 
-
-
                   <td className="px-2.5 py-4"></td>
                 </tr>
               ))}
@@ -220,4 +243,4 @@ export const  DataHandling : React.FC<DataHandlingProps> = ({selectOffboadingSco
       </div>
     </div>
   );
-}
+};
