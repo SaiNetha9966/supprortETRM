@@ -410,7 +410,7 @@ export default function MainComponent() {
             {currentStep === 'access-approval' && (
               <>
                 {purpose === 'offboarding' ? (
-                  <DataHandling />
+                  <DataHandling selectOffboadingScope={selectOffboadingScope} />
                 ) : (
                   <AccessApproval
                     formData={formData}
