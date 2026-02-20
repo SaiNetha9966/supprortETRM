@@ -1,11 +1,12 @@
 import svgPaths from '../../../imports/svg-ncq7ewl48m';
 import { useState } from 'react';
 
-type RemovalOption = 'users' | 'tools';
+interface RemovalOptionsCardProps{
+  onRemoveOptionChange:(value:string) => void;
+  selectedOption:string;
+}
 
-export function RemovalOptionsCard() {
-  const [selectedOption, setSelectedOption] = useState<RemovalOption>('users');
-
+export const RemovalOptionsCard:React.FC<RemovalOptionsCardProps> =({onRemoveOptionChange,selectedOption}) => {
   return (
     <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
       <div className="flex flex-col gap-4">
@@ -15,10 +16,10 @@ export function RemovalOptionsCard() {
         </h2>
 
         {/* Options Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
           {/* Remove Users Option */}
           <button
-            onClick={() => setSelectedOption('users')}
+            onClick={() => onRemoveOptionChange('users')}
             className={`
               bg-white rounded-lg p-4 flex items-start gap-2 text-left border-2 transition-colors
               ${selectedOption === 'users' ? 'border-[#498e2b]' : 'border-[#ccc]'}
@@ -45,14 +46,14 @@ export function RemovalOptionsCard() {
                 Remove users from this project
               </span>
               <p className="text-[#4a4a4a] text-[14px] font-normal font-['Roboto',sans-serif]">
-                Selected users will lose access to the entire project after approval.
+                This request applies to an existing project
               </p>
             </div>
           </button>
 
           {/* Remove Tool Access Option */}
           <button
-            onClick={() => setSelectedOption('tools')}
+            onClick={() => onRemoveOptionChange('tools')}
             className={`
               bg-white rounded-lg p-4 flex items-start gap-2 text-left border transition-colors
               ${selectedOption === 'tools' ? 'border-2 border-[#498e2b]' : 'border border-[#ccc]'}
@@ -79,7 +80,7 @@ export function RemovalOptionsCard() {
                 Remove tool access for users
               </span>
               <p className="text-[#4a4a4a] text-[14px] font-normal font-['Roboto',sans-serif]">
-                Select to create technology for a new internal project.
+                Set up a new project and request tool and user access.
               </p>
             </div>
           </button>

@@ -28,6 +28,7 @@ type StepType =
   | 'submission-success'
   | '';
 
+
 export default function MainComponent() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
@@ -41,6 +42,11 @@ export default function MainComponent() {
   const [isOffBoardSideBar, setIsOffBoardSideBar] = useState<boolean>(false);
   const [selectOffboadingScope, setSelectOffboadingScope] = useState<string>('');
   console.log('selectOffboadingScope', selectOffboadingScope);
+    const [selectedOption, setSelectedOption] = useState<string>('');
+  console.log("selectedOption",selectedOption)
+    const handleRemoveOption = (value: string) => {
+    setSelectedOption(value);
+  };
   const handleSelectOffBoardingScope = (value: string) => {
     setSelectOffboadingScope(value);
   };
@@ -95,13 +101,22 @@ export default function MainComponent() {
         }
         break;
       case 'tool-configuration':
-        setCurrentStep('access-approval');
+       
+        if(selectOffboadingScope === "users")
+        {
+          setCurrentStep('review-submit');
+        }
+        else{
+           setCurrentStep('access-approval');
+        }
         if (existingProject === 'yes') {
-          setPageTittle(purpose === 'offboarding' ? 'Data Handling' : 'Update Existing Project');
+          // setPageTittle(purpose === 'offboarding' ? 'Data Handling' : 'Update Existing Project');
+          setPageTittle( purpose === "offboarding" ? (selectOffboadingScope === "users" ? "Review & Submit" : "Data Handling") : "Update Existing Project" );
           setPageDesc('This process could take a few minutes');
         } else if (purpose === 'offboarding') {
           setPageTittle('Impact Access');
         } else {
+        setCurrentStep('access-approval');
           setPageTittle('Approval & Access');
           setPageDesc(
             'Define approvers and assign user access for the selected tools. This step may take a few minutes.'
@@ -378,7 +393,10 @@ export default function MainComponent() {
               <>
                 {existingProject === 'yes' ? (
                   purpose === 'offboarding' ? (
-                    <ImpactAccess selectOffboadingScope={selectOffboadingScope} />
+                    <ImpactAccess 
+                    selectedOption={selectedOption}
+                    onRemoveOptionChange={handleRemoveOption}
+                    selectOffboadingScope={selectOffboadingScope} />
                   ) : (
                     <ExistingToolConfiguration
                       data={data}
@@ -410,7 +428,7 @@ export default function MainComponent() {
             {currentStep === 'access-approval' && (
               <>
                 {purpose === 'offboarding' ? (
-                  <DataHandling selectOffboadingScope={selectOffboadingScope} />
+                 <DataHandling selectOffboadingScope={selectOffboadingScope} />
                 ) : (
                   <AccessApproval
                     formData={formData}

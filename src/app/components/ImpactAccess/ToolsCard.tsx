@@ -15,7 +15,7 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({ selectOffboadingScope 
   ];
 
   return (
-    <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
+    <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm mb-6">
       <div className="flex flex-col gap-6 md:gap-8">
         {/* Header */}
         <div className="flex flex-col gap-2">

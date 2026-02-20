@@ -152,8 +152,10 @@ export const UsersCard: React.FC<UserCardProps> = ({ selectOffboadingScope }) =>
                     {user.accessLevel} ({user.toolCount} Tools)
                   </span>
                 </div>
-
-                <div className="flex items-center gap-2 flex-wrap min-w-[180px]">
+                 
+                 {
+                  selectOffboadingScope !== "users" && (
+  <div className="flex items-center gap-2 flex-wrap min-w-[180px]">
                   {user.status && (
                     <span
                       className="text-[#BF494E] text-[13px] font-normal font-['Roboto',sans-serif] 
@@ -168,6 +170,9 @@ export const UsersCard: React.FC<UserCardProps> = ({ selectOffboadingScope }) =>
                     </span>
                   )}
                 </div>
+                  )
+                 }
+              
 
                 {/* Expand Button */}
                 <button
