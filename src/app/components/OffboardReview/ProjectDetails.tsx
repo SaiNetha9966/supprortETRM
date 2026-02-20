@@ -4,6 +4,9 @@ interface FieldProps {
   label: string;
   value: string;
 }
+interface ProjectDetailsProps{
+  selectOffboadingScope:string;
+}
 
 function Field({ label, value }: FieldProps) {
   return (
@@ -14,13 +17,15 @@ function Field({ label, value }: FieldProps) {
   );
 }
 
-export function ProjectDetails() {
+export const  ProjectDetails: React.FC<ProjectDetailsProps> = ({selectOffboadingScope})=> {
   return (
-    <section className="bg-white rounded-lg p-6">
+    <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[19px] text-[#4a4a4a]">Project Details</h2>
-          <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
+          {
+            selectOffboadingScope === "users" && (
+                         <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
             <div className="w-5 h-5 relative">
               <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                 <svg
@@ -35,6 +40,9 @@ export function ProjectDetails() {
             </div>
             <span className="font-medium text-[13px] tracking-[0.26px]">Edit</span>
           </button>
+            )
+          }
+
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

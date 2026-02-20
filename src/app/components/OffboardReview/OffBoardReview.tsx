@@ -6,12 +6,15 @@ import { RequestSummary } from './RequestSummary';
 import { Tools } from './Tools';
 import { UsersSummary } from './UsersSummary';
 
-export default function OffBoardReview() {
+interface OffBoardReviewProps{
+  selectOffboadingScope:string;
+}
+export const OffBoardReview: React.FC<OffBoardReviewProps> =({selectOffboadingScope}) =>{
   return (
-    <div className="bg-[#f1f1f1] min-h-screen">
+    <div>
       <RequestSummary />
-      <ProjectDetails />
-      <Tools />
+      <ProjectDetails selectOffboadingScope={selectOffboadingScope} />
+      <Tools selectOffboadingScope={selectOffboadingScope} />
       <UsersSummary />
       <DataHandling />
       <OffboardingConfirmation />

@@ -16,8 +16,8 @@ import styles from '../../app/App.module.css';
 import OffboardingScope from './ExistingProjectDetails/OffboardingScope';
 import { OffBoardingSideBar } from './SideBar/OffBoardingSideBar';
 import { ImpactAccess } from './ImpactAccess/ImpactAccess';
-import OffBoardReview from './OffboardReview/OffBoardReview';
-import DataHandling from './DataHandling/DataHandling';
+import {OffBoardReview} from './OffboardReview/OffBoardReview';
+import {DataHandling} from './DataHandling/DataHandling';
 
 type StepType =
   | 'newclient-intro'
@@ -437,7 +437,7 @@ export default function MainComponent() {
             {currentStep === 'review-submit' && (
               <>
                 {purpose === 'offboarding' ? (
-                  <OffBoardReview />
+                  <OffBoardReview selectOffboadingScope={selectOffboadingScope} />
                 ) : (
                   <ReviewSubmit
                     onSubmit={handleContinue}

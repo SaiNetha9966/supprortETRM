@@ -59,7 +59,7 @@ function UserCard({ name, email, access, status }: UserCardProps) {
 
 export function UsersSummary() {
   return (
-    <section className="bg-white rounded-lg p-6">
+    <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-5">
           <div className="flex items-center justify-between">

@@ -14,7 +14,7 @@ function Field({ label, value }: FieldProps) {
 
 export function RequestSummary() {
   return (
-    <section className="bg-white rounded-lg p-6">
+    <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
         <h2 className="font-bold text-[19px] text-[#4a4a4a]">Request Summary</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

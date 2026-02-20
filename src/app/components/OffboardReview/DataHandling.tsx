@@ -2,7 +2,7 @@ import svgPaths from '../../../imports/svg-0ywn1y5h0h';
 
 export function DataHandling() {
   return (
-    <section className="bg-white rounded-lg p-6">
+    <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-5">
         <h2 className="font-bold text-[19px] text-[#4a4a4a]">Data Handling Summary</h2>
         <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
