@@ -44,6 +44,8 @@ export const  Tools: React.FC<ToolsProps> = ({selectOffboadingScope}) => {
 
             )
           }
+          {
+            selectOffboadingScope=== "users" && (
           <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
             <div className="flex gap-1.5">
               <div className="w-5 h-5 relative shrink-0">
@@ -64,6 +66,9 @@ export const  Tools: React.FC<ToolsProps> = ({selectOffboadingScope}) => {
               </p>
             </div>
           </div>
+            )
+          }
+
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">

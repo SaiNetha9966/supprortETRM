@@ -15,9 +15,9 @@ export const OffBoardReview: React.FC<OffBoardReviewProps> =({selectOffboadingSc
       <RequestSummary />
       <ProjectDetails selectOffboadingScope={selectOffboadingScope} />
       <Tools selectOffboadingScope={selectOffboadingScope} />
-      <UsersSummary />
-      <DataHandling />
-      <OffboardingConfirmation />
+      <UsersSummary selectOffboadingScope={selectOffboadingScope} />
+      <DataHandling selectOffboadingScope={selectOffboadingScope} />
+      <OffboardingConfirmation selectOffboadingScope={selectOffboadingScope} />
     </div>
   );
 }
