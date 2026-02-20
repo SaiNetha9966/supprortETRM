@@ -43,7 +43,7 @@ selectOffboadingScope:string;
      
            {
         selectOffboadingScope === "project" && (
-    <div className="info-alert">
+    <div className="info-offboard">
                     <AlertIcon />
                     <span className="info-span">
                       You are requesting to offboard the Entire Project.Project will be offline once request is completed.
@@ -53,7 +53,7 @@ selectOffboadingScope:string;
         }   
            {
         selectOffboadingScope === "tools" && (
-    <div className="info-alert">
+    <div className="info-offboard">
                     <AlertIcon />
                     <span className="info-span">
                       You are offboarding selected tools only. Users will retain access to the project and remaining tools.
@@ -64,7 +64,7 @@ selectOffboadingScope:string;
 
                    {
         selectOffboadingScope === "users" && (
-    <div className="info-alert">
+    <div className="info-offboard">
                     <AlertIcon />
                     <span className="info-span">
                       This request applies only to selected users.Other users,tools,and project access will not affected

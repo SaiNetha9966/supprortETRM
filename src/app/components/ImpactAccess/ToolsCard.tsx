@@ -45,8 +45,19 @@ export function ToolsCard() {
               <p className="text-[#878787] text-[14px] font-normal font-['Roboto',sans-serif]">
                 {tool.platform}
               </p>
-              <div>
-                <p>Will Be Offboarded</p>
+              <div 
+              style={{border:"1px solid F1B5B7" , 
+              borderRadius:"240px" , 
+              backgroundColor:"#FFEBED" ,
+               display:"flex" ,height:"20px",
+               padding:"9px" ,alignItems:"center" , width:"120px"}}>
+                <p style={{
+                  color:"#BF494E",
+                  fontFamily:"Roboto",
+                  fontSize:"12px",
+                  fontStyle:"normal",
+                  fontWeight:"400",
+                }}>Will Be Offboarded</p>
               </div>
             </div>
           ))}

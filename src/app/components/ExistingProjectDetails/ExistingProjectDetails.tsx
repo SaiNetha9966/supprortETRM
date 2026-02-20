@@ -8,7 +8,7 @@ import  OffboardingScope  from './OffboardingScope';
 
 const AlertIcon: React.FC = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-    <path d={svgPaths.p341e8200} fill="#CE7309" />
+    <path d={svgPaths.p341e8200} fill="#006176" />
   </svg>
 );
 
@@ -73,16 +73,16 @@ export const ExistingProjectDetails: React.FC<{
   return (
     <div className={styles.container}>
       <div className={styles.header}>
-        <h2 className={styles.title}>Project Overview (Read-Only)</h2>
-        <p className={styles.description}>This request does not modify project details. Use this step only to confirm the correct project.</p>
-        
-        <div className={styles.banner}>
-          <AlertIcon />
-          <div>
-            <p className={styles.bannerText}>Existing items cannot be removed.</p>
-            <p className={styles.bannerText}>Use this request to add new tools or team members to the project.</p>
-          </div>
-        </div>
+        <h2 className={styles.title}>Project Overview {selectOffboadingScope === "tools" ? "(Read-Only)" :"" }</h2>
+        <p className={styles.description}>Search & select existing project. You can search by ETRM Project ID or Project Code Name.</p>
+      
+
+         <div className={styles.infoAlertBlue}>
+                  <AlertIcon />
+                  <span>
+                    Please confirm Project Details before proceeding with offboarding request.
+                  </span>
+                </div>
       </div>
 
       {/* Project Search Section */}

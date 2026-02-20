@@ -35,6 +35,20 @@
   gap: 8px;
   margin-bottom: 24px;
 }
+.infoAlertBlue {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background-color: #F6FDFF;
+    border: 1px solid #B0DEEB;
+    border-radius: 6px;
+    margin-top: 20px;
+    color: #3B4648;
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: 500;
+}
 
 .bannerIcon {
   width: 20px;
