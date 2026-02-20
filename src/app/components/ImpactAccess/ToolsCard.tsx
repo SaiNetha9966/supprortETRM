@@ -4,8 +4,10 @@ interface Tool {
   name: string;
   platform: string;
 }
-
-export function ToolsCard() {
+interface ToolsCardInterface{
+  selectOffboadingScope:string;
+}
+export const  ToolsCard : React.FC<ToolsCardInterface> = ({selectOffboadingScope}) => {
   const tools: Tool[] = [
     { name: 'Teams Site', platform: 'AP Platform' },
     { name: 'Tool Builder', platform: 'AP Platform' },
@@ -18,7 +20,9 @@ export function ToolsCard() {
         {/* Header */}
         <div className="flex flex-col gap-2">
           <h2 className="text-[#4a4a4a] text-[19px] font-bold font-['Roboto',sans-serif]">
-            Tools
+            {
+              selectOffboadingScope === "users" ? "Tools" : "Tools Impacted"
+            }
           </h2>
           <p className="text-[#727272] text-[16px] font-normal font-['Roboto',sans-serif]">
            All tools listed below will be offboarded once this request is approved.
@@ -32,7 +36,7 @@ export function ToolsCard() {
               key={index}
               className="bg-[#f7f7f7] border-2 border-[#ccc] rounded-lg p-4 flex flex-col gap-2"
             >
-              <div className="flex items-center gap-2">
+              <div className="flex items-center">
                 <span className="text-[#878787] text-[16px] font-medium font-['Roboto',sans-serif] flex-1 truncate">
                   {tool.name}
                 </span>
@@ -46,7 +50,7 @@ export function ToolsCard() {
                 {tool.platform}
               </p>
               <div 
-              style={{border:"1px solid F1B5B7" , 
+              style={{border:"1px solid #F1B5B7" , 
               borderRadius:"240px" , 
               backgroundColor:"#FFEBED" ,
                display:"flex" ,height:"20px",
