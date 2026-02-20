@@ -4,7 +4,9 @@ interface CheckboxItemProps {
   label: string;
   checked?: boolean;
 }
-
+interface OffboardingConfirmationProps{
+  selectOffboadingScope:string;
+}
 function CheckboxItem({ label, checked = true }: CheckboxItemProps) {
   return (
     <div className="flex items-center gap-2 h-4">
@@ -33,7 +35,7 @@ function CheckboxItem({ label, checked = true }: CheckboxItemProps) {
   );
 }
 
-export function OffboardingConfirmation() {
+export const OffboardingConfirmation:React.FC<OffboardingConfirmationProps> = ({selectOffboadingScope}) => {
   return (
     <section className="bg-white rounded-lg p-6">
       <div className="flex flex-col gap-8">
@@ -53,18 +55,37 @@ export function OffboardingConfirmation() {
                   </svg>
                 </div>
               </div>
-              <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
+              {
+                selectOffboadingScope === "project" && (
+                   <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
+                You are requesting to offboard the entire project, Which will impact all users,tools,and associated data.
+              </p>
+                )
+              }
+                            {
+                selectOffboadingScope === "tools" && (
+                   <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
+                You are requesting to offboard selected tools.Users with access to these tools will lose access after approval;all other project access remian unchanged
+              </p>
+                )
+              }
+              {
+                 selectOffboadingScope === "users" && (
+                   <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
                 Offboarding selected users means they will lose access to this project. Tools and
                 data remain unchanged for all users.
               </p>
+                )
+              }
+             
             </div>
           </div>
         </div>
 
         <div className="flex flex-col gap-5">
-          <CheckboxItem label="I confirm I am authorized to offboard the selected users from this project." />
-          <CheckboxItem label="I understand this will revoke project access only for the selected users." />
-          <CheckboxItem label="I acknowledge that project tools and data will remain unchanged." />
+          <CheckboxItem label= {selectOffboadingScope === "project" ? "I confirm I am authorized to affboard this project" : "I confirm I am authorized to offboard the selected users from this project."} />
+          <CheckboxItem label= {selectOffboadingScope==="project" ? "I understand this will revoke all users tool access" : "I understand this will revoke project access only for the selected users." }/>
+          <CheckboxItem label= {selectOffboadingScope === "users" ? "I acknowledge that project tools and data will remian unchanged.": "I acknowledge data handling actions are irreversible once executed"} />
         </div>
       </div>
     </section>
