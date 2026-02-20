@@ -24,7 +24,26 @@ export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScop
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-5">
+         <div className="flex items-center justify-between">
         <h2 className="font-bold text-[19px] text-[#4a4a4a]">Data Handling Summary</h2>
+        {selectOffboadingScope !== 'users' &&(
+           <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
+                                    <div className="w-5 h-5 relative">
+                                      <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
+                                        <svg
+                                          className="absolute block inset-0"
+                                          fill="none"
+                                          preserveAspectRatio="none"
+                                          viewBox="0 0 14.9757 14.9757"
+                                        >
+                                          <path d={svgPaths.p42c2a80} fill="currentColor" />
+                                        </svg>
+                                      </div>
+                                    </div>
+                                    <span className="font-medium text-[13px] tracking-[0.26px]">Edit</span>
+           </button>
+        )}
+        </div>
         {selectOffboadingScope === 'users' && (
           <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
             <div className="flex gap-1.5">

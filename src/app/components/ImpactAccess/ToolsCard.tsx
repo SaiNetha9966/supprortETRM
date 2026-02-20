@@ -47,6 +47,8 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({ selectOffboadingScope 
               <p className="text-[#878787] text-[14px] font-normal font-['Roboto',sans-serif]">
                 {tool.platform}
               </p>
+              {
+                selectOffboadingScope ==="project" && (
               <div
                 style={{
                   border: '1px solid #F1B5B7',
@@ -71,6 +73,9 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({ selectOffboadingScope 
                   Will Be Offboarded
                 </p>
               </div>
+                )
+              }
+
             </div>
           ))}
         </div>

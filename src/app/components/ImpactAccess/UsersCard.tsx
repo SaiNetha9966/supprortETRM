@@ -86,6 +86,17 @@ export const UsersCard: React.FC<UserCardProps> = ({ selectOffboadingScope }) =>
           </div>
         )}
 
+         {selectOffboadingScope === 'tools' && (
+          <div className="flex flex-col gap-2">
+            <h2 className="text-[#4a4a4a] text-[19px] font-bold font-['Roboto',sans-serif]">
+              User Impact Summary
+            </h2>
+            <p className="text-[#727272] text-[16px] font-normal font-['Roboto',sans-serif]">
+              User access changes shown below will take effect after approval and execution.
+            </p>
+          </div>
+        )}
+
         <div className="flex flex-col gap-3">
           {users.map((user) => (
             <div
