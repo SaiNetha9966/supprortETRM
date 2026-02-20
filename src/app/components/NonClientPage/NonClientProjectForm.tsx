@@ -86,12 +86,9 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue,
               </div>
 
               {existingProject === 'no' && (
-                <div className="info-alert">
-                  <AlertIcon />
-                  <span>
-                    This request will create a new project and initiate onboarding.
-                  </span>
-                </div>
+      <div  className='info-alert-blue'> 
+      <AlertIcon />
+       <span> This request will create a new project and initiate onboarding. </span> </div>
               )}
             </div>
             
@@ -144,10 +141,19 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({ onContinue,
 
                 {purpose === 'onboarding' && (
                   <div className="info-alert">
+                     <AlertIcon />
                     <span>
                       This request will add new tools or user access to an existing project and follow the onboarding approval workflow.
                     </span>
                   </div>
+                )}
+                   {purpose === 'offboarding' && (
+                 <div className="info-alert">
+                  <AlertIcon />
+                  <span>
+                  This request will revoke tool access, user access,or project access for an existing non-client project
+                  </span>
+                </div>
                 )}
               </div>
             )}

@@ -1,9 +1,19 @@
 // src/components/OffboardingScope.tsx
 import React, { useState } from "react";
 import "./OffboardingScope.css";
+import svgPaths from '../../../imports/svg-m590sprq1z';
 
-const OffboardingScope: React.FC = () => {
-  const [selected, setSelected] = useState<string>("");
+interface OffbordingScopeProps{
+    onSelectOffBoardingScope:(value:string) => void;
+selectOffboadingScope:string;
+}
+
+  const OffboardingScope: React.FC<OffbordingScopeProps> = ({ onSelectOffBoardingScope,selectOffboadingScope }) => {
+    const AlertIcon: React.FC = () => (
+      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+        <path d={svgPaths.p341e8200} fill="#B86A0F" />
+      </svg>
+    );
 
   const options = [
     {
@@ -31,16 +41,46 @@ const OffboardingScope: React.FC = () => {
 
         </div>
      
+           {
+        selectOffboadingScope === "project" && (
+    <div className="info-alert">
+                    <AlertIcon />
+                    <span className="info-span">
+                      You are requesting to offboard the Entire Project.Project will be offline once request is completed.
+                    </span>
+                  </div>  
+          )
+        }   
+           {
+        selectOffboadingScope === "tools" && (
+    <div className="info-alert">
+                    <AlertIcon />
+                    <span className="info-span">
+                      You are offboarding selected tools only. Users will retain access to the project and remaining tools.
+                    </span>
+                  </div>  
+          )
+        }   
 
+                   {
+        selectOffboadingScope === "users" && (
+    <div className="info-alert">
+                    <AlertIcon />
+                    <span className="info-span">
+                      This request applies only to selected users.Other users,tools,and project access will not affected
+                    </span>
+                  </div>  
+          )
+        }   
        <div className="options-row">
         {options.map(opt => (
-          <label key={opt.id} className={`option-card ${selected === opt.id ? "selected" : ""}`}>
+          <label key={opt.id} className={`option-card ${selectOffboadingScope === opt.id ? "selected" : ""}`}>
             <input
               type="radio"
               name="offboarding"
               value={opt.id}
-              checked={selected === opt.id}
-              onChange={() => setSelected(opt.id)}
+              checked={selectOffboadingScope === opt.id}
+              onChange={() => onSelectOffBoardingScope(opt.id)}
               style={{width:"16px" , height:"16px"}}
             />
             <div className="option-content">
@@ -51,7 +91,7 @@ const OffboardingScope: React.FC = () => {
         ))}
       </div>
 
-    </div>
+      </div>
   );
 };
 

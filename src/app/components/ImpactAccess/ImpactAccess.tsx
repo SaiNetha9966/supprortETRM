@@ -4,7 +4,12 @@ import { RemovalOptionsCard } from "./RemovalOptionsCard";
 import { ToolsCard } from "./ToolsCard";
 import { UsersCard } from "./UsersCard";
 
-export default function ImpactAccess() {
+interface ImpactAccessProps{
+  selectOffboadingScope:string
+}
+
+ export const ImpactAccess: React.FC<ImpactAccessProps> = ({selectOffboadingScope }) => {
+  
   return (
     <div className="min-h-screen bg-[#efefef] font-['Roboto',sans-serif]">
         <main className="flex-1 p-4 md:p-6 lg:p-8 overflow-x-hidden">

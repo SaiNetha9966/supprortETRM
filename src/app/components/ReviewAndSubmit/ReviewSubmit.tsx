@@ -102,8 +102,6 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
   //   return user?.name || email;
   // };
 
-  console.log("Users List in ReviewSubmit:", formData.userSelectionsAndToolAcees);
-  console.log("ReviewSubmit metadata:", existingProjectMetadata);
 
   const toSlug = (value: string) =>
     value

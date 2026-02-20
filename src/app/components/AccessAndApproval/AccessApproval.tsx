@@ -34,8 +34,6 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
   setFormData,
   handleChange,
 }) => {
-  console.log('AccessApproval data:', data);
-  console.log('AccessApproval metadata:', existingProjectMetadata);
   const [userEmail, setUserEmail] = useState('');
   const [toolsAccess, setToolsAccess] = useState<string[]>([]);
   const [addedUsers, setAddedUsers] = useState<

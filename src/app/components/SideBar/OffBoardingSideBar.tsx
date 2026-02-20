@@ -59,7 +59,6 @@ interface SidebarProps {
 }
 
 export const OffBoardingSideBar: React.FC<SidebarProps> = ({ isOpen, onClose, currentStep, existingProject }) => {
-  console.log("OffBoardingSideBar", currentStep)
   const menuItems: MenuItem[] = [
     {
       id: 'project-offboardingScope',

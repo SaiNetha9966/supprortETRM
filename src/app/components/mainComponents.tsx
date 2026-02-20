@@ -15,7 +15,7 @@ import ReviewSubmit from './ReviewAndSubmit/ReviewSubmit';
 import styles from '../../app/App.module.css'
 import OffboardingScope from './ExistingProjectDetails/OffboardingScope';
 import { OffBoardingSideBar } from './SideBar/OffBoardingSideBar';
-import ImpactAccess from './ImpactAccess/ImpactAccess';
+import {ImpactAccess} from './ImpactAccess/ImpactAccess';
 import OffBoardReview from './OffboardReview/OffBoardReview';
 import DataHandling from './DataHandling/DataHandling';
 
@@ -30,7 +30,11 @@ export default function MainComponent() {
   const [existingProject, setExistingProject] = useState<string>("");
   const [existingProjectMetadata, setExistingProjectMetadata] = useState<any | null>(null);
   const [isOffBoardSideBar,setIsOffBoardSideBar] = useState<boolean>(false)
-
+  const [selectOffboadingScope,setSelectOffboadingScope] = useState<string>("")
+  console.log("selectOffboadingScope" ,selectOffboadingScope)
+  const handleSelectOffBoardingScope = (value:string) =>{
+  setSelectOffboadingScope(value)
+  }
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
@@ -212,7 +216,6 @@ export default function MainComponent() {
      memoToApprovainMd :"",
      confirmation: false,
    });
-   console.log("App formData:", formData);
   const handleChange = (field: string, value: any) => {
     setFormData({ ...formData, [field]: value });
   };
@@ -313,6 +316,8 @@ export default function MainComponent() {
                     setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
                     purpose={purpose}
                     setIsOffBoardSideBar={setIsOffBoardSideBar}
+                     onSelectOffBoardingScope={handleSelectOffBoardingScope}
+                     selectOffboadingScope={selectOffboadingScope}
                   />
                 ) : (
                   <ProjectDetails formData={formData}  handleChange={handleChange} data={data} />
@@ -321,9 +326,9 @@ export default function MainComponent() {
                   onDiscard={handleBack}
                   onContinue={handleContinue}
                   isContinueDisabled={true}
-                  disableContinue={existingProject === 'yes'
-                    ? !existingProjectDetailsFormData?.selectedProjectKey
-                    : !formData?.projectCodeName}
+                  // disableContinue={existingProject === 'yes'
+                  //   ? !existingProjectDetailsFormData?.selectedProjectKey
+                  //   : !formData?.projectCodeName}
                 />
               </>
             )}
@@ -334,7 +339,8 @@ export default function MainComponent() {
                 {existingProject === 'yes' ? (
                   
                     purpose === "offboarding" ? (
-                      <ImpactAccess/>
+                      <ImpactAccess 
+                      selectOffboadingScope ={selectOffboadingScope}/>
                     ) :( <ExistingToolConfiguration
                     data={data}
                     existingProjectMetadata={existingProjectMetadata}
@@ -352,7 +358,7 @@ export default function MainComponent() {
                   onContinue={handleContinue}
                   isBackButtinShoewn={true}
                   isContinueDisabled={true}
-                  disableContinue={disableToolConfigContinue}
+                  // disableContinue={disableToolConfigContinue}
                 />
               </>
             )}
@@ -371,7 +377,7 @@ export default function MainComponent() {
                   onContinue={handleContinue}
                   isBackButtinShoewn={true}
                   isContinueDisabled={true}
-                   disableContinue={disableAccessApprovalContinue}
+                  //  disableContinue={disableAccessApprovalContinue}
                 />
               </>
             )}
@@ -405,7 +411,7 @@ export default function MainComponent() {
                   onContinue={handleContinue}
                   isBackButtinShoewn={true}
                   isSubmitDisabled={true}
-                  disableContinue={!formData.confirmation}
+                  // disableContinue={!formData.confirmation}
                 />
               </>
             )}
@@ -418,6 +424,3 @@ export default function MainComponent() {
   );
 }
 
-function elseif() {
-  throw new Error('Function not implemented.');
-}

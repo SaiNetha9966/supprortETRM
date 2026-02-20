@@ -24,8 +24,6 @@ export default function ExistingToolConfiguration({
   existingToolFormData: any;
   setExistingToolFormData: React.Dispatch<React.SetStateAction<any>>;
 }) {
-  console.log('ExistingToolConfiguration data:', data);
-  console.log('ExistingToolConfiguration metadata:', existingProjectMetadata);
   const allToolsFromApi: Tool[] = data?.result?.tools ?? [];
   const existingToolKeys: string[] = existingProjectMetadata?.result?.existingtools ?? [];
 

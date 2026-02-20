@@ -21,7 +21,7 @@ export function ToolsCard() {
             Tools
           </h2>
           <p className="text-[#727272] text-[16px] font-normal font-['Roboto',sans-serif]">
-            No tools will be offboarded as part of this request. All project tools will remain active.
+           All tools listed below will be offboarded once this request is approved.
           </p>
         </div>
 
@@ -45,6 +45,9 @@ export function ToolsCard() {
               <p className="text-[#878787] text-[14px] font-normal font-['Roboto',sans-serif]">
                 {tool.platform}
               </p>
+              <div>
+                <p>Will Be Offboarded</p>
+              </div>
             </div>
           ))}
         </div>

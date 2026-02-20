@@ -7,7 +7,24 @@
 .header {
   margin-bottom: 12px;
 }
-
+.info-alert {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 16px;
+    background-color: #fffcf8;
+  border: 1px solid #ffd0a7;
+    border-radius: 6px;
+    margin-top: 20px;
+    color: #3B4648;
+    font-size: 14px;
+    line-height: 19px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+.info-span{
+  color: #B86A0F;
+}
 .title {
     font-family: 'Roboto', sans-serif;
     font-weight: 700;

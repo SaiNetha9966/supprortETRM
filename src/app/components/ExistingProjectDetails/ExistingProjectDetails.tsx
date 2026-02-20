@@ -4,7 +4,7 @@ import styles from './ExistingProjectDetails.module.css';
 import svgPaths from '../../../imports/svg-m590sprq1z';
 import { fetchExistingProjectMetadata } from '../../service/api';
 import { formatDate } from '../Utils/UiUtilis';
-import OffboardingScope from './OffboardingScope';
+import  OffboardingScope  from './OffboardingScope';
 
 const AlertIcon: React.FC = () => (
   <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
@@ -19,8 +19,10 @@ export const ExistingProjectDetails: React.FC<{
   setExistingProjectDetailsFormData: React.Dispatch<React.SetStateAction<any>>;
   setIsOffBoardSideBar:React.Dispatch<React.SetStateAction<any>>;
   purpose:string;
-}> = ({ data, onMetadataLoaded, existingProjectDetailsFormData, setExistingProjectDetailsFormData,purpose,setIsOffBoardSideBar }) => {
-  console.log('ExistingProjectDetails data:', data);
+  onSelectOffBoardingScope:(value:string) => void;
+  selectOffboadingScope:string
+  
+}> = ({ data, onMetadataLoaded, existingProjectDetailsFormData, setExistingProjectDetailsFormData,purpose,setIsOffBoardSideBar,onSelectOffBoardingScope,selectOffboadingScope }) => {
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
   const selectedProjectKey: string = existingProjectDetailsFormData?.selectedProjectKey ?? '';
   const existingProject: any | null = existingProjectDetailsFormData?.existingProject ?? null;
@@ -172,7 +174,10 @@ export const ExistingProjectDetails: React.FC<{
       )}
       {
         purpose === "offboarding" &&(
-      <OffboardingScope/>
+      <OffboardingScope
+         onSelectOffBoardingScope={onSelectOffBoardingScope}
+         selectOffboadingScope={selectOffboadingScope}
+      />
         )
       }
     </div>
