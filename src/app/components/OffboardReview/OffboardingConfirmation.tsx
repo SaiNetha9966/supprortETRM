@@ -1,17 +1,26 @@
 import svgPaths from '../../../imports/svg-0ywn1y5h0h';
+import { useState } from 'react';
+import { OffBoardConfirmationState } from '../Utils/UiUtilis';
 
 interface CheckboxItemProps {
   label: string;
-  checked?: boolean;
+  checked: boolean;
+  onChange: () => void;
 }
+
 interface OffboardingConfirmationProps {
   selectOffboadingScope: string;
+  offBoardconfirmation:OffBoardConfirmationState;
+  setOffBoardConfirmation:React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
 }
-function CheckboxItem({ label, checked = true }: CheckboxItemProps) {
+
+function CheckboxItem({ label, checked, onChange }: CheckboxItemProps) {
   return (
-    <div className="flex items-center gap-2 h-4">
+    <div className="flex items-center gap-2 h-4 cursor-pointer" onClick={onChange}>
       <div
-        className={`w-4 h-4 rounded-sm flex items-center justify-center ${checked ? 'bg-[#498e2b]' : 'border-2 border-gray-300'}`}
+        className={`w-4 h-4 rounded-sm flex items-center justify-center ${
+          checked ? 'bg-[#498e2b]' : 'border-2 border-gray-300'
+        }`}
       >
         {checked && (
           <div className="w-3.5 h-3.5 relative">
@@ -36,8 +45,18 @@ function CheckboxItem({ label, checked = true }: CheckboxItemProps) {
 }
 
 export const OffboardingConfirmation: React.FC<OffboardingConfirmationProps> = ({
-  selectOffboadingScope,
+  selectOffboadingScope,offBoardconfirmation,setOffBoardConfirmation
 }) => {
+  const [confirmation, setConfirmation] = useState({
+    isAuthorized: false,
+    isIunderstand: false,
+    isIacknowledge: false,
+  });
+
+  const toggleCheckbox = (key: keyof typeof offBoardconfirmation ) => {
+    setOffBoardConfirmation((prev) => ({ ...prev, [key]: !prev[key] }));
+  };
+
   return (
     <section className="bg-white rounded-lg p-6">
       <div className="flex flex-col gap-8">
@@ -58,19 +77,19 @@ export const OffboardingConfirmation: React.FC<OffboardingConfirmationProps> = (
                 </div>
               </div>
               {selectOffboadingScope === 'project' && (
-                <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                  You are requesting to offboard the entire project, Which will impact all
-                  users,tools,and associated data.
+                <p className="text-[14px] text-[#3b4648]">
+                  You are requesting to offboard the entire project, which will impact all
+                  users, tools, and associated data.
                 </p>
               )}
               {selectOffboadingScope === 'tools' && (
-                <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                  You are requesting to offboard selected tools.Users with access to these tools
-                  will lose access after approval;all other project access remian unchanged
+                <p className="text-[14px] text-[#3b4648]">
+                  You are requesting to offboard selected tools. Users with access to these tools
+                  will lose access after approval; all other project access remains unchanged.
                 </p>
               )}
               {selectOffboadingScope === 'users' && (
-                <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
+                <p className="text-[14px] text-[#3b4648]">
                   Offboarding selected users means they will lose access to this project. Tools and
                   data remain unchanged for all users.
                 </p>
@@ -83,9 +102,11 @@ export const OffboardingConfirmation: React.FC<OffboardingConfirmationProps> = (
           <CheckboxItem
             label={
               selectOffboadingScope === 'project'
-                ? 'I confirm I am authorized to affboard this project'
+                ? 'I confirm I am authorized to offboard this project'
                 : 'I confirm I am authorized to offboard the selected users from this project.'
             }
+            checked={offBoardconfirmation.isAuthorized}
+            onChange={() => toggleCheckbox('isAuthorized')}
           />
           <CheckboxItem
             label={
@@ -93,13 +114,17 @@ export const OffboardingConfirmation: React.FC<OffboardingConfirmationProps> = (
                 ? 'I understand this will revoke all users tool access'
                 : 'I understand this will revoke project access only for the selected users.'
             }
+            checked={offBoardconfirmation.isIunderstand}
+            onChange={() => toggleCheckbox('isIunderstand')}
           />
           <CheckboxItem
             label={
               selectOffboadingScope === 'users'
-                ? 'I acknowledge that project tools and data will remian unchanged.'
+                ? 'I acknowledge that project tools and data will remain unchanged.'
                 : 'I acknowledge data handling actions are irreversible once executed'
             }
+            checked={offBoardconfirmation.isIacknowledge}
+            onChange={() => toggleCheckbox('isIacknowledge')}
           />
         </div>
       </div>

@@ -24,8 +24,8 @@ export const formatDate = (isoDate: string): string => {
   return `${month} ${day}${ordinal}, ${year}`;
 };
 
-export const calculateProgress = (formData: any): number => {
-  const allFields: string[] = [
+export const calculateProgress = (formData: any, purpose: string): number => {
+  const onboardingFields: string[] = [
     'sapProjectId',
     'projectCodeName',
     'projectType',
@@ -43,15 +43,24 @@ export const calculateProgress = (formData: any): number => {
     'confirmation',
   ];
 
-  const filled = allFields.filter((field) => {
-    const value = formData[field];
-    if (Array.isArray(value)) return value.length > 0;
-    if (typeof value === 'boolean') return value === true;
-    return value !== '' && value !== null && value !== undefined;
-  });
+  const offboardingFields: string[] = [
+    'exitReason',
+    'handoverDetails',
+    'lastWorkingDay',
+    'knowledgeTransferCompleted',
+    'approvers',
+    'confirmation',
+  ];
 
-  return Math.round((filled.length / allFields.length) * 100);
+  const allFields = purpose === "offboarding" ? offboardingFields : onboardingFields;
+
+  const filledFields = allFields.filter(
+    (field) => formData[field] !== undefined && formData[field] !== null && formData[field] !== ''
+  );
+
+  return Math.round((filledFields.length / allFields.length) * 100);
 };
+
 
 export const findNameByEmail = (email: string, userList: any[]) => {
   if (!email) return '';
@@ -123,3 +132,31 @@ export const mapFormDataToApiPayload = (formData: any) => {
     confirmation: formData.confirmation ? 'yes' : 'no',
   };
 };
+
+
+export type DataHandlingSelection = { id: string; name: string; action: string; checked: boolean; }; export type OffboardFormData = { ertmProjectId: string; offboardingScope: string; selectedTools: string[]; datHanldingSelction: DataHandlingSelection[]; isAuthorized: boolean; isIunderstand: boolean; isIacknowledge: boolean; };
+
+export type OffboardingImpactTool = {
+  name: string;
+  platform: string;
+}
+
+export type DataHandlingTool= {
+  id: string;
+  name: string;
+  action: string;   // will hold "Archive", "Delete", "Transfer", etc.
+  checked: boolean;
+}
+
+export type OffBoardConfirmationState = { isAuthorized: boolean; isIunderstand: boolean; isIacknowledge: boolean; }
+
+
+export type OffBoardFormData = 
+{
+  sapProjectId:string;
+  selectOffboadingScope:string;
+   selectedOption: string; 
+  selectedOffBoardngImpactTools: string[]; 
+  toolsNameChecked: boolean; 
+  dataHandlingtools: DataHandlingTool[];
+   offBoardconfirmation: OffBoardConfirmationState; }

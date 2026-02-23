@@ -18,6 +18,7 @@ import { OffBoardingSideBar } from './SideBar/OffBoardingSideBar';
 import { ImpactAccess } from './ImpactAccess/ImpactAccess';
 import { OffBoardReview } from './OffboardReview/OffBoardReview';
 import { DataHandling } from './DataHandling/DataHandling';
+import { DataHandlingTool, OffBoardConfirmationState, OffBoardFormData } from './Utils/UiUtilis';
 
 type StepType =
   | 'newclient-intro'
@@ -41,10 +42,24 @@ export default function MainComponent() {
   const [existingProjectMetadata, setExistingProjectMetadata] = useState<any | null>(null);
   const [isOffBoardSideBar, setIsOffBoardSideBar] = useState<boolean>(false);
   const [selectOffboadingScope, setSelectOffboadingScope] = useState<string>('');
-  console.log('selectOffboadingScope', selectOffboadingScope);
-    const [selectedOption, setSelectedOption] = useState<string>('');
-  console.log("selectedOption",selectedOption)
-    const handleRemoveOption = (value: string) => {
+
+  const [selectedOption, setSelectedOption] = useState<string>('');
+  const [selectedOffBoardngImpactTools, setSelectedOffBoardingImpactTools] = useState<string[]>([]);
+  const [toolsNameChecked, setToolNameChecked] = useState<boolean>(false)
+  const [dataHandlingtools, setDataHandlingTools] = useState<DataHandlingTool[]>([
+      { id: '1', name: 'Tools Site', action: '', checked: false },
+      { id: '2', name: 'Tools Builders', action: '', checked: false },
+      { id: '3', name: 'Company Health Check', action: '', checked: false },
+    ]);  
+    const [offBoardconfirmation, setOffBoardConfirmation] = useState<OffBoardConfirmationState>({
+    isAuthorized: false,
+    isIunderstand: false,
+    isIacknowledge: false,
+  });  
+
+
+
+  const handleRemoveOption = (value: string) => {
     setSelectedOption(value);
   };
   const handleSelectOffBoardingScope = (value: string) => {
@@ -262,6 +277,15 @@ export default function MainComponent() {
     memoToApprovainMd: '',
     confirmation: false,
   });
+    const offBoardFormData: OffBoardFormData = 
+  {sapProjectId : formData?.ertmProjectId,
+    selectOffboadingScope,
+     selectedOption,
+     selectedOffBoardngImpactTools, 
+     toolsNameChecked,
+      dataHandlingtools, 
+      offBoardconfirmation,
+     };
   const handleChange = (field: string, value: any) => {
     setFormData({ ...formData, [field]: value });
   };
@@ -346,6 +370,8 @@ export default function MainComponent() {
                 existingProject={existingProject}
                 existingProjectMetadata={existingProjectMetadata}
                 existingToolFormData={existingToolFormData}
+                purpose={purpose}
+                offBoardFormData={offBoardFormData}
               />
             )}
             {/* Step 0: Non-Client Intro */}
@@ -396,7 +422,10 @@ export default function MainComponent() {
                     <ImpactAccess 
                     selectedOption={selectedOption}
                     onRemoveOptionChange={handleRemoveOption}
-                    selectOffboadingScope={selectOffboadingScope} />
+                    selectOffboadingScope={selectOffboadingScope} 
+                    selectedOffBoardngImpactTools ={selectedOffBoardngImpactTools}
+                     setSelectedOffBoardingImpactTools = {setSelectedOffBoardingImpactTools}
+                    />
                   ) : (
                     <ExistingToolConfiguration
                       data={data}
@@ -428,7 +457,13 @@ export default function MainComponent() {
             {currentStep === 'access-approval' && (
               <>
                 {purpose === 'offboarding' ? (
-                 <DataHandling selectOffboadingScope={selectOffboadingScope} />
+                 <DataHandling 
+                 selectOffboadingScope={selectOffboadingScope}
+                 dataHandlingtools ={dataHandlingtools}
+                 setDataHandlingTools ={setDataHandlingTools}
+                 toolsNameChecked ={toolsNameChecked}
+                 setToolNameChecked ={setToolNameChecked}
+                  />
                 ) : (
                   <AccessApproval
                     formData={formData}
@@ -455,7 +490,11 @@ export default function MainComponent() {
             {currentStep === 'review-submit' && (
               <>
                 {purpose === 'offboarding' ? (
-                  <OffBoardReview selectOffboadingScope={selectOffboadingScope} />
+                  <OffBoardReview
+                   selectOffboadingScope={selectOffboadingScope}
+                   offBoardconfirmation ={offBoardconfirmation}
+                    setOffBoardConfirmation ={setOffBoardConfirmation}
+                    />
                 ) : (
                   <ReviewSubmit
                     onSubmit={handleContinue}

@@ -1,4 +1,5 @@
 import ReviewSubmit from '../ReviewAndSubmit/ReviewSubmit';
+import { OffBoardConfirmationState } from '../Utils/UiUtilis';
 import { DataHandling } from './DataHandling';
 import { OffboardingConfirmation } from './OffboardingConfirmation';
 import { ProjectDetails } from './ProjectDetails';
@@ -8,8 +9,10 @@ import { UsersSummary } from './UsersSummary';
 
 interface OffBoardReviewProps {
   selectOffboadingScope: string;
+   offBoardconfirmation:OffBoardConfirmationState;
+    setOffBoardConfirmation:React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
 }
-export const OffBoardReview: React.FC<OffBoardReviewProps> = ({ selectOffboadingScope }) => {
+export const OffBoardReview: React.FC<OffBoardReviewProps> = ({ selectOffboadingScope,offBoardconfirmation,setOffBoardConfirmation }) => {
   return (
     <div>
       <RequestSummary />
@@ -17,7 +20,11 @@ export const OffBoardReview: React.FC<OffBoardReviewProps> = ({ selectOffboading
       <Tools selectOffboadingScope={selectOffboadingScope} />
       <UsersSummary selectOffboadingScope={selectOffboadingScope} />
       <DataHandling selectOffboadingScope={selectOffboadingScope} />
-      <OffboardingConfirmation selectOffboadingScope={selectOffboadingScope} />
+      <OffboardingConfirmation 
+      selectOffboadingScope={selectOffboadingScope}
+      offBoardconfirmation ={offBoardconfirmation}
+      setOffBoardConfirmation ={setOffBoardConfirmation}
+       />
     </div>
   );
 };
