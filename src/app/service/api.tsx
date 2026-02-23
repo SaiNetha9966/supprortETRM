@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { mapFormDataToApiPayload } from '../components/Utils/UiUtilis';
+import { PublicClientApplication } from "@azure/msal-browser";
 
 const sampleResponse = {
   result: {
@@ -84,11 +85,9 @@ const sampleResponse = {
     ],
   },
 };
-const token =
-  'eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6InNNMV95QXhWOEdWNHlOLUI2ajJ4em1pazVBbyIsImtpZCI6InNNMV95QXhWOEdWNHlOLUI2ajJ4em1pazVBbyJ9.eyJhdWQiOiJhcGk6Ly81MGU2NDcyNy01N2MxLTQzNmUtOTdjMi1mYjNiZGFiNTJhZmIiLCJpc3MiOiJodHRwczovL3N0cy53aW5kb3dzLm5ldC80NmFiNjQ0ZC02NzUzLTRmMWEtODI2OC01ZTljNjJmMTgxNDIvIiwiaWF0IjoxNzcxMDU4NTY3LCJuYmYiOjE3NzEwNTg1NjcsImV4cCI6MTc3MTA2MjQ2NywiYWlvIjoiazJaZ1lHQ3F1cXYyTkpmNzdyVzkvNnpmaXY5ZENRQT0iLCJhcHBpZCI6IjUwZTY0NzI3LTU3YzEtNDM2ZS05N2MyLWZiM2JkYWI1MmFmYiIsImFwcGlkYWNyIjoiMSIsImlkcCI6Imh0dHBzOi8vc3RzLndpbmRvd3MubmV0LzQ2YWI2NDRkLTY3NTMtNGYxYS04MjY4LTVlOWM2MmYxODE0Mi8iLCJvaWQiOiI2ZGE0MmNiZi05NzZhLTRkZmYtODMxMi0xN2YxOTg5MWU2ZmMiLCJyaCI6IjEuQVRnQVRXU3JSbE5uR2stQ2FGNmNZdkdCUWlkSDVsREJWMjVEbDhMN085cTFLdnNBQUFBNEFBLiIsInJvbGVzIjpbIkFQSU0uQWNjZXNzIl0sInN1YiI6IjZkYTQyY2JmLTk3NmEtNGRmZi04MzEyLTE3ZjE5ODkxZTZmYyIsInRpZCI6IjQ2YWI2NDRkLTY3NTMtNGYxYS04MjY4LTVlOWM2MmYxODE0MiIsInV0aSI6IkRsLV9ZeXpBQkVXUkI1Yld2c05CQUEiLCJ2ZXIiOiIxLjAiLCJ4bXNfZnRkIjoiUjdTczZzRWtkQWQxSkpsZ2RfYlRibUhHR01JeEJOV29wdFNINXhLLTdzSUJkWE5sWVhOMExXUnpiWE0ifQ.odftwE8GSh1z7ybdpRF9QeD5w8Gab_aOqqMPbUOwZdpWfP9BjuQRRBt4mV_9AcBFmPaC8wzU8UKMNe9k21pWc3LwU4JN9NOxTqpW8eIN8KANm06zIvRYUjr84t7Xtf84rbTc1JVicWbsOqlPlhRttRJlW4PkcTcvuOrspzoqCXo7MAgIcJS9Q-I6zDQLFJxxlKuP9PF6U6_XYd-8EYYJN537qkQEyf2ZCAF-5tWqimwQsJ7EMQD7cpi1yeD-Kr_DNRq73Imf7yHF7n8w8amMTKV0kzc35pBfTc7hVGRz5RuOJlcanRxVM_ZbYFS4J5i59ENf9O3Zk_u_T3gymoUcHQ';
 const subscriptionKey = '9e16f4849c124245baf84a1d4f9bcc6e'; //ad8c056dfd0d424383d8c36700dbfaf2
 
-export async function fetchNonClientNewProject() {
+export async function fetchNonClientNewProject(token:string) {
   try {
     const response = await axios.get(
       'https://apim-alixdev.alixpartners.com/etrm/v1/etrm_request/nonclientnewproject',
@@ -156,3 +155,96 @@ export async function fetchExistingProjectMetadata(idOrName: string) {
     throw error;
   }
 }
+
+
+
+const msalConfig = {
+  auth: {
+    clientId: "50e64727-57c1-436e-97c2-fb3bdab52afb",
+    authority: "https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142",
+    redirectUri: "http://localhost:5173",
+  },
+  cache: {
+    cacheLocation: "sessionStorage",
+    storeAuthStateInCookie: false,
+  },
+};
+
+const msalInstance = new PublicClientApplication(msalConfig);
+let isMsalInitialized = false;
+
+export const initializeMsalClient = async () => {
+  if (!isMsalInitialized) {
+    // Initialize MSAL and handle any pending redirect response.
+    await msalInstance.initialize();
+    try {
+      const redirectResponse = await msalInstance.handleRedirectPromise();
+      if (redirectResponse && redirectResponse.account) {
+        // set the active account so subsequent silent token calls know which account to use
+        msalInstance.setActiveAccount(redirectResponse.account);
+      }
+    } catch (e) {
+      // swallow; we'll surface errors during token acquisition
+      // eslint-disable-next-line no-console
+      console.warn("handleRedirectPromise failed:", e);
+    }
+    isMsalInitialized = true;
+  }
+};
+
+const tokenRequest = { scopes: ["api://50e64727-57c1-436e-97c2-fb3bdab52afb/.default"] };
+
+export const generateToken = async () => {
+  let account = msalInstance.getAllAccounts()[0];
+  try {
+    // If we don't have an account yet, attempt an interactive login.
+    if (!account) {
+      try {
+        const loginResponse = await msalInstance.loginPopup(tokenRequest);
+        account = loginResponse?.account;
+      } catch (loginPopupError) {
+        // Popup might be blocked. Fall back to redirect which is more reliable in restricted environments.
+        console.warn("loginPopup failed (popups may be blocked). Falling back to redirect:", loginPopupError);
+        // This will redirect the page and not return a token immediately.
+        await msalInstance.loginRedirect(tokenRequest);
+        return null;
+      }
+    }
+
+    // Try silent acquisition first (best UX).
+    const response = await msalInstance.acquireTokenSilent({
+      ...tokenRequest,
+      account,
+    });
+  // do not log tokens to console in production
+   console.log("response",response)
+    return response.accessToken;
+  } catch (silentError) {
+    // Silent token acquisition failed. Try interactive popup first.
+    console.warn("Silent token failed, trying popup:", silentError);
+    try {
+      const popupResponse = await msalInstance.acquireTokenPopup(tokenRequest);
+      console.log("popupResponse" ,popupResponse)
+      return popupResponse.accessToken;
+    } catch (popupError) {
+      // Popup failed (commonly blocked). Fall back to redirect interactive flow.
+      console.warn("acquireTokenPopup failed (popups may be blocked). Falling back to redirect:", popupError);
+      await msalInstance.acquireTokenRedirect(tokenRequest);
+      return null;
+    }
+  }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+

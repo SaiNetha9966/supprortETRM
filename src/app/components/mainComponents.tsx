@@ -29,8 +29,11 @@ type StepType =
   | 'submission-success'
   | '';
 
+  interface MainComponentProps{
+    nonClientNewProjectData:any;
+  }
 
-export default function MainComponent() {
+export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectData}) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   const [purpose, setPurpose] = useState<string>('');
@@ -240,19 +243,19 @@ export default function MainComponent() {
     setPageDesc('Provide project details to initiate setup. This process may take a few minutes.');
   };
 
-  const [data, setData] = useState<any>(null);
-  useEffect(() => {
-    const token = '';
-    async function loadData() {
-      try {
-        const result = await fetchNonClientNewProject(token);
-        setData(result);
-      } catch (err) {
-        console.error('Failed to load data', err);
-      }
-    }
-    loadData();
-  }, []);
+  // const [data, setData] = useState<any>(null);
+  // useEffect(() => {
+  //   const token = '';
+  //   async function loadData() {
+  //     try {
+  //       const result = await fetchNonClientNewProject(token);
+  //       setData(result);
+  //     } catch (err) {
+  //       console.error('Failed to load data', err);
+  //     }
+  //   }
+  //   loadData();
+  // }, []);
 
   const [formData, setFormData] = useState({
     ertmProjectId: 'PRJ-8YV03FK',
@@ -391,7 +394,7 @@ export default function MainComponent() {
               <>
                 {existingProject === 'yes' ? (
                   <ExistingProjectDetails
-                    data={data}
+                    data={nonClientNewProjectData}
                     onMetadataLoaded={setExistingProjectMetadata}
                     existingProjectDetailsFormData={existingProjectDetailsFormData}
                     setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
@@ -401,7 +404,7 @@ export default function MainComponent() {
                     selectOffboadingScope={selectOffboadingScope}
                   />
                 ) : (
-                  <ProjectDetails formData={formData} handleChange={handleChange} data={data} />
+                  <ProjectDetails formData={formData} handleChange={handleChange} data={nonClientNewProjectData} />
                 )}
                 <ActionButtons
                   onDiscard={handleBack}
@@ -428,7 +431,7 @@ export default function MainComponent() {
                     />
                   ) : (
                     <ExistingToolConfiguration
-                      data={data}
+                      data={nonClientNewProjectDatadata}
                       existingProjectMetadata={existingProjectMetadata}
                       existingToolFormData={existingToolFormData}
                       setExistingToolFormData={setExistingToolFormData}
@@ -439,7 +442,7 @@ export default function MainComponent() {
                     formData={formData}
                     setFormData={setFormData}
                     handleChange={handleChange}
-                    data={data}
+                    data={nonClientNewProjectData}
                   />
                 )}
                 <ActionButtons
@@ -470,7 +473,7 @@ export default function MainComponent() {
                     setFormData={setFormData}
                     handleChange={handleChange}
                     existingProject={existingProject}
-                    data={data}
+                    data={nonClientNewProjectData}
                     existingProjectMetadata={existingProjectMetadata}
                     existingToolFormData={existingToolFormData}
                   />
@@ -502,7 +505,7 @@ export default function MainComponent() {
                     onBack={handleBack}
                     existingProject={existingProject}
                     formData={formData}
-                    data={data}
+                    data={nonClientNewProjectData}
                     existingProjectMetadata={existingProjectMetadata}
                     existingProjectDetailsFormData={existingProjectDetailsFormData}
                     existingToolFormData={existingToolFormData}

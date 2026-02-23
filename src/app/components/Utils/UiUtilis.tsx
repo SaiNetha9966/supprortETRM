@@ -160,3 +160,7 @@ export type OffBoardFormData =
   toolsNameChecked: boolean; 
   dataHandlingtools: DataHandlingTool[];
    offBoardconfirmation: OffBoardConfirmationState; }
+
+
+  export const Loader: React.FC = () => ( <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Arial, sans-serif' }}> <div className="spinner" style={{ border: '6px solid #f3f3f3', borderTop: '6px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }} /> <p style={{ marginTop: '16px', fontSize: '18px', color: '#333' }}>Loading, please wait...</p> {/* Inline CSS animation */} <style> {` @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } `} </style> </div> );
+   
