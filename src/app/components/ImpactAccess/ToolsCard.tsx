@@ -4,23 +4,24 @@ import { OffboardingImpactTool } from '../Utils/UiUtilis';
 
 interface ToolsCardInterface {
   selectOffboadingScope: string;
-    selectedOffBoardngImpactTools:string[],
-   setSelectedOffBoardingImpactTools: React.Dispatch<React.SetStateAction<string[]>>
+  selectedOffBoardngImpactTools: string[];
+  setSelectedOffBoardingImpactTools: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-export const ToolsCard: React.FC<ToolsCardInterface> = ({ selectOffboadingScope,selectedOffBoardngImpactTools,setSelectedOffBoardingImpactTools }) => {
+export const ToolsCard: React.FC<ToolsCardInterface> = ({
+  selectOffboadingScope,
+  selectedOffBoardngImpactTools,
+  setSelectedOffBoardingImpactTools,
+}) => {
   const tools: OffboardingImpactTool[] = [
     { name: 'Teams Site', platform: 'AP Platform' },
     { name: 'Tool Builder', platform: 'AP Platform' },
     { name: 'Company Health Check', platform: 'AP Platform' },
   ];
 
-
   const toggleToolSelection = (toolName: string) => {
     setSelectedOffBoardingImpactTools((prev) =>
-      prev.includes(toolName)
-        ? prev.filter((name) => name !== toolName)
-        : [...prev, toolName] 
+      prev.includes(toolName) ? prev.filter((name) => name !== toolName) : [...prev, toolName]
     );
   };
 

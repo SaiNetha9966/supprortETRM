@@ -9,10 +9,14 @@ import { UsersSummary } from './UsersSummary';
 
 interface OffBoardReviewProps {
   selectOffboadingScope: string;
-   offBoardconfirmation:OffBoardConfirmationState;
-    setOffBoardConfirmation:React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
+  offBoardconfirmation: OffBoardConfirmationState;
+  setOffBoardConfirmation: React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
 }
-export const OffBoardReview: React.FC<OffBoardReviewProps> = ({ selectOffboadingScope,offBoardconfirmation,setOffBoardConfirmation }) => {
+export const OffBoardReview: React.FC<OffBoardReviewProps> = ({
+  selectOffboadingScope,
+  offBoardconfirmation,
+  setOffBoardConfirmation,
+}) => {
   return (
     <div>
       <RequestSummary />
@@ -20,11 +24,11 @@ export const OffBoardReview: React.FC<OffBoardReviewProps> = ({ selectOffboading
       <Tools selectOffboadingScope={selectOffboadingScope} />
       <UsersSummary selectOffboadingScope={selectOffboadingScope} />
       <DataHandling selectOffboadingScope={selectOffboadingScope} />
-      <OffboardingConfirmation 
-      selectOffboadingScope={selectOffboadingScope}
-      offBoardconfirmation ={offBoardconfirmation}
-      setOffBoardConfirmation ={setOffBoardConfirmation}
-       />
+      <OffboardingConfirmation
+        selectOffboadingScope={selectOffboadingScope}
+        offBoardconfirmation={offBoardconfirmation}
+        setOffBoardConfirmation={setOffBoardConfirmation}
+      />
     </div>
   );
 };

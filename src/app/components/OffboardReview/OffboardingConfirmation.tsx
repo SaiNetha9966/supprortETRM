@@ -10,8 +10,8 @@ interface CheckboxItemProps {
 
 interface OffboardingConfirmationProps {
   selectOffboadingScope: string;
-  offBoardconfirmation:OffBoardConfirmationState;
-  setOffBoardConfirmation:React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
+  offBoardconfirmation: OffBoardConfirmationState;
+  setOffBoardConfirmation: React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
 }
 
 function CheckboxItem({ label, checked, onChange }: CheckboxItemProps) {
@@ -45,7 +45,9 @@ function CheckboxItem({ label, checked, onChange }: CheckboxItemProps) {
 }
 
 export const OffboardingConfirmation: React.FC<OffboardingConfirmationProps> = ({
-  selectOffboadingScope,offBoardconfirmation,setOffBoardConfirmation
+  selectOffboadingScope,
+  offBoardconfirmation,
+  setOffBoardConfirmation,
 }) => {
   const [confirmation, setConfirmation] = useState({
     isAuthorized: false,
@@ -53,7 +55,7 @@ export const OffboardingConfirmation: React.FC<OffboardingConfirmationProps> = (
     isIacknowledge: false,
   });
 
-  const toggleCheckbox = (key: keyof typeof offBoardconfirmation ) => {
+  const toggleCheckbox = (key: keyof typeof offBoardconfirmation) => {
     setOffBoardConfirmation((prev) => ({ ...prev, [key]: !prev[key] }));
   };
 
@@ -78,8 +80,8 @@ export const OffboardingConfirmation: React.FC<OffboardingConfirmationProps> = (
               </div>
               {selectOffboadingScope === 'project' && (
                 <p className="text-[14px] text-[#3b4648]">
-                  You are requesting to offboard the entire project, which will impact all
-                  users, tools, and associated data.
+                  You are requesting to offboard the entire project, which will impact all users,
+                  tools, and associated data.
                 </p>
               )}
               {selectOffboadingScope === 'tools' && (

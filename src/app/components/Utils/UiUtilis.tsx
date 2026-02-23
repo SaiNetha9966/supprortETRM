@@ -52,7 +52,7 @@ export const calculateProgress = (formData: any, purpose: string): number => {
     'confirmation',
   ];
 
-  const allFields = purpose === "offboarding" ? offboardingFields : onboardingFields;
+  const allFields = purpose === 'offboarding' ? offboardingFields : onboardingFields;
 
   const filledFields = allFields.filter(
     (field) => formData[field] !== undefined && formData[field] !== null && formData[field] !== ''
@@ -60,7 +60,6 @@ export const calculateProgress = (formData: any, purpose: string): number => {
 
   return Math.round((filledFields.length / allFields.length) * 100);
 };
-
 
 export const findNameByEmail = (email: string, userList: any[]) => {
   if (!email) return '';
@@ -133,34 +132,73 @@ export const mapFormDataToApiPayload = (formData: any) => {
   };
 };
 
-
-export type DataHandlingSelection = { id: string; name: string; action: string; checked: boolean; }; export type OffboardFormData = { ertmProjectId: string; offboardingScope: string; selectedTools: string[]; datHanldingSelction: DataHandlingSelection[]; isAuthorized: boolean; isIunderstand: boolean; isIacknowledge: boolean; };
+export type DataHandlingSelection = { id: string; name: string; action: string; checked: boolean };
+export type OffboardFormData = {
+  ertmProjectId: string;
+  offboardingScope: string;
+  selectedTools: string[];
+  datHanldingSelction: DataHandlingSelection[];
+  isAuthorized: boolean;
+  isIunderstand: boolean;
+  isIacknowledge: boolean;
+};
 
 export type OffboardingImpactTool = {
   name: string;
   platform: string;
-}
+};
 
-export type DataHandlingTool= {
+export type DataHandlingTool = {
   id: string;
   name: string;
-  action: string;   // will hold "Archive", "Delete", "Transfer", etc.
+  action: string; // will hold "Archive", "Delete", "Transfer", etc.
   checked: boolean;
-}
+};
 
-export type OffBoardConfirmationState = { isAuthorized: boolean; isIunderstand: boolean; isIacknowledge: boolean; }
+export type OffBoardConfirmationState = {
+  isAuthorized: boolean;
+  isIunderstand: boolean;
+  isIacknowledge: boolean;
+};
 
-
-export type OffBoardFormData = 
-{
-  sapProjectId:string;
-  selectOffboadingScope:string;
-   selectedOption: string; 
-  selectedOffBoardngImpactTools: string[]; 
-  toolsNameChecked: boolean; 
+export type OffBoardFormData = {
+  sapProjectId: string;
+  selectOffboadingScope: string;
+  selectedOption: string;
+  selectedOffBoardngImpactTools: string[];
+  toolsNameChecked: boolean;
   dataHandlingtools: DataHandlingTool[];
-   offBoardconfirmation: OffBoardConfirmationState; }
+  offBoardconfirmation: OffBoardConfirmationState;
+};
 
-
-  export const Loader: React.FC = () => ( <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', height: '100vh', fontFamily: 'Arial, sans-serif' }}> <div className="spinner" style={{ border: '6px solid #f3f3f3', borderTop: '6px solid #3498db', borderRadius: '50%', width: '50px', height: '50px', animation: 'spin 1s linear infinite' }} /> <p style={{ marginTop: '16px', fontSize: '18px', color: '#333' }}>Loading, please wait...</p> {/* Inline CSS animation */} <style> {` @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } `} </style> </div> );
-   
+export const Loader: React.FC = () => (
+  <div
+    style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      fontFamily: 'Arial, sans-serif',
+    }}
+  >
+    {' '}
+    <div
+      className="spinner"
+      style={{
+        border: '6px solid #f3f3f3',
+        borderTop: '6px solid #3498db',
+        borderRadius: '50%',
+        width: '50px',
+        height: '50px',
+        animation: 'spin 1s linear infinite',
+      }}
+    />{' '}
+    <p style={{ marginTop: '16px', fontSize: '18px', color: '#333' }}>Loading, please wait...</p>{' '}
+    {/* Inline CSS animation */}{' '}
+    <style>
+      {' '}
+      {` @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } } `}{' '}
+    </style>{' '}
+  </div>
+);

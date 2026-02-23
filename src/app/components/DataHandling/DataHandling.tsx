@@ -2,18 +2,21 @@ import svgPaths from '../../../imports/svg-rl9qnronrk';
 import { useState } from 'react';
 import { DataHandlingTool } from '../Utils/UiUtilis';
 
-
-
 interface DataHandlingProps {
   selectOffboadingScope: string;
-  setDataHandlingTools:React.Dispatch<React.SetStateAction<DataHandlingTool[]>>;
-  dataHandlingtools:DataHandlingTool[];
-  toolsNameChecked:boolean;
-  setToolNameChecked:React.Dispatch<React.SetStateAction<boolean>>;
+  setDataHandlingTools: React.Dispatch<React.SetStateAction<DataHandlingTool[]>>;
+  dataHandlingtools: DataHandlingTool[];
+  toolsNameChecked: boolean;
+  setToolNameChecked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScope,dataHandlingtools,setDataHandlingTools,toolsNameChecked,setToolNameChecked }) => {
-
+export const DataHandling: React.FC<DataHandlingProps> = ({
+  selectOffboadingScope,
+  dataHandlingtools,
+  setDataHandlingTools,
+  toolsNameChecked,
+  setToolNameChecked,
+}) => {
   // Toggle all checkboxes
   const handleCheckAll = () => {
     const newChecked = !toolsNameChecked;
@@ -24,18 +27,14 @@ export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScop
   // Toggle individual checkbox
   const handleCheckTool = (id: string) => {
     setDataHandlingTools((prev) =>
-      prev.map((tool) =>
-        tool.id === id ? { ...tool, checked: !tool.checked } : tool
-      )
+      prev.map((tool) => (tool.id === id ? { ...tool, checked: !tool.checked } : tool))
     );
   };
 
   // Capture selected action for each tool
   const handleActionChange = (id: string, action: string) => {
     setDataHandlingTools((prev) =>
-      prev.map((tool) =>
-        tool.id === id ? { ...tool, action } : tool
-      )
+      prev.map((tool) => (tool.id === id ? { ...tool, action } : tool))
     );
   };
 
@@ -125,7 +124,12 @@ export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScop
                         onClick={() => handleCheckTool(tool.id)}
                       >
                         {tool.checked && (
-                          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="14"
+                            height="14"
+                            fill="none"
+                          >
                             <path
                               d="M6.27172 10.5003L2.33398 6.70821L3.64625 5.44447L6.27172 7.97285L11.5208 2.91699L12.834 4.18073L6.27172 10.5003Z"
                               fill="white"

@@ -23,7 +23,7 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({
   existingProjectMetadata,
   existingToolFormData,
   purpose,
-  offBoardFormData
+  offBoardFormData,
 }) => {
   const isExistingProject = existingProject === 'yes';
   const existingRecord = existingProjectMetadata?.result?.existing_record_id ?? null;
@@ -45,19 +45,19 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({
         customToolRequest: existingToolFormData?.customToolRequest ?? formData.customToolRequest,
       }
     : formData;
-    
+
   const offBoardProgressBarData = {
-      ...offBoardFormData,
-      sapProjectId:existingRecord?.sap_project_id ?? offBoardFormData?.sapProjectId,
-      selectOffboadingScope:offBoardFormData?.selectOffboadingScope,
-      selectedOption: offBoardFormData?.selectedOption,
-      selectedOffBoardngImpactTools : offBoardFormData?.selectedOffBoardngImpactTools,
-      toolsName: offBoardFormData?.toolsNameChecked,
-      dataHandlingtools:offBoardFormData?.dataHandlingtools,
-      offBoardconfirmation: offBoardFormData?.offBoardconfirmation
-     }
+    ...offBoardFormData,
+    sapProjectId: existingRecord?.sap_project_id ?? offBoardFormData?.sapProjectId,
+    selectOffboadingScope: offBoardFormData?.selectOffboadingScope,
+    selectedOption: offBoardFormData?.selectedOption,
+    selectedOffBoardngImpactTools: offBoardFormData?.selectedOffBoardngImpactTools,
+    toolsName: offBoardFormData?.toolsNameChecked,
+    dataHandlingtools: offBoardFormData?.dataHandlingtools,
+    offBoardconfirmation: offBoardFormData?.offBoardconfirmation,
+  };
   const progressPercent = calculateProgress(
-    purpose === "offboarding" ? offBoardProgressBarData : progressFormData,
+    purpose === 'offboarding' ? offBoardProgressBarData : progressFormData,
     purpose
   );
   const stepTextMap: Record<string, string> = {
@@ -108,10 +108,10 @@ export const calculateProgress = (formData: any, purpose: string): number => {
     'selectedOffBoardngImpactTools',
     'toolsNameChecked',
     'dataHandlingtools',
-    'offBoardconfirmation'
+    'offBoardconfirmation',
   ];
 
-  const allFields = purpose === "offboarding" ? offboardingFields : onboardingFields;
+  const allFields = purpose === 'offboarding' ? offboardingFields : onboardingFields;
 
   const filledFields = allFields.filter((field) => {
     const value = formData[field];

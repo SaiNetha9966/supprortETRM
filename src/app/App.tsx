@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import {MainComponent} from './components/mainComponents';
+import { MainComponent } from './components/mainComponents';
 import { fetchNonClientNewProject, generateToken, initializeMsalClient } from './service/api';
 import { Loader } from './components/Utils/UiUtilis';
-
 
 export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -24,7 +23,7 @@ export default function App() {
         setNonClientNewProjectData(projectInfo);
         console.log(projectInfo);
       } catch (error) {
-        console.error("Error initializing app:", error);
+        console.error('Error initializing app:', error);
       }
     };
 

@@ -1,12 +1,15 @@
 import svgPaths from '../../../imports/svg-ncq7ewl48m';
 import { useState } from 'react';
 
-interface RemovalOptionsCardProps{
-  onRemoveOptionChange:(value:string) => void;
-  selectedOption:string;
+interface RemovalOptionsCardProps {
+  onRemoveOptionChange: (value: string) => void;
+  selectedOption: string;
 }
 
-export const RemovalOptionsCard:React.FC<RemovalOptionsCardProps> =({onRemoveOptionChange,selectedOption}) => {
+export const RemovalOptionsCard: React.FC<RemovalOptionsCardProps> = ({
+  onRemoveOptionChange,
+  selectedOption,
+}) => {
   return (
     <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm">
       <div className="flex flex-col gap-4">
@@ -88,4 +91,4 @@ export const RemovalOptionsCard:React.FC<RemovalOptionsCardProps> =({onRemoveOpt
       </div>
     </div>
   );
-}
+};

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { mapFormDataToApiPayload } from '../components/Utils/UiUtilis';
-import { PublicClientApplication } from "@azure/msal-browser";
+import { PublicClientApplication } from '@azure/msal-browser';
 
 const sampleResponse = {
   result: {
@@ -87,7 +87,7 @@ const sampleResponse = {
 };
 const subscriptionKey = '9e16f4849c124245baf84a1d4f9bcc6e'; //ad8c056dfd0d424383d8c36700dbfaf2
 
-export async function fetchNonClientNewProject(token:string) {
+export async function fetchNonClientNewProject(token: string) {
   try {
     const response = await axios.get(
       'https://apim-alixdev.alixpartners.com/etrm/v1/etrm_request/nonclientnewproject',
@@ -156,16 +156,14 @@ export async function fetchExistingProjectMetadata(idOrName: string) {
   }
 }
 
-
-
 const msalConfig = {
   auth: {
-    clientId: "50e64727-57c1-436e-97c2-fb3bdab52afb",
-    authority: "https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142",
-    redirectUri: "http://localhost:5173",
+    clientId: '50e64727-57c1-436e-97c2-fb3bdab52afb',
+    authority: 'https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142',
+    redirectUri: 'http://localhost:5173',
   },
   cache: {
-    cacheLocation: "sessionStorage",
+    cacheLocation: 'sessionStorage',
     storeAuthStateInCookie: false,
   },
 };
@@ -186,13 +184,13 @@ export const initializeMsalClient = async () => {
     } catch (e) {
       // swallow; we'll surface errors during token acquisition
       // eslint-disable-next-line no-console
-      console.warn("handleRedirectPromise failed:", e);
+      console.warn('handleRedirectPromise failed:', e);
     }
     isMsalInitialized = true;
   }
 };
 
-const tokenRequest = { scopes: ["api://50e64727-57c1-436e-97c2-fb3bdab52afb/.default"] };
+const tokenRequest = { scopes: ['api://50e64727-57c1-436e-97c2-fb3bdab52afb/.default'] };
 
 export const generateToken = async () => {
   let account = msalInstance.getAllAccounts()[0];
@@ -204,7 +202,10 @@ export const generateToken = async () => {
         account = loginResponse?.account;
       } catch (loginPopupError) {
         // Popup might be blocked. Fall back to redirect which is more reliable in restricted environments.
-        console.warn("loginPopup failed (popups may be blocked). Falling back to redirect:", loginPopupError);
+        console.warn(
+          'loginPopup failed (popups may be blocked). Falling back to redirect:',
+          loginPopupError
+        );
         // This will redirect the page and not return a token immediately.
         await msalInstance.loginRedirect(tokenRequest);
         return null;
@@ -216,35 +217,24 @@ export const generateToken = async () => {
       ...tokenRequest,
       account,
     });
-  // do not log tokens to console in production
-   console.log("response",response)
+    // do not log tokens to console in production
+    console.log('response', response);
     return response.accessToken;
   } catch (silentError) {
     // Silent token acquisition failed. Try interactive popup first.
-    console.warn("Silent token failed, trying popup:", silentError);
+    console.warn('Silent token failed, trying popup:', silentError);
     try {
       const popupResponse = await msalInstance.acquireTokenPopup(tokenRequest);
-      console.log("popupResponse" ,popupResponse)
+      console.log('popupResponse', popupResponse);
       return popupResponse.accessToken;
     } catch (popupError) {
       // Popup failed (commonly blocked). Fall back to redirect interactive flow.
-      console.warn("acquireTokenPopup failed (popups may be blocked). Falling back to redirect:", popupError);
+      console.warn(
+        'acquireTokenPopup failed (popups may be blocked). Falling back to redirect:',
+        popupError
+      );
       await msalInstance.acquireTokenRedirect(tokenRequest);
       return null;
     }
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-

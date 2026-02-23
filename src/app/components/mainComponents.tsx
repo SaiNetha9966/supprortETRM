@@ -29,11 +29,11 @@ type StepType =
   | 'submission-success'
   | '';
 
-  interface MainComponentProps{
-    nonClientNewProjectData:any;
-  }
+interface MainComponentProps {
+  nonClientNewProjectData: any;
+}
 
-export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectData}) => {
+export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjectData }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   const [purpose, setPurpose] = useState<string>('');
@@ -48,19 +48,17 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
 
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [selectedOffBoardngImpactTools, setSelectedOffBoardingImpactTools] = useState<string[]>([]);
-  const [toolsNameChecked, setToolNameChecked] = useState<boolean>(false)
+  const [toolsNameChecked, setToolNameChecked] = useState<boolean>(false);
   const [dataHandlingtools, setDataHandlingTools] = useState<DataHandlingTool[]>([
-      { id: '1', name: 'Tools Site', action: '', checked: false },
-      { id: '2', name: 'Tools Builders', action: '', checked: false },
-      { id: '3', name: 'Company Health Check', action: '', checked: false },
-    ]);  
-    const [offBoardconfirmation, setOffBoardConfirmation] = useState<OffBoardConfirmationState>({
+    { id: '1', name: 'Tools Site', action: '', checked: false },
+    { id: '2', name: 'Tools Builders', action: '', checked: false },
+    { id: '3', name: 'Company Health Check', action: '', checked: false },
+  ]);
+  const [offBoardconfirmation, setOffBoardConfirmation] = useState<OffBoardConfirmationState>({
     isAuthorized: false,
     isIunderstand: false,
     isIacknowledge: false,
-  });  
-
-
+  });
 
   const handleRemoveOption = (value: string) => {
     setSelectedOption(value);
@@ -119,22 +117,25 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
         }
         break;
       case 'tool-configuration':
-       
-        if(selectOffboadingScope === "users")
-        {
+        if (selectOffboadingScope === 'users') {
           setCurrentStep('review-submit');
-        }
-        else{
-           setCurrentStep('access-approval');
+        } else {
+          setCurrentStep('access-approval');
         }
         if (existingProject === 'yes') {
           // setPageTittle(purpose === 'offboarding' ? 'Data Handling' : 'Update Existing Project');
-          setPageTittle( purpose === "offboarding" ? (selectOffboadingScope === "users" ? "Review & Submit" : "Data Handling") : "Update Existing Project" );
+          setPageTittle(
+            purpose === 'offboarding'
+              ? selectOffboadingScope === 'users'
+                ? 'Review & Submit'
+                : 'Data Handling'
+              : 'Update Existing Project'
+          );
           setPageDesc('This process could take a few minutes');
         } else if (purpose === 'offboarding') {
           setPageTittle('Impact Access');
         } else {
-        setCurrentStep('access-approval');
+          setCurrentStep('access-approval');
           setPageTittle('Approval & Access');
           setPageDesc(
             'Define approvers and assign user access for the selected tools. This step may take a few minutes.'
@@ -280,15 +281,15 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
     memoToApprovainMd: '',
     confirmation: false,
   });
-    const offBoardFormData: OffBoardFormData = 
-  {sapProjectId : formData?.ertmProjectId,
+  const offBoardFormData: OffBoardFormData = {
+    sapProjectId: formData?.ertmProjectId,
     selectOffboadingScope,
-     selectedOption,
-     selectedOffBoardngImpactTools, 
-     toolsNameChecked,
-      dataHandlingtools, 
-      offBoardconfirmation,
-     };
+    selectedOption,
+    selectedOffBoardngImpactTools,
+    toolsNameChecked,
+    dataHandlingtools,
+    offBoardconfirmation,
+  };
   const handleChange = (field: string, value: any) => {
     setFormData({ ...formData, [field]: value });
   };
@@ -404,7 +405,11 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
                     selectOffboadingScope={selectOffboadingScope}
                   />
                 ) : (
-                  <ProjectDetails formData={formData} handleChange={handleChange} data={nonClientNewProjectData} />
+                  <ProjectDetails
+                    formData={formData}
+                    handleChange={handleChange}
+                    data={nonClientNewProjectData}
+                  />
                 )}
                 <ActionButtons
                   onDiscard={handleBack}
@@ -422,12 +427,12 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
               <>
                 {existingProject === 'yes' ? (
                   purpose === 'offboarding' ? (
-                    <ImpactAccess 
-                    selectedOption={selectedOption}
-                    onRemoveOptionChange={handleRemoveOption}
-                    selectOffboadingScope={selectOffboadingScope} 
-                    selectedOffBoardngImpactTools ={selectedOffBoardngImpactTools}
-                     setSelectedOffBoardingImpactTools = {setSelectedOffBoardingImpactTools}
+                    <ImpactAccess
+                      selectedOption={selectedOption}
+                      onRemoveOptionChange={handleRemoveOption}
+                      selectOffboadingScope={selectOffboadingScope}
+                      selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
+                      setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
                     />
                   ) : (
                     <ExistingToolConfiguration
@@ -460,12 +465,12 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
             {currentStep === 'access-approval' && (
               <>
                 {purpose === 'offboarding' ? (
-                 <DataHandling 
-                 selectOffboadingScope={selectOffboadingScope}
-                 dataHandlingtools ={dataHandlingtools}
-                 setDataHandlingTools ={setDataHandlingTools}
-                 toolsNameChecked ={toolsNameChecked}
-                 setToolNameChecked ={setToolNameChecked}
+                  <DataHandling
+                    selectOffboadingScope={selectOffboadingScope}
+                    dataHandlingtools={dataHandlingtools}
+                    setDataHandlingTools={setDataHandlingTools}
+                    toolsNameChecked={toolsNameChecked}
+                    setToolNameChecked={setToolNameChecked}
                   />
                 ) : (
                   <AccessApproval
@@ -494,10 +499,10 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
               <>
                 {purpose === 'offboarding' ? (
                   <OffBoardReview
-                   selectOffboadingScope={selectOffboadingScope}
-                   offBoardconfirmation ={offBoardconfirmation}
-                    setOffBoardConfirmation ={setOffBoardConfirmation}
-                    />
+                    selectOffboadingScope={selectOffboadingScope}
+                    offBoardconfirmation={offBoardconfirmation}
+                    setOffBoardConfirmation={setOffBoardConfirmation}
+                  />
                 ) : (
                   <ReviewSubmit
                     onSubmit={handleContinue}
@@ -528,4 +533,4 @@ export const MainComponent:React.FC<MainComponentProps> = ({nonClientNewProjectD
       </div>
     </>
   );
-}
+};

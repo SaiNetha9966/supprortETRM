@@ -86,7 +86,7 @@ export const UsersCard: React.FC<UserCardProps> = ({ selectOffboadingScope }) =>
           </div>
         )}
 
-         {selectOffboadingScope === 'tools' && (
+        {selectOffboadingScope === 'tools' && (
           <div className="flex flex-col gap-2">
             <h2 className="text-[#4a4a4a] text-[19px] font-bold font-['Roboto',sans-serif]">
               User Impact Summary
@@ -152,27 +152,24 @@ export const UsersCard: React.FC<UserCardProps> = ({ selectOffboadingScope }) =>
                     {user.accessLevel} ({user.toolCount} Tools)
                   </span>
                 </div>
-                 
-                 {
-                  selectOffboadingScope !== "users" && (
-  <div className="flex items-center gap-2 flex-wrap min-w-[180px]">
-                  {user.status && (
-                    <span
-                      className="text-[#BF494E] text-[13px] font-normal font-['Roboto',sans-serif] 
+
+                {selectOffboadingScope !== 'users' && (
+                  <div className="flex items-center gap-2 flex-wrap min-w-[180px]">
+                    {user.status && (
+                      <span
+                        className="text-[#BF494E] text-[13px] font-normal font-['Roboto',sans-serif] 
                  bg-[#ffebee] px-4 py-1 whitespace-nowrap"
-                      style={{
-                        borderRadius: 'var(--tag-container-radius-all, 240px)',
-                        border:
-                          'var(--tag-border-size-all, 1px) solid var(--tag-border-color-error, #F1B5B7)',
-                      }}
-                    >
-                      {user.status}
-                    </span>
-                  )}
-                </div>
-                  )
-                 }
-              
+                        style={{
+                          borderRadius: 'var(--tag-container-radius-all, 240px)',
+                          border:
+                            'var(--tag-border-size-all, 1px) solid var(--tag-border-color-error, #F1B5B7)',
+                        }}
+                      >
+                        {user.status}
+                      </span>
+                    )}
+                  </div>
+                )}
 
                 {/* Expand Button */}
                 <button
