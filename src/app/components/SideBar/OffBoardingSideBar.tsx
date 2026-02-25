@@ -41,6 +41,7 @@ interface SidebarProps {
   onClose: () => void;
   currentStep: string;
   existingProject?: string;
+  purpose?:string;
 }
 
 export const OffBoardingSideBar: React.FC<SidebarProps> = ({
@@ -48,6 +49,7 @@ export const OffBoardingSideBar: React.FC<SidebarProps> = ({
   onClose,
   currentStep,
   existingProject,
+  purpose
 }) => {
   const menuItems: MenuItem[] = [
     {
@@ -85,7 +87,7 @@ export const OffBoardingSideBar: React.FC<SidebarProps> = ({
       <div className={`${styles.overlay} ${isOpen ? styles.show : ''}`} onClick={onClose} />
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <h2 className={styles.title}>
-          {existingProject === 'yes' ? 'Non Client Existing Project' : 'Non Client New Project'}
+          {purpose === 'offboarding' ? "Non Client Project Offboarding" : 'Non Client Existing Project'}
         </h2>
         <nav>
           {menuItems.map((item) => (

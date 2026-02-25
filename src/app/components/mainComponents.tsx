@@ -349,6 +349,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                 onClose={closeSidebar}
                 currentStep={currentStep}
                 existingProject={existingProject}
+                purpose={purpose}
               />
             )
           : currentStep !== 'newclient-intro' &&
