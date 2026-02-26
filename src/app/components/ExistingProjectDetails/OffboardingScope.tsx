@@ -47,7 +47,7 @@ const OffboardingScope: React.FC<OffbordingScopeProps> = ({
         <div className="info-offboard">
           <AlertIcon />
           <span className="info-span">
-            You are requesting to offboard the Entire Project.Project will be offline once request
+           This will remove all user access and offboard all technology. Click Continue to confirm and select data handling specifics.
             is completed.
           </span>
         </div>

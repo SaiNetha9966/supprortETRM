@@ -26,7 +26,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
   return (
     <div className="form-container">
       <header className="form-header">
-        <h1>Non Client Project</h1>
+        <h1>Internal Technology Request Form</h1>
         <p className="section-description">
           Use this form to request tool access for a non-client project. Your selections determine
           the approval and fulfilment workflow.

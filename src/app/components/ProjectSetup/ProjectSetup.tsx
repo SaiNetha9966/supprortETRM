@@ -76,7 +76,7 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({
       </div>
       <p className={styles.progressText}>{progressPercent}% completed</p>
 
-      {/* {stepText && <p className={styles.stepText}>{stepText}</p>} */}
+      {stepText && <p className={styles.stepText}>{stepText}</p>}
     </div>
   );
 };
