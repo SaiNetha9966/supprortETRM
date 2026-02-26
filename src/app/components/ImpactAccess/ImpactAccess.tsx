@@ -37,7 +37,7 @@ export const ImpactAccess: React.FC<ImpactAccessProps> = ({
           />
         )}
         {selectOffboadingScope === 'users' ? (
-          selectedOption && <UsersCard selectOffboadingScope={selectOffboadingScope} />
+          selectedOption && <UsersCard  selectOffboadingScope={selectOffboadingScope} />
         ) : (
           <UsersCard selectOffboadingScope={selectOffboadingScope} />
         )}

@@ -67,10 +67,10 @@ export const UsersCard: React.FC<UserCardProps> = ({ selectOffboadingScope }) =>
         {selectOffboadingScope === 'users' && (
           <div className="flex flex-col gap-2">
             <h2 className="text-[#4a4a4a] text-[19px] font-bold font-['Roboto',sans-serif]">
-              Users Losing Project Access
+             User Access to Tools
             </h2>
             <p className="text-[#727272] text-[16px] font-normal font-['Roboto',sans-serif]">
-              Selected users will lose access to this project.
+              Expand the appropriate user and select the tool(s) they should be removed from.
             </p>
           </div>
         )}
@@ -145,11 +145,17 @@ export const UsersCard: React.FC<UserCardProps> = ({ selectOffboadingScope }) =>
                 {/* Access + Status */}
                 <div className="flex items-center gap-2 flex-wrap min-w-[180px]">
                   <span
-                    className="text-[#727272] text-[13px] font-normal font-['Roboto',sans-serif] 
-                  bg-[#f7f7f7] px-4 py-1 rounded-full 
-                  border border-[#ccc] whitespace-nowrap"
+                    className="text-[#727272] text-[13px] font-normal font-['Roboto',sans-serif]
+                              bg-[#f7f7f7] px-4 py-1 rounded-full
+                              border border-[#ccc] whitespace-nowrap"
                   >
-                    {user.accessLevel} ({user.toolCount} Tools)
+                    {selectOffboadingScope === "users" && (
+                      <>{user.toolCount} Tools</>
+                    )}
+
+                    {selectOffboadingScope !== "users" && (
+                      <>{user.accessLevel} ({user.toolCount} Tools)</>
+                    )}
                   </span>
                 </div>
 

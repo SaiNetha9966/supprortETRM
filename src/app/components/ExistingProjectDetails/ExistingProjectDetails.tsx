@@ -86,11 +86,15 @@ export const ExistingProjectDetails: React.FC<{
         <p className={styles.description}>
           Search & select existing project. You can search by ETRM Project ID or Project Code Name.
         </p>
-
-        <div className={styles.infoAlertBlue}>
+            {
+              purpose !== 'offboarding' && (
+                        <div className={styles.infoAlertBlue}>
           <AlertIcon />
           <span>Please confirm Project Details before proceeding with offboarding request.</span>
         </div>
+              )
+            }
+
       </div>
 
       {/* Project Search Section */}

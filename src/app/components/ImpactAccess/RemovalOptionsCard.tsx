@@ -49,7 +49,7 @@ export const RemovalOptionsCard: React.FC<RemovalOptionsCardProps> = ({
                 Remove users from this project
               </span>
               <p className="text-[#4a4a4a] text-[14px] font-normal font-['Roboto',sans-serif]">
-                This request applies to an existing project
+               Selected users will lose access to the entire project after approval.
               </p>
             </div>
           </button>
@@ -83,7 +83,7 @@ export const RemovalOptionsCard: React.FC<RemovalOptionsCardProps> = ({
                 Remove tool access for users
               </span>
               <p className="text-[#4a4a4a] text-[14px] font-normal font-['Roboto',sans-serif]">
-                Set up a new project and request tool and user access.
+                 Users stay in the project but lose some tool access after approval.
               </p>
             </div>
           </button>

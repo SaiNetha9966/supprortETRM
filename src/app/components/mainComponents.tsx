@@ -117,18 +117,12 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
         }
         break;
       case 'tool-configuration':
-        if (selectOffboadingScope === 'users') {
-          setCurrentStep('review-submit');
-        } else {
           setCurrentStep('access-approval');
-        }
         if (existingProject === 'yes') {
           // setPageTittle(purpose === 'offboarding' ? 'Data Handling' : 'Update Existing Project');
           setPageTittle(
             purpose === 'offboarding'
-              ? selectOffboadingScope === 'users'
-                ? 'Review & Submit'
-                : 'Data Handling'
+              ?  'Data Handling'
               : 'Update Existing Project'
           );
           setPageDesc('This process could take a few minutes');
@@ -416,6 +410,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                   onDiscard={handleBack}
                   onContinue={handleContinue}
                   isContinueDisabled={true}
+                   isBackButtinShoewn={true}
                   // disableContinue={existingProject === 'yes'
                   //   ? !existingProjectDetailsFormData?.selectedProjectKey
                   //   : !formData?.projectCodeName}

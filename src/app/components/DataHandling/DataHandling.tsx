@@ -1,6 +1,7 @@
 import svgPaths from '../../../imports/svg-rl9qnronrk';
 import { useState } from 'react';
 import { DataHandlingTool } from '../Utils/UiUtilis';
+import svgPathsAlert from '../../../imports/svg-m590sprq1z';
 
 interface DataHandlingProps {
   selectOffboadingScope: string;
@@ -10,6 +11,11 @@ interface DataHandlingProps {
   setToolNameChecked: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+  const AlertIcon: React.FC = () => (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d={svgPathsAlert.p341e8200} fill="#006176" />
+    </svg>
+  );
 export const DataHandling: React.FC<DataHandlingProps> = ({
   selectOffboadingScope,
   dataHandlingtools,
@@ -43,7 +49,18 @@ export const DataHandling: React.FC<DataHandlingProps> = ({
 
   return (
     <div className="bg-white rounded-lg p-6">
-      <div className="flex flex-col gap-5 w-full">
+      {
+        selectOffboadingScope === "users" ? (
+           <div className="info-alert-blue">
+                  <AlertIcon />
+                  <span  style={{color:"#3B4648" , fontFamily:"Roboto" , fontSize:"14px" , fontStyle:"normal" , fontWeight:"400",lineHeight:"19px"}}>
+                    Users-only offboarding does NOT require data handling.
+                  </span>
+                </div>
+        ) :
+        (
+             <>
+                   <div className="flex flex-col gap-5 w-full">
         <div className="flex flex-col gap-2">
           <p className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#4a4a4a] whitespace-pre-wrap">
             How should tool data be handled?
@@ -171,6 +188,10 @@ export const DataHandling: React.FC<DataHandlingProps> = ({
           </table>
         </div>
       </div>
+             </>
+        )
+      }
+
     </div>
   );
 };

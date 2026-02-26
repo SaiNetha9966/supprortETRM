@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import svgPaths from '../../../imports/svg-ncq7ewl48m';
 import { OffboardingImpactTool } from '../Utils/UiUtilis';
+import svgPathsAlert from '../../../imports/svg-m590sprq1z';
 
 interface ToolsCardInterface {
   selectOffboadingScope: string;
@@ -24,6 +25,11 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({
       prev.includes(toolName) ? prev.filter((name) => name !== toolName) : [...prev, toolName]
     );
   };
+  const AlertIcon: React.FC = () => (
+    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+      <path d={svgPathsAlert.p341e8200} fill="#006176" />
+    </svg>
+  );
 
   return (
     <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm mb-6">
@@ -36,7 +42,18 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({
           <p className="text-[#727272] text-[16px] font-normal font-['Roboto',sans-serif]">
             All tools listed below will be offboarded once this request is approved.
           </p>
+                  {
+          selectOffboadingScope ===  'tools' && (
+                <div className="info-alert-blue">
+                  <AlertIcon />
+                  <span>
+                    Users will lose access only to the offboarded tools.
+                  </span>
+                </div>
+          )
+        }
         </div>
+
 
         {/* Tools Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
