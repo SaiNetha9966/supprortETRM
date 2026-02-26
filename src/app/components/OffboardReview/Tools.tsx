@@ -15,7 +15,7 @@ function ToolItem({ name, platform, status }: ToolItemProps) {
       <p className="font-bold text-[15px] text-[#4a4a4a]">{name}</p>
       <p className="font-normal text-[15px] text-[#4a4a4a] leading-5">{platform}</p>
       <div className="bg-[#FFEBED] border border [#F1B5B7] rounded-full px-2.5 h-6 flex items-center w-fit">
-        <span className="font-normal text-[12px] text-[] leading-none">{status}</span>
+        <span className="font-normal text-[12px] text-[#BF494E] leading-none">{status}</span>
       </div>
     </div>
   );

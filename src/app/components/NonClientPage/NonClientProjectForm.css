@@ -160,7 +160,14 @@
     line-height: 19px;
     font-weight: 500;
 }
-
+.info-alert-span{
+    color:  #3B4648;
+font-family: Roboto;
+font-size: 14px;
+font-style: normal;
+font-weight: 500;
+line-height: 19px; /* 135.714% */
+}
 .alert-icon {
     width: 20px;
     height: 20px;

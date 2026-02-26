@@ -87,7 +87,7 @@ export const OffBoardingSideBar: React.FC<SidebarProps> = ({
       <div className={`${styles.overlay} ${isOpen ? styles.show : ''}`} onClick={onClose} />
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <h2 className={styles.title}>
-          {purpose === 'offboarding' ? "Non Client Project Offboarding" : 'Non Client Existing Project'}
+          {purpose === 'offboarding' ? "Internal Technology Request Form Offboarding" : 'Non Client Existing Project'}
         </h2>
         <nav>
           {menuItems.map((item) => (

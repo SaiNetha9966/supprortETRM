@@ -53,13 +53,22 @@ const OffboardingScope: React.FC<OffbordingScopeProps> = ({
         </div>
       )}
       {selectOffboadingScope === 'tools' && (
-        <div className="info-offboard">
-          <AlertIcon />
-          <span className="info-span">
-            You are offboarding selected tools only. Users will retain access to the project and
-            remaining tools.
-          </span>
-        </div>
+
+
+<div className="info-offboard">
+  <AlertIcon />
+  <span className="info-span">
+    <span className="retention-text">
+      You are offboarding selected tools only.
+    </span>
+  
+       <span className="offboarding-text">
+       Users will retain access to the project and remaining tools.
+    </span>
+  </span>
+</div>
+
+
       )}
 
       {selectOffboadingScope === 'users' && (

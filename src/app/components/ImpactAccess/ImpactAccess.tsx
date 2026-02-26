@@ -20,11 +20,16 @@ export const ImpactAccess: React.FC<ImpactAccessProps> = ({
   return (
     <div>
       <div>
-        <ToolsCard
+        {
+          selectOffboadingScope !== 'users' && (
+          <ToolsCard
           selectOffboadingScope={selectOffboadingScope}
           selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
           setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
         />
+          )
+        }
+       
         {selectOffboadingScope === 'users' && (
           <RemovalOptionsCard
             onRemoveOptionChange={onRemoveOptionChange}

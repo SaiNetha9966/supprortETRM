@@ -149,9 +149,8 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                 {purpose === 'offboarding' && (
                   <div className="info-alert">
                     <AlertIcon />
-                    <span>
-                      This request will revoke tool access, user access,or project access for an
-                      existing non-client project
+                    <span className='info-alert-span'>
+                      Click Continue to Form to provide offboarding scope.
                     </span>
                   </div>
                 )}
