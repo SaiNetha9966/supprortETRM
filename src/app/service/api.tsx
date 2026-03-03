@@ -142,7 +142,7 @@ export async function fetchExistingProjectMetadata(idOrName: string,token:string
         },
       }
     );
-=    return response.data;
+    return response.data;
   } catch (error: any) {
     console.error(
       'Error fetching existing project metadata:',
