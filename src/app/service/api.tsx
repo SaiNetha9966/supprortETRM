@@ -99,8 +99,6 @@ export async function fetchNonClientNewProject(token: string) {
         },
       }
     );
-
-    console.log('API response:', response.data);
     return response.data;
   } catch (error: any) {
     console.error('Error fetching data:', error?.response?.data || error?.message);
@@ -123,7 +121,6 @@ export async function submitNonClientNewProject(formData: any,token:string) {
         },
       }
     );
-    console.log('POST API response:', response.data);
     return response.data;
   } catch (error: any) {
     console.error('Error posting data:', error?.response?.data || error?.message);
@@ -145,8 +142,7 @@ export async function fetchExistingProjectMetadata(idOrName: string,token:string
         },
       }
     );
-    console.log('Existing project metadata response:', response.data);
-    return response.data;
+=    return response.data;
   } catch (error: any) {
     console.error(
       'Error fetching existing project metadata:',
@@ -238,3 +234,26 @@ export const generateToken = async () => {
     }
   }
 };
+
+
+export async function submitOffboardingRequest(payload: any, token: string) {
+  console.log("payload" , payload)
+  try {
+    const response = await axios.post(
+      'https://apim-alixdev.alixpartners.com/etrm/v1/etrm_interoperatibility/offboard',
+      payload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Ocp-Apim-Subscription-Key': subscriptionKey,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    console.log('Offboarding POST API response:', response.data);
+    return response.data;
+  } catch (error: any) {
+    console.error('Error posting offboarding data:', error?.response?.data || error?.message);
+    throw error;
+  }
+}

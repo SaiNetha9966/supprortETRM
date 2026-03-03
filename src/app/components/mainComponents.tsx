@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { fetchNonClientNewProject, submitNonClientNewProject } from '../service/api';
+import { fetchNonClientNewProject, submitNonClientNewProject, submitOffboardingRequest } from '../service/api';
 import { Header } from './Header/Header';
 import { Sidebar } from './SideBar/Sidebar';
 import { SubmissionSuccess } from './SubmissionSuccess/SubmissionSuccess';
@@ -90,11 +90,6 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   };
 
   const handleContinue = async () => {
-    // console.log("handleContinue")
-    // console.log("currentStep", currentStep)
-    // console.log("existingProject",existingProject)
-    // console.log("existingProjectDetailsFormData", existingProjectDetailsFormData?.selectedProjectKey)
-    // console.log("purpose" , )
     // if (
     //   currentStep === 'project-details' &&
     //   existingProject === 'yes' &&
@@ -255,6 +250,33 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   //   }
   //   loadData();
   // }, []);
+
+
+  const handleOffBoardingFormSubmit = async () => {
+    // dummy payload matching backend spec
+      const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
+
+    const payload = {
+      number: searchValue,
+      state: '1',
+      request_status: 'Offboarding - Requested',
+      substate: 'Archive',
+      offboard_namevalue: [
+        {
+          'Vismit Ambre': ['Azure OpenAI'],
+          'Navneet Agarwal': ['Azure OpenAI'],
+        },
+      ],
+    };
+    // dummy payload 
+    try {
+      const response = await submitOffboardingRequest(payload, token);
+      console.log('Offboarding API success:', response);
+    } catch (error) {
+      console.error('Offboarding API error:', error);
+    }
+  }
+
 
   const [formData, setFormData] = useState({
     ertmProjectId: 'PRJ-8YV03FK',
@@ -531,6 +553,8 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                   onContinue={handleContinue}
                   isBackButtinShoewn={true}
                   isSubmitDisabled={true}
+                  handleOffBoardingFormSubmit={handleOffBoardingFormSubmit}
+                  purpose={purpose}
                   // disableContinue={!formData.confirmation}
                 />
               </>

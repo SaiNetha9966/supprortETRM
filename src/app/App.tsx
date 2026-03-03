@@ -16,9 +16,6 @@ export default function App() {
         if (!token) return;
 
         setAccessToken(token);
-
-        console.log('token', token);
-
         const projectInfo = await fetchNonClientNewProject(token);
         setNonClientNewProjectData(projectInfo);
         console.log(projectInfo);

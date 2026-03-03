@@ -20,7 +20,7 @@ interface User {
 
 interface UsersSummaryProps {
   selectOffboadingScope: string;
-  initialUsers: User[];
+  initialUsers: any;
 }
 
 function UserCard({ name, email, access, status }: UserCardProps) {
@@ -157,9 +157,8 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
           )}
         </div>
 
-        {/* Dynamically render UserCards */}
         <div className="flex flex-col gap-4">
-          {initialUsers.map((user) => (
+          {initialUsers.map((user : any) => (
             <UserCard
               key={user.id}
               name={user.name}
