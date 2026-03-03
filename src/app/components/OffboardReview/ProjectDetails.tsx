@@ -1,4 +1,5 @@
 import svgPaths from '../../../imports/svg-0ywn1y5h0h';
+import { formatDate } from '../Utils/UiUtilis';
 
 interface FieldProps {
   label: string;
@@ -6,6 +7,8 @@ interface FieldProps {
 }
 interface ProjectDetailsProps {
   selectOffboadingScope: string;
+  existingProject:any;
+  searchValue:string;
 }
 
 function Field({ label, value }: FieldProps) {
@@ -17,7 +20,7 @@ function Field({ label, value }: FieldProps) {
   );
 }
 
-export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboadingScope }) => {
+export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboadingScope,existingProject ,searchValue}) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
@@ -43,20 +46,20 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboading
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Field label="ERTM Project ID" value="PRJ-8YV03FK" />
-          <Field label="SAP Project ID" value="SAP-PRJ001" />
-          <Field label="Project Code Name" value="PCN-0004" />
+          <Field label="ERTM Project ID" value={searchValue}/>
+          <Field label="SAP Project ID" value={existingProject?.sap_project_id} />
+          <Field label="Project Code Name" value={existingProject?.project_code_name} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Field label="Project Type" value="Development" />
-          <Field label="Estimated Start Date" value="January 7th, 2026" />
-          <Field label="Estimated End Date" value="January 30th, 2026" />
+          <Field label="Project Type" value={existingProject?.project_type} />
+          <Field label="Estimated Start Date" value= { formatDate(existingProject?.estimated_start_date)} />
+          <Field label="Estimated End Date" value= { formatDate(existingProject?.estimated_end_date)} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Field label="Is Personal or Protected Data Involved?" value="Yes" />
-          <Field label="Project Description" value="Not provided" />
+          <Field label="Is Personal or Protected Data Involved?" value= {existingProject?.are_you_planning_to_use_any_personal_or_protected_data} />
+          <Field label="Project Description" value= {existingProject?.please_describe} />
         </div>
       </div>
     </section>

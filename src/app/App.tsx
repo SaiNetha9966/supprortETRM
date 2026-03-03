@@ -37,7 +37,7 @@ export default function App() {
 
   return (
     <>
-      <MainComponent nonClientNewProjectData={nonClientNewProjectData} />
+      <MainComponent nonClientNewProjectData={nonClientNewProjectData} token={accessToken} />
     </>
   );
 }

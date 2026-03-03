@@ -7,18 +7,15 @@ interface ToolsCardInterface {
   selectOffboadingScope: string;
   selectedOffBoardngImpactTools: string[];
   setSelectedOffBoardingImpactTools: React.Dispatch<React.SetStateAction<string[]>>;
+  existingtools:OffboardingImpactTool[]
 }
 
 export const ToolsCard: React.FC<ToolsCardInterface> = ({
   selectOffboadingScope,
   selectedOffBoardngImpactTools,
   setSelectedOffBoardingImpactTools,
+  existingtools
 }) => {
-  const tools: OffboardingImpactTool[] = [
-    { name: 'Teams Site', platform: 'AP Platform' },
-    { name: 'Tool Builder', platform: 'AP Platform' },
-    { name: 'Company Health Check', platform: 'AP Platform' },
-  ];
 
   const toggleToolSelection = (toolName: string) => {
     setSelectedOffBoardingImpactTools((prev) =>
@@ -31,6 +28,7 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({
     </svg>
   );
 
+  
   return (
     <div className="bg-white rounded-lg p-4 md:p-6 shadow-sm mb-6">
       <div className="flex flex-col gap-6 md:gap-8">
@@ -57,7 +55,7 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({
 
         {/* Tools Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {tools.map((tool, index) => {
+          {existingtools.map((tool, index) => {
             const isSelected = selectedOffBoardngImpactTools.includes(tool.name);
             return (
               <div

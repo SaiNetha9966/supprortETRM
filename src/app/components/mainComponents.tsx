@@ -31,9 +31,10 @@ type StepType =
 
 interface MainComponentProps {
   nonClientNewProjectData: any;
+  token:string;
 }
 
-export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjectData }) => {
+export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjectData,token }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   const [purpose, setPurpose] = useState<string>('');
@@ -49,11 +50,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [selectedOffBoardngImpactTools, setSelectedOffBoardingImpactTools] = useState<string[]>([]);
   const [toolsNameChecked, setToolNameChecked] = useState<boolean>(false);
-  const [dataHandlingtools, setDataHandlingTools] = useState<DataHandlingTool[]>([
-    { id: '1', name: 'Tools Site', action: '', checked: false },
-    { id: '2', name: 'Tools Builders', action: '', checked: false },
-    { id: '3', name: 'Company Health Check', action: '', checked: false },
-  ]);
+  const [dataHandlingtools, setDataHandlingTools] = useState<DataHandlingTool[]>([]);
   const [offBoardconfirmation, setOffBoardConfirmation] = useState<OffBoardConfirmationState>({
     isAuthorized: false,
     isIunderstand: false,
@@ -93,19 +90,26 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   };
 
   const handleContinue = async () => {
-    if (
-      currentStep === 'project-details' &&
-      existingProject === 'yes' &&
-      existingProjectDetailsFormData?.selectedProjectKey &&
-      purpose === 'offboarding'
-    ) {
-      return;
-    }
+    // console.log("handleContinue")
+    // console.log("currentStep", currentStep)
+    // console.log("existingProject",existingProject)
+    // console.log("existingProjectDetailsFormData", existingProjectDetailsFormData?.selectedProjectKey)
+    // console.log("purpose" , )
+    // if (
+    //   currentStep === 'project-details' &&
+    //   existingProject === 'yes' &&
+    //   existingProjectDetailsFormData?.selectedProjectKey &&
+    //   purpose === 'offboarding'
+    // ) {
+    //   console.log("if")
+    //   return;
+    // }
 
     switch (currentStep) {
       case 'project-details':
         setCurrentStep('tool-configuration');
         setPageTittle(purpose === 'offboarding' ? 'Impact Access' : 'Tool Configuration');
+        console.log("else")
         if (existingProject === 'yes') {
           setPageDesc(
             'Add new tools to the existing project. Existing tools are shown for reference.'
@@ -175,7 +179,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                 }
               : formData;
           console.log('Submission payload:', payload);
-          const response = await submitNonClientNewProject(payload); // <-- call your POST API
+          const response = await submitNonClientNewProject(payload,token); // <-- call your POST API
           console.log('Submission response:', response);
           console.log('Submission successful:', response);
           setCurrentStep('submission-success'); // move to success page
@@ -398,6 +402,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                     setIsOffBoardSideBar={setIsOffBoardSideBar}
                     onSelectOffBoardingScope={handleSelectOffBoardingScope}
                     selectOffboadingScope={selectOffboadingScope}
+                    token={token}
                   />
                 ) : (
                   <ProjectDetails
@@ -411,9 +416,9 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                   onContinue={handleContinue}
                   isContinueDisabled={true}
                    isBackButtinShoewn={true}
-                  // disableContinue={existingProject === 'yes'
-                  //   ? !existingProjectDetailsFormData?.selectedProjectKey
-                  //   : !formData?.projectCodeName}
+                  disableContinue={existingProject === 'yes'
+                    ? !existingProjectDetailsFormData?.selectedProjectKey
+                    : !formData?.projectCodeName}
                 />
               </>
             )}
@@ -429,10 +434,12 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                       selectOffboadingScope={selectOffboadingScope}
                       selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
                       setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
+                        existingProjectMetadata={existingProjectMetadata}
+                          existingProjectDetailsFormData={existingProjectDetailsFormData}
                     />
                   ) : (
                     <ExistingToolConfiguration
-                      data={nonClientNewProjectDatadata}
+                      data={nonClientNewProjectData}
                       existingProjectMetadata={existingProjectMetadata}
                       existingToolFormData={existingToolFormData}
                       setExistingToolFormData={setExistingToolFormData}
@@ -467,6 +474,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                     setDataHandlingTools={setDataHandlingTools}
                     toolsNameChecked={toolsNameChecked}
                     setToolNameChecked={setToolNameChecked}
+                    existingProjectMetadata={existingProjectMetadata}
                   />
                 ) : (
                   <AccessApproval
@@ -498,6 +506,9 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                     selectOffboadingScope={selectOffboadingScope}
                     offBoardconfirmation={offBoardconfirmation}
                     setOffBoardConfirmation={setOffBoardConfirmation}
+                    dataHandlingtools={dataHandlingtools}
+                    existingProjectDetailsFormData={existingProjectDetailsFormData}
+                    existingProjectMetadata={existingProjectMetadata}
                   />
                 ) : (
                   <ReviewSubmit

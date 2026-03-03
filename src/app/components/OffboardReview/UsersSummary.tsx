@@ -7,8 +7,20 @@ interface UserCardProps {
   status: 'offboarded' | 'no-change';
 }
 
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  accessLevel: string;
+  toolCount: number;
+  status: 'offboarded' | 'no-change';
+  tools: string[];
+  selected: boolean;
+}
+
 interface UsersSummaryProps {
   selectOffboadingScope: string;
+  initialUsers: User[];
 }
 
 function UserCard({ name, email, access, status }: UserCardProps) {
@@ -61,7 +73,8 @@ function UserCard({ name, email, access, status }: UserCardProps) {
   );
 }
 
-export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScope }) => {
+export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScope, initialUsers }) => {
+
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
@@ -98,6 +111,7 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
               </button>
             )}
           </div>
+
           {selectOffboadingScope === 'users' && (
             <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
               <div className="flex gap-1.5">
@@ -114,8 +128,7 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
                   </div>
                 </div>
                 <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                  Selected users will lose access to this project. Project tools and data will
-                  remain unchanged.
+                  Selected users will lose access to this project. Project tools and data will remain unchanged.
                 </p>
               </div>
             </div>
@@ -137,33 +150,24 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
                   </div>
                 </div>
                 <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                  These users currently have access to the selected tools and will lose access only
-                  to those tools after approval.
+                  These users currently have access to the selected tools and will lose access only to those tools after approval.
                 </p>
               </div>
             </div>
           )}
         </div>
 
+        {/* Dynamically render UserCards */}
         <div className="flex flex-col gap-4">
-          <UserCard
-            name="Devraj Patel"
-            email="devraj.patel@company.com"
-            access="Full Access (3 Tools)"
-            status="offboarded"
-          />
-          <UserCard
-            name="Marcus Holloway"
-            email="marcus.holloway@company.com"
-            access="Full Access (3 Tools)"
-            status="no-change"
-          />
-          <UserCard
-            name="Javier Ramirez"
-            email="javier.ramirez@email.com"
-            access="Limited Access (2 Tools)"
-            status="no-change"
-          />
+          {initialUsers.map((user) => (
+            <UserCard
+              key={user.id}
+              name={user.name}
+              email={user.email}
+              access={`${user.accessLevel} (${user.toolCount} Tools)`}
+              status={user.status as 'offboarded' | 'no-change'}
+            />
+          ))}
         </div>
       </div>
     </section>

@@ -1,5 +1,5 @@
 import svgPaths from '../../../imports/svg-rl9qnronrk';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { DataHandlingTool } from '../Utils/UiUtilis';
 import svgPathsAlert from '../../../imports/svg-m590sprq1z';
 
@@ -9,6 +9,7 @@ interface DataHandlingProps {
   dataHandlingtools: DataHandlingTool[];
   toolsNameChecked: boolean;
   setToolNameChecked: React.Dispatch<React.SetStateAction<boolean>>;
+  existingProjectMetadata:any;
 }
 
   const AlertIcon: React.FC = () => (
@@ -22,7 +23,10 @@ export const DataHandling: React.FC<DataHandlingProps> = ({
   setDataHandlingTools,
   toolsNameChecked,
   setToolNameChecked,
+  existingProjectMetadata
 }) => {
+
+    const existingtools: any| null = existingProjectMetadata?.result?.existingtools?? null;
   // Toggle all checkboxes
   const handleCheckAll = () => {
     const newChecked = !toolsNameChecked;
@@ -46,6 +50,18 @@ export const DataHandling: React.FC<DataHandlingProps> = ({
 
   // Example: get all selected tools with their actions
   const selectedToolsWithActions = dataHandlingtools.filter((t) => t.checked && t.action);
+
+    useEffect(() => {
+    if (existingtools?.length) {
+      const formatted: DataHandlingTool[] = existingtools.map((toolName: any, index: number) => ({
+        id: (index + 1).toString(),
+        name: toolName,
+        action: "",
+        checked: false,
+      }));
+      setDataHandlingTools(formatted);
+    }
+  }, [existingProjectMetadata]);
 
   return (
     <div className="bg-white rounded-lg p-6">

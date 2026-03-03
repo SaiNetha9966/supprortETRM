@@ -21,6 +21,7 @@ export const ExistingProjectDetails: React.FC<{
   purpose: string;
   onSelectOffBoardingScope: (value: string) => void;
   selectOffboadingScope: string;
+ token:string;
 }> = ({
   data,
   onMetadataLoaded,
@@ -30,6 +31,7 @@ export const ExistingProjectDetails: React.FC<{
   setIsOffBoardSideBar,
   onSelectOffBoardingScope,
   selectOffboadingScope,
+  token
 }) => {
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
   const selectedProjectKey: string = existingProjectDetailsFormData?.selectedProjectKey ?? '';
@@ -50,7 +52,7 @@ export const ExistingProjectDetails: React.FC<{
     if (!selectedProjectKey) return;
     const loadMetadata = async () => {
       try {
-        const response = await fetchExistingProjectMetadata(selectedProjectKey);
+        const response = await fetchExistingProjectMetadata(selectedProjectKey,token);
         const metadata =
           response?.result?.existing_record_id ?? response?.result ?? response ?? null;
         setExistingProjectDetailsFormData((prev: any) => ({

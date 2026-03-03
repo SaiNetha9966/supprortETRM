@@ -109,7 +109,7 @@ export async function fetchNonClientNewProject(token: string) {
   }
 }
 
-export async function submitNonClientNewProject(formData: any) {
+export async function submitNonClientNewProject(formData: any,token:string) {
   try {
     const apiPayload = mapFormDataToApiPayload(formData);
     const response = await axios.post(
@@ -131,7 +131,7 @@ export async function submitNonClientNewProject(formData: any) {
   }
 }
 
-export async function fetchExistingProjectMetadata(idOrName: string) {
+export async function fetchExistingProjectMetadata(idOrName: string,token:string) {
   try {
     const response = await axios.get(
       `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_request_existing_metadata/getexistingprojectids/${encodeURIComponent(

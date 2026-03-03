@@ -8,6 +8,8 @@ interface ImpactAccessProps {
   onRemoveOptionChange: (value: string) => void;
   selectedOffBoardngImpactTools: string[];
   setSelectedOffBoardingImpactTools: React.Dispatch<React.SetStateAction<string[]>>;
+   existingProjectMetadata?: any;
+     existingProjectDetailsFormData: any;
 }
 
 export const ImpactAccess: React.FC<ImpactAccessProps> = ({
@@ -16,7 +18,11 @@ export const ImpactAccess: React.FC<ImpactAccessProps> = ({
   selectedOption,
   selectedOffBoardngImpactTools,
   setSelectedOffBoardingImpactTools,
+  existingProjectMetadata,
+  existingProjectDetailsFormData
 }) => {
+    const existingtools: any| null = existingProjectMetadata?.result?.existingtools?.map((tool: any) => ({ name: tool, platform: "AP Platform"  })) ?? null;
+    const userCardDetails = existingProjectDetailsFormData?.existingProject?.namevalue?? null;
   return (
     <div>
       <div>
@@ -26,6 +32,7 @@ export const ImpactAccess: React.FC<ImpactAccessProps> = ({
           selectOffboadingScope={selectOffboadingScope}
           selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
           setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
+          existingtools={existingtools}
         />
           )
         }
@@ -37,9 +44,9 @@ export const ImpactAccess: React.FC<ImpactAccessProps> = ({
           />
         )}
         {selectOffboadingScope === 'users' ? (
-          selectedOption && <UsersCard  selectOffboadingScope={selectOffboadingScope} />
+          selectedOption && <UsersCard  selectOffboadingScope={selectOffboadingScope}  userCardDetails={userCardDetails}/>
         ) : (
-          <UsersCard selectOffboadingScope={selectOffboadingScope} />
+          <UsersCard selectOffboadingScope={selectOffboadingScope} userCardDetails={userCardDetails} />
         )}
       </div>
     </div>
