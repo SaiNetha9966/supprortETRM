@@ -321,11 +321,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
             </div>
             <div className={styles.detailItem}>
               <div className={styles.label}>Describe your project and its goals.</div>
-              <div className={styles.value}>
-                {isExistingProject
-                  ? (existingRecord?.please_describe ?? existingRecord?.description)
-                  : formData.description}
-              </div>
+              <div className={styles.value}>{isExistingProject ? (existingRecord?.short_description ?? existingRecord?.description) : formData.description}</div>
             </div>
           </div>
         </div>

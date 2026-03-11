@@ -139,7 +139,7 @@ export async function fetchExistingProjectMetadata(idOrName: string,token:string
           Authorization: `Bearer ${token}`,
           'Ocp-Apim-Subscription-Key': subscriptionKey,
           'Content-Type': 'application/json',
-        },
+        }, 
       }
     );
     return response.data;

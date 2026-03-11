@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Search } from 'lucide-react';
 import styles from './ExistingProjectDetails.module.css';
 import svgPaths from '../../../imports/svg-m590sprq1z';
@@ -33,6 +33,7 @@ export const ExistingProjectDetails: React.FC<{
   selectOffboadingScope,
   token
 }) => {
+  const [isDraftProject, setIsDraftProject] = useState(false);
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
   const selectedProjectKey: string = existingProjectDetailsFormData?.selectedProjectKey ?? '';
   const existingProject: any | null = existingProjectDetailsFormData?.existingProject ?? null;
@@ -55,6 +56,8 @@ export const ExistingProjectDetails: React.FC<{
         const response = await fetchExistingProjectMetadata(selectedProjectKey,token);
         const metadata =
           response?.result?.existing_record_id ?? response?.result ?? response ?? null;
+        const state = response?.result?.existing_record_id?.state;
+        setIsDraftProject(state === "0");
         setExistingProjectDetailsFormData((prev: any) => ({
           ...prev,
           existingProject: metadata,
@@ -79,6 +82,13 @@ export const ExistingProjectDetails: React.FC<{
   });
 
   const hasMatch = Boolean(existingProject);
+  
+  const getProjectTypeLabel = (value: string) => {
+    const projectTypeOptions = data?.result?.what_type_of_project ?? [];
+    const found = projectTypeOptions.find((option: any) => option.value === value);
+    return found?.label ?? value ?? '';
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.header}>
@@ -174,7 +184,7 @@ export const ExistingProjectDetails: React.FC<{
           <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Project Type</p>
             <p className={styles.detailValue}>
-              {existingProject?.project_type ?? existingProject?.projectType ?? ''}
+              <p className={styles.detailValue}>{existingProject?.what_type_of_project ?? ''}</p>
             </p>
           </div>
           <div className={styles.detailCard}>

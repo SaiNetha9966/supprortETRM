@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ToolCard from './ToolCard';
 import ToolConfigForm from './ToolConfigForm';
 import AddToolsModal from './AddToolsModal';
@@ -18,11 +18,13 @@ export default function ExistingToolConfiguration({
   existingProjectMetadata,
   existingToolFormData,
   setExistingToolFormData,
+  isDraftProject,
 }: {
   data?: any;
   existingProjectMetadata?: any;
   existingToolFormData: any;
   setExistingToolFormData: React.Dispatch<React.SetStateAction<any>>;
+  isDraftProject: boolean;
 }) {
   const allToolsFromApi: Tool[] = data?.result?.tools ?? [];
   const existingToolKeys: string[] = existingProjectMetadata?.result?.existingtools ?? [];

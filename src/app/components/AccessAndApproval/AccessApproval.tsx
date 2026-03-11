@@ -14,6 +14,7 @@ interface AccessApprovalProps {
   formData: any;
   setFormData: React.Dispatch<React.SetStateAction<any>>;
   handleChange: (field: string, value: string | string[]) => void;
+  isDraftProject: boolean;
 }
 
 const approverRoles = [
@@ -33,6 +34,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
   formData,
   setFormData,
   handleChange,
+  isDraftProject,
 }) => {
   const [userEmail, setUserEmail] = useState('');
   const [toolsAccess, setToolsAccess] = useState<string[]>([]);
@@ -263,48 +265,54 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       .map((user: any) => user.name);
   };
 
+  // Helper function to get tooltip from API information
+  const getTooltipText = (informationKey: string): string => {
+    const text = data?.result?.information?.[informationKey] || '';
+    return text.trim();
+  };
+
   // Approver fields config
   const approverFields = [
     {
       label: 'Primary PMD/Partner',
       field: 'primaryPmdPartner',
       role: 'Partner - Managing Director',
-      tooltip: 'Primary approver for this request.',
+      informationKey: 'managing_director',
       isMultiple: false,
     },
     {
       label: 'Secondary PMD/Partner',
       field: 'secondoryPmdPartner',
       role: 'Secondary Partner Managing Director',
-      tooltip: 'Acts as an alternate approver if applicable.',
+      informationKey: 'secondary_managing_director',
       isMultiple: false,
     },
     {
       label: 'Information Owner',
       field: 'informationOwner',
       role: 'Information Owner',
-      tooltip: 'Acts on behalf of the information owner.',
+      informationKey: 'md',
       isMultiple: false,
     },
     {
       label: 'Delegate Information Owner',
       field: 'delegateIformationOwner',
       role: 'Delegate Information Owner',
-      tooltip: 'Acts on behalf of the Information Owner',
+      informationKey: 'delegated_information_owner',
       isMultiple: false,
     },
     {
       label: 'Project Manager',
       field: 'projectManager',
       role: 'Project Manager',
-      tooltip: 'Primary operational contact for the project.',
+      informationKey: 'project_manager',
       isMultiple: false,
     },
     {
       label: 'Approvers',
       field: 'approvers',
       role: 'Approvers',
-      tooltip: 'Additional approvers may be required based on selected tools or data sensitivity.',
+      informationKey: 'approvers',
       isMultiple: true,
     },
   ];
@@ -321,13 +329,43 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     setUserEmailSuggestions([]);
   };
 
+  // suggestions helper for managing directors
+  const getMDNameSuggestions = (input: string) => {
+    if (!input) return [];
+    const list: any[] = data?.result?.managing_director || [];
+    return list
+      .filter((md) =>
+        md?.name?.toLowerCase().includes(input.toLowerCase()) ||
+        md?.emailID?.toLowerCase().includes(input.toLowerCase())
+      )
+      .map((md) => md.name);
+  };
+
+  // suggestions helper for secondary managing directors
+  const getSecondaryMDNameSuggestions = (input: string) => {
+    if (!input) return [];
+    const list: any[] = data?.result?.secondary_managing_director || [];
+    return list
+      .filter((md) =>
+        md?.name?.toLowerCase().includes(input.toLowerCase()) ||
+        md?.emailID?.toLowerCase().includes(input.toLowerCase())
+      )
+      .map((md) => md.name);
+  };
+
   // Handle approver input change (for all fields)
-  const handleApproverInputChange = (
-    role: string,
-    field: string,
-    value: string,
-    isMultiple: boolean
-  ) => {
+  const handleApproverInputChange = (role: string, field: string, value: string, isMultiple: boolean) => {
+    // determine suggestion source based on role
+    const getSuggestions = () => {
+      if (role === 'Partner - Managing Director') {
+        return getMDNameSuggestions(value);
+      }
+      if (role === 'Secondary Partner Managing Director') {
+        return getSecondaryMDNameSuggestions(value);
+      }
+      return getNameSuggestions(value);
+    };
+
     if (isMultiple) {
       // Track the search input separately
       setApproverSearchInput((prev) => ({
@@ -337,14 +375,14 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       // Show suggestions based on input
       setApproverSuggestions((prev) => ({
         ...prev,
-        [role]: getNameSuggestions(value),
+        [role]: getSuggestions(),
       }));
     } else {
       // For single selection
       handleChange(field, value);
       setApproverSuggestions((prev) => ({
         ...prev,
-        [role]: getNameSuggestions(value),
+        [role]: getSuggestions(),
       }));
     }
   };
@@ -586,15 +624,15 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
 
           {/* Approver Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
-            {approverFields.map(({ label, field, role, tooltip, isMultiple }) => (
+            {approverFields.map(({ label, field, role, informationKey, isMultiple }) => (
               <div className="relative" key={field}>
                 <SearchInput
                   label={label}
                   required
                   value={formData[field]}
                   onChange={(val) => handleApproverInputChange(role, field, val, isMultiple)}
-                  tooltip={tooltip}
-                  disabled={existingProject === 'yes'}
+                  tooltip={getTooltipText(informationKey)}
+                  disabled={existingProject === 'yes' && !isDraftProject}
                 />
                 {approverSuggestions[role]?.length > 0 && (
                   <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg top-full">
@@ -717,9 +755,9 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleRemoveUser(index)}
-                          disabled={existingProject === 'yes' && existingUserNameSet.has(user.name)}
+                          disabled={existingProject === 'yes' && existingUserNameSet.has(user.name) && !isDraftProject}
                           className={`text-[#d32f2f] px-3 py-1 rounded font-['Roboto',sans-serif] text-sm font-medium flex items-center gap-1 whitespace-nowrap ${
-                            existingProject === 'yes' && existingUserNameSet.has(user.name)
+                            existingProject === 'yes' && existingUserNameSet.has(user.name) && !isDraftProject
                               ? 'opacity-50 cursor-not-allowed'
                               : 'hover:bg-[#ffebee]'
                           }`}

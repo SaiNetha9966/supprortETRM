@@ -106,20 +106,21 @@ export const mapFormDataToApiPayload = (formData: any) => {
 
   return {
     number: formData.number,
-    sap_project_id: formData.sapProjectId,
+    non_client_project: "non_client_project",
+    project_id: formData.sapProjectId,
     codename: formData.projectCodeName,
     what_type_of_project: formData.projectType,
     estimated_start_date: formatDate(formData.estimatedStartDate),
     estimated_end_date: formatDate(formData.estimatedEndDate),
-    are_you_planning_to_use_any_personal_or_protected_data: formData.personalOrprotectedData,
-    please_describe: formData.description,
-    requested_by: 'Navneet Agarwal',
+    collecting_personal_data: formData.personalOrprotectedData,
+    short_description: formData.description,
+    opened_by: 'Navneet Agarwal',
     tools: formData.selectedTools.map((tool: any) => ({
       tool_id: tool.ToolId ?? tool.toolId ?? tool.id,
       trust_external_domain: tool.trustExternalDomain || '',
       external_domain_name: tool.externalDomainName || '',
     })),
-    custom_tool_request: formData.customToolRequest,
+    custom: formData.customToolRequest,
     managing_director: formData.primaryPmdPartner,
     secondary_managing_director: formData.secondoryPmdPartner,
     md: formData.informationOwner,
@@ -129,6 +130,9 @@ export const mapFormDataToApiPayload = (formData: any) => {
     namevalue: normalizeNameValuePairs(formData.nameValuePairs),
     memo_to_approving_md: formData.memoToApprovainMd,
     confirmation: formData.confirmation ? 'yes' : 'no',
+    state: formData.state ?? 1,
+    technology_request_type: "Internal",
+    request_status: formData.state === 0 ? null : "Onboarding - Requested",
   };
 };
 

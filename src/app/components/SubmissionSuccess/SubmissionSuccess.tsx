@@ -3,9 +3,12 @@ import styles from './SubmissionSuccess.module.css';
 
 interface SubmissionSuccessProps {
   onDashboard?: () => void;
+  apiResponse?: any;
 }
 
-export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onDashboard }) => {
+export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onDashboard, apiResponse }) => {
+  const projectNumber = apiResponse?.result?.project_number || apiResponse?.result?.number || 'Your request';
+
   return (
     <div className={styles.container}>
       <div className={styles.card}>
@@ -36,6 +39,12 @@ export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onDashboar
           </div>
 
           <h2 className={styles.message}>Request form submitted</h2>
+
+          {projectNumber && projectNumber !== 'Your request' && (
+            <div className={styles.description}>
+              <p><strong>ERTM Project ID:</strong> {projectNumber}</p>
+            </div>
+          )}
 
           <div className={styles.description}>
             <p>Setting up your new request may take up to 48 hours</p>

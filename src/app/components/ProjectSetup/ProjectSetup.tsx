@@ -40,7 +40,7 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({
         projectType: existingRecord?.project_type ?? formData.projectType,
         estimatedStartDate: existingRecord?.estimated_start_date ?? formData.estimatedStartDate,
         estimatedEndDate: existingRecord?.estimated_end_date ?? formData.estimatedEndDate,
-        description: existingRecord?.please_describe ?? formData.description,
+        description: existingRecord?.short_description ?? formData.description,
         selectedTools,
         customToolRequest: existingToolFormData?.customToolRequest ?? formData.customToolRequest,
       }

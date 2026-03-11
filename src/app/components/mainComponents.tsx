@@ -46,6 +46,44 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   const [existingProjectMetadata, setExistingProjectMetadata] = useState<any | null>(null);
   const [isOffBoardSideBar, setIsOffBoardSideBar] = useState<boolean>(false);
   const [selectOffboadingScope, setSelectOffboadingScope] = useState<string>('');
+  const [isDraftProject, setIsDraftProject] = useState<boolean>(false);
+
+  const handleMetadataLoaded = (metadata: any) => {
+    setExistingProjectMetadata(metadata);
+    const state = metadata?.result?.existing_record_id?.state;
+    const isDraft = state == 0; // Use loose equality for string or number
+    console.log('Metadata loaded, state:', state, 'isDraft:', isDraft);
+    setIsDraftProject(isDraft);
+    if (isDraft) {
+      const record = metadata?.result?.existing_record_id;
+      const projectTypes = nonClientNewProjectData?.result?.what_type_of_project || [];
+      const foundProjectType = projectTypes.find((t: any) => t.label === record?.what_type_of_project);
+      setFormData({
+        ...formData,
+        ertmProjectId: existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
+        sapProjectId: record?.sap_project_id || formData.sapProjectId,
+        projectCodeName: record?.project_code_name || formData.projectCodeName,
+        projectType: foundProjectType?.value || formData.projectType,
+        estimatedStartDate: record?.estimated_start_date || formData.estimatedStartDate,
+        estimatedEndDate: record?.estimated_end_date || formData.estimatedEndDate,
+        personalOrprotectedData: (record?.are_you_planning_to_use_any_personal_or_protected_data || '').toLowerCase() || formData.personalOrprotectedData,
+        description: record?.please_describe || formData.description,
+        selectedTools: record?.selected_tools || formData.selectedTools,
+        customToolRequest: record?.custom_tool_request || formData.customToolRequest,
+        toolsSpecifications: record?.tools_specifications || formData.toolsSpecifications,
+        primaryPmdPartner: record?.managing_director || formData.primaryPmdPartner,
+        secondoryPmdPartner: record?.secondary_managing_director || formData.secondoryPmdPartner,
+        informationOwner: record?.md || formData.informationOwner,
+        delegateIformationOwner: record?.delegated_information_owner || formData.delegateIformationOwner,
+        projectManager: record?.project_manager || formData.projectManager,
+        approvers: record?.approvers || formData.approvers,
+        userSelectionsAndToolAcees: Array.isArray(record?.namevalue) ? record.namevalue : formData.userSelectionsAndToolAcees,
+        memoToApprovainMd: record?.custom || formData.memoToApprovainMd,
+        confirmation: record?.confirmation || formData.confirmation,
+        state: 0,
+      });
+    }
+  };
 
   const [selectedOption, setSelectedOption] = useState<string>('');
   const [selectedOffBoardngImpactTools, setSelectedOffBoardingImpactTools] = useState<string[]>([]);
@@ -56,6 +94,11 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
     isIunderstand: false,
     isIacknowledge: false,
   });
+
+  const [draftProjectId, setDraftProjectId] = useState<string | null>(null);
+  const [saveDraftLoading, setSaveDraftLoading] = useState(false);
+  const [submissionResponse, setSubmissionResponse] = useState<any>(null);
+
 
   const handleRemoveOption = (value: string) => {
     setSelectedOption(value);
@@ -74,6 +117,99 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   const handleDiscard = () => {
     setCurrentStep('project-details');
     setPageTittle('Project Details');
+  };
+
+  const handleSaveDraft = async () => {
+    if (saveDraftLoading) return;
+    
+    setSaveDraftLoading(true);
+    try {
+      const existingRecord = existingProjectMetadata?.result?.existing_record_id
+        ?? existingProjectMetadata?.result
+        ?? existingProjectMetadata
+        ?? null;
+        
+      const payload = existingProject === 'yes'
+        ? {
+            ...formData,
+            number: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
+            ertmProjectId: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
+            sapProjectId: existingRecord?.project_id ?? formData.sapProjectId,
+            projectCodeName: existingRecord?.project_code_name ?? formData.projectCodeName,
+            projectType: existingRecord?.project_type ?? formData.projectType,
+            estimatedStartDate: existingRecord?.estimated_start_date ?? formData.estimatedStartDate,
+            estimatedEndDate: existingRecord?.estimated_end_date ?? formData.estimatedEndDate,
+            personalOrprotectedData: existingRecord?.are_you_planning_to_use_any_personal_or_protected_data ?? formData.personalOrprotectedData,
+            description: existingRecord?.short_description ?? formData.description,
+            selectedTools: existingToolFormData?.selectedTools ?? formData.selectedTools,
+            customToolRequest: existingToolFormData?.customToolRequest ?? formData.customToolRequest,
+            toolsSpecifications: existingToolFormData?.toolsSpecifications ?? formData.toolsSpecifications,
+            inDraft: true,
+            state: 0,
+          }
+        : { 
+            ...formData, 
+            number: draftProjectId || formData.ertmProjectId,
+            ertmProjectId: draftProjectId || formData.ertmProjectId,
+            inDraft: true,
+            state: 0,
+          };
+      
+      console.log('Draft payload:', payload);
+      const response = await submitNonClientNewProject(payload, token);
+      console.log('Draft save response:', response);
+      
+      if (response?.result?.project_number && !draftProjectId) {
+        setDraftProjectId(response.result.project_number);
+        setFormData({ ...formData, ertmProjectId: response.result.project_number });
+      }
+      
+      alert('Draft saved successfully!');
+    } catch (error) {
+      console.error('Error saving draft:', error);
+      alert('Failed to save draft. Please try again.');
+    } finally {
+      setSaveDraftLoading(false);
+    }
+  };
+
+  const isProjectDetailsModified = () => {
+    return !!(
+      formData?.sapProjectId ||
+      formData?.projectCodeName ||
+      formData?.projectType ||
+      formData?.estimatedStartDate ||
+      formData?.estimatedEndDate ||
+      formData?.personalOrprotectedData ||
+      formData?.description
+    );
+  };
+
+  const isToolConfigModified = () => {
+    if (existingProject === 'yes') {
+      return !!(
+        existingToolFormData?.selectedTools?.length > 0 ||
+        existingToolFormData?.customToolRequest ||
+        existingToolFormData?.toolsSpecifications?.length > 0
+      );
+    }
+    return !!(
+      formData?.selectedTools?.length > 0 ||
+      formData?.customToolRequest ||
+      formData?.toolsSpecifications?.length > 0
+    );
+  };
+
+  const isAccessApprovalModified = () => {
+    return !!(
+      formData?.primaryPmdPartner ||
+      formData?.secondoryPmdPartner ||
+      formData?.informationOwner ||
+      formData?.delegateIformationOwner ||
+      formData?.projectManager ||
+      formData?.approvers ||
+      formData?.userSelectionsAndToolAcees?.length > 0
+    );
   };
 
   const handleNonClientContinue = (projectType: string) => {
@@ -152,11 +288,9 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
             existingProject === 'yes'
               ? {
                   ...formData,
-                  number:
-                    existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
-                  ertmProjectId:
-                    existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
-                  sapProjectId: existingRecord?.sap_project_id ?? formData.sapProjectId,
+                  number: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
+                  ertmProjectId: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
+                  sapProjectId: existingRecord?.project_id ?? formData.sapProjectId,
                   projectCodeName: existingRecord?.project_code_name ?? formData.projectCodeName,
                   projectType: existingRecord?.project_type ?? formData.projectType,
                   estimatedStartDate:
@@ -165,18 +299,20 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                   personalOrprotectedData:
                     existingRecord?.are_you_planning_to_use_any_personal_or_protected_data ??
                     formData.personalOrprotectedData,
-                  description: existingRecord?.please_describe ?? formData.description,
+                  description: existingRecord?.short_description ?? formData.description,
                   selectedTools: existingToolFormData?.selectedTools ?? formData.selectedTools,
                   customToolRequest:
                     existingToolFormData?.customToolRequest ?? formData.customToolRequest,
                   toolsSpecifications:
                     existingToolFormData?.toolsSpecifications ?? formData.toolsSpecifications,
+                  state: 1,
                 }
               : formData;
           console.log('Submission payload:', payload);
           const response = await submitNonClientNewProject(payload,token); // <-- call your POST API
           console.log('Submission response:', response);
           console.log('Submission successful:', response);
+          setSubmissionResponse(response);
           setCurrentStep('submission-success'); // move to success page
         } catch (error) {
           console.error('Error submitting project:', error);
@@ -279,7 +415,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
 
 
   const [formData, setFormData] = useState({
-    ertmProjectId: 'PRJ-8YV03FK',
+    ertmProjectId: '',
     sapProjectId: '',
     projectCodeName: '',
     projectType: '',
@@ -382,7 +518,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
               />
             )}
         {currentStep === 'submission-success' && (
-          <SubmissionSuccess onDashboard={handleDashboardReturn} />
+          <SubmissionSuccess onDashboard={handleDashboardReturn} apiResponse={submissionResponse} />
         )}
         <main className={styles.mainContent}>
           <div className={styles.contentWrapper}>
@@ -414,10 +550,10 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
             {/* Step 1: Project Details */}
             {currentStep === 'project-details' && (
               <>
-                {existingProject === 'yes' ? (
+                {existingProject === 'yes' && existingProjectMetadata?.result?.existing_record_id?.state != 0 ? (
                   <ExistingProjectDetails
                     data={nonClientNewProjectData}
-                    onMetadataLoaded={setExistingProjectMetadata}
+                    onMetadataLoaded={handleMetadataLoaded}
                     existingProjectDetailsFormData={existingProjectDetailsFormData}
                     setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
                     purpose={purpose}
@@ -427,15 +563,19 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                     token={token}
                   />
                 ) : (
-                  <ProjectDetails
-                    formData={formData}
-                    handleChange={handleChange}
-                    data={nonClientNewProjectData}
+                  <ProjectDetails 
+                    formData={formData}  
+                    handleChange={handleChange} 
+                    data={nonClientNewProjectData} 
+                    onSaveDraft={handleSaveDraft} 
                   />
                 )}
                 <ActionButtons
                   onDiscard={handleBack}
                   onContinue={handleContinue}
+                  onSaveDraft={isProjectDetailsModified() ? handleSaveDraft : undefined}
+                  saveDraftLoading={saveDraftLoading}
+                  disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isContinueDisabled={true}
                    isBackButtinShoewn={true}
                   disableContinue={existingProject === 'yes'
@@ -465,6 +605,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                       existingProjectMetadata={existingProjectMetadata}
                       existingToolFormData={existingToolFormData}
                       setExistingToolFormData={setExistingToolFormData}
+                      isDraftProject={isDraftProject}
                     />
                   )
                 ) : (
@@ -479,6 +620,9 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                   onDiscard={handleDiscard}
                   onBackButton={handleBack}
                   onContinue={handleContinue}
+                  onSaveDraft={(isProjectDetailsModified() || isToolConfigModified()) ? handleSaveDraft : undefined}
+                  saveDraftLoading={saveDraftLoading}
+                  disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isBackButtinShoewn={true}
                   isContinueDisabled={true}
                   // disableContinue={disableToolConfigContinue}
@@ -507,12 +651,16 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                     data={nonClientNewProjectData}
                     existingProjectMetadata={existingProjectMetadata}
                     existingToolFormData={existingToolFormData}
+                    isDraftProject={isDraftProject}
                   />
                 )}
                 <ActionButtons
                   onDiscard={handleDiscard}
                   onBackButton={handleBack}
                   onContinue={handleContinue}
+                  onSaveDraft={(isProjectDetailsModified() || isToolConfigModified() || isAccessApprovalModified()) ? handleSaveDraft : undefined}
+                  saveDraftLoading={saveDraftLoading}
+                  disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isBackButtinShoewn={true}
                   isContinueDisabled={true}
                   //  disableContinue={disableAccessApprovalContinue}
@@ -551,6 +699,9 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                   onDiscard={handleDiscard}
                   onBackButton={handleBack}
                   onContinue={handleContinue}
+                  onSaveDraft={(isProjectDetailsModified() || isToolConfigModified() || isAccessApprovalModified()) ? handleSaveDraft : undefined}
+                  saveDraftLoading={saveDraftLoading}
+                  disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isBackButtinShoewn={true}
                   isSubmitDisabled={true}
                   handleOffBoardingFormSubmit={handleOffBoardingFormSubmit}

@@ -5,6 +5,9 @@ interface ActionButtonsProps {
   onDiscard?: () => void;
   onContinue?: () => void;
   onBackButton?: () => void;
+  onSaveDraft?: () => void;
+  saveDraftLoading?: boolean;
+  disableSaveDraft?: boolean;
   handleOffBoardingFormSubmit?:() => void;
   purpose?: string;
   isBackButtinShoewn?: boolean;
@@ -18,6 +21,9 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   onDiscard,
   onContinue,
   onBackButton,
+  onSaveDraft,
+  saveDraftLoading,
+  disableSaveDraft,
   handleOffBoardingFormSubmit,
   isBackButtinShoewn,
   isContinueDisabled,
@@ -26,13 +32,30 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   isNewClientPage,
   purpose
 }) => {
+  const isSaveDraftDisabled = saveDraftLoading || disableSaveDraft;
+
   return (
     <div className={styles.container}>
-      {!isNewClientPage && (
-        <button className={`${styles.button} ${styles.discardButton}`} onClick={onDiscard}>
-          Discard
-        </button>
-      )}
+      <div style={{ display: 'flex', gap: '12px' }}>
+        {
+          !isNewClientPage && (
+            <button className={`${styles.button} ${styles.discardButton}`} onClick={onDiscard}>
+              Discard
+            </button>
+          )
+        }
+        {
+          onSaveDraft && (
+            <button 
+              className={`${styles.button} ${styles.discardButton} ${isSaveDraftDisabled ? styles.disabledButton : ''}`} 
+              onClick={onSaveDraft}
+              disabled={isSaveDraftDisabled}
+            >
+              Save Draft
+            </button>
+          )
+        }
+      </div>
 
       <div style={{ display: 'flex', gap: '12px' }}>
         {isBackButtinShoewn && (
