@@ -187,7 +187,6 @@ export const DataHandling: React.FC<DataHandlingProps> = ({
                         <option value="">Select an action</option>
                         <option value="Archive">Archive</option>
                         <option value="Delete">Delete</option>
-                        <option value="Transfer">Transfer</option>
                       </select>
 
                       <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
