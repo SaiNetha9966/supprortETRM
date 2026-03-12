@@ -47,7 +47,6 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   const [isOffBoardSideBar, setIsOffBoardSideBar] = useState<boolean>(false);
   const [selectOffboadingScope, setSelectOffboadingScope] = useState<string>('');
   const [isDraftProject, setIsDraftProject] = useState<boolean>(false);
-
   const handleMetadataLoaded = (metadata: any) => {
     setExistingProjectMetadata(metadata);
     const state = metadata?.result?.existing_record_id?.state;
@@ -98,7 +97,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   const [draftProjectId, setDraftProjectId] = useState<string | null>(null);
   const [saveDraftLoading, setSaveDraftLoading] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState<any>(null);
-
+  const [loader,setLoader] = useState<boolean>(false);
 
   const handleRemoveOption = (value: string) => {
     setSelectedOption(value);
@@ -387,31 +386,35 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   //   loadData();
   // }, []);
 
+const handleOffBoardingFormSubmit = async () => {
+  setLoader(true);
+  const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
+  const nameValue = existingProjectMetadata?.result?.existing_record_id?.namevalue;
+  const dataAction = dataHandlingtools.map(item => item.action);
+  const payload = {
+    number: searchValue,
+    state: '1',
+    request_status: 'Offboarding - Requested',
+    substate: 'Archive',
+    offboard_namevalue: nameValue,
+    project_offboard_type:
+      selectOffboadingScope === 'project'
+        ? 'project_offboard'
+        : selectOffboadingScope,
+    data_action: dataAction, // array of actions
+  };
 
-  const handleOffBoardingFormSubmit = async () => {
-    // dummy payload matching backend spec
-      const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
-
-    const payload = {
-      number: searchValue,
-      state: '1',
-      request_status: 'Offboarding - Requested',
-      substate: 'Archive',
-      offboard_namevalue: [
-        {
-          'Vismit Ambre': ['Azure OpenAI'],
-          'Navneet Agarwal': ['Azure OpenAI'],
-        },
-      ],
-    };
-    // dummy payload 
-    try {
-      const response = await submitOffboardingRequest(payload, token);
-      console.log('Offboarding API success:', response);
-    } catch (error) {
-      console.error('Offboarding API error:', error);
-    }
+  try {
+    const response = await submitOffboardingRequest(payload, token);
+    console.log('Offboarding API success:', response);
+        setLoader(false);
+    setCurrentStep('submission-success');
+  } catch (error) {
+     setLoader(false);
+    console.error('Offboarding API error:', error);
   }
+};
+
 
 
   const [formData, setFormData] = useState({
@@ -498,7 +501,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
       <div className={styles.app}>
         <Header onMenuToggle={toggleSidebar} />
 
-        {purpose === 'offboarding'
+        {purpose === 'offboarding' &&  currentStep !== 'submission-success'
           ? isOffBoardSideBar && (
               <OffBoardingSideBar
                 isOpen={sidebarOpen}

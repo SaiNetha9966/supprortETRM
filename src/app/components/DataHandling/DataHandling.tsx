@@ -185,8 +185,8 @@ export const DataHandling: React.FC<DataHandlingProps> = ({
                           font-['Roboto',sans-serif] text-[14px] text-[#28292c] appearance-none cursor-pointer"
                       >
                         <option value="">Select an action</option>
-                        <option value="Archive">Archive</option>
-                        <option value="Delete">Delete</option>
+                        <option value="archive">Archive</option>
+                        <option value="delete">Delete</option>
                       </select>
 
                       <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
