@@ -28,9 +28,11 @@ const HelpIcon: React.FC = () => (
 
 interface HeaderProps {
   onMenuToggle?: () => void;
+  onNavigateDashBoard:(type : string) => void;
+  dashBoardType:string;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
+export const Header: React.FC<HeaderProps> = ({ onMenuToggle , onNavigateDashBoard,dashBoardType }) => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -52,8 +54,21 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle }) => {
       </div>
       <div className={styles.rightSection}>
         <nav className={`${styles.navigation} ${menuOpen ? styles.open : ''}`}>
-          <div className={styles.navItem}>Dashboard</div>
-          <div className={`${styles.navItem} ${styles.active}`}>
+          <div 
+
+className={dashBoardType === "dashboard" 
+  ? `${styles.navItem} ${styles.active}` 
+  : styles.navItem}
+
+          
+           onClick={() => onNavigateDashBoard("dashboard")}>Dashboard</div>
+          <div
+
+          className={dashBoardType === "newrequest" 
+  ? `${styles.navItem} ${styles.active}` 
+  : styles.navItem}
+          
+          onClick={() => onNavigateDashBoard("newrequest")}>
             New Request
             <ExpandMoreIcon />
           </div>

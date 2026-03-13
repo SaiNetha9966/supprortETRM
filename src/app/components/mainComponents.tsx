@@ -32,10 +32,11 @@ type StepType =
 interface MainComponentProps {
   nonClientNewProjectData: any;
   token:string;
+  sidebarOpen:boolean;
+  setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjectData,token }) => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjectData,token,sidebarOpen,setSidebarOpen }) => {
   const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   const [purpose, setPurpose] = useState<string>('');
   const [pageTittle, setPageTittle] = useState('Project Details');
@@ -503,7 +504,7 @@ const handleOffBoardingFormSubmit = async () => {
   return (
     <>
       <div className={styles.app}>
-        <Header onMenuToggle={toggleSidebar} />
+        {/* <Header onMenuToggle={toggleSidebar} /> */}
 
         {purpose === 'offboarding' &&  currentStep !== 'submission-success'
           ? isOffBoardSideBar && (
