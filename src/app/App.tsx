@@ -46,10 +46,14 @@ export default function App() {
 
   return (
        <div className={styles.app}>
-                <Header onMenuToggle={toggleSidebar} onNavigateDashBoard={handleVavigateDashBoard} dashBoardType={dashBoardType} />
+           <Header onMenuToggle={toggleSidebar} onNavigateDashBoard={handleVavigateDashBoard} dashBoardType={dashBoardType} />
+
                 {
                   dashBoardType === "newrequest" && (
+                    <>
                     <MainComponent sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} nonClientNewProjectData={nonClientNewProjectData} token={accessToken} />
+
+                    </>
                   )
                 }
                 {

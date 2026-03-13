@@ -50,7 +50,7 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle , onNavigateDashBoa
       <div className={styles.logoSection}>
         <AlixLogo />
         <div className={styles.separator} />
-        <div className={styles.projectName}>ETRM</div>
+        <div className={styles.projectName}> {dashBoardType === "newrequest" ? "ETRM" : "Technology Request Management Portal" } </div>
       </div>
       <div className={styles.rightSection}>
         <nav className={`${styles.navigation} ${menuOpen ? styles.open : ''}`}>
