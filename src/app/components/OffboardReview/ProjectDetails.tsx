@@ -9,7 +9,7 @@ interface ProjectDetailsProps {
   selectOffboadingScope: string;
   existingProject:any;
   searchValue:string;
-  handleEditButton:(step : StepType) => void;
+  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
 }
 
 function Field({ label, value }: FieldProps) {
@@ -28,7 +28,9 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboading
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[19px] text-[#4a4a4a]">Project Details</h2>
           {selectOffboadingScope === 'users' && (
-            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}} onClick={(e) => handleEditButton("project-details")}>
+            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}} 
+            onClick={(e) => handleEditButton("project-details" ,"Project & Offboarding Scope" ,"Add tools or user access to an existing non-client project")}
+            >
               <div className="w-5 h-5 relative">
                 <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                   <svg

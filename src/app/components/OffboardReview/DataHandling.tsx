@@ -4,7 +4,7 @@ import { DataHandlingTool, StepType } from '../Utils/UiUtilis';
 interface DataHandlingProps {
   selectOffboadingScope: string;
   dataHandlingtools: DataHandlingTool[];
-  handleEditButton : (step : StepType) => void
+  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
 }
 
 interface ToolItemProps {
@@ -30,7 +30,8 @@ export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScop
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[19px] text-[#4a4a4a]">Data Handling Summary</h2>
           {selectOffboadingScope !== 'users' && (
-            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}} onClick={() => handleEditButton("access-approval")}>
+            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}}
+             onClick={() => handleEditButton("access-approval","Data Handling" , "This process could take a few minutes")}>
               <div className="w-5 h-5 relative">
                 <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                   <svg

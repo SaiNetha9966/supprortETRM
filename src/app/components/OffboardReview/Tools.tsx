@@ -10,7 +10,7 @@ interface ToolItemProps {
 interface ToolsProps {
   selectOffboadingScope: string;
   existingtools: any;
-  handleEditButton:(step:StepType) => void;
+  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
 }
 
 function ToolItem({ name, platform, status }: ToolItemProps) {
@@ -42,7 +42,8 @@ export const Tools: React.FC<ToolsProps> = ({ selectOffboadingScope, existingtoo
               <h2 className="font-bold text-[19px] text-[#4a4a4a]">
                 Tools Impacted (Selected tools only)
               </h2>
-              <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}} onClick={() => handleEditButton("tool-configuration")}>
+              <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}}
+               onClick={() => handleEditButton("tool-configuration","Impact Access" ,"Add new tools to the existing project. Existing tools are shown for reference.")}>
                 <div className="w-5 h-5 relative">
                   <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                     <svg

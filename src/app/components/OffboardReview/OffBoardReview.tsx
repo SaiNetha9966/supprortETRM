@@ -24,7 +24,7 @@ interface OffBoardReviewProps {
   dataHandlingtools: DataHandlingTool[],
   existingProjectDetailsFormData:any,
   existingProjectMetadata:any,
-  handleEditButton:(step: StepType) => void;
+  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
   }
 export const OffBoardReview: React.FC<OffBoardReviewProps> = ({
   selectOffboadingScope,
