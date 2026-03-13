@@ -93,7 +93,6 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
     isIunderstand: false,
     isIacknowledge: false,
   });
-
   const [draftProjectId, setDraftProjectId] = useState<string | null>(null);
   const [saveDraftLoading, setSaveDraftLoading] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState<any>(null);
@@ -390,17 +389,17 @@ const handleOffBoardingFormSubmit = async () => {
   setLoader(true);
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
   const nameValue = existingProjectMetadata?.result?.existing_record_id?.namevalue;
-  const dataAction = dataHandlingtools.map(item => item.action);
+  const dataAction = dataHandlingtools.map(item => ({
+    [item.name] : item.action
+  }));
   const payload = {
     number: searchValue,
-    state: '1',
     request_status: 'Offboarding - Requested',
-    substate: 'Archive',
-    offboard_namevalue: nameValue,
-    project_offboard_type:
+     project_offboard_type:
       selectOffboadingScope === 'project'
         ? 'project_offboard'
         : selectOffboadingScope,
+            offboard_namevalue: nameValue,   
     data_action: dataAction, // array of actions
   };
 
@@ -496,6 +495,9 @@ const handleOffBoardingFormSubmit = async () => {
     formData?.approvers,
   ].some(isEmptyValue);
 
+      const handleEditButton = (step:StepType) =>{
+        setCurrentStep(step);
+      }
   return (
     <>
       <div className={styles.app}>
@@ -682,6 +684,8 @@ const handleOffBoardingFormSubmit = async () => {
                     dataHandlingtools={dataHandlingtools}
                     existingProjectDetailsFormData={existingProjectDetailsFormData}
                     existingProjectMetadata={existingProjectMetadata}
+                    handleEditButton={handleEditButton}
+
                   />
                 ) : (
                   <ReviewSubmit

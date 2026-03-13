@@ -55,7 +55,10 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({
 
         {/* Tools Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
-          {existingtools.map((tool, index) => {
+          {
+            existingtools?.length > 0 ? (
+              <>
+                        {existingtools?.map((tool, index) => {
             const isSelected = selectedOffBoardngImpactTools.includes(tool.name);
             return (
               <div
@@ -107,6 +110,17 @@ export const ToolsCard: React.FC<ToolsCardInterface> = ({
               </div>
             );
           })}
+              </>
+            ) : (  <div className="flex flex-col gap-2">
+                                  <div className="info-alert-blue">
+                  <AlertIcon />
+                  <span>
+                    No Tools are available to display
+                  </span>
+                </div>
+        </div>)
+          }
+
         </div>
       </div>
     </div>

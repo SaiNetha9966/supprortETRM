@@ -175,6 +175,15 @@ export type OffBoardFormData = {
   offBoardconfirmation: OffBoardConfirmationState;
 };
 
+export type StepType =
+  | 'newclient-intro'
+  | 'project-details'
+  | 'tool-configuration'
+  | 'access-approval'
+  | 'review-submit'
+  | 'submission-success'
+  | '';
+
 export const Loader: React.FC = () => (
   <div
     style={{

@@ -1,5 +1,5 @@
 import svgPaths from '../../../imports/svg-0ywn1y5h0h';
-import { formatDate } from '../Utils/UiUtilis';
+import { formatDate, StepType } from '../Utils/UiUtilis';
 
 interface FieldProps {
   label: string;
@@ -9,6 +9,7 @@ interface ProjectDetailsProps {
   selectOffboadingScope: string;
   existingProject:any;
   searchValue:string;
+  handleEditButton:(step : StepType) => void;
 }
 
 function Field({ label, value }: FieldProps) {
@@ -20,14 +21,14 @@ function Field({ label, value }: FieldProps) {
   );
 }
 
-export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboadingScope,existingProject ,searchValue}) => {
+export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboadingScope,existingProject ,searchValue ,handleEditButton}) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[19px] text-[#4a4a4a]">Project Details</h2>
           {selectOffboadingScope === 'users' && (
-            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors">
+            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}} onClick={(e) => handleEditButton("project-details")}>
               <div className="w-5 h-5 relative">
                 <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                   <svg

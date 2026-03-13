@@ -1,5 +1,5 @@
 import ReviewSubmit from '../ReviewAndSubmit/ReviewSubmit';
-import { DataHandlingTool, OffBoardConfirmationState } from '../Utils/UiUtilis';
+import { DataHandlingTool, OffBoardConfirmationState, StepType } from '../Utils/UiUtilis';
 import { DataHandling } from './DataHandling';
 import { OffboardingConfirmation } from './OffboardingConfirmation';
 import { ProjectDetails } from './ProjectDetails';
@@ -23,15 +23,16 @@ interface OffBoardReviewProps {
   setOffBoardConfirmation: React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
   dataHandlingtools: DataHandlingTool[],
   existingProjectDetailsFormData:any,
-  existingProjectMetadata:any
-}
+  existingProjectMetadata:any,
+  handleEditButton:(step: StepType) => void;
+  }
 export const OffBoardReview: React.FC<OffBoardReviewProps> = ({
   selectOffboadingScope,
   offBoardconfirmation,
   setOffBoardConfirmation,
   dataHandlingtools,
   existingProjectDetailsFormData,
-  existingProjectMetadata
+  existingProjectMetadata,handleEditButton
 }) => {
     const existingProject: any | null = existingProjectDetailsFormData?.existingProject ?? null;
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
@@ -59,10 +60,10 @@ export const OffBoardReview: React.FC<OffBoardReviewProps> = ({
   return (
     <div>
       <RequestSummary />
-      <ProjectDetails existingProject={existingProject} selectOffboadingScope={selectOffboadingScope} searchValue={searchValue} />
-      <Tools selectOffboadingScope={selectOffboadingScope} existingtools={existingtools} />
-      <UsersSummary selectOffboadingScope={selectOffboadingScope} initialUsers={initialUsers}/>
-      <DataHandling selectOffboadingScope={selectOffboadingScope} dataHandlingtools={dataHandlingtools}/>
+      <ProjectDetails existingProject={existingProject} selectOffboadingScope={selectOffboadingScope} searchValue={searchValue}  handleEditButton={handleEditButton} />
+      <Tools selectOffboadingScope={selectOffboadingScope} existingtools={existingtools}  handleEditButton={handleEditButton} />
+      <UsersSummary selectOffboadingScope={selectOffboadingScope} initialUsers={initialUsers}  handleEditButton={handleEditButton}/>
+      <DataHandling selectOffboadingScope={selectOffboadingScope} dataHandlingtools={dataHandlingtools} handleEditButton={handleEditButton}/>
       <OffboardingConfirmation
         selectOffboadingScope={selectOffboadingScope}
         offBoardconfirmation={offBoardconfirmation}
