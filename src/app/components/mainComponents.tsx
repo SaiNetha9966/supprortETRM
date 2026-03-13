@@ -495,8 +495,10 @@ const handleOffBoardingFormSubmit = async () => {
     formData?.approvers,
   ].some(isEmptyValue);
 
-      const handleEditButton = (step:StepType) =>{
+      const handleEditButton = (step:StepType, tittle:string , desc:string ) =>{
         setCurrentStep(step);
+        setPageTittle(tittle)
+        setPageDesc(desc)
       }
   return (
     <>
@@ -699,6 +701,7 @@ const handleOffBoardingFormSubmit = async () => {
                     existingProjectDetailsFormData={existingProjectDetailsFormData}
                     existingToolFormData={existingToolFormData}
                     handleChange={handleChange}
+                    handleEditButton={handleEditButton}
                   />
                 )}
 

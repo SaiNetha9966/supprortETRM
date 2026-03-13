@@ -1,18 +1,23 @@
 import React from 'react';
 import styles from './ReviewSubmit.module.css';
+import { StepType } from '../Utils/UiUtilis';
 
 interface EditButtonProps {
-  onClick?: () => void;
+  handleEditButton: (step: StepType , tittle:string , desc:string) => void;
   ariaLabel?: string;
+  step :StepType;
+  tittle : string;
+  desc:string
 }
 
-const EditButton: React.FC<EditButtonProps> = ({ onClick, ariaLabel = 'Edit' }) => {
+const EditButton: React.FC<EditButtonProps> = ({ handleEditButton, ariaLabel = 'Edit',step,tittle,desc }) => {
   return (
-    <button className={styles.editButton} aria-label={ariaLabel} onClick={onClick}>
+    <button className={styles.editButton} aria-label={ariaLabel} onClick={() => handleEditButton(step,tittle,desc)}>
       <svg
         width="14.98"
         height="14.98"
         viewBox="0 0 24 24"
+
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         aria-hidden

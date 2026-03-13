@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styles from './ReviewSubmit.module.css';
 import EditButton from './EditButton';
-import { findNameByEmail, formatDate } from '../Utils/UiUtilis';
+import { findNameByEmail, formatDate, StepType } from '../Utils/UiUtilis';
 
 interface ReviewSubmitProps {
   onSubmit?: () => void;
@@ -14,6 +14,7 @@ interface ReviewSubmitProps {
   existingProjectDetailsFormData?: any;
   existingToolFormData?: any;
   handleChange: (field: string, value: any) => void;
+  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
 }
 
 const sampleAccess = [
@@ -63,6 +64,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
   existingProjectDetailsFormData,
   existingToolFormData,
   handleChange,
+  handleEditButton
 }) => {
   const [openAccess, setOpenAccess] = useState<Record<number, boolean>>({});
   const isExistingProject = existingProject === 'yes';
@@ -252,7 +254,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>Project Details</div>
-            <EditButton />
+            <EditButton handleEditButton={handleEditButton} step="project-details" tittle="Project Details" desc="Provide project details to initiate setup. This process may take a few minutes." />
           </div>
 
           <div className={styles.detailsGrid}>
@@ -339,7 +341,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
                 </span>
               )}
             </div>
-            <EditButton />
+            <EditButton handleEditButton={handleEditButton} step="tool-configuration" tittle="Tool Configuration" desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."/>
           </div>
           <div className={styles.toolsGrid}>
             {toolsForDisplay.map((tool: any, index: number) => (
@@ -358,7 +360,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
           {/* Header */}
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>Tool Specification</div>
-            <EditButton />
+            <EditButton handleEditButton={handleEditButton}  step="tool-configuration"  tittle="Tool Configuration" desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools." />
           </div>
 
           {/* Tools Grid */}
@@ -384,7 +386,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>Approvers</div>
-            <EditButton />
+            <EditButton handleEditButton={handleEditButton} step="access-approval" tittle="Approval & Access" desc="Define approvers and assign user access for the selected tools. This step may take a few minutes." />
           </div>
           <div className={styles.approverGrid}>
             <div className={styles.approverItem}>
@@ -429,7 +431,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>User Selection & Tool Access</div>
-            <EditButton />
+            <EditButton handleEditButton={handleEditButton} step="access-approval" tittle="Approval & Access" desc="Define approvers and assign user access for the selected tools. This step may take a few minutes." />
           </div>
 
           <div className={styles.accessList}>
