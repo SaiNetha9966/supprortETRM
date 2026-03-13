@@ -3,9 +3,13 @@ import svgPaths from '../../../../imports/svg-9v12l09gyw';
 
 interface RequestDetailHeaderProps {
   request: DetailedRequest;
+  handleOpenOrClodeApprovalModel : () => void;
+    handleOpenOrClodeRejectionModel : () => void;
+    handleRequestClarity : () => void;
+
 }
 
-export function RequestDetailHeader({ request }: RequestDetailHeaderProps) {
+export function RequestDetailHeader({ request,handleOpenOrClodeApprovalModel,handleOpenOrClodeRejectionModel,handleRequestClarity }: RequestDetailHeaderProps) {
   const getStatusColor = () => {
     if (request.requestStatus.includes('Approved')) {
       return { bg: '#dff0db', border: '#a5d192', text: '#3f7b25' };
@@ -114,19 +118,19 @@ export function RequestDetailHeader({ request }: RequestDetailHeaderProps) {
 
           {/* Right Side - Action Buttons */}
           <div className="flex flex-wrap gap-5 shrink-0">
-            <button className="bg-[#498e2b] h-[32px] px-[12px] rounded-[2px] min-w-[94px] hover:bg-[#3f7b25] transition-colors">
+            <button className="bg-[#498e2b] h-[32px] px-[12px] rounded-[2px] min-w-[94px] hover:bg-[#3f7b25] transition-colors" style={{cursor:"pointer"}} onClick={handleOpenOrClodeApprovalModel}>
               <p className="font-['Roboto',sans-serif] font-medium text-[15px] text-white tracking-[0.3px] whitespace-nowrap">
                 Approve Request
               </p>
             </button>
             
-            <button className="bg-white h-[32px] px-[12px] rounded-[2px] min-w-[94px] border border-[#498e2b] hover:bg-[#f7f7f7] transition-colors">
+            <button className="bg-white h-[32px] px-[12px] rounded-[2px] min-w-[94px] border border-[#498e2b] hover:bg-[#f7f7f7] transition-colors" style={{cursor:"pointer"}}  onClick={handleRequestClarity}>
               <p className="font-['Roboto',sans-serif] font-medium text-[15px] text-[#498e2b] tracking-[0.3px] whitespace-nowrap">
                 Request Clarification
               </p>
             </button>
             
-            <button className="bg-white h-[32px] px-[12px] rounded-[2px] min-w-[94px] border border-[#cb282e] hover:bg-[#fff5f5] transition-colors">
+            <button className="bg-white h-[32px] px-[12px] rounded-[2px] min-w-[94px] border border-[#cb282e] hover:bg-[#fff5f5] transition-colors" style={{cursor:"pointer"}} onClick={handleOpenOrClodeRejectionModel}>
               <p className="font-['Roboto',sans-serif] font-medium text-[15px] text-[#cb282e] tracking-[0.3px] whitespace-nowrap">
                 Reject Request
               </p>
