@@ -36,8 +36,9 @@ export function ApprovalCard({ request }: ApprovalCardProps) {
           </p>
           <p className="font-['Roboto',sans-serif] text-[#181d1f]">
             {request.typeOfWork}
-          </p>
+          </p> 
         </div>
+        
 
         <div>
           <p className="font-['Roboto',sans-serif] text-[#727272] text-xs mb-1">
