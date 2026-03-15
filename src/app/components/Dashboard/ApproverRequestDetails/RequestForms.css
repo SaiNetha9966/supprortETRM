@@ -1,0 +1,51 @@
+/* RequestForms.css */
+
+.forms-container {
+  display: flex;
+  gap: 24px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.form-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  width: 415.5px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.form-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #28292C;
+  margin: 0;
+}
+
+.form-description {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.4;
+  margin: 0;
+}
+
+.form-button {
+  background-color: #498E2B;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  align-self: flex-start;
+  transition: background-color 0.2s ease;
+}
+
+.form-button:hover {
+  background-color: #3a7323;
+}

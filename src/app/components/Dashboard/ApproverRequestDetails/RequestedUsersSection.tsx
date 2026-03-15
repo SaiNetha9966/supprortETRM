@@ -21,7 +21,7 @@ function UserCard({
       <div className="p-4">
         {/* User Info Header */}
         <div className="flex items-center justify-between pb-4 border-b border-[#ccc]">
-          <div className="flex items-center gap-4 flex-1 min-w-0">
+          <div className="flex items-center gap-40 flex-1 min-w-0">
             <div className="space-y-1 min-w-0">
               <p className="font-['Roboto',sans-serif] font-medium text-[15px] text-[#4a4a4a] truncate">
                 {user.name}

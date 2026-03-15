@@ -8,9 +8,10 @@ import { TabType } from './Types/index';
 interface DashBoardApproverPageProps {
       activeTab: TabType;
   setActiveTab: (tab: TabType) => void;
+  onRequestDetailsView : (value : boolean) => void
 }
 
-export default function DashBoardApproverPage({activeTab,setActiveTab} : DashBoardApproverPageProps ) {
+export default function DashBoardApproverPage({activeTab,setActiveTab , onRequestDetailsView} : DashBoardApproverPageProps ) {
   const statusCounts = useMemo(
     () => getStatusCounts(mockApprovalRequests),
     []
@@ -24,8 +25,9 @@ export default function DashBoardApproverPage({activeTab,setActiveTab} : DashBoa
           awaitingResponse={statusCounts.awaitingResponse}
           approved={statusCounts.approved}
           rejected={statusCounts.rejected}
+          activeTab={activeTab}
         /> 
-         <ApprovalTable requests={mockApprovalRequests} />
+         <ApprovalTable requests={mockApprovalRequests} onRequestDetailsView={onRequestDetailsView} />
       </main>
   );
 }

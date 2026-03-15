@@ -6,10 +6,10 @@ interface RequestDetailHeaderProps {
   handleOpenOrClodeApprovalModel : () => void;
     handleOpenOrClodeRejectionModel : () => void;
     handleRequestClarity : () => void;
-
+onRequestDetailsView:(value:boolean) => void;
 }
 
-export function RequestDetailHeader({ request,handleOpenOrClodeApprovalModel,handleOpenOrClodeRejectionModel,handleRequestClarity }: RequestDetailHeaderProps) {
+export function RequestDetailHeader({ request,handleOpenOrClodeApprovalModel,handleOpenOrClodeRejectionModel,handleRequestClarity,onRequestDetailsView }: RequestDetailHeaderProps) {
   const getStatusColor = () => {
     if (request.requestStatus.includes('Approved')) {
       return { bg: '#dff0db', border: '#a5d192', text: '#3f7b25' };
@@ -32,7 +32,8 @@ export function RequestDetailHeader({ request,handleOpenOrClodeApprovalModel,han
             {/* Back Button and Title */}
             <div className="flex items-start gap-3">
               <button
-                // to="/"
+              style={{cursor:"pointer"}}
+              onClick={() => onRequestDetailsView(false)}
                 className="flex items-center justify-center mt-1 shrink-0 hover:bg-[#f7f7f7] rounded p-1 transition-colors"
               >
                 <div className="rotate-180">

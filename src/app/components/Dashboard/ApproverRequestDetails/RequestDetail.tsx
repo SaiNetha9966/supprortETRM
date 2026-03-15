@@ -7,12 +7,12 @@ import { RequestedToolsSection } from './RequestedToolsSection';
 import { RequestedUsersSection } from './RequestedUsersSection';
 import ConfirmationModal from "../Modal/ConfirmationModal"
 import SuccessModal from '../Modal/SuccessModal';
-// import { ETRFDetailsSection } from '../components/RequestDetail/ETRFDetailsSection';
-// import { ApproversSection } from '../components/RequestDetail/ApproversSection';
-// import { RequestedToolsSection } from '../components/RequestDetail/RequestedToolsSection';
-// import { RequestedUsersSection } from '../components/RequestDetail/RequestedUsersSection';
 
-export default function RequestDetail() {
+interface RequestDetailProps{
+   onRequestDetailsView : (value : boolean) => void
+}
+
+export default function RequestDetail({onRequestDetailsView}:RequestDetailProps) {
   const [request, setRequest] = useState<DetailedRequest | null>(null);
     const [isApproveOpen, setApproveOpen] = useState(false);
   const [isRejectOpen, setRejectOpen] = useState(false);
@@ -156,7 +156,7 @@ export default function RequestDetail() {
           backgroundColor="#FEF3C6"
       />
 
-      <RequestDetailHeader request={request}  handleOpenOrClodeApprovalModel={handleOpenOrClodeApprovalModel} handleOpenOrClodeRejectionModel={handleOpenOrClodeRejectionModel} handleRequestClarity={handleRequestClarity}/>
+      <RequestDetailHeader request={request}  handleOpenOrClodeApprovalModel={handleOpenOrClodeApprovalModel} handleOpenOrClodeRejectionModel={handleOpenOrClodeRejectionModel} handleRequestClarity={handleRequestClarity} onRequestDetailsView={onRequestDetailsView}/>
       <div className="px-4 sm:px-6 lg:px-20 py-6 space-y-6 max-w-[1440px] mx-auto pb-20">
         <ETRFDetailsSection request={request} />
         <ApproversSection request={request} />

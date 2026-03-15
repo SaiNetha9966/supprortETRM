@@ -6,12 +6,13 @@ import svgPaths from '../../../imports/svg-w3qi05nelx';
 
 interface ApprovalTableProps {
   requests: ApprovalRequest[];
+   onRequestDetailsView : (value : boolean) => void
 }
 
 type SortField = keyof ApprovalRequest | null;
 type SortOrder = 'asc' | 'desc';
 
-export function ApprovalTable({ requests }: ApprovalTableProps) {
+export function ApprovalTable({ requests,onRequestDetailsView }: ApprovalTableProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [activeTab, setActiveTab] = useState<'ALL' | 'ETRF' | 'ITRF'>('ALL');
@@ -169,7 +170,7 @@ export function ApprovalTable({ requests }: ApprovalTableProps) {
       <div className="hidden lg:block overflow-x-auto -mx-6 px-6">
         <div className="inline-block min-w-full align-middle">
           {
-            filteredRequests?.length < 0 ? (
+            filteredRequests?.length > 0 ? (
           <table className="min-w-full border border-[#ccc] rounded-lg overflow-hidden">
             <thead className="bg-white">
               <tr>
@@ -235,9 +236,9 @@ export function ApprovalTable({ requests }: ApprovalTableProps) {
                   }`}
                 >
                   <td className="px-4 py-2.5 font-['Roboto',sans-serif] font-medium text-sm text-[#0369a3] underline whitespace-nowrap">
-                    <a href="#" className="hover:text-[#024870]">
+                    <span style={{cursor:"pointer"}}  className="hover:text-[#024870]" onClick={()=> onRequestDetailsView(true)}>
                       {request.projectCodeName}
-                    </a>
+                    </span>
                   </td>
                   <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
                     {request.clientName}
@@ -289,10 +290,7 @@ export function ApprovalTable({ requests }: ApprovalTableProps) {
     </p>
   </div>
 </div>
-
-               
-              
-              
+          
               
               )
           }

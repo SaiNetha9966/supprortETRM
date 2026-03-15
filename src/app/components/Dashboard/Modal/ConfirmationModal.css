@@ -1,49 +1,54 @@
-
-.modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 50;
-}
-
 .modal-container {
+  position: relative;
   background: #fff;
   border-radius: 8px;
   max-width: 500px;
   width: 90%;
   padding: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  /* Remove text-align and align-items */
+  text-align: left;       /* optional, ensures left alignment */
+  align-items: stretch;   /* makes children take full width */
 }
 
 .modal-title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  margin-bottom: 8px;
+  font-size: 20px;
+  font-weight: 700;
+  color: #28292C;
+  margin: 0;
 }
-.modal-title2{
-  color:  #28292C;
-font-family: Roboto;
-font-size: 16px;
-font-style: normal;
-font-weight: 600;
-line-height: 22px; /* 137.5% */
+
+.modal-title2 {
+  font-size: 16px;
+  font-weight: 600;
+  color: #28292C;
+  margin: 0;
+  line-height: 22px;
 }
 
 .modal-description {
-  font-size: 0.95rem;
-  margin-bottom: 16px;
+  font-size: 15px;
+  color: #555;
+  margin: 0;
+}
+
+.modal-note label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
 }
 
 .modal-note textarea {
   width: 100%;
   min-height: 80px;
   margin-top: 6px;
-  padding: 8px;
+  padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
+  font-size: 14px;
+  line-height: 20px;
   resize: none;
 }
 
@@ -51,40 +56,31 @@ line-height: 22px; /* 137.5% */
   display: block;
   text-align: right;
   margin-top: 4px;
-  font-size: 0.8rem;
+  font-size: 12px;
   color: #666;
 }
 
 .modal-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+  gap: 12px;
 }
 
 .btn {
-  padding: 8px 14px;
-  font-size: 0.9rem;
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 500;
   cursor: pointer;
+  border-radius: 6px;
   border: none;
 }
 
 .btn.cancel {
-  background: #e0e0e0;
+  background: #E0E0E0;
   color: #333;
 }
 
-.btn.confirm.green {
+.btn.confirm {
   background: #498E2B;
-  color: #fff;
-}
-
-.btn.confirm.red {
-  background: #f44336;
-  color: #fff;
-}
-
-.btn.confirm.blue {
-  background: #2196f3;
   color: #fff;
 }

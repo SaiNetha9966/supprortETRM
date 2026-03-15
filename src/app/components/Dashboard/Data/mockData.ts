@@ -363,6 +363,7 @@ export const getDetailedRequest = (id: string): DetailedRequest | null => {
     approvers: 'Lisa Anderson, Mark Davis',
     requestedTools: [
       { name: 'Development Tools', platform: 'Standard Platform' },
+        { name: 'Testing Tools', platform: 'Standard Platform' },
     ],
     requestedUsers: [
       {
