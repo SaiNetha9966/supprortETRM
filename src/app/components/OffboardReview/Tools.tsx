@@ -10,7 +10,7 @@ interface ToolItemProps {
 interface ToolsProps {
   selectOffboadingScope: string;
   existingtools: any;
-  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
+  handleEditButton: (step: StepType, tittle: string, desc: string) => void;
 }
 
 function ToolItem({ name, platform, status }: ToolItemProps) {
@@ -25,8 +25,11 @@ function ToolItem({ name, platform, status }: ToolItemProps) {
   );
 }
 
-export const Tools: React.FC<ToolsProps> = ({ selectOffboadingScope, existingtools,handleEditButton }) => {
-
+export const Tools: React.FC<ToolsProps> = ({
+  selectOffboadingScope,
+  existingtools,
+  handleEditButton,
+}) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
@@ -42,8 +45,17 @@ export const Tools: React.FC<ToolsProps> = ({ selectOffboadingScope, existingtoo
               <h2 className="font-bold text-[19px] text-[#4a4a4a]">
                 Tools Impacted (Selected tools only)
               </h2>
-              <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}}
-               onClick={() => handleEditButton("tool-configuration","Impact Access" ,"Add new tools to the existing project. Existing tools are shown for reference.")}>
+              <button
+                className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors"
+                style={{ cursor: 'pointer' }}
+                onClick={() =>
+                  handleEditButton(
+                    'tool-configuration',
+                    'Impact Access',
+                    'Add new tools to the existing project. Existing tools are shown for reference.'
+                  )
+                }
+              >
                 <div className="w-5 h-5 relative">
                   <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                     <svg
@@ -79,7 +91,8 @@ export const Tools: React.FC<ToolsProps> = ({ selectOffboadingScope, existingtoo
                     </div>
                   </div>
                   <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                    No tools will be offboarded as part of this request. All project tools will remain active.
+                    No tools will be offboarded as part of this request. All project tools will
+                    remain active.
                   </p>
                 </div>
               </div>

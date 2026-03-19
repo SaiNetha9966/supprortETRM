@@ -1,6 +1,6 @@
 // RequestForms.tsx
-import React from "react";
-import "./RequestForms.css";
+import React from 'react';
+import './RequestForms.css';
 
 interface RequestFormCardProps {
   title: string;
@@ -25,6 +25,5 @@ const RequestFormCard: React.FC<RequestFormCardProps> = ({
     </div>
   );
 };
-
 
 export default RequestFormCard;

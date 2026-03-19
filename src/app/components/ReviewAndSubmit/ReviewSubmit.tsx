@@ -14,7 +14,7 @@ interface ReviewSubmitProps {
   existingProjectDetailsFormData?: any;
   existingToolFormData?: any;
   handleChange: (field: string, value: any) => void;
-  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
+  handleEditButton: (step: StepType, tittle: string, desc: string) => void;
   isClientEngagement?: boolean;
 }
 
@@ -268,8 +268,15 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
 
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>{isClientEngagement ? 'ETRF Details' : 'Project Details'}</div>
-            <EditButton handleEditButton={handleEditButton} step="project-details" tittle="Project Details" desc="Provide project details to initiate setup. This process may take a few minutes." />
+            <div className={styles.cardTitle}>
+              {isClientEngagement ? 'ETRF Details' : 'Project Details'}
+            </div>
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="project-details"
+              tittle="Project Details"
+              desc="Provide project details to initiate setup. This process may take a few minutes."
+            />
           </div>
 
           {isClientEngagement ? (
@@ -284,12 +291,16 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
               </div>
               <div className={styles.detailItem}>
                 <div className={styles.label}>Radius ID</div>
-                <div className={styles.value} style={{ color: 'red' }}>Missing Identifier </div>
+                <div className={styles.value} style={{ color: 'red' }}>
+                  Missing Identifier{' '}
+                </div>
               </div>
 
               <div className={styles.detailItem}>
                 <div className={styles.label}>SAP Project ID</div>
-                <div className={styles.value} style={{ color: 'red' }}>Missing Identifier </div>
+                <div className={styles.value} style={{ color: 'red' }}>
+                  Missing Identifier{' '}
+                </div>
               </div>
               <div className={styles.detailItem}>
                 <div className={styles.label}>ETRM ID</div>
@@ -380,7 +391,11 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
               </div>
               <div className={styles.detailItem}>
                 <div className={styles.label}>Describe your project and its goals.</div>
-                <div className={styles.value}>{isExistingProject ? (existingRecord?.short_description ?? existingRecord?.description) : formData.description}</div>
+                <div className={styles.value}>
+                  {isExistingProject
+                    ? (existingRecord?.short_description ?? existingRecord?.description)
+                    : formData.description}
+                </div>
               </div>
             </div>
           )}
@@ -399,7 +414,12 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
                 </span>
               )}
             </div>
-            <EditButton handleEditButton={handleEditButton} step="tool-configuration" tittle="Tool Configuration" desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."/>
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="tool-configuration"
+              tittle="Tool Configuration"
+              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
+            />
           </div>
           <div className={styles.toolsGrid}>
             {toolsForDisplay.map((tool: any, index: number) => (
@@ -418,7 +438,12 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
           {/* Header */}
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>Tool Specification</div>
-            <EditButton handleEditButton={handleEditButton}  step="tool-configuration"  tittle="Tool Configuration" desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools." />
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="tool-configuration"
+              tittle="Tool Configuration"
+              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
+            />
           </div>
 
           {/* Tools Grid */}
@@ -444,7 +469,12 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>Approvers</div>
-            <EditButton handleEditButton={handleEditButton} step="access-approval" tittle="Approval & Access" desc="Define approvers and assign user access for the selected tools. This step may take a few minutes." />
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="access-approval"
+              tittle="Approval & Access"
+              desc="Define approvers and assign user access for the selected tools. This step may take a few minutes."
+            />
           </div>
           <div className={styles.approverGrid}>
             <div className={styles.approverItem}>
@@ -489,7 +519,12 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>User Selection & Tool Access</div>
-            <EditButton handleEditButton={handleEditButton} step="access-approval" tittle="Approval & Access" desc="Define approvers and assign user access for the selected tools. This step may take a few minutes." />
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="access-approval"
+              tittle="Approval & Access"
+              desc="Define approvers and assign user access for the selected tools. This step may take a few minutes."
+            />
           </div>
 
           <div className={styles.accessList}>

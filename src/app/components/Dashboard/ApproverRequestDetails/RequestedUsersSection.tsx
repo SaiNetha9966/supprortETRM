@@ -1,21 +1,12 @@
-import { useState } from "react";
-import {
-  DetailedRequest,
-  RequestedUser,
-} from "../Data/mockData";
-import svgPaths from "../../../../imports/svg-9v12l09gyw";
+import { useState } from 'react';
+import { DetailedRequest, RequestedUser } from '../Data/mockData';
+import svgPaths from '../../../../imports/svg-9v12l09gyw';
 
 interface RequestedUsersSectionProps {
   request: DetailedRequest;
 }
 
-function UserCard({
-  user,
-  onToggle,
-}: {
-  user: RequestedUser;
-  onToggle: () => void;
-}) {
+function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => void }) {
   return (
     <div className="rounded-[8px] border border-[#ccc]">
       <div className="p-4">
@@ -38,7 +29,7 @@ function UserCard({
             <div className="bg-[#f1f1f1] flex h-[24px] items-center px-[9px] rounded-[240px] border border-[#ccc] shrink-0">
               <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#727272] leading-[19px] whitespace-nowrap">
                 {user.toolCount} Tool
-                {user.toolCount !== 1 ? "s" : ""}
+                {user.toolCount !== 1 ? 's' : ''}
               </p>
             </div>
           </div>
@@ -49,7 +40,7 @@ function UserCard({
             className="ml-4 flex items-center justify-center size-[24px] hover:bg-[#f7f7f7] rounded transition-colors shrink-0"
           >
             <div
-              className={`overflow-clip relative size-[24px] transition-transform ${user.isExpanded ? "" : "rotate-180"}`}
+              className={`overflow-clip relative size-[24px] transition-transform ${user.isExpanded ? '' : 'rotate-180'}`}
             >
               <div className="absolute aspect-[12/7.41] bottom-[29.17%] left-1/2 top-[33.33%] -translate-x-1/2">
                 <svg
@@ -81,10 +72,7 @@ function UserCard({
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               {user.tools.map((tool, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-2"
-                >
+                <div key={index} className="flex items-center gap-2">
                   {/* Checkbox */}
                   <div className="bg-[#8dca7e] flex items-center justify-center rounded-[2px] size-[16px] shrink-0">
                     <div className="overflow-clip relative size-[14px]">
@@ -95,10 +83,7 @@ function UserCard({
                           preserveAspectRatio="none"
                           viewBox="0 0 10.5 7.58333"
                         >
-                          <path
-                            d={svgPaths.p998df00}
-                            fill="white"
-                          />
+                          <path d={svgPaths.p998df00} fill="white" />
                         </svg>
                       </div>
                     </div>
@@ -118,20 +103,14 @@ function UserCard({
   );
 }
 
-export function RequestedUsersSection({
-  request,
-}: RequestedUsersSectionProps) {
-  const [users, setUsers] = useState<RequestedUser[]>(
-    request.requestedUsers,
-  );
+export function RequestedUsersSection({ request }: RequestedUsersSectionProps) {
+  const [users, setUsers] = useState<RequestedUser[]>(request.requestedUsers);
 
   const toggleUser = (userId: string) => {
     setUsers((prevUsers) =>
       prevUsers.map((user) =>
-        user.id === userId
-          ? { ...user, isExpanded: !user.isExpanded }
-          : user,
-      ),
+        user.id === userId ? { ...user, isExpanded: !user.isExpanded } : user
+      )
     );
   };
 
@@ -143,11 +122,7 @@ export function RequestedUsersSection({
 
       <div className="space-y-5">
         {users.map((user) => (
-          <UserCard
-            key={user.id}
-            user={user}
-            onToggle={() => toggleUser(user.id)}
-          />
+          <UserCard key={user.id} user={user} onToggle={() => toggleUser(user.id)} />
         ))}
       </div>
     </div>

@@ -8,7 +8,7 @@ interface ActionButtonsProps {
   onSaveDraft?: () => void;
   saveDraftLoading?: boolean;
   disableSaveDraft?: boolean;
-  handleOffBoardingFormSubmit?:() => void;
+  handleOffBoardingFormSubmit?: () => void;
   purpose?: string;
   isBackButtinShoewn?: boolean;
   isContinueDisabled?: boolean;
@@ -30,31 +30,27 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
   disableContinue,
   isSubmitDisabled,
   isNewClientPage,
-  purpose
+  purpose,
 }) => {
   const isSaveDraftDisabled = saveDraftLoading || disableSaveDraft;
 
   return (
     <div className={styles.container}>
       <div style={{ display: 'flex', gap: '12px' }}>
-        {
-          !isNewClientPage && (
-            <button className={`${styles.button} ${styles.discardButton}`} onClick={onDiscard}>
-              Discard
-            </button>
-          )
-        }
-        {
-          onSaveDraft && (
-            <button 
-              className={`${styles.button} ${styles.discardButton} ${isSaveDraftDisabled ? styles.disabledButton : ''}`} 
-              onClick={onSaveDraft}
-              disabled={isSaveDraftDisabled}
-            >
-              Save Draft
-            </button>
-          )
-        }
+        {!isNewClientPage && (
+          <button className={`${styles.button} ${styles.discardButton}`} onClick={onDiscard}>
+            Discard
+          </button>
+        )}
+        {onSaveDraft && (
+          <button
+            className={`${styles.button} ${styles.discardButton} ${isSaveDraftDisabled ? styles.disabledButton : ''}`}
+            onClick={onSaveDraft}
+            disabled={isSaveDraftDisabled}
+          >
+            Save Draft
+          </button>
+        )}
       </div>
 
       <div style={{ display: 'flex', gap: '12px' }}>
@@ -75,7 +71,7 @@ export const ActionButtons: React.FC<ActionButtonsProps> = ({
         {isSubmitDisabled && (
           <button
             className={`${styles.button} ${styles.continueButton} ${disableContinue ? styles.disabledButton : ''}`}
-            onClick={purpose ==="offboarding" ?  handleOffBoardingFormSubmit  :  onContinue}
+            onClick={purpose === 'offboarding' ? handleOffBoardingFormSubmit : onContinue}
             disabled={disableContinue}
           >
             Submit

@@ -1,4 +1,4 @@
-import { RequestStatus } from "./Types/index";
+import { RequestStatus } from './Types/index';
 
 interface StatusBadgeProps {
   status: RequestStatus;
@@ -6,44 +6,44 @@ interface StatusBadgeProps {
 
 export function StatusBadge({ status }: StatusBadgeProps) {
   const getStatusConfig = (status: RequestStatus) => {
-    if (status === "Onboarding - Awaiting Response") {
+    if (status === 'Onboarding - Awaiting Response') {
       return {
-        bg: "bg-[#b0deeb]",
-        text: "text-[#024870]",
-        label: "Onboarding - Awaiting Response",
+        bg: 'bg-[#b0deeb]',
+        text: 'text-[#024870]',
+        label: 'Onboarding - Awaiting Response',
       };
     }
-    if (status === "Onboarding - Pending Approval") {
+    if (status === 'Onboarding - Pending Approval') {
       return {
-        bg: "bg-[#ffd7a1]",
-        text: "text-[#b86a0f]",
-        label: "Onboarding - Pending Approval",
+        bg: 'bg-[#ffd7a1]',
+        text: 'text-[#b86a0f]',
+        label: 'Onboarding - Pending Approval',
       };
     }
-    if (status === "Offboarding - Pending Approval") {
+    if (status === 'Offboarding - Pending Approval') {
       return {
-        bg: "bg-[#ffd7a1]",
-        text: "text-[#b86a0f]",
-        label: "Offboarding - Pending Approval",
+        bg: 'bg-[#ffd7a1]',
+        text: 'text-[#b86a0f]',
+        label: 'Offboarding - Pending Approval',
       };
     }
-    if (status === "Onboarding - In Progress") {
+    if (status === 'Onboarding - In Progress') {
       return {
-        bg: "bg-[#ffd7a1]",
-        text: "text-[#b86a0f]",
-        label: "Onboarding - In Progress",
+        bg: 'bg-[#ffd7a1]',
+        text: 'text-[#b86a0f]',
+        label: 'Onboarding - In Progress',
       };
     }
-    if (status === "Onboarding - Approved") {
+    if (status === 'Onboarding - Approved') {
       return {
-        bg: "bg-[#a5d192]",
-        text: "text-[#3f702a]",
-        label: "Onboarding - Approved",
+        bg: 'bg-[#a5d192]',
+        text: 'text-[#3f702a]',
+        label: 'Onboarding - Approved',
       };
     }
     return {
-      bg: "bg-gray-100",
-      text: "text-gray-700",
+      bg: 'bg-gray-100',
+      text: 'text-gray-700',
       label: status,
     };
   };

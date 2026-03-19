@@ -117,17 +117,53 @@ export function KPICard({ title, value, icon, showInfo = false }: KPICardProps) 
         </svg>
       ),
     },
-        draft: {
+    draft: {
       bgColor: 'bg-[#E4E4E4]',
       strokeColor: '##6A7282',
       svg: (
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <path d="M17.5001 2.33337H7.00008C6.38124 2.33337 5.78775 2.57921 5.35017 3.01679C4.91258 3.45438 4.66675 4.04787 4.66675 4.66671V23.3334C4.66675 23.9522 4.91258 24.5457 5.35017 24.9833C5.78775 25.4209 6.38124 25.6667 7.00008 25.6667H21.0001C21.6189 25.6667 22.2124 25.4209 22.65 24.9833C23.0876 24.5457 23.3334 23.9522 23.3334 23.3334V8.16671L17.5001 2.33337Z" stroke="#6A7282" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M16.3333 2.33337V7.00004C16.3333 7.61888 16.5791 8.21237 17.0167 8.64996C17.4543 9.08754 18.0477 9.33337 18.6666 9.33337H23.3333" stroke="#6A7282" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M11.6666 10.5H9.33325" stroke="#6A7282" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M18.6666 15.1666H9.33325" stroke="#6A7282" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M18.6666 19.8334H9.33325" stroke="#6A7282" stroke-width="1.83333" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="28"
+          height="28"
+          viewBox="0 0 28 28"
+          fill="none"
+        >
+          <path
+            d="M17.5001 2.33337H7.00008C6.38124 2.33337 5.78775 2.57921 5.35017 3.01679C4.91258 3.45438 4.66675 4.04787 4.66675 4.66671V23.3334C4.66675 23.9522 4.91258 24.5457 5.35017 24.9833C5.78775 25.4209 6.38124 25.6667 7.00008 25.6667H21.0001C21.6189 25.6667 22.2124 25.4209 22.65 24.9833C23.0876 24.5457 23.3334 23.9522 23.3334 23.3334V8.16671L17.5001 2.33337Z"
+            stroke="#6A7282"
+            stroke-width="1.83333"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M16.3333 2.33337V7.00004C16.3333 7.61888 16.5791 8.21237 17.0167 8.64996C17.4543 9.08754 18.0477 9.33337 18.6666 9.33337H23.3333"
+            stroke="#6A7282"
+            stroke-width="1.83333"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M11.6666 10.5H9.33325"
+            stroke="#6A7282"
+            stroke-width="1.83333"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M18.6666 15.1666H9.33325"
+            stroke="#6A7282"
+            stroke-width="1.83333"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M18.6666 19.8334H9.33325"
+            stroke="#6A7282"
+            stroke-width="1.83333"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
       ),
     },
   };
@@ -162,9 +198,7 @@ export function KPICard({ title, value, icon, showInfo = false }: KPICardProps) 
               </div>
             )}
           </div>
-          <p className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#28292c]">
-            {value}
-          </p>
+          <p className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#28292c]">{value}</p>
         </div>
       </div>
     </div>

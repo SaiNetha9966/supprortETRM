@@ -6,8 +6,12 @@ interface SubmissionSuccessProps {
   apiResponse?: any;
 }
 
-export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onDashboard, apiResponse }) => {
-  const projectNumber = apiResponse?.result?.project_number || apiResponse?.result?.number || 'Your request';
+export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({
+  onDashboard,
+  apiResponse,
+}) => {
+  const projectNumber =
+    apiResponse?.result?.project_number || apiResponse?.result?.number || 'Your request';
 
   return (
     <div className={styles.container}>
@@ -42,7 +46,9 @@ export const SubmissionSuccess: React.FC<SubmissionSuccessProps> = ({ onDashboar
 
           {projectNumber && projectNumber !== 'Your request' && (
             <div className={styles.description}>
-              <p><strong>ERTM Project ID:</strong> {projectNumber}</p>
+              <p>
+                <strong>ERTM Project ID:</strong> {projectNumber}
+              </p>
             </div>
           )}
 

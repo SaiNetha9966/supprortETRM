@@ -21,26 +21,30 @@ interface OffBoardReviewProps {
   selectOffboadingScope: string;
   offBoardconfirmation: OffBoardConfirmationState;
   setOffBoardConfirmation: React.Dispatch<React.SetStateAction<OffBoardConfirmationState>>;
-  dataHandlingtools: DataHandlingTool[],
-  existingProjectDetailsFormData:any,
-  existingProjectMetadata:any,
-  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
-  }
+  dataHandlingtools: DataHandlingTool[];
+  existingProjectDetailsFormData: any;
+  existingProjectMetadata: any;
+  handleEditButton: (step: StepType, tittle: string, desc: string) => void;
+}
 export const OffBoardReview: React.FC<OffBoardReviewProps> = ({
   selectOffboadingScope,
   offBoardconfirmation,
   setOffBoardConfirmation,
   dataHandlingtools,
   existingProjectDetailsFormData,
-  existingProjectMetadata,handleEditButton
+  existingProjectMetadata,
+  handleEditButton,
 }) => {
-    const existingProject: any | null = existingProjectDetailsFormData?.existingProject ?? null;
+  const existingProject: any | null = existingProjectDetailsFormData?.existingProject ?? null;
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
-    const existingtools: any| null = existingProjectMetadata?.result?.existingtools?.map((tool: any) => ({ name: tool, platform: "AP Platform"  })) ?? null;
-    const userCardDetails = existingProjectDetailsFormData?.existingProject?.namevalue?? null;
+  const existingtools: any | null =
+    existingProjectMetadata?.result?.existingtools?.map((tool: any) => ({
+      name: tool,
+      platform: 'AP Platform',
+    })) ?? null;
+  const userCardDetails = existingProjectDetailsFormData?.existingProject?.namevalue ?? null;
 
-
- const initialUsers: User[] =
+  const initialUsers: User[] =
     userCardDetails &&
     Object.entries(userCardDetails).map(([name, tools], index) => {
       const uniqueTools = [...new Set(tools as string[])];
@@ -56,14 +60,30 @@ export const OffBoardReview: React.FC<OffBoardReviewProps> = ({
       };
     });
 
-
   return (
     <div>
       <RequestSummary />
-      <ProjectDetails existingProject={existingProject} selectOffboadingScope={selectOffboadingScope} searchValue={searchValue}  handleEditButton={handleEditButton} />
-      <Tools selectOffboadingScope={selectOffboadingScope} existingtools={existingtools}  handleEditButton={handleEditButton} />
-      <UsersSummary selectOffboadingScope={selectOffboadingScope} initialUsers={initialUsers}  handleEditButton={handleEditButton}/>
-      <DataHandling selectOffboadingScope={selectOffboadingScope} dataHandlingtools={dataHandlingtools} handleEditButton={handleEditButton}/>
+      <ProjectDetails
+        existingProject={existingProject}
+        selectOffboadingScope={selectOffboadingScope}
+        searchValue={searchValue}
+        handleEditButton={handleEditButton}
+      />
+      <Tools
+        selectOffboadingScope={selectOffboadingScope}
+        existingtools={existingtools}
+        handleEditButton={handleEditButton}
+      />
+      <UsersSummary
+        selectOffboadingScope={selectOffboadingScope}
+        initialUsers={initialUsers}
+        handleEditButton={handleEditButton}
+      />
+      <DataHandling
+        selectOffboadingScope={selectOffboadingScope}
+        dataHandlingtools={dataHandlingtools}
+        handleEditButton={handleEditButton}
+      />
       <OffboardingConfirmation
         selectOffboadingScope={selectOffboadingScope}
         offBoardconfirmation={offBoardconfirmation}

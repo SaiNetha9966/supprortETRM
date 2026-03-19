@@ -47,28 +47,22 @@ const OffboardingScope: React.FC<OffbordingScopeProps> = ({
         <div className="info-offboard">
           <AlertIcon />
           <span className="info-span">
-           This will remove all user access and offboard all technology. Click Continue to confirm and select data handling specifics.
-            is completed.
+            This will remove all user access and offboard all technology. Click Continue to confirm
+            and select data handling specifics. is completed.
           </span>
         </div>
       )}
       {selectOffboadingScope === 'tools' && (
+        <div className="info-offboard">
+          <AlertIcon />
+          <span className="info-span">
+            <span className="retention-text">You are offboarding selected tools only.</span>
 
-
-<div className="info-offboard">
-  <AlertIcon />
-  <span className="info-span">
-    <span className="retention-text">
-      You are offboarding selected tools only.
-    </span>
-  
-       <span className="offboarding-text">
-       Users will retain access to the project and remaining tools.
-    </span>
-  </span>
-</div>
-
-
+            <span className="offboarding-text">
+              Users will retain access to the project and remaining tools.
+            </span>
+          </span>
+        </div>
       )}
 
       {selectOffboadingScope === 'users' && (

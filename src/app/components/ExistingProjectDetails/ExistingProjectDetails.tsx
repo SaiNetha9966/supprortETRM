@@ -21,7 +21,7 @@ export const ExistingProjectDetails: React.FC<{
   purpose: string;
   onSelectOffBoardingScope: (value: string) => void;
   selectOffboadingScope: string;
- token:string;
+  token: string;
 }> = ({
   data,
   onMetadataLoaded,
@@ -31,7 +31,7 @@ export const ExistingProjectDetails: React.FC<{
   setIsOffBoardSideBar,
   onSelectOffBoardingScope,
   selectOffboadingScope,
-  token
+  token,
 }) => {
   const [isDraftProject, setIsDraftProject] = useState(false);
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
@@ -53,11 +53,11 @@ export const ExistingProjectDetails: React.FC<{
     if (!selectedProjectKey) return;
     const loadMetadata = async () => {
       try {
-        const response = await fetchExistingProjectMetadata(selectedProjectKey,token);
+        const response = await fetchExistingProjectMetadata(selectedProjectKey, token);
         const metadata =
           response?.result?.existing_record_id ?? response?.result ?? response ?? null;
         const state = response?.result?.existing_record_id?.state;
-        setIsDraftProject(state === "0");
+        setIsDraftProject(state === '0');
         setExistingProjectDetailsFormData((prev: any) => ({
           ...prev,
           existingProject: metadata,
@@ -82,7 +82,7 @@ export const ExistingProjectDetails: React.FC<{
   });
 
   const hasMatch = Boolean(existingProject);
-  
+
   const getProjectTypeLabel = (value: string) => {
     const projectTypeOptions = data?.result?.what_type_of_project ?? [];
     const found = projectTypeOptions.find((option: any) => option.value === value);
@@ -98,15 +98,12 @@ export const ExistingProjectDetails: React.FC<{
         <p className={styles.description}>
           Search & select existing project. You can search by ETRM Project ID or Project Code Name.
         </p>
-            {
-              purpose !== 'offboarding' && (
-                        <div className={styles.infoAlertBlue}>
-          <AlertIcon />
-          <span>Please confirm Project Details before proceeding with offboarding request.</span>
-        </div>
-              )
-            }
-
+        {purpose !== 'offboarding' && (
+          <div className={styles.infoAlertBlue}>
+            <AlertIcon />
+            <span>Please confirm Project Details before proceeding with offboarding request.</span>
+          </div>
+        )}
       </div>
 
       {/* Project Search Section */}

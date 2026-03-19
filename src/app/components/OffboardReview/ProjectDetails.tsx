@@ -7,9 +7,9 @@ interface FieldProps {
 }
 interface ProjectDetailsProps {
   selectOffboadingScope: string;
-  existingProject:any;
-  searchValue:string;
-  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
+  existingProject: any;
+  searchValue: string;
+  handleEditButton: (step: StepType, tittle: string, desc: string) => void;
 }
 
 function Field({ label, value }: FieldProps) {
@@ -21,15 +21,28 @@ function Field({ label, value }: FieldProps) {
   );
 }
 
-export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboadingScope,existingProject ,searchValue ,handleEditButton}) => {
+export const ProjectDetails: React.FC<ProjectDetailsProps> = ({
+  selectOffboadingScope,
+  existingProject,
+  searchValue,
+  handleEditButton,
+}) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[19px] text-[#4a4a4a]">Project Details</h2>
           {selectOffboadingScope === 'users' && (
-            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}} 
-            onClick={(e) => handleEditButton("project-details" ,"Project & Offboarding Scope" ,"Add tools or user access to an existing non-client project")}
+            <button
+              className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors"
+              style={{ cursor: 'pointer' }}
+              onClick={(e) =>
+                handleEditButton(
+                  'project-details',
+                  'Project & Offboarding Scope',
+                  'Add tools or user access to an existing non-client project'
+                )
+              }
             >
               <div className="w-5 h-5 relative">
                 <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
@@ -49,20 +62,29 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({ selectOffboading
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Field label="ERTM Project ID" value={searchValue}/>
+          <Field label="ERTM Project ID" value={searchValue} />
           <Field label="SAP Project ID" value={existingProject?.sap_project_id} />
           <Field label="Project Code Name" value={existingProject?.project_code_name} />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           <Field label="Project Type" value={existingProject?.project_type} />
-          <Field label="Estimated Start Date" value= { formatDate(existingProject?.estimated_start_date)} />
-          <Field label="Estimated End Date" value= { formatDate(existingProject?.estimated_end_date)} />
+          <Field
+            label="Estimated Start Date"
+            value={formatDate(existingProject?.estimated_start_date)}
+          />
+          <Field
+            label="Estimated End Date"
+            value={formatDate(existingProject?.estimated_end_date)}
+          />
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          <Field label="Is Personal or Protected Data Involved?" value= {existingProject?.are_you_planning_to_use_any_personal_or_protected_data} />
-          <Field label="Project Description" value= {existingProject?.please_describe} />
+          <Field
+            label="Is Personal or Protected Data Involved?"
+            value={existingProject?.are_you_planning_to_use_any_personal_or_protected_data}
+          />
+          <Field label="Project Description" value={existingProject?.please_describe} />
         </div>
       </div>
     </section>

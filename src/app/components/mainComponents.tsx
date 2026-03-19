@@ -5,7 +5,11 @@ declare global {
   }
 }
 import React, { useEffect, useState } from 'react';
-import { fetchNonClientNewProject, submitNonClientNewProject, submitOffboardingRequest } from '../service/api';
+import {
+  fetchNonClientNewProject,
+  submitNonClientNewProject,
+  submitOffboardingRequest,
+} from '../service/api';
 import { Header } from './Header/Header';
 import { Sidebar } from './SideBar/Sidebar';
 import { ClientEngagementSidebar } from './SideBar/ClientEngagementSideBar';
@@ -41,12 +45,17 @@ type StepType =
 
 interface MainComponentProps {
   nonClientNewProjectData: any;
-  token:string;
-  sidebarOpen:boolean;
+  token: string;
+  sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjectData,token,sidebarOpen,setSidebarOpen }) => {
+export const MainComponent: React.FC<MainComponentProps> = ({
+  nonClientNewProjectData,
+  token,
+  sidebarOpen,
+  setSidebarOpen,
+}) => {
   const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   const [purpose, setPurpose] = useState<string>('');
   const [pageTittle, setPageTittle] = useState('Project Details');
@@ -77,7 +86,9 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
     if (isDraft) {
       const record = metadata?.result?.existing_record_id;
       const projectTypes = nonClientNewProjectData?.result?.what_type_of_project || [];
-      const foundProjectType = projectTypes.find((t: any) => t.label === record?.what_type_of_project);
+      const foundProjectType = projectTypes.find(
+        (t: any) => t.label === record?.what_type_of_project
+      );
       setFormData({
         ...formData,
         ertmProjectId: existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
@@ -86,7 +97,9 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
         projectType: foundProjectType?.value || formData.projectType,
         estimatedStartDate: record?.estimated_start_date || formData.estimatedStartDate,
         estimatedEndDate: record?.estimated_end_date || formData.estimatedEndDate,
-        personalOrprotectedData: (record?.are_you_planning_to_use_any_personal_or_protected_data || '').toLowerCase() || formData.personalOrprotectedData,
+        personalOrprotectedData:
+          (record?.are_you_planning_to_use_any_personal_or_protected_data || '').toLowerCase() ||
+          formData.personalOrprotectedData,
         description: record?.please_describe || formData.description,
         selectedTools: record?.selected_tools || formData.selectedTools,
         customToolRequest: record?.custom_tool_request || formData.customToolRequest,
@@ -94,10 +107,13 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
         primaryPmdPartner: record?.managing_director || formData.primaryPmdPartner,
         secondoryPmdPartner: record?.secondary_managing_director || formData.secondoryPmdPartner,
         informationOwner: record?.md || formData.informationOwner,
-        delegateIformationOwner: record?.delegated_information_owner || formData.delegateIformationOwner,
+        delegateIformationOwner:
+          record?.delegated_information_owner || formData.delegateIformationOwner,
         projectManager: record?.project_manager || formData.projectManager,
         approvers: record?.approvers || formData.approvers,
-        userSelectionsAndToolAcees: Array.isArray(record?.namevalue) ? record.namevalue : formData.userSelectionsAndToolAcees,
+        userSelectionsAndToolAcees: Array.isArray(record?.namevalue)
+          ? record.namevalue
+          : formData.userSelectionsAndToolAcees,
         memoToApprovainMd: record?.custom || formData.memoToApprovainMd,
         confirmation: record?.confirmation || formData.confirmation,
         state: 0,
@@ -117,7 +133,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   const [draftProjectId, setDraftProjectId] = useState<string | null>(null);
   const [saveDraftLoading, setSaveDraftLoading] = useState(false);
   const [submissionResponse, setSubmissionResponse] = useState<any>(null);
-  const [loader,setLoader] = useState<boolean>(false);
+  const [loader, setLoader] = useState<boolean>(false);
 
   const handleRemoveOption = (value: string) => {
     setSelectedOption(value);
@@ -140,49 +156,62 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
 
   const handleSaveDraft = async () => {
     if (saveDraftLoading) return;
-    
+
     setSaveDraftLoading(true);
     try {
-      const existingRecord = existingProjectMetadata?.result?.existing_record_id
-        ?? existingProjectMetadata?.result
-        ?? existingProjectMetadata
-        ?? null;
-        
-      const payload = existingProject === 'yes'
-        ? {
-            ...formData,
-            number: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
-            ertmProjectId: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
-            sapProjectId: existingRecord?.project_id ?? formData.sapProjectId,
-            projectCodeName: existingRecord?.project_code_name ?? formData.projectCodeName,
-            projectType: existingRecord?.project_type ?? formData.projectType,
-            estimatedStartDate: existingRecord?.estimated_start_date ?? formData.estimatedStartDate,
-            estimatedEndDate: existingRecord?.estimated_end_date ?? formData.estimatedEndDate,
-            personalOrprotectedData: existingRecord?.are_you_planning_to_use_any_personal_or_protected_data ?? formData.personalOrprotectedData,
-            description: existingRecord?.short_description ?? formData.description,
-            selectedTools: existingToolFormData?.selectedTools ?? formData.selectedTools,
-            customToolRequest: existingToolFormData?.customToolRequest ?? formData.customToolRequest,
-            toolsSpecifications: existingToolFormData?.toolsSpecifications ?? formData.toolsSpecifications,
-            inDraft: true,
-            state: 0,
-          }
-        : { 
-            ...formData, 
-            number: draftProjectId || formData.ertmProjectId,
-            ertmProjectId: draftProjectId || formData.ertmProjectId,
-            inDraft: true,
-            state: 0,
-          };
-      
+      const existingRecord =
+        existingProjectMetadata?.result?.existing_record_id ??
+        existingProjectMetadata?.result ??
+        existingProjectMetadata ??
+        null;
+
+      const payload =
+        existingProject === 'yes'
+          ? {
+              ...formData,
+              number:
+                draftProjectId ||
+                existingProjectDetailsFormData?.selectedProjectKey ||
+                formData.ertmProjectId,
+              ertmProjectId:
+                draftProjectId ||
+                existingProjectDetailsFormData?.selectedProjectKey ||
+                formData.ertmProjectId,
+              sapProjectId: existingRecord?.project_id ?? formData.sapProjectId,
+              projectCodeName: existingRecord?.project_code_name ?? formData.projectCodeName,
+              projectType: existingRecord?.project_type ?? formData.projectType,
+              estimatedStartDate:
+                existingRecord?.estimated_start_date ?? formData.estimatedStartDate,
+              estimatedEndDate: existingRecord?.estimated_end_date ?? formData.estimatedEndDate,
+              personalOrprotectedData:
+                existingRecord?.are_you_planning_to_use_any_personal_or_protected_data ??
+                formData.personalOrprotectedData,
+              description: existingRecord?.short_description ?? formData.description,
+              selectedTools: existingToolFormData?.selectedTools ?? formData.selectedTools,
+              customToolRequest:
+                existingToolFormData?.customToolRequest ?? formData.customToolRequest,
+              toolsSpecifications:
+                existingToolFormData?.toolsSpecifications ?? formData.toolsSpecifications,
+              inDraft: true,
+              state: 0,
+            }
+          : {
+              ...formData,
+              number: draftProjectId || formData.ertmProjectId,
+              ertmProjectId: draftProjectId || formData.ertmProjectId,
+              inDraft: true,
+              state: 0,
+            };
+
       console.log('Draft payload:', payload);
       const response = await submitNonClientNewProject(payload, token);
       console.log('Draft save response:', response);
-      
+
       if (response?.result?.project_number && !draftProjectId) {
         setDraftProjectId(response.result.project_number);
         setFormData({ ...formData, ertmProjectId: response.result.project_number });
       }
-      
+
       alert('Draft saved successfully!');
     } catch (error) {
       console.error('Error saving draft:', error);
@@ -278,11 +307,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
         }
         setCurrentStep('access-approval');
         if (existingProject === 'yes') {
-          setPageTittle(
-            purpose === 'offboarding'
-              ?  'Data Handling'
-              : 'Update Existing Project'
-          );
+          setPageTittle(purpose === 'offboarding' ? 'Data Handling' : 'Update Existing Project');
           setPageDesc('This process could take a few minutes');
         } else if (purpose === 'offboarding') {
           setPageTittle('Impact Access');
@@ -310,8 +335,14 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
             existingProject === 'yes'
               ? {
                   ...formData,
-                  number: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
-                  ertmProjectId: draftProjectId || existingProjectDetailsFormData?.selectedProjectKey || formData.ertmProjectId,
+                  number:
+                    draftProjectId ||
+                    existingProjectDetailsFormData?.selectedProjectKey ||
+                    formData.ertmProjectId,
+                  ertmProjectId:
+                    draftProjectId ||
+                    existingProjectDetailsFormData?.selectedProjectKey ||
+                    formData.ertmProjectId,
                   sapProjectId: existingRecord?.project_id ?? formData.sapProjectId,
                   projectCodeName: existingRecord?.project_code_name ?? formData.projectCodeName,
                   projectType: existingRecord?.project_type ?? formData.projectType,
@@ -331,7 +362,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
                 }
               : formData;
           console.log('Submission payload:', payload);
-          const response = await submitNonClientNewProject(payload,token); // <-- call your POST API
+          const response = await submitNonClientNewProject(payload, token); // <-- call your POST API
           console.log('Submission response:', response);
           console.log('Submission successful:', response);
           setSubmissionResponse(response);
@@ -414,36 +445,32 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
   //   loadData();
   // }, []);
 
-const handleOffBoardingFormSubmit = async () => {
-  setLoader(true);
-  const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
-  const nameValue = existingProjectMetadata?.result?.existing_record_id?.namevalue;
-  const dataAction = dataHandlingtools.map(item => ({
-    [item.name] : item.action
-  }));
-  const payload = {
-    number: searchValue,
-    request_status: 'Offboarding - Requested',
-     project_offboard_type:
-      selectOffboadingScope === 'project'
-        ? 'project_offboard'
-        : selectOffboadingScope,
-            offboard_namevalue: nameValue,   
-    data_action: dataAction, // array of actions
+  const handleOffBoardingFormSubmit = async () => {
+    setLoader(true);
+    const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
+    const nameValue = existingProjectMetadata?.result?.existing_record_id?.namevalue;
+    const dataAction = dataHandlingtools.map((item) => ({
+      [item.name]: item.action,
+    }));
+    const payload = {
+      number: searchValue,
+      request_status: 'Offboarding - Requested',
+      project_offboard_type:
+        selectOffboadingScope === 'project' ? 'project_offboard' : selectOffboadingScope,
+      offboard_namevalue: nameValue,
+      data_action: dataAction, // array of actions
+    };
+
+    try {
+      const response = await submitOffboardingRequest(payload, token);
+      console.log('Offboarding API success:', response);
+      setLoader(false);
+      setCurrentStep('submission-success');
+    } catch (error) {
+      setLoader(false);
+      console.error('Offboarding API error:', error);
+    }
   };
-
-  try {
-    const response = await submitOffboardingRequest(payload, token);
-    console.log('Offboarding API success:', response);
-        setLoader(false);
-    setCurrentStep('submission-success');
-  } catch (error) {
-     setLoader(false);
-    console.error('Offboarding API error:', error);
-  }
-};
-
-
 
   const [formData, setFormData] = useState({
     ertmProjectId: '',
@@ -553,42 +580,46 @@ const handleOffBoardingFormSubmit = async () => {
     formData?.approvers,
   ].some(isEmptyValue);
 
-      const handleEditButton = (step:StepType, tittle:string , desc:string ) =>{
-        setCurrentStep(step);
-        setPageTittle(tittle)
-        setPageDesc(desc)
-      }
+  const handleEditButton = (step: StepType, tittle: string, desc: string) => {
+    setCurrentStep(step);
+    setPageTittle(tittle);
+    setPageDesc(desc);
+  };
   return (
     <>
       <div className={styles.app}>
         {/* <Header onMenuToggle={toggleSidebar} /> */}
 
-        {purpose === 'offboarding'
-          ? isOffBoardSideBar && (
-              <OffBoardingSideBar
-                isOpen={sidebarOpen}
-                onClose={closeSidebar}
-                currentStep={currentStep}
-                existingProject={existingProject}
-                purpose={purpose}
-              />
-            )
-          : isClientEngagement && currentStep !== 'newclient-intro' && currentStep !== 'submission-success' ? (
-              <ClientEngagementSidebar
-                isOpen={sidebarOpen}
-                onClose={closeSidebar}
-                currentStep={currentStep}
-                existingProject={existingProject}
-              />
-            )
-          : currentStep !== 'newclient-intro' && currentStep !== 'submission-success' && (
-              <Sidebar
-                isOpen={sidebarOpen}
-                onClose={closeSidebar}
-                currentStep={currentStep}
-                existingProject={existingProject}
-              />
-            )}
+        {purpose === 'offboarding' ? (
+          isOffBoardSideBar && (
+            <OffBoardingSideBar
+              isOpen={sidebarOpen}
+              onClose={closeSidebar}
+              currentStep={currentStep}
+              existingProject={existingProject}
+              purpose={purpose}
+            />
+          )
+        ) : isClientEngagement &&
+          currentStep !== 'newclient-intro' &&
+          currentStep !== 'submission-success' ? (
+          <ClientEngagementSidebar
+            isOpen={sidebarOpen}
+            onClose={closeSidebar}
+            currentStep={currentStep}
+            existingProject={existingProject}
+          />
+        ) : (
+          currentStep !== 'newclient-intro' &&
+          currentStep !== 'submission-success' && (
+            <Sidebar
+              isOpen={sidebarOpen}
+              onClose={closeSidebar}
+              currentStep={currentStep}
+              existingProject={existingProject}
+            />
+          )
+        )}
         {currentStep === 'submission-success' && (
           <SubmissionSuccess onDashboard={handleDashboardReturn} apiResponse={submissionResponse} />
         )}
@@ -611,7 +642,7 @@ const handleOffBoardingFormSubmit = async () => {
             {currentStep === 'newclient-intro' && (
               <div className={styles.centerWrapper}>
                 {requestType === 'ETRF' ? (
-                  <ClientEngagementForm 
+                  <ClientEngagementForm
                     purpose={purpose}
                     setPurpose={setPurpose}
                     onContinue={handleNonClientContinue}
@@ -646,7 +677,8 @@ const handleOffBoardingFormSubmit = async () => {
                   </>
                 ) : (
                   <>
-                    {existingProject === 'yes' && existingProjectMetadata?.result?.existing_record_id?.state != 0 ? (
+                    {existingProject === 'yes' &&
+                    existingProjectMetadata?.result?.existing_record_id?.state != 0 ? (
                       <ExistingProjectDetails
                         data={nonClientNewProjectData}
                         onMetadataLoaded={handleMetadataLoaded}
@@ -659,11 +691,11 @@ const handleOffBoardingFormSubmit = async () => {
                         token={token}
                       />
                     ) : (
-                      <ProjectDetails 
-                        formData={formData}  
-                        handleChange={handleChange} 
-                        data={nonClientNewProjectData} 
-                        onSaveDraft={handleSaveDraft} 
+                      <ProjectDetails
+                        formData={formData}
+                        handleChange={handleChange}
+                        data={nonClientNewProjectData}
+                        onSaveDraft={handleSaveDraft}
                       />
                     )}
                     <ActionButtons
@@ -674,9 +706,11 @@ const handleOffBoardingFormSubmit = async () => {
                       disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                       isContinueDisabled={true}
                       isBackButtinShoewn={true}
-                      disableContinue={existingProject === 'yes'
-                        ? !existingProjectDetailsFormData?.selectedProjectKey
-                        : !formData?.projectCodeName}
+                      disableContinue={
+                        existingProject === 'yes'
+                          ? !existingProjectDetailsFormData?.selectedProjectKey
+                          : !formData?.projectCodeName
+                      }
                     />
                   </>
                 )}
@@ -686,37 +720,41 @@ const handleOffBoardingFormSubmit = async () => {
             {/* Step 2: Tool Configuration */}
             {currentStep === 'tool-configuration' && (
               <>
-                  {isClientEngagement || existingProject !== 'yes' ? (
-                <ToolConfiguration
-                  formData={formData}
-                  setFormData={setFormData}
-                  handleChange={handleChange}
-                  data={nonClientNewProjectData}
-                />
-              ) : purpose === 'offboarding' ? (
-                <ImpactAccess
-                  selectedOption={selectedOption}
-                  onRemoveOptionChange={handleRemoveOption}
-                  selectOffboadingScope={selectOffboadingScope}
-                  selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
-                  setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
-                  existingProjectMetadata={existingProjectMetadata}
-                  existingProjectDetailsFormData={existingProjectDetailsFormData}
-                />
-              ) : (
-                <ExistingToolConfiguration
-                  data={nonClientNewProjectData}
-                  existingProjectMetadata={existingProjectMetadata}
-                  existingToolFormData={existingToolFormData}
-                  setExistingToolFormData={setExistingToolFormData}
-                  isDraftProject={isDraftProject}
-                />
-              )}
+                {isClientEngagement || existingProject !== 'yes' ? (
+                  <ToolConfiguration
+                    formData={formData}
+                    setFormData={setFormData}
+                    handleChange={handleChange}
+                    data={nonClientNewProjectData}
+                  />
+                ) : purpose === 'offboarding' ? (
+                  <ImpactAccess
+                    selectedOption={selectedOption}
+                    onRemoveOptionChange={handleRemoveOption}
+                    selectOffboadingScope={selectOffboadingScope}
+                    selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
+                    setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
+                    existingProjectMetadata={existingProjectMetadata}
+                    existingProjectDetailsFormData={existingProjectDetailsFormData}
+                  />
+                ) : (
+                  <ExistingToolConfiguration
+                    data={nonClientNewProjectData}
+                    existingProjectMetadata={existingProjectMetadata}
+                    existingToolFormData={existingToolFormData}
+                    setExistingToolFormData={setExistingToolFormData}
+                    isDraftProject={isDraftProject}
+                  />
+                )}
                 <ActionButtons
                   onDiscard={handleDiscard}
                   onBackButton={handleBack}
                   onContinue={handleContinue}
-                  onSaveDraft={(isProjectDetailsModified() || isToolConfigModified()) ? handleSaveDraft : undefined}
+                  onSaveDraft={
+                    isProjectDetailsModified() || isToolConfigModified()
+                      ? handleSaveDraft
+                      : undefined
+                  }
                   saveDraftLoading={saveDraftLoading}
                   disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isBackButtinShoewn={true}
@@ -754,7 +792,13 @@ const handleOffBoardingFormSubmit = async () => {
                   onDiscard={handleDiscard}
                   onBackButton={handleBack}
                   onContinue={handleContinue}
-                  onSaveDraft={(isProjectDetailsModified() || isToolConfigModified() || isAccessApprovalModified()) ? handleSaveDraft : undefined}
+                  onSaveDraft={
+                    isProjectDetailsModified() ||
+                    isToolConfigModified() ||
+                    isAccessApprovalModified()
+                      ? handleSaveDraft
+                      : undefined
+                  }
                   saveDraftLoading={saveDraftLoading}
                   disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isBackButtinShoewn={true}
@@ -776,7 +820,6 @@ const handleOffBoardingFormSubmit = async () => {
                     existingProjectDetailsFormData={existingProjectDetailsFormData}
                     existingProjectMetadata={existingProjectMetadata}
                     handleEditButton={handleEditButton}
-
                   />
                 ) : (
                   <ReviewSubmit
@@ -798,7 +841,13 @@ const handleOffBoardingFormSubmit = async () => {
                   onDiscard={handleDiscard}
                   onBackButton={handleBack}
                   onContinue={handleContinue}
-                  onSaveDraft={(isProjectDetailsModified() || isToolConfigModified() || isAccessApprovalModified()) ? handleSaveDraft : undefined}
+                  onSaveDraft={
+                    isProjectDetailsModified() ||
+                    isToolConfigModified() ||
+                    isAccessApprovalModified()
+                      ? handleSaveDraft
+                      : undefined
+                  }
                   saveDraftLoading={saveDraftLoading}
                   disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isBackButtinShoewn={true}

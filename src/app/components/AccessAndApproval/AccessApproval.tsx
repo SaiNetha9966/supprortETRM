@@ -334,9 +334,10 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     if (!input) return [];
     const list: any[] = data?.result?.managing_director || [];
     return list
-      .filter((md) =>
-        md?.name?.toLowerCase().includes(input.toLowerCase()) ||
-        md?.emailID?.toLowerCase().includes(input.toLowerCase())
+      .filter(
+        (md) =>
+          md?.name?.toLowerCase().includes(input.toLowerCase()) ||
+          md?.emailID?.toLowerCase().includes(input.toLowerCase())
       )
       .map((md) => md.name);
   };
@@ -346,15 +347,21 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
     if (!input) return [];
     const list: any[] = data?.result?.secondary_managing_director || [];
     return list
-      .filter((md) =>
-        md?.name?.toLowerCase().includes(input.toLowerCase()) ||
-        md?.emailID?.toLowerCase().includes(input.toLowerCase())
+      .filter(
+        (md) =>
+          md?.name?.toLowerCase().includes(input.toLowerCase()) ||
+          md?.emailID?.toLowerCase().includes(input.toLowerCase())
       )
       .map((md) => md.name);
   };
 
   // Handle approver input change (for all fields)
-  const handleApproverInputChange = (role: string, field: string, value: string, isMultiple: boolean) => {
+  const handleApproverInputChange = (
+    role: string,
+    field: string,
+    value: string,
+    isMultiple: boolean
+  ) => {
     // determine suggestion source based on role
     const getSuggestions = () => {
       if (role === 'Partner - Managing Director') {
@@ -734,7 +741,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
                       setSelected={setSelected}
                       options={[]}
                     />
-                </div>
+                  </div>
                 )}
 
                 {/* Buttons */}
@@ -771,9 +778,15 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
                       <div className="flex items-center gap-2">
                         <button
                           onClick={() => handleRemoveUser(index)}
-                          disabled={existingProject === 'yes' && existingUserNameSet.has(user.name) && !isDraftProject}
+                          disabled={
+                            existingProject === 'yes' &&
+                            existingUserNameSet.has(user.name) &&
+                            !isDraftProject
+                          }
                           className={`text-[#d32f2f] px-3 py-1 rounded font-['Roboto',sans-serif] text-sm font-medium flex items-center gap-1 whitespace-nowrap ${
-                            existingProject === 'yes' && existingUserNameSet.has(user.name) && !isDraftProject
+                            existingProject === 'yes' &&
+                            existingUserNameSet.has(user.name) &&
+                            !isDraftProject
                               ? 'opacity-50 cursor-not-allowed'
                               : 'hover:bg-[#ffebee]'
                           }`}

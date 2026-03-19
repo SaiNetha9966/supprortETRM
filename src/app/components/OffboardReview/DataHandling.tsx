@@ -4,7 +4,7 @@ import { DataHandlingTool, StepType } from '../Utils/UiUtilis';
 interface DataHandlingProps {
   selectOffboadingScope: string;
   dataHandlingtools: DataHandlingTool[];
-  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
+  handleEditButton: (step: StepType, tittle: string, desc: string) => void;
 }
 
 interface ToolItemProps {
@@ -23,15 +23,28 @@ function ToolItem({ name, status }: ToolItemProps) {
     </div>
   );
 }
-export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScope ,dataHandlingtools,handleEditButton}) => {
+export const DataHandling: React.FC<DataHandlingProps> = ({
+  selectOffboadingScope,
+  dataHandlingtools,
+  handleEditButton,
+}) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-5">
         <div className="flex items-center justify-between">
           <h2 className="font-bold text-[19px] text-[#4a4a4a]">Data Handling Summary</h2>
           {selectOffboadingScope !== 'users' && (
-            <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}}
-             onClick={() => handleEditButton("access-approval","Data Handling" , "This process could take a few minutes")}>
+            <button
+              className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors"
+              style={{ cursor: 'pointer' }}
+              onClick={() =>
+                handleEditButton(
+                  'access-approval',
+                  'Data Handling',
+                  'This process could take a few minutes'
+                )
+              }
+            >
               <div className="w-5 h-5 relative">
                 <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                   <svg
@@ -70,35 +83,35 @@ export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScop
           </div>
         )}
 
-{selectOffboadingScope === 'project' && (
-  <div>
-    <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
-      <div className="flex gap-1.5">
-        <div className="w-5 h-5 relative shrink-0">
-          <div className="absolute inset-[8.33%]">
-            <svg
-              className="absolute block inset-0"
-              fill="none"
-              preserveAspectRatio="none"
-              viewBox="0 0 16.6667 16.6667"
-            >
-              <path d={svgPaths.p36290900} fill="#006176" />
-            </svg>
-          </div>
-        </div>
-        <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-          Selected data handling actions will be executed once the request is approved.
-        </p>
-      </div>
-    </div>
+        {selectOffboadingScope === 'project' && (
+          <div>
+            <div className="bg-[#f6fdff] border border-[#b0deeb] rounded-lg p-3">
+              <div className="flex gap-1.5">
+                <div className="w-5 h-5 relative shrink-0">
+                  <div className="absolute inset-[8.33%]">
+                    <svg
+                      className="absolute block inset-0"
+                      fill="none"
+                      preserveAspectRatio="none"
+                      viewBox="0 0 16.6667 16.6667"
+                    >
+                      <path d={svgPaths.p36290900} fill="#006176" />
+                    </svg>
+                  </div>
+                </div>
+                <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
+                  Selected data handling actions will be executed once the request is approved.
+                </p>
+              </div>
+            </div>
 
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
-      {dataHandlingtools?.map((tool, index) => (
-        <ToolItem key={index} name={tool.name} status={tool.action} />
-      ))}
-    </div>
-  </div>
-)}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
+              {dataHandlingtools?.map((tool, index) => (
+                <ToolItem key={index} name={tool.name} status={tool.action} />
+              ))}
+            </div>
+          </div>
+        )}
 
         {selectOffboadingScope === 'tools' && (
           <div>
@@ -122,9 +135,9 @@ export const DataHandling: React.FC<DataHandlingProps> = ({ selectOffboadingScop
               </div>
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-6">
-               {dataHandlingtools?.map((tool, index) => (
-        <ToolItem key={index} name={tool.name} status={tool.action} />
-      ))}
+              {dataHandlingtools?.map((tool, index) => (
+                <ToolItem key={index} name={tool.name} status={tool.action} />
+              ))}
             </div>
           </div>
         )}

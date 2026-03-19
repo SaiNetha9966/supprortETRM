@@ -1,10 +1,10 @@
-import React from "react";
-import "./ConfirmationModal.css";
+import React from 'react';
+import './ConfirmationModal.css';
 
 interface ConfirmationModalProps {
   isOpen: boolean;
   title: string;
-  title2:string;
+  title2: string;
   description: string;
   noteLabel?: string;
   notePlaceholder?: string;
@@ -14,7 +14,7 @@ interface ConfirmationModalProps {
   onCancel: () => void;
   onConfirm: () => void;
   confirmText: string;
-  confirmColor?: "green" | "red" | "blue";
+  confirmColor?: 'green' | 'red' | 'blue';
 }
 
 const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
@@ -30,7 +30,7 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
   onCancel,
   onConfirm,
   confirmText,
-  confirmColor = "green",
+  confirmColor = 'green',
 }) => {
   if (!isOpen) return null;
 
@@ -60,7 +60,14 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
           <button className="btn cancel" onClick={onCancel}>
             Cancel
           </button>
-          <button className={`btn confirm`} style={{backgroundColor: confirmColor === "green" ? "#498E2B" : "#CB282E"  , color:"#FFFFFF"}} onClick={onConfirm}>
+          <button
+            className={`btn confirm`}
+            style={{
+              backgroundColor: confirmColor === 'green' ? '#498E2B' : '#CB282E',
+              color: '#FFFFFF',
+            }}
+            onClick={onConfirm}
+          >
             {confirmText}
           </button>
         </div>

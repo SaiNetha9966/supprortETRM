@@ -22,7 +22,7 @@ interface User {
 interface UsersSummaryProps {
   selectOffboadingScope: string;
   initialUsers: any;
-  handleEditButton :(step : StepType , tittle:string , desc:string) => void;
+  handleEditButton: (step: StepType, tittle: string, desc: string) => void;
 }
 
 function UserCard({ name, email, access, status }: UserCardProps) {
@@ -75,8 +75,11 @@ function UserCard({ name, email, access, status }: UserCardProps) {
   );
 }
 
-export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScope, initialUsers ,handleEditButton}) => {
-
+export const UsersSummary: React.FC<UsersSummaryProps> = ({
+  selectOffboadingScope,
+  initialUsers,
+  handleEditButton,
+}) => {
   return (
     <section className="bg-white rounded-lg p-6 mb-6">
       <div className="flex flex-col gap-8">
@@ -96,8 +99,17 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
               <h2 className="font-bold text-[19px] text-[#4a4a4a]">Users Impact Summary</h2>
             )}
             {selectOffboadingScope === 'users' && (
-              <button className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors" style={{cursor:"pointer"}}  
-              onClick={() => handleEditButton("tool-configuration","Impact Access" ,"Add new tools to the existing project. Existing tools are shown for reference.")}>
+              <button
+                className="flex items-center gap-0.5 h-5 text-[#4a4a4a] hover:text-[#333] transition-colors"
+                style={{ cursor: 'pointer' }}
+                onClick={() =>
+                  handleEditButton(
+                    'tool-configuration',
+                    'Impact Access',
+                    'Add new tools to the existing project. Existing tools are shown for reference.'
+                  )
+                }
+              >
                 <div className="w-5 h-5 relative">
                   <div className="absolute inset-[12.62%_12.62%_12.5%_12.5%]">
                     <svg
@@ -131,7 +143,8 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
                   </div>
                 </div>
                 <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                  Selected users will lose access to this project. Project tools and data will remain unchanged.
+                  Selected users will lose access to this project. Project tools and data will
+                  remain unchanged.
                 </p>
               </div>
             </div>
@@ -153,7 +166,8 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
                   </div>
                 </div>
                 <p className="font-normal text-[14px] text-[#3b4648] leading-[19px]">
-                  These users currently have access to the selected tools and will lose access only to those tools after approval.
+                  These users currently have access to the selected tools and will lose access only
+                  to those tools after approval.
                 </p>
               </div>
             </div>
@@ -161,7 +175,7 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({ selectOffboadingScop
         </div>
 
         <div className="flex flex-col gap-4">
-          {initialUsers.map((user : any) => (
+          {initialUsers.map((user: any) => (
             <UserCard
               key={user.id}
               name={user.name}

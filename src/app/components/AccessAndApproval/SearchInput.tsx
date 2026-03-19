@@ -32,9 +32,11 @@ export const SearchInput: React.FC<SearchInputProps> = ({
         {/* Info Icon - Only show if tooltip exists */}
         {tooltip && (
           <>
-            <Info className={`w-4 h-4 ${disabled ? 'cursor-default' : 'cursor-pointer'} ${
-              disabled ? 'text-[#999]' : 'text-[#4a4a4a]'
-            }`} />
+            <Info
+              className={`w-4 h-4 ${disabled ? 'cursor-default' : 'cursor-pointer'} ${
+                disabled ? 'text-[#999]' : 'text-[#4a4a4a]'
+              }`}
+            />
 
             {/* Tooltip ABOVE the icon */}
             <span className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 hidden group-hover:block bg-black text-white text-xs rounded px-3 py-2 whitespace-normal max-w-sm w-max z-50">

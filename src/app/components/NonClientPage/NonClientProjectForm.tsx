@@ -149,7 +149,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                 {purpose === 'offboarding' && (
                   <div className="info-alert">
                     <AlertIcon />
-                    <span className='info-alert-span'>
+                    <span className="info-alert-span">
                       Click Continue to Form to provide offboarding scope.
                     </span>
                   </div>

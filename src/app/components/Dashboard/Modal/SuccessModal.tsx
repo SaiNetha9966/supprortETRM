@@ -1,5 +1,5 @@
-import React from "react";
-import "./SuccessModal.css";
+import React from 'react';
+import './SuccessModal.css';
 
 interface SuccessModalProps {
   isOpen: boolean;
@@ -16,7 +16,7 @@ interface SuccessModalProps {
   onCancel?: () => void;
   onConfirm?: () => void;
   confirmText?: string;
-  confirmColor?: "green" | "red" | "blue";
+  confirmColor?: 'green' | 'red' | 'blue';
   backgroundColor: string;
 }
 
@@ -30,13 +30,13 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
   noteLabel,
   notePlaceholder,
   noteRequired = false,
-  noteValue = "",
+  noteValue = '',
   onNoteChange,
   onCancel,
   onConfirm,
   confirmText,
-  confirmColor = "green",
-  backgroundColor
+  confirmColor = 'green',
+  backgroundColor,
 }) => {
   if (!isOpen) return null;
 
@@ -49,7 +49,11 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
           </button>
         )}
 
-        {icon && <div className="modal-icon" style={{backgroundColor : backgroundColor}}>{icon}</div>}
+        {icon && (
+          <div className="modal-icon" style={{ backgroundColor: backgroundColor }}>
+            {icon}
+          </div>
+        )}
 
         <h2 className="modal-title">{title}</h2>
         <p className="modal-description">{description}</p>
@@ -77,10 +81,7 @@ const SuccessModal: React.FC<SuccessModalProps> = ({
               </button>
             )}
             {onConfirm && confirmText && (
-              <button
-                className={`btn confirm ${confirmColor}`}
-                onClick={onConfirm}
-              >
+              <button className={`btn confirm ${confirmColor}`} onClick={onConfirm}>
                 {confirmText}
               </button>
             )}

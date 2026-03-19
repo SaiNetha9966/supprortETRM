@@ -101,7 +101,9 @@ export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps
             <option value="radius-2">Radius 2</option>
             <option value="radius-3">Radius 3</option>
           </select>
-          <p className={styles.additionalInfo}>Recommended: You can skip if not available at the moment.</p>
+          <p className={styles.additionalInfo}>
+            Recommended: You can skip if not available at the moment.
+          </p>
         </div>
 
         <div className={styles.formGroup}>
@@ -113,7 +115,9 @@ export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps
             onChange={(e) => handleChange('sapProjectId', e.target.value)}
             placeholder="Enter SAP Project ID"
           />
-          <p className={styles.additionalInfo}>Recommended: You can skip if not available at the moment.</p>
+          <p className={styles.additionalInfo}>
+            Recommended: You can skip if not available at the moment.
+          </p>
         </div>
 
         <div className={styles.formGroup}>

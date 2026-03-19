@@ -106,7 +106,7 @@ export const mapFormDataToApiPayload = (formData: any) => {
 
   return {
     number: formData.number,
-    non_client_project: "non_client_project",
+    non_client_project: 'non_client_project',
     project_id: formData.sapProjectId,
     codename: formData.projectCodeName,
     what_type_of_project: formData.projectType,
@@ -131,8 +131,8 @@ export const mapFormDataToApiPayload = (formData: any) => {
     memo_to_approving_md: formData.memoToApprovainMd,
     confirmation: formData.confirmation ? 'Yes' : 'No',
     state: formData.state ?? 1,
-    technology_request_type: "Internal",
-    request_status: formData.state === 0 ? null : "Onboarding - Requested",
+    technology_request_type: 'Internal',
+    request_status: formData.state === 0 ? null : 'Onboarding - Requested',
   };
 };
 

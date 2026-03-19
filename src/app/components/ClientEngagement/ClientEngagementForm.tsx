@@ -86,7 +86,6 @@ const ClientEngagementForm: React.FC<ClientEngagementFormProps> = ({
                   </div>
                 </label>
               </div>
-
             </div>
           </>
         }
@@ -121,20 +120,22 @@ const ClientEngagementForm: React.FC<ClientEngagementFormProps> = ({
           <p className="additional-info mt-1.5 text-xs text-[#727272]">
             Select the Ironclad ID associated with engagement.
           </p>
-          
+
           {matchFound && (
             <div className="info-alert-blue">
               <AlertIcon />
               <span>
                 {' '}
-                Ironclad ID IC-{ironclacId} was found. Since there is no existing ETRF, please click continue to create a new ETRF.
+                Ironclad ID IC-{ironclacId} was found. Since there is no existing ETRF, please click
+                continue to create a new ETRF.
               </span>{' '}
             </div>
           )}
-          
+
           {noMatchingId && (
             <p className="text-l mt-1">
-              No matching <span className="font-medium">Ironclad ID</span> was found for <span className="font-medium">IC-{ironclacId}</span>.
+              No matching <span className="font-medium">Ironclad ID</span> was found for{' '}
+              <span className="font-medium">IC-{ironclacId}</span>.
             </p>
           )}
         </div>

@@ -1,5 +1,5 @@
 // import svgPaths from '../../imports/svg-w3qi05nelx';
-import svgPaths from "../../../imports/svg-w3qi05nelx"
+import svgPaths from '../../../imports/svg-w3qi05nelx';
 
 export function DashBoardHeader() {
   return (
@@ -14,12 +14,7 @@ export function DashBoardHeader() {
               preserveAspectRatio="none"
               viewBox="0 0 18 21"
             >
-              <path
-                clipRule="evenodd"
-                d={svgPaths.p1b0e5100}
-                fill="white"
-                fillRule="evenodd"
-              />
+              <path clipRule="evenodd" d={svgPaths.p1b0e5100} fill="white" fillRule="evenodd" />
             </svg>
           </div>
         </div>
@@ -80,7 +75,10 @@ export function DashBoardHeader() {
         {/* Icons */}
         <div className="flex gap-3 md:gap-5 items-center">
           {/* Notification Icon */}
-          <button className="flex h-12 items-center hover:opacity-80 transition-opacity" aria-label="Notifications">
+          <button
+            className="flex h-12 items-center hover:opacity-80 transition-opacity"
+            aria-label="Notifications"
+          >
             <div className="overflow-clip relative size-6">
               <div className="absolute inset-[10.42%_16.67%_8.33%_16.67%]">
                 <svg
@@ -96,7 +94,10 @@ export function DashBoardHeader() {
           </button>
 
           {/* Help Icon */}
-          <button className="flex h-12 items-center hover:opacity-80 transition-opacity" aria-label="Help">
+          <button
+            className="flex h-12 items-center hover:opacity-80 transition-opacity"
+            aria-label="Help"
+          >
             <div className="overflow-clip relative size-6">
               <div className="absolute inset-[8.33%]">
                 <svg
@@ -112,7 +113,10 @@ export function DashBoardHeader() {
           </button>
 
           {/* Profile Icon */}
-          <button className="flex items-center hover:opacity-80 transition-opacity" aria-label="Profile">
+          <button
+            className="flex items-center hover:opacity-80 transition-opacity"
+            aria-label="Profile"
+          >
             <div className="bg-[#5cb335] flex items-center justify-center rounded-full size-7">
               <span className="font-['Roboto',sans-serif] font-medium leading-none text-[15px] text-center text-white">
                 JB
