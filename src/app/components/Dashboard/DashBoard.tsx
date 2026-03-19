@@ -24,7 +24,9 @@ export default function DashBoard() {
           onRequestDetailsView={handleRequestDetailsView}
         />
       )}
-      {isRequestDetailsClicked && <RequestDetail onRequestDetailsView={handleRequestDetailsView} />}
+      {isRequestDetailsClicked && (
+        <RequestDetail activeTab={activeTab} onRequestDetailsView={handleRequestDetailsView} />
+      )}
     </div>
   );
 }

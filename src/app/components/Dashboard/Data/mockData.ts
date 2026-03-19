@@ -379,3 +379,24 @@ export const getDetailedRequest = (id: string): DetailedRequest | null => {
     online: true,
   };
 };
+
+export const mockOffOnBoardRequestData = [
+  {
+    requestId : "RITM008111",
+    requestType : "Onboarding",
+    assignedTo :"Ryan Cash",
+    assignGroup : "ETS Support Team",
+    item :"Container Utilization Optimizer",
+    open:"2026-02-05 06:15:03",
+    status :"Closed Completed"
+  },
+    {
+    requestId : "RITM008234",
+    requestType : "Onboarding",
+    assignedTo :"Ryan Cash",
+    assignGroup : "ETS Support Team",
+    item :"Code Repository (Azure Devops)",
+    open:"2026-02-05 06:15:03",
+    status :"Closed Completed"
+  }
+]

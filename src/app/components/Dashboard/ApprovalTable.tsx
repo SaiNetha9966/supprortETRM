@@ -222,13 +222,11 @@ export function ApprovalTable({ requests, onRequestDetailsView }: ApprovalTableP
                     className={`transition-colors hover:bg-[#e8f5e9] ${
                       index % 2 === 0 ? 'bg-[#f7f7f7]' : 'bg-white'
                     }`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => onRequestDetailsView(true)}
                   >
                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] font-medium text-sm text-[#0369a3] underline whitespace-nowrap">
-                      <span
-                        style={{ cursor: 'pointer' }}
-                        className="hover:text-[#024870]"
-                        onClick={() => onRequestDetailsView(true)}
-                      >
+                      <span style={{ cursor: 'pointer' }} className="hover:text-[#024870]">
                         {request.projectCodeName}
                       </span>
                     </td>

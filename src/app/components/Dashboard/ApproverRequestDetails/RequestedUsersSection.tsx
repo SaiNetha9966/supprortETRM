@@ -4,6 +4,7 @@ import svgPaths from '../../../../imports/svg-9v12l09gyw';
 
 interface RequestedUsersSectionProps {
   request: DetailedRequest;
+  activeTab: string;
 }
 
 function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => void }) {
@@ -103,7 +104,7 @@ function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => voi
   );
 }
 
-export function RequestedUsersSection({ request }: RequestedUsersSectionProps) {
+export function RequestedUsersSection({ activeTab, request }: RequestedUsersSectionProps) {
   const [users, setUsers] = useState<RequestedUser[]>(request.requestedUsers);
 
   const toggleUser = (userId: string) => {
@@ -116,9 +117,61 @@ export function RequestedUsersSection({ request }: RequestedUsersSectionProps) {
 
   return (
     <div className="bg-white rounded-[8px] p-4 sm:p-6">
-      <h2 className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#4a4a4a] mb-6 sm:mb-8">
-        Requested Users
-      </h2>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <h2 className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#4a4a4a] mb-6 sm:mb-8">
+          {activeTab === 'requestor' ? 'User & Tool Acsess' : '  Requested Users'}
+        </h2>
+        {activeTab === 'requestor' && (
+          <div>
+            <button
+              style={{
+                marginRight: '20px',
+                borderRadius: '2px',
+                border: '1px solid #498E2B',
+                color: '#498E2B',
+                textAlign: 'center',
+                fontFamily: 'Roboto',
+                fontSize: '15px',
+                fontWeight: '500',
+                padding: '5px',
+                width: '94px',
+              }}
+            >
+              Add Users
+            </button>
+            <button
+              style={{
+                marginRight: '20px',
+                borderRadius: '2px',
+                border: '1px solid #CB282E',
+                color: '#CB282E',
+                textAlign: 'center',
+                fontFamily: 'Roboto',
+                fontSize: '15px',
+                fontWeight: '500',
+                padding: '7px',
+              }}
+            >
+              Remover Tool Access
+            </button>
+            <button
+              style={{
+                marginRight: '20px',
+                borderRadius: '2px',
+                border: '1px solid #CB282E',
+                color: '#CB282E',
+                textAlign: 'center',
+                fontFamily: 'Roboto',
+                fontSize: '15px',
+                fontWeight: '500',
+                padding: '7px',
+              }}
+            >
+              Offboard Users
+            </button>
+          </div>
+        )}
+      </div>
 
       <div className="space-y-5">
         {users.map((user) => (

@@ -16,7 +16,7 @@ export type RequestStatus =
   | 'Onboarding - Pending Approval'
   | 'Offboarding - Pending Approval'
   | 'Onboarding - In Progress'
-  | 'Onboarding - Approved';
+  | 'Onboarding - Approved' | 'Closed Completed' | string;
 
 export type TabType = 'requestor' | 'approver';
 

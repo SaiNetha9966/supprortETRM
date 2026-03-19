@@ -41,6 +41,13 @@ export function StatusBadge({ status }: StatusBadgeProps) {
         label: 'Onboarding - Approved',
       };
     }
+    if (status === 'Closed Completed') {
+      return {
+        bg: 'bg-[#a5d192]',
+        text: 'text-[#3f702a]',
+        label: status,
+      };
+    }
     return {
       bg: 'bg-gray-100',
       text: 'text-gray-700',
