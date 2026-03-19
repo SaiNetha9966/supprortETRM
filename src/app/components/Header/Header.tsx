@@ -28,15 +28,35 @@ const HelpIcon: React.FC = () => (
 
 interface HeaderProps {
   onMenuToggle?: () => void;
-  onNavigateDashBoard:(type : string) => void;
-  dashBoardType:string;
+  onNavigateDashBoard: (type: string) => void;
+  dashBoardType: string;
 }
 
-export const Header: React.FC<HeaderProps> = ({ onMenuToggle , onNavigateDashBoard,dashBoardType }) => {
+export const Header: React.FC<HeaderProps> = ({
+  onMenuToggle,
+  onNavigateDashBoard,
+  dashBoardType,
+}) => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [selectedDropdown, setSelectedDropdown] = useState<string>('ETRF');
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
+  };
+
+  const handleDropdownToggle = () => {
+    setDropdownOpen((open) => !open);
+  };
+  const handleDropdownClose = () => {
+    setDropdownOpen(false);
+  };
+  const handleDropdownSelect = (option: string) => {
+    setSelectedDropdown(option);
+    setDropdownOpen(false);
+    if (window.setRequestType) {
+      window.setRequestType(option);
+    }
   };
 
   const handleHamburgerClick = () => {
@@ -50,27 +70,107 @@ export const Header: React.FC<HeaderProps> = ({ onMenuToggle , onNavigateDashBoa
       <div className={styles.logoSection}>
         <AlixLogo />
         <div className={styles.separator} />
-        <div className={styles.projectName}> {dashBoardType === "newrequest" ? "ETRM" : "Technology Request Management Portal" } </div>
+        <div className={styles.projectName}>
+          {' '}
+          {dashBoardType === 'newrequest' ? 'ETRM' : 'Technology Request Management Portal'}{' '}
+        </div>
       </div>
       <div className={styles.rightSection}>
         <nav className={`${styles.navigation} ${menuOpen ? styles.open : ''}`}>
-          <div 
-
-className={dashBoardType === "dashboard" 
-  ? `${styles.navItem} ${styles.active}` 
-  : styles.navItem}
-
-          
-           onClick={() => onNavigateDashBoard("dashboard")}>Dashboard</div>
           <div
-
-          className={dashBoardType === "newrequest" 
-  ? `${styles.navItem} ${styles.active}` 
-  : styles.navItem}
-          
-          onClick={() => onNavigateDashBoard("newrequest")}>
+            className={
+              dashBoardType === 'dashboard' ? `${styles.navItem} ${styles.active}` : styles.navItem
+            }
+            onClick={() => onNavigateDashBoard('dashboard')}
+          >
+            Dashboard
+          </div>
+          <div
+            className={
+              dashBoardType === 'newrequest' ? `${styles.navItem} ${styles.active}` : styles.navItem
+            }
+            onClick={() => {
+              onNavigateDashBoard('newrequest');
+              handleDropdownToggle();
+            }}
+            style={{ position: 'relative' }}
+            tabIndex={0}
+            onBlur={handleDropdownClose}
+          >
             New Request
             <ExpandMoreIcon />
+            {dropdownOpen && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  background: 'white',
+                  boxShadow: '0 2px 8px rgba(0,0,0,0.12)',
+                  borderRadius: 4,
+                  minWidth: 132,
+                  zIndex: 10,
+                  marginTop: 4,
+                  padding: '4px 0',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: 4,
+                }}
+              >
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    padding: '0 4px',
+                    height: 24,
+                    borderRadius: 2,
+                    background: selectedDropdown === 'ETRF' ? '#eaf7e6' : 'white',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => handleDropdownSelect('ETRF')}
+                  onMouseDown={(e) => e.preventDefault()}
+                >
+                  <span
+                    style={{
+                      marginLeft: 4,
+                      fontFamily: 'Roboto, sans-serif',
+                      fontSize: 13,
+                      color: '#4A4A4A',
+                      textAlign: 'left',
+                    }}
+                  >
+                    ETRF
+                  </span>
+                </div>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'flex-start',
+                    padding: '0 4px',
+                    height: 24,
+                    borderRadius: 2,
+                    background: selectedDropdown === 'ITRF' ? '#eaf7e6' : 'white',
+                    cursor: 'pointer',
+                  }}
+                  onClick={() => handleDropdownSelect('ITRF')}
+                  onMouseDown={(e) => e.preventDefault()}
+                >
+                  <span
+                    style={{
+                      marginLeft: 4,
+                      fontFamily: 'Roboto, sans-serif',
+                      fontSize: 13,
+                      color: '#4A4A4A',
+                      textAlign: 'left',
+                    }}
+                  >
+                    ITRF
+                  </span>
+                </div>
+              </div>
+            )}
           </div>
         </nav>
         <div className={styles.iconButton}>

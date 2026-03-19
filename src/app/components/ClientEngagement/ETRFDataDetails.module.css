@@ -1,0 +1,148 @@
+.container {
+  width: 100%;
+  padding: 24px 0 40px;
+  font-family: Roboto, -apple-system, BlinkMacSystemFont, 'Segoe UI', Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.card {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+}
+
+.title {
+  font-size: 19px;
+  font-weight: 700;
+  color: #4a4a4a;
+  margin: 0;
+}
+
+.subtitle {
+  font-size: 16px;
+  font-weight: 400;
+  color: #727272;
+  margin: 0;
+  line-height: 22px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(240px, 1fr));
+  gap: 32px;
+  margin-bottom: 24px;
+}
+
+.helperText {
+  font-size: 12px;
+  color: #727272;
+  margin-top: 6px;
+}
+
+.required {
+  color: #cb282e;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a4a4a;
+}
+
+.input,
+.select,
+.textarea {
+  height: 40px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  background: #ffffff;
+  color: #4a4a4a;
+  outline: none;
+}
+
+.select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3e%3cpath fill='%234a4a4a' d='M4 6l4 4 4-4z'/%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 12px 12px;
+}
+
+.input:focus,
+.select:focus,
+.textarea:focus {
+  border-color: #498e2b;
+  box-shadow: 0 0 0 2px rgba(73, 142, 43, 0.15);
+}
+
+.textareaWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.wordCounter {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  text-align: right;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #878787;
+  pointer-events: none;
+}
+
+.textarea {
+  min-height: 110px;
+  resize: vertical;
+}
+
+.buttonRow {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 10px 18px;
+  border-radius: 6px;
+  border: 1px solid transparent;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.button.primary {
+  background: #498e2b;
+  border-color: #498e2b;
+  color: #ffffff;
+}
+
+.button.secondary {
+  background: #ffffff;
+  border-color: #cccccc;
+  color: #4a4a4a;
+}
+
+.button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

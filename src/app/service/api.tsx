@@ -154,9 +154,9 @@ export async function fetchExistingProjectMetadata(idOrName: string,token:string
 
 const msalConfig = {
   auth: {
-    clientId: '6c01459f-9913-4473-b6af-6767c1274e4f',
+    clientId: '50e64727-57c1-436e-97c2-fb3bdab52afb',
     authority: 'https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142',
-    redirectUri: window.location.origin,
+    redirectUri: 'http://localhost:5173/',
   },
   cache: {
     cacheLocation: 'sessionStorage',

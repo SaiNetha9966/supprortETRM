@@ -1,10 +1,20 @@
+// Add custom property to window for request type setter
+declare global {
+  interface Window {
+    setRequestType?: (type: 'ETRF' | 'ITRF') => void;
+  }
+}
 import React, { useEffect, useState } from 'react';
 import { fetchNonClientNewProject, submitNonClientNewProject, submitOffboardingRequest } from '../service/api';
 import { Header } from './Header/Header';
 import { Sidebar } from './SideBar/Sidebar';
+import { ClientEngagementSidebar } from './SideBar/ClientEngagementSideBar';
 import { SubmissionSuccess } from './SubmissionSuccess/SubmissionSuccess';
 import { ProjectSetup } from './ProjectSetup/ProjectSetup';
 import NonClientProjectForm from './NonClientPage/NonClientProjectForm';
+import ClientEngagementForm from './ClientEngagement/ClientEngagementForm';
+import ETRFDetails from './ClientEngagement/ETRFDetails';
+import DataDetails from './ClientEngagement/DataDetails';
 import { ExistingProjectDetails } from './ExistingProjectDetails/ExistingProjectDetails';
 import { ProjectDetails } from './ProjectDetails/ProjectDetails';
 import { ActionButtons } from './ActionButtons/ActionButtons';
@@ -44,6 +54,16 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
     'Provide project details to initiate setup. This process may take a few minutes.'
   );
   const [existingProject, setExistingProject] = useState<string>('');
+  const [isClientEngagement, setIsClientEngagement] = useState<boolean>(false);
+  const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
+
+  // Expose setter globally for Header dropdown
+  React.useEffect(() => {
+    window.setRequestType = setRequestType;
+    return () => {
+      window.setRequestType = undefined;
+    };
+  }, []);
   const [existingProjectMetadata, setExistingProjectMetadata] = useState<any | null>(null);
   const [isOffBoardSideBar, setIsOffBoardSideBar] = useState<boolean>(false);
   const [selectOffboadingScope, setSelectOffboadingScope] = useState<string>('');
@@ -213,6 +233,8 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
 
   const handleNonClientContinue = (projectType: string) => {
     setExistingProject(projectType);
+    // Only set client engagement for ETRF
+    setIsClientEngagement(requestType === 'ETRF');
     setCurrentStep('project-details');
     if (projectType === 'yes') {
       setPageDesc('Add tools or user access to an existing non-client project');
@@ -239,7 +261,6 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
       case 'project-details':
         setCurrentStep('tool-configuration');
         setPageTittle(purpose === 'offboarding' ? 'Impact Access' : 'Tool Configuration');
-        console.log("else")
         if (existingProject === 'yes') {
           setPageDesc(
             'Add new tools to the existing project. Existing tools are shown for reference.'
@@ -251,9 +272,12 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
         }
         break;
       case 'tool-configuration':
-          setCurrentStep('access-approval');
+        // If coming from client engagement, set existingProject to '' so AccessApproval shows correct fields
+        if (isClientEngagement) {
+          setExistingProject('');
+        }
+        setCurrentStep('access-approval');
         if (existingProject === 'yes') {
-          // setPageTittle(purpose === 'offboarding' ? 'Data Handling' : 'Update Existing Project');
           setPageTittle(
             purpose === 'offboarding'
               ?  'Data Handling'
@@ -263,7 +287,6 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
         } else if (purpose === 'offboarding') {
           setPageTittle('Impact Access');
         } else {
-          setCurrentStep('access-approval');
           setPageTittle('Approval & Access');
           setPageDesc(
             'Define approvers and assign user access for the selected tools. This step may take a few minutes.'
@@ -357,8 +380,13 @@ export const MainComponent: React.FC<MainComponentProps> = ({ nonClientNewProjec
         );
         break;
       case 'project-details':
-        setIsOffBoardSideBar(false);
-        setCurrentStep('newclient-intro');
+        if (isClientEngagement) {
+          setIsClientEngagement(false);
+          setCurrentStep('newclient-intro');
+        } else {
+          setIsOffBoardSideBar(false);
+          setCurrentStep('newclient-intro');
+        }
         break;
       default:
         break;
@@ -426,6 +454,34 @@ const handleOffBoardingFormSubmit = async () => {
     estimatedEndDate: '',
     personalOrprotectedData: '',
     description: '',
+    // Client engagement fields
+    clientName: '',
+    typeOfWork: '',
+    ironcladId: '',
+    radiusId: '',
+    etrfId: '',
+    // Data details fields
+    dataVolume: '',
+    dataCountryOrigin: '',
+    dataTransferAbroad: '',
+    privacyRequirements: {
+      tar: false,
+      sox: false,
+      ccpa2018: false,
+      soc2: false,
+      iso27001: false,
+      gdpr: false,
+      ear: false,
+      other: false,
+    },
+    dataTypes: {
+      personalData: false,
+      npi: false,
+      pci: false,
+      phi: false,
+      sensitiveData: false,
+    },
+    // end client engagement fields
     selectedTools: [],
     customToolRequest: '',
     toolsSpecifications: [],
@@ -439,6 +495,7 @@ const handleOffBoardingFormSubmit = async () => {
     nameValuePairs: [],
     memoToApprovainMd: '',
     confirmation: false,
+    state: 0,
   });
   const offBoardFormData: OffBoardFormData = {
     sapProjectId: formData?.ertmProjectId,
@@ -506,7 +563,7 @@ const handleOffBoardingFormSubmit = async () => {
       <div className={styles.app}>
         {/* <Header onMenuToggle={toggleSidebar} /> */}
 
-        {purpose === 'offboarding' &&  currentStep !== 'submission-success'
+        {purpose === 'offboarding'
           ? isOffBoardSideBar && (
               <OffBoardingSideBar
                 isOpen={sidebarOpen}
@@ -516,8 +573,15 @@ const handleOffBoardingFormSubmit = async () => {
                 purpose={purpose}
               />
             )
-          : currentStep !== 'newclient-intro' &&
-            currentStep !== 'submission-success' && (
+          : isClientEngagement && currentStep !== 'newclient-intro' && currentStep !== 'submission-success' ? (
+              <ClientEngagementSidebar
+                isOpen={sidebarOpen}
+                onClose={closeSidebar}
+                currentStep={currentStep}
+                existingProject={existingProject}
+              />
+            )
+          : currentStep !== 'newclient-intro' && currentStep !== 'submission-success' && (
               <Sidebar
                 isOpen={sidebarOpen}
                 onClose={closeSidebar}
@@ -546,84 +610,108 @@ const handleOffBoardingFormSubmit = async () => {
             {/* Step 0: Non-Client Intro */}
             {currentStep === 'newclient-intro' && (
               <div className={styles.centerWrapper}>
-                <NonClientProjectForm
-                  purpose={purpose}
-                  setPurpose={setPurpose}
-                  onContinue={handleNonClientContinue}
-                  setPageTittle={setPageTittle}
-                />
+                {requestType === 'ETRF' ? (
+                  <ClientEngagementForm 
+                    purpose={purpose}
+                    setPurpose={setPurpose}
+                    onContinue={handleNonClientContinue}
+                    setPageTittle={setPageTittle}
+                  />
+                ) : (
+                  <NonClientProjectForm
+                    purpose={purpose}
+                    setPurpose={setPurpose}
+                    onContinue={handleNonClientContinue}
+                    setPageTittle={setPageTittle}
+                  />
+                )}
               </div>
             )}
 
             {/* Step 1: Project Details */}
             {currentStep === 'project-details' && (
               <>
-                {existingProject === 'yes' && existingProjectMetadata?.result?.existing_record_id?.state != 0 ? (
-                  <ExistingProjectDetails
-                    data={nonClientNewProjectData}
-                    onMetadataLoaded={handleMetadataLoaded}
-                    existingProjectDetailsFormData={existingProjectDetailsFormData}
-                    setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
-                    purpose={purpose}
-                    setIsOffBoardSideBar={setIsOffBoardSideBar}
-                    onSelectOffBoardingScope={handleSelectOffBoardingScope}
-                    selectOffboadingScope={selectOffboadingScope}
-                    token={token}
-                  />
+                {isClientEngagement ? (
+                  <>
+                    <ETRFDetails formData={formData} handleChange={handleChange} />
+                    <DataDetails formData={formData} handleChange={handleChange} />
+                    <ActionButtons
+                      onDiscard={handleBack}
+                      onContinue={handleContinue}
+                      onBackButton={handleBack}
+                      isBackButtinShoewn
+                      isContinueDisabled
+                      disableContinue={false}
+                    />
+                  </>
                 ) : (
-                  <ProjectDetails 
-                    formData={formData}  
-                    handleChange={handleChange} 
-                    data={nonClientNewProjectData} 
-                    onSaveDraft={handleSaveDraft} 
-                  />
+                  <>
+                    {existingProject === 'yes' && existingProjectMetadata?.result?.existing_record_id?.state != 0 ? (
+                      <ExistingProjectDetails
+                        data={nonClientNewProjectData}
+                        onMetadataLoaded={handleMetadataLoaded}
+                        existingProjectDetailsFormData={existingProjectDetailsFormData}
+                        setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
+                        purpose={purpose}
+                        setIsOffBoardSideBar={setIsOffBoardSideBar}
+                        onSelectOffBoardingScope={handleSelectOffBoardingScope}
+                        selectOffboadingScope={selectOffboadingScope}
+                        token={token}
+                      />
+                    ) : (
+                      <ProjectDetails 
+                        formData={formData}  
+                        handleChange={handleChange} 
+                        data={nonClientNewProjectData} 
+                        onSaveDraft={handleSaveDraft} 
+                      />
+                    )}
+                    <ActionButtons
+                      onDiscard={handleBack}
+                      onContinue={handleContinue}
+                      onSaveDraft={isProjectDetailsModified() ? handleSaveDraft : undefined}
+                      saveDraftLoading={saveDraftLoading}
+                      disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
+                      isContinueDisabled={true}
+                      isBackButtinShoewn={true}
+                      disableContinue={existingProject === 'yes'
+                        ? !existingProjectDetailsFormData?.selectedProjectKey
+                        : !formData?.projectCodeName}
+                    />
+                  </>
                 )}
-                <ActionButtons
-                  onDiscard={handleBack}
-                  onContinue={handleContinue}
-                  onSaveDraft={isProjectDetailsModified() ? handleSaveDraft : undefined}
-                  saveDraftLoading={saveDraftLoading}
-                  disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
-                  isContinueDisabled={true}
-                   isBackButtinShoewn={true}
-                  disableContinue={existingProject === 'yes'
-                    ? !existingProjectDetailsFormData?.selectedProjectKey
-                    : !formData?.projectCodeName}
-                />
               </>
             )}
 
             {/* Step 2: Tool Configuration */}
             {currentStep === 'tool-configuration' && (
               <>
-                {existingProject === 'yes' ? (
-                  purpose === 'offboarding' ? (
-                    <ImpactAccess
-                      selectedOption={selectedOption}
-                      onRemoveOptionChange={handleRemoveOption}
-                      selectOffboadingScope={selectOffboadingScope}
-                      selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
-                      setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
-                        existingProjectMetadata={existingProjectMetadata}
-                          existingProjectDetailsFormData={existingProjectDetailsFormData}
-                    />
-                  ) : (
-                    <ExistingToolConfiguration
-                      data={nonClientNewProjectData}
-                      existingProjectMetadata={existingProjectMetadata}
-                      existingToolFormData={existingToolFormData}
-                      setExistingToolFormData={setExistingToolFormData}
-                      isDraftProject={isDraftProject}
-                    />
-                  )
-                ) : (
-                  <ToolConfiguration
-                    formData={formData}
-                    setFormData={setFormData}
-                    handleChange={handleChange}
-                    data={nonClientNewProjectData}
-                  />
-                )}
+                  {isClientEngagement || existingProject !== 'yes' ? (
+                <ToolConfiguration
+                  formData={formData}
+                  setFormData={setFormData}
+                  handleChange={handleChange}
+                  data={nonClientNewProjectData}
+                />
+              ) : purpose === 'offboarding' ? (
+                <ImpactAccess
+                  selectedOption={selectedOption}
+                  onRemoveOptionChange={handleRemoveOption}
+                  selectOffboadingScope={selectOffboadingScope}
+                  selectedOffBoardngImpactTools={selectedOffBoardngImpactTools}
+                  setSelectedOffBoardingImpactTools={setSelectedOffBoardingImpactTools}
+                  existingProjectMetadata={existingProjectMetadata}
+                  existingProjectDetailsFormData={existingProjectDetailsFormData}
+                />
+              ) : (
+                <ExistingToolConfiguration
+                  data={nonClientNewProjectData}
+                  existingProjectMetadata={existingProjectMetadata}
+                  existingToolFormData={existingToolFormData}
+                  setExistingToolFormData={setExistingToolFormData}
+                  isDraftProject={isDraftProject}
+                />
+              )}
                 <ActionButtons
                   onDiscard={handleDiscard}
                   onBackButton={handleBack}

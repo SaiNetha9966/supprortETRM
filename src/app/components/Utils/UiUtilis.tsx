@@ -129,7 +129,7 @@ export const mapFormDataToApiPayload = (formData: any) => {
     approvers: Array.isArray(formData.approvers) ? formData.approvers : [formData.approvers],
     namevalue: normalizeNameValuePairs(formData.nameValuePairs),
     memo_to_approving_md: formData.memoToApprovainMd,
-    confirmation: formData.confirmation ? 'yes' : 'no',
+    confirmation: formData.confirmation ? 'Yes' : 'No',
     state: formData.state ?? 1,
     technology_request_type: "Internal",
     request_status: formData.state === 0 ? null : "Onboarding - Requested",

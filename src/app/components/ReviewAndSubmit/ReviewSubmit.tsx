@@ -15,6 +15,7 @@ interface ReviewSubmitProps {
   existingToolFormData?: any;
   handleChange: (field: string, value: any) => void;
   handleEditButton :(step : StepType , tittle:string , desc:string) => void;
+  isClientEngagement?: boolean;
 }
 
 const sampleAccess = [
@@ -64,7 +65,8 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
   existingProjectDetailsFormData,
   existingToolFormData,
   handleChange,
-  handleEditButton
+  isClientEngagement = false,
+  handleEditButton,
 }) => {
   const [openAccess, setOpenAccess] = useState<Record<number, boolean>>({});
   const isExistingProject = existingProject === 'yes';
@@ -198,7 +200,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
     const key = accessKey(item);
     if (key) mergedAccessMap.set(key, item);
   });
-  newAccessList.forEach((item) => {
+  newAccessList.forEach((item: any) => {
     const key = accessKey(item);
     if (!key) return;
     const existingItem = mergedAccessMap.get(key);
@@ -232,100 +234,156 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div>
             <div className={styles.cardTitle}>Request Summary</div>
-            <div className={styles.detailsGrid}>
-              <div className={styles.detailItem}>
-                <div className={styles.label}>Request Category</div>
-                <div className={styles.value}>Non Client Project</div>
-              </div>
-              <div className={styles.detailItem}>
-                <div className={styles.label}>Request Action</div>
-                <div className={styles.value}>
-                  {isExistingProject ? 'Onboarding, Existing Project' : 'Onboarding, New Project'}
+            {isClientEngagement ? (
+              <div className={styles.detailsGrid}>
+                <div className={styles.detailItem}>
+                  <div className={styles.label}>Ironclad ID</div>
+                  <div className={styles.value}>IC - 45821</div>
+                </div>
+                <div className={styles.detailItem}>
+                  <div className={styles.label}>Request Category</div>
+                  <div className={styles.value}>New ETRF</div>
                 </div>
               </div>
-              <div className={styles.detailItem}>
-                <div className={styles.label}>Change Type</div>
-                <div className={styles.value}>Add Tools and Users</div>
+            ) : (
+              <div className={styles.detailsGrid}>
+                <div className={styles.detailItem}>
+                  <div className={styles.label}>Request Category</div>
+                  <div className={styles.value}>Non Client Project</div>
+                </div>
+                <div className={styles.detailItem}>
+                  <div className={styles.label}>Request Action</div>
+                  <div className={styles.value}>
+                    {isExistingProject ? 'Onboarding, Existing Project' : 'Onboarding, New Project'}
+                  </div>
+                </div>
+                <div className={styles.detailItem}>
+                  <div className={styles.label}>Change Type</div>
+                  <div className={styles.value}>Add Tools and Users</div>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
 
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>Project Details</div>
+            <div className={styles.cardTitle}>{isClientEngagement ? 'ETRF Details' : 'Project Details'}</div>
             <EditButton handleEditButton={handleEditButton} step="project-details" tittle="Project Details" desc="Provide project details to initiate setup. This process may take a few minutes." />
           </div>
 
-          <div className={styles.detailsGrid}>
-            <div className={styles.detailItem}>
-              <div className={styles.label}>ERTM Project ID</div>
-              <div className={styles.value}>
-                {isExistingProject ? selectedProjectKey : formData.ertmProjectId}
+          {isClientEngagement ? (
+            <div className={styles.detailsGrid}>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Client Name</div>
+                <div className={styles.value}>TechCrop Industries</div>
               </div>
-            </div>
-            <div className={styles.detailItem}>
-              <div className={styles.label}>SAP Project ID</div>
-              <div className={styles.value}>
-                {isExistingProject
-                  ? (existingRecord?.sap_project_id ?? existingRecord?.sapProjectId)
-                  : formData.sapProjectId}
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Type Of Work</div>
+                <div className={styles.value}>Performance Improvement</div>
               </div>
-            </div>
-            <div className={styles.detailItem}>
-              <div className={styles.label}>Project Code Name</div>
-              <div className={styles.value}>
-                {isExistingProject
-                  ? (existingRecord?.project_code_name ??
-                    existingRecord?.codename ??
-                    existingRecord?.projectCodeName)
-                  : formData.projectCodeName}
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Radius ID</div>
+                <div className={styles.value} style={{ color: 'red' }}>Missing Identifier </div>
               </div>
-            </div>
 
-            <div className={styles.detailItem}>
-              <div className={styles.label}>Project Type</div>
-              <div className={styles.value}>
-                {isExistingProject
-                  ? (existingRecord?.project_type ?? existingRecord?.projectType)
-                  : formData.projectType}
+              <div className={styles.detailItem}>
+                <div className={styles.label}>SAP Project ID</div>
+                <div className={styles.value} style={{ color: 'red' }}>Missing Identifier </div>
               </div>
-            </div>
-            <div className={styles.detailItem}>
-              <div className={styles.label}>Estimated Start Date</div>
-              <div className={styles.value}>
-                {formatDate(
-                  isExistingProject
-                    ? (existingRecord?.estimated_start_date ?? existingRecord?.estimatedStartDate)
-                    : formData.estimatedStartDate
-                )}
+              <div className={styles.detailItem}>
+                <div className={styles.label}>ETRM ID</div>
+                <div className={styles.value}>PRJ-8YV03FK</div>
               </div>
-            </div>
-            <div className={styles.detailItem}>
-              <div className={styles.label}>Estimated End Date</div>
-              <div className={styles.value}>
-                {formatDate(
-                  isExistingProject
-                    ? (existingRecord?.estimated_end_date ?? existingRecord?.estimatedEndDate)
-                    : formData.estimatedEndDate
-                )}
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Project Code Name</div>
+                <div className={styles.value}>YellowTree</div>
               </div>
-            </div>
 
-            <div className={styles.detailItem}>
-              <div className={styles.label}>Is Personal or Protected Data Involved?</div>
-              <div className={styles.value}>
-                {isExistingProject
-                  ? (existingRecord?.are_you_planning_to_use_any_personal_or_protected_data ??
-                    existingRecord?.personalOrprotectedData)
-                  : formData.personalOrprotectedData}
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Expected Start Date</div>
+                <div className={styles.value}>March 9th, 2026</div>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Expected End Date</div>
+                <div className={styles.value}>January 30th, 2027</div>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Project Description</div>
+                <div className={styles.value}>Not Provided</div>
               </div>
             </div>
-            <div className={styles.detailItem}>
-              <div className={styles.label}>Describe your project and its goals.</div>
-              <div className={styles.value}>{isExistingProject ? (existingRecord?.short_description ?? existingRecord?.description) : formData.description}</div>
+          ) : (
+            <div className={styles.detailsGrid}>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>ERTM Project ID</div>
+                <div className={styles.value}>
+                  {isExistingProject ? selectedProjectKey : formData.ertmProjectId}
+                </div>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>SAP Project ID</div>
+                <div className={styles.value}>
+                  {isExistingProject
+                    ? (existingRecord?.sap_project_id ?? existingRecord?.sapProjectId)
+                    : formData.sapProjectId}
+                </div>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Project Code Name</div>
+                <div className={styles.value}>
+                  {isExistingProject
+                    ? (existingRecord?.project_code_name ??
+                      existingRecord?.codename ??
+                      existingRecord?.projectCodeName)
+                    : formData.projectCodeName}
+                </div>
+              </div>
+
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Project Type</div>
+                <div className={styles.value}>
+                  {isExistingProject
+                    ? (existingRecord?.project_type ?? existingRecord?.projectType)
+                    : formData.projectType}
+                </div>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Estimated Start Date</div>
+                <div className={styles.value}>
+                  {formatDate(
+                    isExistingProject
+                      ? (existingRecord?.estimated_start_date ?? existingRecord?.estimatedStartDate)
+                      : formData.estimatedStartDate
+                  )}
+                </div>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Estimated End Date</div>
+                <div className={styles.value}>
+                  {formatDate(
+                    isExistingProject
+                      ? (existingRecord?.estimated_end_date ?? existingRecord?.estimatedEndDate)
+                      : formData.estimatedEndDate
+                  )}
+                </div>
+              </div>
+
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Is Personal or Protected Data Involved?</div>
+                <div className={styles.value}>
+                  {isExistingProject
+                    ? (existingRecord?.are_you_planning_to_use_any_personal_or_protected_data ??
+                      existingRecord?.personalOrprotectedData)
+                    : formData.personalOrprotectedData}
+                </div>
+              </div>
+              <div className={styles.detailItem}>
+                <div className={styles.label}>Describe your project and its goals.</div>
+                <div className={styles.value}>{isExistingProject ? (existingRecord?.short_description ?? existingRecord?.description) : formData.description}</div>
+              </div>
             </div>
-          </div>
+          )}
         </div>
 
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>

@@ -721,8 +721,24 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
                   />
                 </div>
 
+                {/* New Field for Client Engagement Only */}
+                {existingProject !== 'yes' && (
+                  <div className="lg:col-span-1">
+                    <Dropdown
+                      label="User Role"
+                      value={toolsAccess}
+                      required
+                      hasInfo
+                      onChange={setToolsAccess}
+                      selected={selected}
+                      setSelected={setSelected}
+                      options={[]}
+                    />
+                </div>
+                )}
+
                 {/* Buttons */}
-                <div className="lg:col-span-1 flex items-end justify-start lg:justify-end gap-4">
+                <div className="lg:col-span-3 flex items-end justify-end gap-4">
                   <Buttons variant="secondary" onClick={handleClearUserAccess}>
                     Clear
                   </Buttons>
