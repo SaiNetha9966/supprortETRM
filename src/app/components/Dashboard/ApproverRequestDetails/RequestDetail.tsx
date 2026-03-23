@@ -202,6 +202,7 @@ export default function RequestDetail({ activeTab, onRequestDetailsView }: Reque
         handleOpenOrClodeRejectionModel={handleOpenOrClodeRejectionModel}
         handleRequestClarity={handleRequestClarity}
         onRequestDetailsView={onRequestDetailsView}
+        activeTab={activeTab}
       />
       <div className="px-4 sm:px-6 lg:px-20 py-6 space-y-6 max-w-[1440px] mx-auto pb-20">
         <ETRFDetailsSection request={request} />
