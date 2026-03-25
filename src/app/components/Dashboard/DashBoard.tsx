@@ -33,14 +33,31 @@ export default function DashBoard({
     setExistingProjectDetailsFormData((prev: any) => ({
       ...prev,
       searchValue: 'TR0001930', // static value need to update as dynamic
-      selectedProjectKey: 'TR0001930',
+      selectedProjectKey: 'TR0001930', // static value need to update as dynamic
     }));
     setDashboardType('newrequest');
     setCurrentStep('project-details');
   };
   const handleAddToolButton = () => {
+    setExistingProject('yes');
+    setExistingProjectDetailsFormData((prev: any) => ({
+      ...prev,
+      searchValue: 'TR0001930', // static value need to update as dynamic
+      selectedProjectKey: 'TR0001930', // static value need to update as dynamic
+    }));
     setDashboardType('newrequest');
-    setCurrentStep('project-details');
+    setCurrentStep('tool-configuration');
+    // access-approval
+  };
+  const handleAddUserButton = () => {
+    setExistingProject('yes');
+    setExistingProjectDetailsFormData((prev: any) => ({
+      ...prev,
+      searchValue: 'TR0001930', // static value need to update as dynamic
+      selectedProjectKey: 'TR0001930', // static value need to update as dynamic
+    }));
+    setDashboardType('newrequest');
+    setCurrentStep('access-approval');
   };
   return (
     <div className="min-h-screen bg-[#f7f7f7] flex flex-col" style={{ marginTop: '60px' }}>
@@ -56,6 +73,8 @@ export default function DashBoard({
           activeTab={activeTab}
           onRequestDetailsView={handleRequestDetailsView}
           onUpdateRequest={handleUpdateRequest}
+          onAddToolButton={handleAddToolButton}
+          onAddUserButton={handleAddUserButton}
         />
       )}
     </div>

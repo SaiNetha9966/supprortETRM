@@ -13,12 +13,16 @@ interface RequestDetailProps {
   onRequestDetailsView: (value: boolean) => void;
   activeTab: string;
   onUpdateRequest: () => void;
+  onAddToolButton: () => void;
+  onAddUserButton: () => void;
 }
 
 export default function RequestDetail({
   activeTab,
   onRequestDetailsView,
   onUpdateRequest,
+  onAddToolButton,
+  onAddUserButton,
 }: RequestDetailProps) {
   const [request, setRequest] = useState<DetailedRequest | null>(null);
   const [isApproveOpen, setApproveOpen] = useState(false);
@@ -209,12 +213,22 @@ export default function RequestDetail({
         onRequestDetailsView={onRequestDetailsView}
         activeTab={activeTab}
         onUpdateRequest={onUpdateRequest}
+        onAddToolButton={onAddToolButton}
+        onAddUserButton={onAddUserButton}
       />
       <div className="px-4 sm:px-6 lg:px-20 py-6 space-y-6 max-w-[1440px] mx-auto pb-20">
         <ETRFDetailsSection request={request} />
         <ApproversSection request={request} />
-        <RequestedToolsSection activeTab={activeTab} request={request} />
-        <RequestedUsersSection activeTab={activeTab} request={request} />
+        <RequestedToolsSection
+          activeTab={activeTab}
+          request={request}
+          onAddToolButton={onAddToolButton}
+        />
+        <RequestedUsersSection
+          activeTab={activeTab}
+          request={request}
+          onAddUserButton={onAddUserButton}
+        />
         {activeTab === 'requestor' && <OffOnBoardRequest />}
       </div>
     </main>

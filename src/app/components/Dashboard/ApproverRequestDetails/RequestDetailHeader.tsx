@@ -9,6 +9,8 @@ interface RequestDetailHeaderProps {
   onRequestDetailsView: (value: boolean) => void;
   activeTab: string;
   onUpdateRequest: () => void;
+  onAddToolButton: () => void;
+  onAddUserButton: () => void;
 }
 
 export function RequestDetailHeader({
@@ -19,6 +21,8 @@ export function RequestDetailHeader({
   onRequestDetailsView,
   activeTab,
   onUpdateRequest,
+  onAddToolButton,
+  onAddUserButton,
 }: RequestDetailHeaderProps) {
   const getStatusColor = () => {
     if (request.requestStatus.includes('Approved')) {
@@ -179,7 +183,7 @@ export function RequestDetailHeader({
     hover:bg-gray-100
     cursor-pointer
   "
-                  // onClick={handleAddTool}
+                  onClick={onAddToolButton}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -213,7 +217,7 @@ export function RequestDetailHeader({
     hover:bg-gray-100
     cursor-pointer
   "
-                  // onClick={handleAddTool}
+                  onClick={onAddUserButton}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

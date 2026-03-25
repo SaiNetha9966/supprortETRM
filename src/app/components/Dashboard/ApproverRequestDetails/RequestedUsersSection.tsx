@@ -5,6 +5,7 @@ import svgPaths from '../../../../imports/svg-9v12l09gyw';
 interface RequestedUsersSectionProps {
   request: DetailedRequest;
   activeTab: string;
+  onAddUserButton: () => void;
 }
 
 function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => void }) {
@@ -104,7 +105,11 @@ function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => voi
   );
 }
 
-export function RequestedUsersSection({ activeTab, request }: RequestedUsersSectionProps) {
+export function RequestedUsersSection({
+  activeTab,
+  request,
+  onAddUserButton,
+}: RequestedUsersSectionProps) {
   const [users, setUsers] = useState<RequestedUser[]>(request.requestedUsers);
 
   const toggleUser = (userId: string) => {
@@ -136,6 +141,7 @@ export function RequestedUsersSection({ activeTab, request }: RequestedUsersSect
                 padding: '5px',
                 width: '94px',
               }}
+              onClick={onAddUserButton}
             >
               Add Users
             </button>

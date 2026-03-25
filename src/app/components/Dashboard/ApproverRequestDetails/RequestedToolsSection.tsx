@@ -3,9 +3,14 @@ import { DetailedRequest } from '../Data/mockData';
 interface RequestedToolsSectionProps {
   request: DetailedRequest;
   activeTab: string;
+  onAddToolButton: () => void;
 }
 
-export function RequestedToolsSection({ activeTab, request }: RequestedToolsSectionProps) {
+export function RequestedToolsSection({
+  activeTab,
+  request,
+  onAddToolButton,
+}: RequestedToolsSectionProps) {
   return (
     <div className="bg-white rounded-[8px] p-4 sm:p-6">
       <div style={{ display: 'flex', justifyContent: 'space-between' }}>
@@ -27,6 +32,7 @@ export function RequestedToolsSection({ activeTab, request }: RequestedToolsSect
                 padding: '5px',
                 width: '94px',
               }}
+              onClick={onAddToolButton}
             >
               Add Tools
             </button>
