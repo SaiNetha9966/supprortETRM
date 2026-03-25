@@ -228,6 +228,7 @@ export default function RequestDetail({
           activeTab={activeTab}
           request={request}
           onAddUserButton={onAddUserButton}
+          onAddToolButton={onAddToolButton}
         />
         {activeTab === 'requestor' && <OffOnBoardRequest />}
       </div>

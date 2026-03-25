@@ -6,6 +6,7 @@ interface RequestedUsersSectionProps {
   request: DetailedRequest;
   activeTab: string;
   onAddUserButton: () => void;
+  onAddToolButton: () => void;
 }
 
 function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => void }) {
@@ -109,6 +110,7 @@ export function RequestedUsersSection({
   activeTab,
   request,
   onAddUserButton,
+  onAddToolButton,
 }: RequestedUsersSectionProps) {
   const [users, setUsers] = useState<RequestedUser[]>(request.requestedUsers);
 
@@ -157,6 +159,7 @@ export function RequestedUsersSection({
                 fontWeight: '500',
                 padding: '7px',
               }}
+              onClick={onAddToolButton}
             >
               Remover Tool Access
             </button>
@@ -172,6 +175,7 @@ export function RequestedUsersSection({
                 fontWeight: '500',
                 padding: '7px',
               }}
+              onClick={onAddUserButton}
             >
               Offboard Users
             </button>

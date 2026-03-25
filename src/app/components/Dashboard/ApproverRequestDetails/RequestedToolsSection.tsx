@@ -48,6 +48,7 @@ export function RequestedToolsSection({
                 fontWeight: '500',
                 padding: '7px',
               }}
+              onClick={onAddToolButton}
             >
               Offboard Tools
             </button>
