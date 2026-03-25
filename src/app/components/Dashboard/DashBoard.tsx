@@ -6,14 +6,41 @@ import { mockApprovalRequests, getStatusCounts } from './Data/mockData';
 import { TabType } from './Types/index';
 import DashBoardApproverPage from './DashBoardApproverPage';
 import RequestDetail from './ApproverRequestDetails/RequestDetail';
+import { StepType } from '../Utils/UiUtilis';
 
-export default function DashBoard() {
+interface DashBoardProps {
+  setCurrentStep: React.Dispatch<React.SetStateAction<StepType>>;
+  setDashboardType: React.Dispatch<React.SetStateAction<string>>;
+  setExistingProject: React.Dispatch<React.SetStateAction<string>>;
+  setExistingProjectDetailsFormData: React.Dispatch<React.SetStateAction<any>>;
+}
+export default function DashBoard({
+  setCurrentStep,
+  setDashboardType,
+  setExistingProject,
+  setExistingProjectDetailsFormData,
+}: DashBoardProps) {
   const [activeTab, setActiveTab] = useState<TabType>('approver');
   const [isRequestDetailsClicked, setIsRequestDetailsClicked] = useState<boolean>(false);
   const statusCounts = useMemo(() => getStatusCounts(mockApprovalRequests), []);
 
   const handleRequestDetailsView = (value: boolean) => {
     setIsRequestDetailsClicked(value);
+  };
+
+  const handleUpdateRequest = () => {
+    setExistingProject('yes');
+    setExistingProjectDetailsFormData((prev: any) => ({
+      ...prev,
+      searchValue: 'TR0001930', // static value need to update as dynamic
+      selectedProjectKey: 'TR0001930',
+    }));
+    setDashboardType('newrequest');
+    setCurrentStep('project-details');
+  };
+  const handleAddToolButton = () => {
+    setDashboardType('newrequest');
+    setCurrentStep('project-details');
   };
   return (
     <div className="min-h-screen bg-[#f7f7f7] flex flex-col" style={{ marginTop: '60px' }}>
@@ -25,7 +52,11 @@ export default function DashBoard() {
         />
       )}
       {isRequestDetailsClicked && (
-        <RequestDetail activeTab={activeTab} onRequestDetailsView={handleRequestDetailsView} />
+        <RequestDetail
+          activeTab={activeTab}
+          onRequestDetailsView={handleRequestDetailsView}
+          onUpdateRequest={handleUpdateRequest}
+        />
       )}
     </div>
   );

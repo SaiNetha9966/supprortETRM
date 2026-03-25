@@ -184,6 +184,12 @@ export type StepType =
   | 'submission-success'
   | '';
 
+export type ExistingProjectDetailsFormData = {
+  searchValue: string;
+  selectedProjectKey: string;
+  existingProject: string | null; // adjust type if needed
+};
+
 export const Loader: React.FC = () => (
   <div
     style={{

@@ -35,6 +35,7 @@ export const ExistingProjectDetails: React.FC<{
 }) => {
   const [isDraftProject, setIsDraftProject] = useState(false);
   const searchValue: string = existingProjectDetailsFormData?.searchValue ?? '';
+  console.log('searchValue', searchValue);
   const selectedProjectKey: string = existingProjectDetailsFormData?.selectedProjectKey ?? '';
   const existingProject: any | null = existingProjectDetailsFormData?.existingProject ?? null;
 
@@ -48,6 +49,7 @@ export const ExistingProjectDetails: React.FC<{
       alert('Please select a valid ETRM Project ID or Project Code Name from the list.');
     }
   };
+  console.log('selectedProjectKey', selectedProjectKey);
 
   useEffect(() => {
     if (!selectedProjectKey) return;

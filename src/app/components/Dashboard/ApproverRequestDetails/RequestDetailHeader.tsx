@@ -8,6 +8,7 @@ interface RequestDetailHeaderProps {
   handleRequestClarity: () => void;
   onRequestDetailsView: (value: boolean) => void;
   activeTab: string;
+  onUpdateRequest: () => void;
 }
 
 export function RequestDetailHeader({
@@ -17,6 +18,7 @@ export function RequestDetailHeader({
   handleRequestClarity,
   onRequestDetailsView,
   activeTab,
+  onUpdateRequest,
 }: RequestDetailHeaderProps) {
   const getStatusColor = () => {
     if (request.requestStatus.includes('Approved')) {
@@ -143,7 +145,7 @@ export function RequestDetailHeader({
     hover:bg-gray-100
     cursor-pointer
   "
-                  // onClick={handleOpenOrClodeApprovalModel}
+                  onClick={onUpdateRequest}
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

@@ -32,7 +32,12 @@ import { OffBoardingSideBar } from './SideBar/OffBoardingSideBar';
 import { ImpactAccess } from './ImpactAccess/ImpactAccess';
 import { OffBoardReview } from './OffboardReview/OffBoardReview';
 import { DataHandling } from './DataHandling/DataHandling';
-import { DataHandlingTool, OffBoardConfirmationState, OffBoardFormData } from './Utils/UiUtilis';
+import {
+  DataHandlingTool,
+  ExistingProjectDetailsFormData,
+  OffBoardConfirmationState,
+  OffBoardFormData,
+} from './Utils/UiUtilis';
 
 type StepType =
   | 'newclient-intro'
@@ -48,6 +53,14 @@ interface MainComponentProps {
   token: string;
   sidebarOpen: boolean;
   setSidebarOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  currentStep: StepType;
+  setCurrentStep: React.Dispatch<React.SetStateAction<StepType>>;
+  existingProject: string;
+  setExistingProject: React.Dispatch<React.SetStateAction<string>>;
+  existingProjectDetailsFormData: ExistingProjectDetailsFormData;
+  setExistingProjectDetailsFormData: React.Dispatch<
+    React.SetStateAction<ExistingProjectDetailsFormData>
+  >;
 }
 
 export const MainComponent: React.FC<MainComponentProps> = ({
@@ -55,14 +68,20 @@ export const MainComponent: React.FC<MainComponentProps> = ({
   token,
   sidebarOpen,
   setSidebarOpen,
+  currentStep,
+  setCurrentStep,
+  existingProject,
+  setExistingProject,
+  existingProjectDetailsFormData,
+  setExistingProjectDetailsFormData,
 }) => {
-  const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
+  // const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   const [purpose, setPurpose] = useState<string>('');
   const [pageTittle, setPageTittle] = useState('Project Details');
   const [pageDesc, setPageDesc] = useState(
     'Provide project details to initiate setup. This process may take a few minutes.'
   );
-  const [existingProject, setExistingProject] = useState<string>('');
+  // const [existingProject, setExistingProject] = useState<string>('');
   const [isClientEngagement, setIsClientEngagement] = useState<boolean>(false);
   const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
 
@@ -542,11 +561,11 @@ export const MainComponent: React.FC<MainComponentProps> = ({
     toolsSpecifications: [],
     customToolRequest: '',
   });
-  const [existingProjectDetailsFormData, setExistingProjectDetailsFormData] = useState({
-    searchValue: '',
-    selectedProjectKey: '',
-    existingProject: null,
-  });
+  // const [existingProjectDetailsFormData, setExistingProjectDetailsFormData] = useState({
+  //   searchValue: '',
+  //   selectedProjectKey: '',
+  //   existingProject: null,
+  // });
 
   const toolConfigIsIncomplete = (tools: any[]) =>
     tools.some((tool) => {

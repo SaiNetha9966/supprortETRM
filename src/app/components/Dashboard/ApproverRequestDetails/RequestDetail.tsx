@@ -12,9 +12,14 @@ import { OffOnBoardRequest } from './RequestTales';
 interface RequestDetailProps {
   onRequestDetailsView: (value: boolean) => void;
   activeTab: string;
+  onUpdateRequest: () => void;
 }
 
-export default function RequestDetail({ activeTab, onRequestDetailsView }: RequestDetailProps) {
+export default function RequestDetail({
+  activeTab,
+  onRequestDetailsView,
+  onUpdateRequest,
+}: RequestDetailProps) {
   const [request, setRequest] = useState<DetailedRequest | null>(null);
   const [isApproveOpen, setApproveOpen] = useState(false);
   const [isRejectOpen, setRejectOpen] = useState(false);
@@ -203,6 +208,7 @@ export default function RequestDetail({ activeTab, onRequestDetailsView }: Reque
         handleRequestClarity={handleRequestClarity}
         onRequestDetailsView={onRequestDetailsView}
         activeTab={activeTab}
+        onUpdateRequest={onUpdateRequest}
       />
       <div className="px-4 sm:px-6 lg:px-20 py-6 space-y-6 max-w-[1440px] mx-auto pb-20">
         <ETRFDetailsSection request={request} />
