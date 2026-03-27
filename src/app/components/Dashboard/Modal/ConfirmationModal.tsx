@@ -42,18 +42,32 @@ const ConfirmationModal: React.FC<ConfirmationModalProps> = ({
         <p className="modal-description">{description}</p>
 
         {noteLabel && (
-          <div className="modal-note">
-            <label>
-              {noteLabel} {noteRequired && <span className="required">*</span>}
-            </label>
-            <textarea
-              value={noteValue}
-              onChange={(e) => onNoteChange(e.target.value)}
-              placeholder={notePlaceholder}
-              maxLength={80}
-            />
-            <small>{noteValue.length}/80</small>
-          </div>
+  <div className="relative w-full">
+    <textarea
+      value={noteValue}
+      onChange={(e) => onNoteChange(e.target.value)}
+      placeholder={notePlaceholder}
+      maxLength={80}
+      className="
+        w-full min-h-[80px]
+        border border-[#ccc] rounded-[6px]
+        p-3 pr-12
+        font-['Roboto',sans-serif] text-[14px] text-[#181D1F]
+        resize-none
+      "
+    />
+    {/* Counter positioned inside textarea */}
+    <span
+      className="
+        absolute bottom-2 right-3
+        text-xs text-[#666]
+        font-['Roboto',sans-serif]
+      "
+    >
+      {noteValue.length}/80
+    </span>
+  </div>
+
         )}
 
         <div className="modal-actions">

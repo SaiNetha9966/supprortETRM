@@ -5,7 +5,7 @@ interface RequestDetailHeaderProps {
   request: DetailedRequest;
   handleOpenOrClodeApprovalModel: () => void;
   handleOpenOrClodeRejectionModel: () => void;
-  handleRequestClarity: () => void;
+  handleRequestClarificationModel:() => void;
   onRequestDetailsView: (value: boolean) => void;
   activeTab: string;
   onUpdateRequest: () => void;
@@ -17,7 +17,7 @@ export function RequestDetailHeader({
   request,
   handleOpenOrClodeApprovalModel,
   handleOpenOrClodeRejectionModel,
-  handleRequestClarity,
+  handleRequestClarificationModel,
   onRequestDetailsView,
   activeTab,
   onUpdateRequest,
@@ -311,7 +311,7 @@ export function RequestDetailHeader({
                 <button
                   className="bg-white h-[32px] px-[12px] rounded-[2px] min-w-[94px] border border-[#498e2b] hover:bg-[#f7f7f7] transition-colors"
                   style={{ cursor: 'pointer' }}
-                  onClick={handleRequestClarity}
+                  onClick={handleRequestClarificationModel}
                 >
                   <p className="font-['Roboto',sans-serif] font-medium text-[15px] text-[#498e2b] tracking-[0.3px] whitespace-nowrap">
                     Request Clarification

@@ -28,6 +28,7 @@ export default function RequestDetail({
   const [request, setRequest] = useState<DetailedRequest | null>(null);
   const [isApproveOpen, setApproveOpen] = useState(false);
   const [isRejectOpen, setRejectOpen] = useState(false);
+  const [isRequestOpen, setRequestOpen] = useState(false);
   const [note, setNote] = useState('');
   const [open, setOpen] = useState<null | string>(null);
   const [successNote, setSuccessNote] = useState('');
@@ -110,6 +111,14 @@ export default function RequestDetail({
       setApproveOpen(true);
     }
   };
+
+    const handleRequestClarificationModel = (): void => {
+    if (isRequestOpen) {
+      setRequestOpen(false);
+    } else {
+      setRequestOpen(true);
+    }
+  };
   const handleOpenOrClodeRejectionModel = (): void => {
     if (isRejectOpen) {
       setRejectOpen(false);
@@ -129,6 +138,7 @@ export default function RequestDetail({
   };
 
   const handleRequestClarity = () => {
+    setRequestOpen(false);
     setOpen('clarify');
   };
 
@@ -149,7 +159,7 @@ export default function RequestDetail({
     <main className="flex-1 w-full relative">
       <ConfirmationModal
         isOpen={isApproveOpen}
-        title='Approve Request "Orchid"'
+        title='Approve Request "Dahlia"'
         title2="You are about to approve this request."
         description="Once approved, the request will move to the provisioning stage."
         noteLabel="Approval Note"
@@ -161,9 +171,24 @@ export default function RequestDetail({
         confirmText="Approve Request"
         confirmColor="green"
       />
+       <ConfirmationModal
+        isOpen={isRequestOpen}
+        title='Request Clarification for Dahlia'
+        title2="Ask the requestor for additional information before approving this request."
+        description="The request status will change to Awaiting Response."
+        noteLabel="Clarification Request"
+        notePlaceholder="Describe what additional information is required."
+        noteRequired
+        noteValue={note}
+        onNoteChange={setNote}
+        onCancel={() => setRequestOpen(false)}
+        onConfirm={handleRequestClarity}
+        confirmText="Request Clarification"
+        confirmColor="green"
+      />
       <ConfirmationModal
         isOpen={isRejectOpen}
-        title='Reject Request "Orchid"'
+        title='Reject Request "Dalhia"'
         title2="Are you sure you want to reject this request?"
         description="This action will stop the approval process and the request will be marked as rejected."
         noteLabel="Rejection Reason"
@@ -210,7 +235,7 @@ export default function RequestDetail({
         request={request}
         handleOpenOrClodeApprovalModel={handleOpenOrClodeApprovalModel}
         handleOpenOrClodeRejectionModel={handleOpenOrClodeRejectionModel}
-        handleRequestClarity={handleRequestClarity}
+        handleRequestClarificationModel={handleRequestClarificationModel}
         onRequestDetailsView={onRequestDetailsView}
         activeTab={activeTab}
         onUpdateRequest={onUpdateRequest}
