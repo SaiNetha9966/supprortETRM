@@ -3,58 +3,75 @@
   background: #fff;
   border-radius: 8px;
   max-width: 500px;
-  width: 90%;
+  width: 100%;
   padding: 20px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
-  /* Remove text-align and align-items */
-  text-align: left;       /* optional, ensures left alignment */
-  align-items: stretch;   /* makes children take full width */
+  align-items: flex-start; /* children align left */
+  text-align: left;        /* text flows left */
 }
+
+
+.modal-title,
+.modal-title2,
+.modal-description,
+.modal-note label {
+  text-align: left; /* all text starts from left */
+  width: 100%;      /* ensures they stretch full width */
+}
+
 
 .modal-title {
   font-size: 20px;
   font-weight: 700;
   color: #28292C;
-  margin: 0;
+  margin: 0 0 8px 0;
 }
 
 .modal-title2 {
   font-size: 16px;
   font-weight: 600;
   color: #28292C;
-  margin: 0;
+  margin: 0 0 8px 0;
   line-height: 22px;
 }
 
 .modal-description {
   font-size: 15px;
   color: #555;
-  margin: 0;
+  margin: 0 0 16px 0;
+}
+
+
+.modal-note {
+  width: 100%;
 }
 
 .modal-note label {
   font-size: 14px;
   font-weight: 500;
   color: #333;
+  margin-bottom: 6px;
+  display: block;
 }
+
 
 .modal-note textarea {
   width: 100%;
   min-height: 80px;
-  margin-top: 6px;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 6px;
   font-size: 14px;
   line-height: 20px;
   resize: none;
+  text-align: left; /* ensures text inside textarea starts left */
 }
 
 .modal-note small {
   display: block;
-  text-align: right;
+  text-align: right; /* counter stays bottom-right */
   margin-top: 4px;
   font-size: 12px;
   color: #666;
@@ -62,8 +79,9 @@
 
 .modal-actions {
   display: flex;
-  justify-content: flex-end;
+  justify-content: center; /* center the buttons */
   gap: 12px;
+  width: 100%;
 }
 
 .btn {
