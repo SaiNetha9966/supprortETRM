@@ -117,16 +117,49 @@ export function RequestDetailHeader({
                 </div>
 
                 {/* Requestor Info */}
-                <div className="flex flex-wrap gap-4 font-['Roboto',sans-serif] text-[15px] text-[#727272]">
+                {
+                  activeTab === "requestor" ? (
+                  <div className="flex flex-wrap gap-4 font-['Roboto',sans-serif] text-[15px] text-[#727272]">
+                  <p>
+                    <span>Last Updates: </span>
+                     <span className="font-bold">
+                                     {new Date(request.submittedDate).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+                      </span>
+                  </p>
+                  <p>
+                    <span>Approved by: </span>
+                                       <span className="font-bold">{request.fullRequestorName}</span>
+
+                  </p>
+
+                </div>
+
+                  ) :(
+                                    <div className="flex flex-wrap gap-4 font-['Roboto',sans-serif] text-[15px] text-[#727272]">
                   <p>
                     <span>Requestor: </span>
                     <span className="font-bold">{request.fullRequestorName}</span>
                   </p>
                   <p>
                     <span>Submitted: </span>
-                    <span className="font-bold">{request.submittedDate}</span>
+                    <span className="font-bold">
+                                     {new Date(request.submittedDate).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+                      </span>
                   </p>
+
                 </div>
+                  )
+                }
+
+
               </div>
             </div>
           </div>
