@@ -109,7 +109,7 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
                 placeholder="Search"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full h-8 px-2 py-1.5 pr-10 border border-[#ccc] rounded font-['Roboto',sans-serif] text-sm text-[#4a4a4a] placeholder:text-[#878787] focus:outline-none focus:border-[#5cb335]"
+                className="w-full h-8 px-2 py-1.5 pr-10 border border-[#ccc] rounded font-['Roboto',sans-serif] text-sm text-[#4a4a4a] placeholder:text-[#878787] "
               />
               <div className="absolute right-2 top-1/2 -translate-y-1/2 size-5">
                 <div className="absolute inset-[8.33%_7.03%_7.03%_8.33%]">
@@ -126,12 +126,49 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
             </div>
           </div>
 
+          {
+            dashBoardactiveTab  === "requestor" && (
+                                  <div className="w-full sm:w-[182px]">
+            <div className="relative">
+              <select
+                value={filterStatus}
+                // onChange={(e) => setFilterStatus(e.target.value as FilterStatus)}
+                className="w-full h-8 px-2 py-1.5 pr-8 border border-[#ccc] rounded font-['Roboto',sans-serif] text-sm text-[#4a4a4a] appearance-none  bg-white"
+              >
+                <option value="all">All TRF Status</option>
+                 <option value="--None--">--None--</option>
+                <option value="Archive">Archive</option>
+                <option value="Return">Return</option>
+                <option value="Destroy">Destroy</option>
+                <option value="Mixed Closure">Mixed Closure</option>
+                <option value="Partial Closure">Partial Closure</option>
+
+              </select>
+              <div className="absolute right-2 top-1/2 -translate-y-1/2 size-4 pointer-events-none">
+                <div className="absolute bottom-[29.17%] left-1/2 top-[33.33%] -translate-x-1/2 aspect-[12/7.41]">
+                  <svg
+                    className="absolute block size-full"
+                    fill="none"
+                    preserveAspectRatio="none"
+                    viewBox="0 0 9.57826 5.91457"
+                  >
+                    <path d={svgPaths.pa14dd00} fill="#4A4A4A" />
+                  </svg>
+                </div>
+              </div>
+            </div>
+          </div>
+            )
+          }
+
+
+
           <div className="w-full sm:w-[182px]">
             <div className="relative">
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value as FilterStatus)}
-                className="w-full h-8 px-2 py-1.5 pr-8 border border-[#ccc] rounded font-['Roboto',sans-serif] text-sm text-[#4a4a4a] appearance-none focus:outline-none focus:border-[#5cb335] bg-white"
+                className="w-full h-8 px-2 py-1.5 pr-8 border border-[#ccc] rounded font-['Roboto',sans-serif] text-sm text-[#4a4a4a] appearance-none  bg-white"
               >
                 <option value="all">All Status</option>
                 <option value="Onboarding - Awaiting Response">Awaiting Response</option>
@@ -160,7 +197,9 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
       <div className="hidden lg:block overflow-x-auto -mx-6 px-6 ">
         <div  className="inline-block min-w-full align-middle border border-[#CCC] border-b border-[#CCC] rounded-tl-[8px]">
           {filteredRequests?.length > 0 ? (
-            <table
+            
+            dashBoardactiveTab  ==="requestor" ? (
+             <table
   className="min-w-full bg-[#FFF] border border-[#CCC] border-b border-[#CCC] rounded-tl-[8px] overflow-hidden"
 >
               <thead className="bg-white">
@@ -264,6 +303,120 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
                 ))}
               </tbody>
             </table>
+            )
+            
+            
+              : (
+                          <table
+  className="min-w-full bg-[#FFF] border border-[#CCC] border-b border-[#CCC] rounded-tl-[8px] overflow-hidden"
+>
+              <thead className="bg-white">
+                <tr>
+                  <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('projectCodeName')}
+                  >
+                    Project Code Name {getSortIndicator('projectCodeName')}
+                  </th>
+                  <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('clientName')}
+                  >
+                    Client Name {getSortIndicator('clientName')}
+                  </th>
+                  <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('typeOfWork')}
+                  >
+                    Type of work {getSortIndicator('typeOfWork')}
+                  </th>
+                  <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('typeOfWork')}
+                  >
+                   SAP Project ID {getSortIndicator('typeOfWork')}
+                  </th>
+                   <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    Requestor {getSortIndicator('submittedDate')}
+                  </th>
+                                    <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    Submitted Date
+                  </th>
+                                    <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                   TRF Status
+                  </th>
+                                                      <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    Requestor Status
+                  </th>
+                                                                        <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    Offboarding Substate
+                  </th>
+
+                </tr>
+              </thead>
+              
+              <tbody>
+                {filteredRequests.map((request, index) => (
+                  <tr
+                    key={request.id}
+                    className={`transition-colors  ${
+                      index % 2 === 0 ? 'bg-[#f7f7f7]' : 'bg-white'
+                    }`}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => onRequestDetailsView(true)}
+                  >
+                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] font-medium text-sm text-[#0369a3] underline whitespace-nowrap">
+                      <span style={{ cursor: 'pointer' }} className="hover:text-[#024870]">
+                        {request.projectCodeName}
+                      </span>
+                    </td>
+                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+                      {request.clientName}
+                    </td>
+                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+                      {request.typeOfWork}
+                    </td>
+                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+                      {request.sapProjectId}
+                    </td>
+                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+                      {request.requestor}
+                    </td>
+                     <td className="px-4 py-2.5">
+                      {request.submittedDate}
+                    </td>
+                      <td className="px-4 py-2.5">
+                      <StatusBadge status="Online" />
+                    </td>
+                    <td className="px-4 py-2.5">
+                      <StatusBadge status={request.requestStatus} />
+                    </td>
+                     <td className="px-4 py-2.5">
+                      <StatusBadge status='Mixed Closure' />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+            )
+            
+
+
           ) : (
             <div className="flex items-center justify-center">
               <div className="text-center">

@@ -17,9 +17,16 @@ export function KPISection({
 }: KPISectionProps) {
   return (
     <div className="bg-white rounded-lg p-6 w-full">
-      <h2 className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#4a4a4a] mb-6">
-        My Approval Overview
-      </h2>
+<h2
+  className="
+    text-[#4A4A4A]
+    font-['Roboto',sans-serif]
+    text-[19px] font-bold leading-normal
+    mb-6
+  "
+>
+{activeTab === 'approver' ? " My Approval Overview" :"My Requests Overview"} 
+</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {activeTab === 'requestor' && (
           <>
