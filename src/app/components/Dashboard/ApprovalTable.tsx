@@ -7,12 +7,13 @@ import svgPaths from '../../../imports/svg-w3qi05nelx';
 interface ApprovalTableProps {
   requests: ApprovalRequest[];
   onRequestDetailsView: (value: boolean) => void;
+  dashBoardactiveTab:string;
 }
 
 type SortField = keyof ApprovalRequest | null;
 type SortOrder = 'asc' | 'desc';
 
-export function ApprovalTable({ requests, onRequestDetailsView }: ApprovalTableProps) {
+export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveTab}: ApprovalTableProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [activeTab, setActiveTab] = useState<'ALL' | 'ETRF' | 'ITRF'>('ALL');
@@ -182,6 +183,51 @@ export function ApprovalTable({ requests, onRequestDetailsView }: ApprovalTableP
                   </th>
                   <th
                     className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('typeOfWork')}
+                  >
+                    Primary PMD/Partner {getSortIndicator('typeOfWork')}
+                  </th>
+                   <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    Submitted Date {getSortIndicator('submittedDate')}
+                  </th>
+                                    <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    TRF State
+                  </th>
+                                    <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    Request Status
+                  </th>
+                                                      <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
+                    onClick={() => handleSort('submittedDate')}
+                  >
+                    Offboarding Substate
+                  </th>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                  {/* <th
+                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
                     onClick={() => handleSort('ironcladId')}
                   >
                     Ironclad ID {getSortIndicator('ironcladId')}
@@ -212,14 +258,15 @@ export function ApprovalTable({ requests, onRequestDetailsView }: ApprovalTableP
                   </th>
                   <th className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap">
                     Request Status
-                  </th>
+                  </th> */}
+
                 </tr>
               </thead>
               <tbody>
                 {filteredRequests.map((request, index) => (
                   <tr
                     key={request.id}
-                    className={`transition-colors hover:bg-[#e8f5e9] ${
+                    className={`transition-colors  ${
                       index % 2 === 0 ? 'bg-[#f7f7f7]' : 'bg-white'
                     }`}
                     style={{ cursor: 'pointer' }}
@@ -236,7 +283,33 @@ export function ApprovalTable({ requests, onRequestDetailsView }: ApprovalTableP
                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
                       {request.typeOfWork}
                     </td>
-                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+
+                   <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+                      {request.requestor}
+                    </td>
+                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+                      {/* {request.submittedDate} */}
+                       {new Date(request.submittedDate).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "2-digit",
+                        year: "numeric",
+                      })}
+
+                    </td>
+                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
+                      <StatusBadge status="Online" />
+                    </td>
+                     <td className="px-4 py-2.5">
+                      <StatusBadge status={request.requestStatus} />
+                    </td>
+                      <td className="px-4 py-2.5">
+                      <StatusBadge status="Destroy" />
+                    </td>
+
+
+
+
+                    {/* <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
                       {request.ironcladId}
                     </td>
                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
@@ -253,7 +326,7 @@ export function ApprovalTable({ requests, onRequestDetailsView }: ApprovalTableP
                     </td>
                     <td className="px-4 py-2.5">
                       <StatusBadge status={request.requestStatus} />
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
@@ -263,7 +336,7 @@ export function ApprovalTable({ requests, onRequestDetailsView }: ApprovalTableP
               <div className="text-center">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  width="160"
+                                    width="160"
                   height="160"
                   viewBox="0 0 160 160"
                   fill="none"

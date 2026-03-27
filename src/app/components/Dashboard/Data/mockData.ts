@@ -11,7 +11,7 @@ export const mockApprovalRequests: ApprovalRequest[] = [
     sapProjectId: 'SAP-004',
     requestor: 'Mark T.',
     submittedDate: '01/02/2026',
-    requestStatus: 'Onboarding - Awaiting Response',
+    requestStatus: 'Onboarding - Pending Approval',
   },
   {
     id: '2',
@@ -107,7 +107,7 @@ export const mockApprovalRequests: ApprovalRequest[] = [
     sapProjectId: 'SAP-016',
     requestor: 'Robert P.',
     submittedDate: '14/02/2026',
-    requestStatus: 'Offboarding - Awaiting Response',
+    requestStatus: 'Onboarding - Pending Approval',
   },
   {
     id: '10',
@@ -167,7 +167,7 @@ export const mockApprovalRequests: ApprovalRequest[] = [
     sapProjectId: 'SAP-021',
     requestor: 'Olivia C.',
     submittedDate: '19/02/2026',
-    requestStatus: 'Onboarding - Awaiting Response',
+    requestStatus: 'Onboarding - Pending Approva',
   },
   {
     id: '15',
@@ -239,7 +239,7 @@ export const mockApprovalRequests: ApprovalRequest[] = [
     sapProjectId: 'SAP-027',
     requestor: 'Anna F.',
     submittedDate: '25/02/2026',
-    requestStatus: 'Onboarding - Awaiting Response',
+    requestStatus: 'Onboarding - Pending Approval',
   },
 ];
 

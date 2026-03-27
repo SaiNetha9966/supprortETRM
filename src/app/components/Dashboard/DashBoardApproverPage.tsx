@@ -28,7 +28,7 @@ export default function DashBoardApproverPage({
         rejected={statusCounts.rejected}
         activeTab={activeTab}
       />
-      <ApprovalTable requests={mockApprovalRequests} onRequestDetailsView={onRequestDetailsView} />
+      <ApprovalTable requests={mockApprovalRequests} onRequestDetailsView={onRequestDetailsView} dashBoardactiveTab={activeTab} />
     </main>
   );
 }

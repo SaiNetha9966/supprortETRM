@@ -171,7 +171,7 @@ export function KPICard({ title, value, icon, showInfo = false }: KPICardProps) 
   const config = iconConfig[icon];
 
   return (
-    <div className="bg-white border border-[#e4e4e4] rounded-lg p-4 flex-1 min-w-[200px] hover:shadow-lg transition-shadow cursor-pointer">
+    <div className="bg-white border border-[#e4e4e4] rounded-lg p-4 flex-1 min-w-[200px]">
       <div className="flex gap-5 items-center">
         {/* Icon */}
         <div className={`${config.bgColor} p-2 rounded`}>
