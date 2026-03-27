@@ -18,41 +18,59 @@ export function RequestedToolsSection({
           {activeTab === 'requestor' ? 'Tools' : 'Requested Tools'}
         </h2>
         {activeTab === 'requestor' && (
-          <div>
-            <button
-              style={{
-                marginRight: '20px',
-                borderRadius: '2px',
-                border: '1px solid #498E2B',
-                color: '#498E2B',
-                textAlign: 'center',
-                fontFamily: 'Roboto',
-                fontSize: '15px',
-                fontWeight: '500',
-                padding: '5px',
-                width: '94px',
-              }}
-              onClick={onAddToolButton}
-            >
-              Add Tools
-            </button>
-            <button
-              style={{
-                marginRight: '20px',
-                borderRadius: '2px',
-                border: '1px solid #CB282E',
-                color: '#CB282E',
-                textAlign: 'center',
-                fontFamily: 'Roboto',
-                fontSize: '15px',
-                fontWeight: '500',
-                padding: '7px',
-              }}
-              onClick={onAddToolButton}
-            >
-              Offboard Tools
-            </button>
-          </div>
+<div className="flex items-center gap-5">
+  <button
+    onClick={onAddToolButton}
+    className="
+      flex items-center justify-center
+      h-[32px] min-w-[94px]
+      px-[12px]
+      rounded-[2px]
+      border border-[#498E2B]
+      bg-[#FFF]
+      text-[#498E2B]
+      font-['Roboto',sans-serif] text-[15px] font-medium leading-[13px] tracking-[0.3px]
+      text-center
+      transition-colors
+      hover:bg-gray-100
+      cursor-pointer
+    "
+  >
+    Add Tools
+  </button>
+
+  <button
+    onClick={onAddToolButton}
+    className="
+      flex items-center justify-center
+      h-[32px] min-w-[94px]
+      px-[12px]
+      rounded-[2px]
+      border border-[#CB282E]
+      bg-[#FFF]
+      text-[#CB282E]
+      font-['Roboto',sans-serif] text-[15px] font-medium leading-[13px] tracking-[0.3px]
+      text-center
+      transition-colors
+      hover:bg-gray-100
+      cursor-pointer
+    "
+  >
+    Offboard Tools
+  </button>
+
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-6 h-6 flex-shrink-0"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M12 8L5 15.2874L6.645 17L12 11.4372L17.355 17L19 15.2874L12 8Z"
+      fill="#4A4A4A"
+    />
+  </svg>
+</div>
         )}
       </div>
 

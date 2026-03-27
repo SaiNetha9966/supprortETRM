@@ -8,6 +8,7 @@ import { RequestedUsersSection } from './RequestedUsersSection';
 import ConfirmationModal from '../Modal/ConfirmationModal';
 import SuccessModal from '../Modal/SuccessModal';
 import { OffOnBoardRequest } from './RequestTales';
+import ActivityComments from './ActivityComments';
 
 interface RequestDetailProps {
   onRequestDetailsView: (value: boolean) => void;
@@ -231,6 +232,23 @@ export default function RequestDetail({
           onAddToolButton={onAddToolButton}
         />
         {activeTab === 'requestor' && <OffOnBoardRequest />}
+        <ActivityComments
+  comments={[
+    {
+      author: "Nathan Scott",
+      role: "Approver",
+      text: "Request approved. All required documentation has been verified and access can be granted.",
+      timestamp: "2025-11-20, 10:30:00",
+      bordered: true, // Nathan’s frame has border
+    },
+    {
+      author: "James Anderson",
+      role: "Primary PMD",
+      text: "Added Container Utilization Optimizer and Code Repository tools to the request. Please review and approve.",
+      timestamp: "2025-11-20, 08:30:00",
+    },
+  ]}
+/>
       </div>
     </main>
   );

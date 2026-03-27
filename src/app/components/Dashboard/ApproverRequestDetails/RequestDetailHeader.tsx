@@ -135,72 +135,64 @@ export function RequestDetailHeader({
           <div className="flex flex-wrap gap-5 shrink-0">
             {activeTab === 'requestor' && (
               <>
-                <button
-                  className="
-    flex items-center justify-center gap-[var(--button-primary-container-hpadding-sm-icon-left,4px)]
-    h-[var(--button-secondary-container-size-md,32px)]
-    min-w-[94px]
-    px-[var(--button-secondary-container-hpadding-md,12px)]
-    pl-[var(--button-secondary-container-hpadding-md-icon,8px)]
-    rounded-[var(--button-secondary-container-radius-all,2px)]
-    border border-[var(--button-secondary-border-color-default,#498E2B)]
-    bg-[var(--button-secondary-container-color-default,#FFF)]
+<button
+  onClick={onUpdateRequest}
+  className="
+    flex items-center justify-center
+    gap-[4px]
+    h-[32px] min-w-[94px]
+    px-[12px] pl-[8px]
+    rounded-[2px]
+    border border-[#498E2B]
+    bg-[#FFF]
     transition-colors
     hover:bg-gray-100
     cursor-pointer
   "
-                  onClick={onUpdateRequest}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="var(--button-secondary-icon-size-md,20px)"
-                    height="var(--button-secondary-icon-size-md,20px)"
-                    viewBox="0 0 20 20"
-                    fill="none"
-                  >
-                    <path
-                      d="M13.1067 8.07174L11.9283 6.8934L4.16667 14.6551V15.8334H5.345L13.1067 8.07174ZM14.285 6.8934L15.4633 5.71507L14.285 4.53674L13.1067 5.71507L14.285 6.8934ZM6.035 17.5001H2.5V13.9642L13.6958 2.7684C13.8521 2.61218 14.064 2.52441 14.285 2.52441C14.506 2.52441 14.7179 2.61218 14.8742 2.7684L17.2317 5.1259C17.3879 5.28218 17.4757 5.4941 17.4757 5.71507C17.4757 5.93604 17.3879 6.14796 17.2317 6.30424L6.035 17.5001Z"
-                      fill="#498E2B"
-                    />
-                  </svg>
-                  <span className="font-roboto font-medium text-sm text-[#498E2B] tracking-[0.3px] whitespace-nowrap">
-                    Update Request
-                  </span>
-                </button>
-
-                <button
-                  className="
-    flex items-center justify-center 
-    gap-[var(--button-primary-container-hpadding-sm-icon-left,4px)]
-    h-[var(--button-secondary-container-size-md,32px)]
-    min-w-[94px]
-    px-[var(--button-secondary-container-hpadding-md,12px)]
-    pl-[var(--button-secondary-container-hpadding-md-icon,8px)]
-    rounded-[var(--button-secondary-container-radius-all,2px)]
-    border border-[var(--button-secondary-border-color-default,#498E2B)]
-    bg-[var(--button-secondary-container-color-default,#FFF)]
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-[20px] h-[20px]"
+    viewBox="0 0 20 20"
+    fill="none"
+  >
+    <path
+      d="M13.1067 8.07174L11.9283 6.8934L4.16667 14.6551V15.8334H5.345L13.1067 8.07174ZM14.285 6.8934L15.4633 5.71507L14.285 4.53674L13.1067 5.71507L14.285 6.8934ZM6.035 17.5001H2.5V13.9642L13.6958 2.7684C13.8521 2.61218 14.064 2.52441 14.285 2.52441C14.506 2.52441 14.7179 2.61218 14.8742 2.7684L17.2317 5.1259C17.3879 5.28218 17.4757 5.4941 17.4757 5.71507C17.4757 5.93604 17.3879 6.14796 17.2317 6.30424L6.035 17.5001Z"
+      fill="#498E2B"
+    />
+  </svg>
+  <span className="font-['Roboto',sans-serif] font-medium text-[15px] leading-[13px] tracking-[0.3px] text-[#498E2B] text-center whitespace-nowrap">
+    Update Request
+  </span>
+</button>
+<button
+  onClick={onAddToolButton}
+  className="
+    flex items-center justify-center
+    gap-[4px]
+    h-[32px] min-w-[94px]
+    px-[12px] pl-[8px]
+    rounded-[2px]
+    border border-[#498E2B]
+    bg-[#FFF]
     transition-colors
     hover:bg-gray-100
     cursor-pointer
   "
-                  onClick={onAddToolButton}
-                >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="var(--button-secondary-icon-size-md,20px)"
-                    height="var(--button-secondary-icon-size-md,20px)"
-                    viewBox="0 0 17 17"
-                    fill="none"
-                  >
-                    <path
-                      d="M6.25625 16.25L5.85 13.6906C5.59271 13.5958 5.32188 13.4672 5.0375 13.3047C4.75313 13.1422 4.5026 12.9729 4.28594 12.7969L1.88906 13.8937L0 10.5625L2.19375 8.95781C2.16667 8.83594 2.14974 8.69714 2.14297 8.54141C2.1362 8.38568 2.13281 8.24688 2.13281 8.125C2.13281 8.00313 2.1362 7.86432 2.14297 7.70859C2.14974 7.55286 2.16667 7.41406 2.19375 7.29219L0 5.6875L1.88906 2.35625L4.28594 3.45313C4.5026 3.27708 4.75313 3.10781 5.0375 2.94531C5.32188 2.78281 5.59271 2.66094 5.85 2.57969L6.25625 0H9.99375L10.4 2.55937C10.6573 2.65417 10.9315 2.77943 11.2227 2.93516C11.5138 3.09089 11.7609 3.26354 11.9641 3.45313L14.3609 2.35625L16.25 5.6875L14.0563 7.25156C14.0833 7.38698 14.1003 7.53255 14.107 7.68828C14.1138 7.84401 14.1172 7.98958 14.1172 8.125C14.1172 8.26042 14.1138 8.4026 14.107 8.55156C14.1003 8.70052 14.0833 8.84271 14.0563 8.97812L16.25 10.5625L14.3609 13.8937L11.9641 12.7969C11.7474 12.9729 11.5003 13.1456 11.2227 13.3148C10.9451 13.4841 10.6708 13.6094 10.4 13.6906L9.99375 16.25H6.25625ZM8.125 10.7656C8.85625 10.7656 9.47917 10.5083 9.99375 9.99375C10.5083 9.47917 10.7656 8.85625 10.7656 8.125C10.7656 7.39375 10.5083 6.77083 9.99375 6.25625C9.47917 5.74167 8.85625 5.48438 8.125 5.48438C7.39375 5.48438 6.77083 5.74167 6.25625 6.25625C5.74167 6.77083 5.48438 7.39375 5.48438 8.125C5.48438 8.85625 5.74167 9.47917 6.25625 9.99375C6.77083 10.5083 7.39375 10.7656 8.125 10.7656Z"
-                      fill="#498E2B"
-                    />
-                  </svg>
-                  <span className="font-roboto font-medium text-sm text-[#498E2B] tracking-[0.3px] whitespace-nowrap">
-                    Add Tool
-                  </span>
-                </button>
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-[20px] h-[20px] fill-[#498E2B]"
+    viewBox="0 0 20 20"
+  >
+    <path
+      d="M8.13125 18.125L7.725 15.5656C7.46771 15.4708 7.19688 15.3422 6.9125 15.1797C6.62813 15.0172 6.3776 14.8479 6.16094 14.6719L3.76406 15.7687L1.875 12.4375L4.06875 10.8328C4.04167 10.7109 4.02474 10.5721 4.01797 10.4164C4.0112 10.2607 4.00781 10.1219 4.00781 10C4.00781 9.87813 4.0112 9.73932 4.01797 9.58359C4.02474 9.42786 4.04167 9.28906 4.06875 9.16719L1.875 7.5625L3.76406 4.23125L6.16094 5.32813C6.3776 5.15208 6.62813 4.98281 6.9125 4.82031C7.19688 4.65781 7.46771 4.53594 7.725 4.45469L8.13125 1.875H11.8687L12.275 4.43437C12.5323 4.52917 12.8065 4.65443 13.0977 4.81016C13.3888 4.96589 13.6359 5.13854 13.8391 5.32813L16.2359 4.23125L18.125 7.5625L15.9313 9.12656C15.9583 9.26198 15.9753 9.40755 15.982 9.56328C15.9888 9.71901 15.9922 9.86458 15.9922 10C15.9922 10.1354 15.9888 10.2776 15.982 10.4266C15.9753 10.5755 15.9583 10.7177 15.9313 10.8531L18.125 12.4375L16.2359 15.7687L13.8391 14.6719C13.6224 14.8479 13.3753 15.0206 13.0977 15.1898C12.8201 15.3591 12.5458 15.4844 12.275 15.5656L11.8687 18.125H8.13125ZM10 12.6406C10.7312 12.6406 11.3542 12.3833 11.8687 11.8687C12.3833 11.3542 12.6406 10.7312 12.6406 10C12.6406 9.26875 12.3833 8.64583 11.8687 8.13125C11.3542 7.61667 10.7312 7.35938 10 7.35938C9.26875 7.35938 8.64583 7.61667 8.13125 8.13125C7.61667 8.64583 7.35938 9.26875 7.35938 10C7.35938 10.7312 7.61667 11.3542 8.13125 11.8687C8.64583 12.3833 9.26875 12.6406 10 12.6406Z"
+    />
+  </svg>
+  <span className="font-['Roboto',sans-serif] font-medium text-[15px] leading-[13px] tracking-[0.3px] text-[#498E2B] text-center whitespace-nowrap">
+    Add Tool
+  </span>
+</button>
 
                 <button
                   className="

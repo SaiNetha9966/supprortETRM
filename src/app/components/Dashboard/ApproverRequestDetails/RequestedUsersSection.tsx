@@ -129,7 +129,7 @@ export function RequestedUsersSection({
           {activeTab === 'requestor' ? 'User & Tool Acsess' : '  Requested Users'}
         </h2>
         {activeTab === 'requestor' && (
-          <div>
+          <div className="flex items-center">
             <button
               style={{
                 marginRight: '20px',
@@ -179,6 +179,17 @@ export function RequestedUsersSection({
             >
               Offboard Users
             </button>
+              <svg
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-6 h-6 flex-shrink-0"
+    viewBox="0 0 24 24"
+    fill="none"
+  >
+    <path
+      d="M12 8L5 15.2874L6.645 17L12 11.4372L17.355 17L19 15.2874L12 8Z"
+      fill="#4A4A4A"
+    />
+  </svg>
           </div>
         )}
       </div>

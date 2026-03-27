@@ -38,7 +38,7 @@ if (status === 'Onboarding - Pending Approval' || status === 'Offboarding - Pend
         label: 'Onboarding - In Progress',
       };
     }
-if (status === 'Onboarding - Approved' || status === 'Offboarding - Approved') {
+if (status === 'Onboarding - Approved' || status === 'Offboarding - Approved' || status==='Closed Completed') {
   return {
     bg: 'bg-[#DFF0DB]', // background from figma (#DFF0DB)
     text: 'text-[#3f702a]',
@@ -68,13 +68,13 @@ if (status === 'Destroy') {
     flex: 'flex items-center h-[20px] px-[9px]', // layout
   };
 }
-    if (status === 'Closed Completed') {
-      return {
-        bg: 'bg-[#a5d192]',
-        text: 'text-[#3f702a]',
-        label: status,
-      };
-    }
+    // if (status === 'Closed Completed') {
+    //   return {
+    //     bg: 'bg-[#a5d192]',
+    //     text: 'text-[#3f702a]',
+    //     label: status,
+    //   };
+    // }
     return {
       bg: 'bg-gray-100',
       text: 'text-gray-700',
