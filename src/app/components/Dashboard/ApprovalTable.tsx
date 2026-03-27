@@ -157,10 +157,12 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
       </div>
 
       {/* Table */}
-      <div className="hidden lg:block overflow-x-auto -mx-6 px-6">
-        <div className="inline-block min-w-full align-middle">
+      <div className="hidden lg:block overflow-x-auto -mx-6 px-6 ">
+        <div  className="inline-block min-w-full align-middle border border-[#CCC] border-b border-[#CCC] rounded-tl-[8px]">
           {filteredRequests?.length > 0 ? (
-            <table className="min-w-full border border-[#ccc] rounded-lg overflow-hidden">
+            <table
+  className="min-w-full bg-[#FFF] border border-[#CCC] border-b border-[#CCC] rounded-tl-[8px] overflow-hidden"
+>
               <thead className="bg-white">
                 <tr>
                   <th
@@ -212,56 +214,9 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
                     Offboarding Substate
                   </th>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                  {/* <th
-                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
-                    onClick={() => handleSort('ironcladId')}
-                  >
-                    Ironclad ID {getSortIndicator('ironcladId')}
-                  </th>
-                  <th
-                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
-                    onClick={() => handleSort('radiusId')}
-                  >
-                    Radius ID {getSortIndicator('radiusId')}
-                  </th>
-                  <th
-                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
-                    onClick={() => handleSort('sapProjectId')}
-                  >
-                    SAP Project ID {getSortIndicator('sapProjectId')}
-                  </th>
-                  <th
-                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
-                    onClick={() => handleSort('requestor')}
-                  >
-                    Requestor {getSortIndicator('requestor')}
-                  </th>
-                  <th
-                    className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap cursor-pointer"
-                    onClick={() => handleSort('submittedDate')}
-                  >
-                    Submitted Date {getSortIndicator('submittedDate')}
-                  </th>
-                  <th className="px-4 py-3 text-left border-b border-[#ccc] font-['Roboto',sans-serif] font-bold text-[13px] text-[#181d1f] whitespace-nowrap">
-                    Request Status
-                  </th> */}
-
                 </tr>
               </thead>
+              
               <tbody>
                 {filteredRequests.map((request, index) => (
                   <tr
@@ -305,28 +260,6 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
                       <td className="px-4 py-2.5">
                       <StatusBadge status="Destroy" />
                     </td>
-
-
-
-
-                    {/* <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.ironcladId}
-                    </td>
-                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.radiusId}
-                    </td>
-                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.sapProjectId}
-                    </td>
-                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.requestor}
-                    </td>
-                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.submittedDate}
-                    </td>
-                    <td className="px-4 py-2.5">
-                      <StatusBadge status={request.requestStatus} />
-                    </td> */}
                   </tr>
                 ))}
               </tbody>

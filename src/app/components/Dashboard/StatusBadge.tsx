@@ -48,6 +48,26 @@ if (status === 'Onboarding - Approved' || status === 'Offboarding - Approved') {
     flex: 'flex items-center h-[20px] px-[9px]', // layout
   };
 }
+if (status === 'Online') {
+  return {
+    bg: 'bg-[#DFF0DB]', // background from figma (#DFF0DB)
+    text: 'text-[#3f702a]',
+    label: 'Online',
+    border: 'border border-[#A5D192]', // green border
+    radius: 'rounded-full', // pill shape (240px)
+    flex: 'flex items-center h-[20px] px-[9px]', // layout
+  };
+}
+if (status === 'Destroy') {
+  return {
+    bg: 'bg-[#FFEBED]', // background from figma (#DFF0DB)
+    text: 'text-[#BF494E]',
+    label: 'Destroy',
+    border: 'border border-[#F1B5B7]', // green border
+    radius: 'rounded-full', // pill shape (240px)
+    flex: 'flex items-center h-[20px] px-[9px]', // layout
+  };
+}
     if (status === 'Closed Completed') {
       return {
         bg: 'bg-[#a5d192]',

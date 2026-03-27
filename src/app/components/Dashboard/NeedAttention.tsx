@@ -15,27 +15,68 @@ interface NeedAttentionProps {
 const NeedAttention: React.FC<NeedAttentionProps> = ({ count, items }) => {
   return (
     <div className="need-attention-card">
-      <div className="header">
-        <h2>Need Attention</h2>
-        <span className="badge">{count}</span>
+<div className="header">
+<h2 className="font-['Roboto',sans-serif] font-bold text-[19px] leading-normal text-[#4A4A4A]">
+  Need Attention
+</h2>
+
+<span
+  className="flex items-center h-[24px] px-[9px] rounded-full bg-[#FEC] text-[#B86A0F] font-['Roboto',sans-serif] text-[13px] font-normal leading-[13px]"
+>
+  {count}
+</span>
+  
+</div>
+
+      {items?.length > 0 ? (
+
+<ul className="attention-list">
+  {items.map((item, index) => (
+    <li
+      key={index}
+      className="attention-item flex items-center justify-between gap-2"
+    >
+      {/* Left side: name + org */}
+      <div className="info flex flex-col">
+        <span className="name font-['Roboto',sans-serif] text-sm font-medium text-[#181d1f]">
+          {item.name}
+        </span>
+        <span className="org text-xs text-[#6b7280]">
+          {item.organization || '-'}
+        </span>
       </div>
 
-      {items?.length < 0 ? (
-        <ul className="attention-list">
-          {items.map((item, index) => (
-            <li key={index} className="attention-item">
-              <div className="info">
-                <span className="name">{item.name}</span>
-                <span className="org">{item.organization || '-'}</span>
-              </div>
-              <span
-                className={`status ${item.status === 'Clarification Required' ? 'yellow' : 'red'}`}
-              >
-                {item.status}
-              </span>
-            </li>
-          ))}
-        </ul>
+      {/* Right side: status + arrow */}
+      <div className="flex items-center gap-2">
+        <span
+          className={`flex items-center h-[20px] px-[9px] rounded-full border border-[#F9D250] bg-[#FEC] text-xs font-['Roboto',sans-serif] font-medium whitespace-nowrap ${
+            item.status === 'Clarification Required'
+              ? 'text-[#b86a0f]'
+              : 'text-[#BF494E]'
+          }`}
+        >
+          {item.status}
+        </span>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-4 w-4 flex-shrink-0"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <path
+            d="M6 12L10 8L6 4"
+            stroke="#9CA3AF"
+            strokeWidth="1.333"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
+        </svg>
+      </div>
+    </li>
+  ))}
+</ul>
+
       ) : (
         <div>
           <div style={{ marginTop: '50px' }}>
