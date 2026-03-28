@@ -1,12 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { DetailedRequest, RequestedUser } from '../Data/mockData';
 import svgPaths from '../../../../imports/svg-9v12l09gyw';
+import { DashBoardRecordItem, NameValue } from '../../Utils/UiUtilis';
 
 interface RequestedUsersSectionProps {
-  request: DetailedRequest;
   activeTab: string;
-  onAddUserButton: () => void;
-  onAddToolButton: () => void;
+  request: DashBoardRecordItem | null;
+  onAddUserButton?: () => void;
+  onAddToolButton?: () => void;
 }
 
 function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => void }) {
@@ -106,14 +107,36 @@ function UserCard({ user, onToggle }: { user: RequestedUser; onToggle: () => voi
   );
 }
 
+
 export function RequestedUsersSection({
   activeTab,
   request,
   onAddUserButton,
   onAddToolButton,
 }: RequestedUsersSectionProps) {
-  const [users, setUsers] = useState<RequestedUser[]>(request.requestedUsers);
+function makeId(name: string, index: number) {
+  // deterministic unique-ish id for this list; replace with nanoid if available
+  return `${name.replace(/\s+/g, '_')}_${index}`;
+}
+ const initialUsers = useMemo<NameValue[]>(() => {
+    const raw = request?.namevalue ?? [];
+    return raw.map((nv, i) => ({
+      // preserve original fields
+      name: nv.name,
+      value: nv.value,
+      // add UI-only fields
+      id: nv['id'] ?? makeId(nv.name ?? 'user', i),
+      isExpanded: false,
+    }));
+  }, [request]);
+  const [users, setUsers] = useState<NameValue[]>(initialUsers);
+  // Use the computed initialUsers as the initial state
+  // Keep local users in sync when `request` changes
+  useEffect(() => {
+    setUsers(initialUsers);
+  }, [initialUsers]);
 
+  // Toggle by id (safe because every item has an id)
   const toggleUser = (userId: string) => {
     setUsers((prevUsers) =>
       prevUsers.map((user) =>

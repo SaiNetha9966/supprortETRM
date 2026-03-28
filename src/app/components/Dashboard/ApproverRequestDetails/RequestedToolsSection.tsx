@@ -4,6 +4,7 @@ interface RequestedToolsSectionProps {
   request: DetailedRequest;
   activeTab: string;
   onAddToolButton: () => void;
+  
 }
 
 export function RequestedToolsSection({

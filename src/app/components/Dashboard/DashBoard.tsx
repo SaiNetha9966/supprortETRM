@@ -2,34 +2,45 @@ import { useState, useMemo } from 'react';
 import { TabBar } from './TabBar';
 import { KPISection } from './KPISection';
 import { ApprovalTable } from './ApprovalTable';
-import { mockApprovalRequests, getStatusCounts } from './Data/mockData';
+import { mockApprovalRequests, getStatusCounts, getDetailedRequest } from './Data/mockData';
 import { TabType } from './Types/index';
 import DashBoardApproverPage from './DashBoardApproverPage';
 import RequestDetail from './ApproverRequestDetails/RequestDetail';
-import { DashboardResponse, StepType } from '../Utils/UiUtilis';
+import { DashBoardRecordItem, DashboardResponse, StepType } from '../Utils/UiUtilis';
 
 interface DashBoardProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<StepType>>;
   setDashboardType: React.Dispatch<React.SetStateAction<string>>;
   setExistingProject: React.Dispatch<React.SetStateAction<string>>;
   setExistingProjectDetailsFormData: React.Dispatch<React.SetStateAction<any>>;
-  dashboardDetails:DashboardResponse;
+  dashboardDetails:DashboardResponse | null;
+  accessToken:string
 }
 export default function DashBoard({
   setCurrentStep,
   setDashboardType,
   setExistingProject,
   setExistingProjectDetailsFormData,
-  dashboardDetails
+  dashboardDetails,
+  accessToken
 }: DashBoardProps) {
   const [activeTab, setActiveTab] = useState<TabType>('approver');
   const [isRequestDetailsClicked, setIsRequestDetailsClicked] = useState<boolean>(false);
+  const [approvalID,setApprovalID] = useState("")
+    const [selectedRecord, setSelectedRecord] = useState<DashBoardRecordItem | null>(null);
+    console.log("selectedRecord",selectedRecord);
   const statusCounts = useMemo(() => getStatusCounts(mockApprovalRequests), []);
 
-  const handleRequestDetailsView = (value: boolean) => {
+  const handleRequestDetailsView = (value: boolean,approvalID:string) => {
+    setApprovalID(approvalID);
     setIsRequestDetailsClicked(value);
-  };
+        // Safe lookup
+    const record =
+      dashboardDetails?.result?.all_records?.find((r: DashBoardRecordItem) => r.approvalID === approvalID) ?? null;
 
+    setSelectedRecord(record);
+  };
+  
   const handleUpdateRequest = () => {
     setExistingProject('yes');
     setExistingProjectDetailsFormData((prev: any) => ({
@@ -79,6 +90,9 @@ export default function DashBoard({
           onAddToolButton={handleAddToolButton}
           onAddUserButton={handleAddUserButton}
           dashboardDetails={dashboardDetails}
+          approvalID={approvalID}
+          selectedRecord={selectedRecord}
+          accessToken={accessToken}
         />
       )}
     </div>

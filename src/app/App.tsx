@@ -22,7 +22,6 @@ export default function App() {
 
   // NEW: state to hold dashboard details
   const [dashboardDetails, setDashboardDetails] = useState<DashboardResponse|null>(null);
-console.log("dashboardDetails",dashboardDetails)
   const handleVavigateDashBoard = (dashBoardType: string) => {
     setDashboardType(dashBoardType);
   };
@@ -59,7 +58,6 @@ console.log("dashboardDetails",dashboardDetails)
       try {
         const details = await getDashboardDetails('Jake White', accessToken); 
         setDashboardDetails(details);
-        console.log('Dashboard details:', details);
       } catch (error) {
         console.error('Error fetching dashboard details:', error);
       }
@@ -103,6 +101,7 @@ console.log("dashboardDetails",dashboardDetails)
           setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
           // pass dashboardDetails down if DashBoard needs it
           dashboardDetails={dashboardDetails}
+          accessToken={accessToken}
         />
       )}
     </div>

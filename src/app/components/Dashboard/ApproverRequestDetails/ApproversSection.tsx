@@ -1,7 +1,8 @@
+import { DashBoardRecordItem } from '../../Utils/UiUtilis';
 import { DetailedRequest } from '../Data/mockData';
 
 interface ApproversSectionProps {
-  request: DetailedRequest;
+  request:DashBoardRecordItem | null;
 }
 
 export function ApproversSection({ request }: ApproversSectionProps) {
@@ -19,7 +20,7 @@ export function ApproversSection({ request }: ApproversSectionProps) {
               Primary PMD/Partner
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[15px] text-[#4a4a4a] leading-[20px]">
-              {request.primaryPMD}
+              {request?.managing_director}
             </p>
           </div>
 
@@ -28,7 +29,7 @@ export function ApproversSection({ request }: ApproversSectionProps) {
               Secondary PMD/Partner
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.secondaryPMD}
+              {request?.secondary_managing_director}
             </p>
           </div>
 
@@ -37,7 +38,7 @@ export function ApproversSection({ request }: ApproversSectionProps) {
               Information Owner
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.informationOwner}
+              {request?.information_owner}
             </p>
           </div>
         </div>
@@ -49,7 +50,7 @@ export function ApproversSection({ request }: ApproversSectionProps) {
               Delegate Information Owner
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.delegateInformationOwner}
+              {request?.delegated_information_owner}
             </p>
           </div>
 
@@ -58,7 +59,7 @@ export function ApproversSection({ request }: ApproversSectionProps) {
               Project Manager
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.projectManager}
+              {request?.project_manager}
             </p>
           </div>
 
@@ -67,7 +68,7 @@ export function ApproversSection({ request }: ApproversSectionProps) {
               Approvers
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.approvers}
+              {request?.approvers}
             </p>
           </div>
         </div>

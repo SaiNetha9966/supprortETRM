@@ -228,6 +228,8 @@ export const Loader: React.FC = () => (
 export interface NameValue {
   name: string;
   value: string;
+    id?: string;
+  isExpanded?: boolean;
 }
 
 export interface DashBoardRecordItem {
@@ -266,4 +268,10 @@ export interface DashboardResult {
 
 export interface DashboardResponse {
   result: DashboardResult;
+}
+
+
+export interface ApprovalUpdatePayload {
+  state: string;
+  comment?: string;
 }

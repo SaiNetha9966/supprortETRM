@@ -6,7 +6,7 @@ import svgPaths from '../../../imports/svg-w3qi05nelx';
 import { DashBoardRecordItem } from '../Utils/UiUtilis';
 interface ApprovalTableProps {
   requests: DashBoardRecordItem[];
-  onRequestDetailsView: (value: boolean) => void;
+  onRequestDetailsView: (value: boolean,approvalID:string) => void;
   dashBoardactiveTab:string;
 }
 type SortField = keyof DashBoardRecordItem | null;
@@ -273,7 +273,7 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
                       index % 2 === 0 ? 'bg-[#f7f7f7]' : 'bg-white'
                     }`}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => onRequestDetailsView(true)}
+                    onClick={() => onRequestDetailsView(true, request.approvalID)}
                   >
                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] font-medium text-sm text-[#0369a3] underline whitespace-nowrap">
                       <span style={{ cursor: 'pointer' }} className="hover:text-[#024870]">
@@ -385,7 +385,7 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
                       index % 2 === 0 ? 'bg-[#f7f7f7]' : 'bg-white'
                     }`}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => onRequestDetailsView(true)}
+                    onClick={() => onRequestDetailsView(true, request.approvalID)}
                   >
                     <td
                       className="

@@ -1,16 +1,18 @@
 import { DetailedRequest } from '../Data/mockData';
 import svgPaths from '../../../../imports/svg-9v12l09gyw';
+import { DashBoardRecordItem } from '../../Utils/UiUtilis';
 
 interface RequestDetailHeaderProps {
   request: DetailedRequest;
   handleOpenOrClodeApprovalModel: () => void;
   handleOpenOrClodeRejectionModel: () => void;
   handleRequestClarificationModel:() => void;
-  onRequestDetailsView: (value: boolean) => void;
+  onRequestDetailsView: (value: boolean,approvalID:string) => void;
   activeTab: string;
   onUpdateRequest: () => void;
   onAddToolButton: () => void;
   onAddUserButton: () => void;
+  selectedRecord:DashBoardRecordItem | null;
 }
 
 export function RequestDetailHeader({
@@ -23,6 +25,7 @@ export function RequestDetailHeader({
   onUpdateRequest,
   onAddToolButton,
   onAddUserButton,
+  selectedRecord
 }: RequestDetailHeaderProps) {
   const getStatusColor = () => {
     if (request.requestStatus.includes('Approved')) {
@@ -36,6 +39,7 @@ export function RequestDetailHeader({
   };
 
   const statusColors = getStatusColor();
+  // const {project_code,state,request_status,requestor,submitted_date} =selectedRecord;
 
   return (
     <div className="bg-white border-b border-[#e4e4e4] sticky top-0 z-10 shadow-sm">
@@ -47,7 +51,7 @@ export function RequestDetailHeader({
             <div className="flex items-start gap-3">
               <button
                 style={{ cursor: 'pointer' }}
-                onClick={() => onRequestDetailsView(false)}
+                onClick={() => onRequestDetailsView(false,"")}
                 className="flex items-center justify-center mt-1 shrink-0 hover:bg-[#f7f7f7] rounded p-1 transition-colors"
               >
                 <div className="rotate-180">
@@ -73,7 +77,7 @@ export function RequestDetailHeader({
               <div className="space-y-3 flex-1">
                 <div className="flex flex-wrap items-center gap-3">
                   <h1 className="font-['Roboto',sans-serif] font-bold text-[23px] text-[#111827]">
-                    {request.projectCodeName}
+                    {selectedRecord?.project_code}
                   </h1>
 
                   {/* Status Badges */}
@@ -92,7 +96,7 @@ export function RequestDetailHeader({
                           className="font-['Roboto',sans-serif] font-normal text-[13px] whitespace-nowrap"
                           style={{ color: '#3f7b25' }}
                         >
-                          Online
+                          {selectedRecord?.state}
                         </p>
                       </div>
                     )}
@@ -110,7 +114,7 @@ export function RequestDetailHeader({
                         className="font-['Roboto',sans-serif] font-normal text-[13px] whitespace-nowrap"
                         style={{ color: statusColors.text }}
                       >
-                        {request.requestStatus}
+                        {selectedRecord?.request_status}
                       </p>
                     </div>
                   </div>
@@ -139,15 +143,15 @@ export function RequestDetailHeader({
                 </div>
 
                   ) :(
-                                    <div className="flex flex-wrap gap-4 font-['Roboto',sans-serif] text-[15px] text-[#727272]">
+                   <div className="flex flex-wrap gap-4 font-['Roboto',sans-serif] text-[15px] text-[#727272]">
                   <p>
                     <span>Requestor: </span>
-                    <span className="font-bold">{request.fullRequestorName}</span>
+                    <span className="font-bold">{selectedRecord?.requestor}</span>
                   </p>
                   <p>
                     <span>Submitted: </span>
                     <span className="font-bold">
-                                     {new Date(request.submittedDate).toLocaleDateString("en-US", {
+                                     {new Date(selectedRecord?.submitted_date ?? "").toLocaleDateString("en-US", {
                         month: "short",
                         day: "2-digit",
                         year: "numeric",

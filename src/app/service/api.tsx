@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { mapFormDataToApiPayload } from '../components/Utils/UiUtilis';
+import { ApprovalUpdatePayload, mapFormDataToApiPayload } from '../components/Utils/UiUtilis';
 import { PublicClientApplication } from '@azure/msal-browser';
 import dummy from "./dummyData.json"
 
 const subscriptionKey = '9e16f4849c124245baf84a1d4f9bcc6e'; //ad8c056dfd0d424383d8c36700dbfaf2
-
+const BASE_URL = 'https://apim-alixdev.alixpartners.com/etrm/v1';
 export async function fetchNonClientNewProject(token: string) {
   try {
     const response = await axios.get(
@@ -178,20 +178,49 @@ export async function submitOffboardingRequest(payload: any, token: string) {
 
 export async function getDashboardDetails(userName: string, token: string | null) {
   try {
-    // const response = await axios.post(
-    //   `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard/get_all/${userName}`,
-    //   {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //       'Ocp-Apim-Subscription-Key': subscriptionKey,
-    //       'Content-Type': 'application/json',
-    //     },
-    //   }
-    // );
-    // return response.data;
+      // const response = await axios.post(
+      //   `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard/get_all/7f2aeaa6fb73c6508ad3fb4655efdc76`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       'Ocp-Apim-Subscription-Key': subscriptionKey,
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
+      // return response.data;
      return dummy;
   } catch (error: any) {
     console.error('Error posting data:', error?.response?.data || error?.message);
     throw error;
+  }
+}
+
+
+export async function updateApprovalById(
+  approvalID: string,
+  payload: ApprovalUpdatePayload,
+  token: string
+) {
+  const url = `${BASE_URL}/dashboard_update_by_approval/approval_update/${encodeURIComponent(
+    approvalID
+  )}`;
+
+  try {
+    const response = await axios.put(url, payload, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Ocp-Apim-Subscription-Key': subscriptionKey,
+        'Content-Type': 'application/json',
+      },
+    });
+
+    return response.data;
+  } catch (error: any) {
+    // Normalize error for caller
+    const serverData = error?.response?.data;
+    const message = serverData ?? error?.message ?? 'Unknown error';
+    console.error('PUT approval update error', message);
+    throw message;
   }
 }

@@ -9,13 +9,19 @@ import ConfirmationModal from '../Modal/ConfirmationModal';
 import SuccessModal from '../Modal/SuccessModal';
 import { OffOnBoardRequest } from './RequestTales';
 import ActivityComments from './ActivityComments';
+import { ApprovalUpdatePayload, DashBoardRecordItem, DashboardResponse } from '../../Utils/UiUtilis';
+import { updateApprovalById } from '../../../service/api';
 
 interface RequestDetailProps {
-  onRequestDetailsView: (value: boolean) => void;
+  onRequestDetailsView: (value: boolean, approvalID:string) => void;
   activeTab: string;
   onUpdateRequest: () => void;
   onAddToolButton: () => void;
   onAddUserButton: () => void;
+  dashboardDetails : DashboardResponse;
+  approvalID:string;
+  selectedRecord:DashBoardRecordItem | null;
+  accessToken:string;
 }
 
 export default function RequestDetail({
@@ -24,6 +30,10 @@ export default function RequestDetail({
   onUpdateRequest,
   onAddToolButton,
   onAddUserButton,
+  dashboardDetails,
+  approvalID,
+  selectedRecord,
+  accessToken
 }: RequestDetailProps) {
   const [request, setRequest] = useState<DetailedRequest | null>(null);
   const [isApproveOpen, setApproveOpen] = useState(false);
@@ -32,7 +42,8 @@ export default function RequestDetail({
   const [note, setNote] = useState('');
   const [open, setOpen] = useState<null | string>(null);
   const [successNote, setSuccessNote] = useState('');
-
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const ApprovedIcon = (
     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
       <path
@@ -127,19 +138,83 @@ export default function RequestDetail({
     }
   };
 
-  const handleApproveRequest = () => {
+ const handleApproveRequest = async () => {
     setApproveOpen(false);
-    setOpen('approve');
+    const payload: ApprovalUpdatePayload = {
+      state: 'approved',
+      comment: note,
+    };
+    setLoading(true);
+    setErrorMessage(null);
+    try {
+      await updateApprovalById(approvalID, payload, accessToken);
+      setApproveOpen(false);
+      setOpen('approve');
+       setNote("")
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.message ||
+        err?.response?.data ||
+        err?.message ||
+        'Failed to update approval. Please try again.';
+      setErrorMessage(String(msg));
+      setNote("")
+    } finally {
+      setLoading(false);
+    }
+  };
+  const handleRejectRequest = async() => {
+     setRejectOpen(false);
+    const payload: ApprovalUpdatePayload = {
+      state: 'rejected',
+      comment: note,
+    };
+    setLoading(true);
+    setErrorMessage(null);
+    try {
+      await updateApprovalById(approvalID, payload, accessToken);
+      setRejectOpen(false);
+      setOpen('reject');
+       setNote("")
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.message ||
+        err?.response?.data ||
+        err?.message ||
+        'Failed to update approval. Please try again.';
+      setErrorMessage(String(msg));
+      setNote("")
+    } finally {
+      setLoading(false);
+    }
+
   };
 
-  const handleRejectRequest = () => {
-    setRejectOpen(false);
-    setOpen('reject');
-  };
+  const handleRequestClarity = async() => {
+     setRequestOpen(false);
+    const payload: ApprovalUpdatePayload = {
+      state: 'rejected',
+      comment: note,
+    };
+    setLoading(true);
+    setErrorMessage(null);
+    try {
+      await updateApprovalById(approvalID, payload, accessToken);
+      setRejectOpen(false);
+      setOpen('clarify');
+      setNote("")
+    } catch (err: any) {
+      const msg =
+        err?.response?.data?.message ||
+        err?.response?.data ||
+        err?.message ||
+        'Failed to update approval. Please try again.';
+      setErrorMessage(String(msg));
+      setNote("")
+    } finally {
+      setLoading(false);
+    }
 
-  const handleRequestClarity = () => {
-    setRequestOpen(false);
-    setOpen('clarify');
   };
 
   useEffect(() => {
@@ -154,6 +229,7 @@ export default function RequestDetail({
       </div>
     );
   }
+  console.log("all_records" , dashboardDetails?.result)
 
   return (
     <main className="flex-1 w-full relative">
@@ -241,10 +317,11 @@ export default function RequestDetail({
         onUpdateRequest={onUpdateRequest}
         onAddToolButton={onAddToolButton}
         onAddUserButton={onAddUserButton}
+        selectedRecord={selectedRecord}
       />
       <div className="px-4 sm:px-6 lg:px-20 py-6 space-y-6 max-w-[1440px] mx-auto pb-20">
-        <ETRFDetailsSection request={request} />
-        <ApproversSection request={request} />
+        <ETRFDetailsSection request={request}  selectedRecord={selectedRecord} />
+        <ApproversSection request={selectedRecord}  />
         <RequestedToolsSection
           activeTab={activeTab}
           request={request}
@@ -252,7 +329,7 @@ export default function RequestDetail({
         />
         <RequestedUsersSection
           activeTab={activeTab}
-          request={request}
+          request={selectedRecord}
           onAddUserButton={onAddUserButton}
           onAddToolButton={onAddToolButton}
         />

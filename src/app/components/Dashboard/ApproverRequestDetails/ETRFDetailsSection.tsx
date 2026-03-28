@@ -1,10 +1,12 @@
+import { DashBoardRecordItem } from '../../Utils/UiUtilis';
 import { DetailedRequest } from '../Data/mockData';
 
 interface ETRFDetailsSectionProps {
   request: DetailedRequest;
+  selectedRecord:DashBoardRecordItem | null;
 }
 
-export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
+export function ETRFDetailsSection({ request,selectedRecord }: ETRFDetailsSectionProps) {
   return (
     <div className="bg-white rounded-[8px] p-4 sm:p-6">
       <h2 className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#4a4a4a] mb-6 sm:mb-8">
@@ -19,7 +21,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               Project Code Name
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.projectCodeName}
+              {selectedRecord?.project_code}
             </p>
           </div>
 
@@ -28,7 +30,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               Client Name
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.clientName}
+              {selectedRecord?.client_name}
             </p>
           </div>
 
@@ -37,7 +39,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               Type Of Work
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[14px] text-[#4a4a4a] leading-[18px]">
-              {request.typeOfWork}
+              {selectedRecord?.type_of_work}
             </p>
           </div>
         </div>
@@ -49,7 +51,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               Ironclad ID
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[15px] text-[#4a4a4a] leading-[20px]">
-              {request.ironcladId}
+              {selectedRecord?.ironclad_id}
             </p>
           </div>
 
@@ -58,7 +60,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               Radius ID
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[15px] text-[#4a4a4a] leading-[20px]">
-              {request.radiusId}
+              {selectedRecord?.radius_id}
             </p>
           </div>
 
@@ -67,7 +69,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               SAP Project ID
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[15px] text-[#4a4a4a] leading-[20px]">
-              {request.sapProjectId}
+              {selectedRecord?.sap_project_id}
             </p>
           </div>
         </div>
@@ -79,7 +81,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               Expected Start Date
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[15px] text-[#4a4a4a] leading-[20px]">
-              {request.expectedStartDate}
+              {/* {selectedRecord?.expectedStartDate} // need to map not getting in API */}
             </p>
           </div>
 
@@ -88,7 +90,7 @@ export function ETRFDetailsSection({ request }: ETRFDetailsSectionProps) {
               Expected End Date
             </p>
             <p className="font-['Roboto',sans-serif] font-normal text-[15px] text-[#4a4a4a] leading-[20px]">
-              {request.expectedEndDate}
+              {/* {selectedRecord?.expectedEndDate} // need to map not getting in API */}
             </p>
           </div>
         </div>
