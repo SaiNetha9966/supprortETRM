@@ -6,19 +6,21 @@ import { mockApprovalRequests, getStatusCounts } from './Data/mockData';
 import { TabType } from './Types/index';
 import DashBoardApproverPage from './DashBoardApproverPage';
 import RequestDetail from './ApproverRequestDetails/RequestDetail';
-import { StepType } from '../Utils/UiUtilis';
+import { DashboardResponse, StepType } from '../Utils/UiUtilis';
 
 interface DashBoardProps {
   setCurrentStep: React.Dispatch<React.SetStateAction<StepType>>;
   setDashboardType: React.Dispatch<React.SetStateAction<string>>;
   setExistingProject: React.Dispatch<React.SetStateAction<string>>;
   setExistingProjectDetailsFormData: React.Dispatch<React.SetStateAction<any>>;
+  dashboardDetails:DashboardResponse;
 }
 export default function DashBoard({
   setCurrentStep,
   setDashboardType,
   setExistingProject,
   setExistingProjectDetailsFormData,
+  dashboardDetails
 }: DashBoardProps) {
   const [activeTab, setActiveTab] = useState<TabType>('approver');
   const [isRequestDetailsClicked, setIsRequestDetailsClicked] = useState<boolean>(false);
@@ -66,6 +68,7 @@ export default function DashBoard({
           activeTab={activeTab}
           setActiveTab={setActiveTab}
           onRequestDetailsView={handleRequestDetailsView}
+          dashboardDetails={dashboardDetails}
         />
       )}
       {isRequestDetailsClicked && (
@@ -75,6 +78,7 @@ export default function DashBoard({
           onUpdateRequest={handleUpdateRequest}
           onAddToolButton={handleAddToolButton}
           onAddUserButton={handleAddUserButton}
+          dashboardDetails={dashboardDetails}
         />
       )}
     </div>

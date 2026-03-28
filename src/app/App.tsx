@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { MainComponent } from './components/mainComponents';
-import { fetchNonClientNewProject, generateToken, initializeMsalClient } from './service/api';
-import { ExistingProjectDetailsFormData, Loader, StepType } from './components/Utils/UiUtilis';
+import { fetchNonClientNewProject, generateToken, getDashboardDetails, initializeMsalClient } from './service/api';
+import { DashboardResponse, ExistingProjectDetailsFormData, Loader, StepType } from './components/Utils/UiUtilis';
 import DashBoard from './components/Dashboard/DashBoard';
-// import styles from '/../app/App.module.css';
 import styles from '../app/App.module.css';
 import { Header } from './components/Header/Header';
 
@@ -11,13 +10,9 @@ export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [nonClientNewProjectData, setNonClientNewProjectData] = useState<any>(null);
   const [dashBoardType, setDashboardType] = useState<string>('dashboard');
-  console.log('dashBoardType', dashBoardType);
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
-  // newclient-intro
-  console.log('currentStep', currentStep);
   const [existingProject, setExistingProject] = useState<string>('');
-  console.log('existingProject', existingProject);
   const [existingProjectDetailsFormData, setExistingProjectDetailsFormData] =
     useState<ExistingProjectDetailsFormData>({
       searchValue: '',
@@ -25,12 +20,17 @@ export default function App() {
       existingProject: null,
     });
 
+  // NEW: state to hold dashboard details
+  const [dashboardDetails, setDashboardDetails] = useState<DashboardResponse|null>(null);
+console.log("dashboardDetails",dashboardDetails)
   const handleVavigateDashBoard = (dashBoardType: string) => {
     setDashboardType(dashBoardType);
   };
+
   const toggleSidebar = () => {
     setSidebarOpen(!sidebarOpen);
   };
+
   useEffect(() => {
     const initializeApp = async (): Promise<void> => {
       try {
@@ -40,9 +40,10 @@ export default function App() {
         if (!token) return;
 
         setAccessToken(token);
+
         const projectInfo = await fetchNonClientNewProject(token);
         setNonClientNewProjectData(projectInfo);
-        console.log(projectInfo);
+        console.log('Non-client project info:', projectInfo);
       } catch (error) {
         console.error('Error initializing app:', error);
       }
@@ -51,7 +52,22 @@ export default function App() {
     initializeApp();
   }, []);
 
-  // Show loader until token is ready
+  // NEW: fetch dashboard details once accessToken is ready
+  useEffect(() => {
+    const fetchDashboard = async () => {
+      if (!accessToken) return;
+      try {
+        const details = await getDashboardDetails('Jake White', accessToken); 
+        setDashboardDetails(details);
+        console.log('Dashboard details:', details);
+      } catch (error) {
+        console.error('Error fetching dashboard details:', error);
+      }
+    };
+
+    fetchDashboard();
+  }, [accessToken]);
+
   if (!accessToken) {
     return <Loader />;
   }
@@ -65,27 +81,28 @@ export default function App() {
       />
 
       {dashBoardType === 'newrequest' && (
-        <>
-          <MainComponent
-            sidebarOpen={sidebarOpen}
-            setSidebarOpen={setSidebarOpen}
-            nonClientNewProjectData={nonClientNewProjectData}
-            token={accessToken}
-            currentStep={currentStep}
-            setCurrentStep={setCurrentStep}
-            existingProject={existingProject}
-            setExistingProject={setExistingProject}
-            existingProjectDetailsFormData={existingProjectDetailsFormData}
-            setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
-          />
-        </>
+        <MainComponent
+          sidebarOpen={sidebarOpen}
+          setSidebarOpen={setSidebarOpen}
+          nonClientNewProjectData={nonClientNewProjectData}
+          token={accessToken}
+          currentStep={currentStep}
+          setCurrentStep={setCurrentStep}
+          existingProject={existingProject}
+          setExistingProject={setExistingProject}
+          existingProjectDetailsFormData={existingProjectDetailsFormData}
+          setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
+        />
       )}
+
       {dashBoardType === 'dashboard' && (
         <DashBoard
           setCurrentStep={setCurrentStep}
           setDashboardType={setDashboardType}
           setExistingProject={setExistingProject}
           setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
+          // pass dashboardDetails down if DashBoard needs it
+          dashboardDetails={dashboardDetails}
         />
       )}
     </div>

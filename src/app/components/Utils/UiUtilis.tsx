@@ -221,3 +221,49 @@ export const Loader: React.FC = () => (
     </style>{' '}
   </div>
 );
+
+
+// src/types/dashboard.ts
+
+export interface NameValue {
+  name: string;
+  value: string;
+}
+
+export interface DashBoardRecordItem {
+  approvalID: string;
+  technology_request_id: string;
+  project_code: string;
+  client_name: string;
+  type_of_work: string;
+  ironclad_id: string;
+  radius_id: string;
+  sap_project_id: string;
+  requestor: string;
+  submitted_date: string;
+  state: string;
+  request_status: string;
+  approval_state: string;
+  managing_director: string;
+  secondary_managing_director: string;
+  information_owner: string;
+  delegated_information_owner: string;
+  project_manager: string;
+  approvers: string;
+  namevalue: NameValue[];
+}
+
+export interface Summary {
+  pending: number;
+  approved: number;
+  rejected: number;
+}
+
+export interface DashboardResult {
+  summary: Summary;
+  all_records: DashBoardRecordItem[];
+}
+
+export interface DashboardResponse {
+  result: DashboardResult;
+}

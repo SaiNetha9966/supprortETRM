@@ -1,90 +1,8 @@
 import axios from 'axios';
 import { mapFormDataToApiPayload } from '../components/Utils/UiUtilis';
 import { PublicClientApplication } from '@azure/msal-browser';
+import dummy from "./dummyData.json"
 
-const sampleResponse = {
-  result: {
-    sap_project_ids: ['SAP00001', 'SAP00002', 'SAP00003'],
-    project_code_names: ['AlphaGreen', 'StackApplication'],
-    tools: [
-      {
-        ToolId: '83567d882b3eb65402fbf092f291bfb2',
-        ToolName: 'Container Utilization Optimizer',
-        Category: 'AlixPartners Platform',
-        ToolTip: 'NA',
-        Recommended: true,
-      },
-      {
-        ToolId: '8c26f5802bfab65402fbf092f291bf37',
-        ToolName: 'Tool Builder',
-        Category: 'AlixPartners Platform',
-        ToolTip: 'NA',
-        Recommended: true,
-      },
-      {
-        ToolId: '91e5fd082b3eb65402fbf092f291bf15',
-        ToolName: 'Team Site',
-        Category: 'Most Requested',
-        ToolTip: 'NA',
-        Recommended: true,
-      },
-      {
-        ToolId: '1cd7ec8c3bf6ba908ec29aae53e45ac9',
-        ToolName: 'MS Teams',
-        Category: 'Collaboration',
-        ToolTip: 'NA',
-        Recommended: false,
-      },
-      {
-        ToolId: '2006bc043b32ba908ec29aae53e45a50',
-        ToolName: 'Email',
-        Category: 'File Exchange',
-        ToolTip: 'NA',
-        Recommended: false,
-      },
-      {
-        ToolId: '34d38fdc3b7abe908ec29aae53e45a04',
-        ToolName: 'Cloud IaaS Services (Servers in Cloud)',
-        Category: 'Cloud',
-        ToolTip: 'NA',
-        Recommended: false,
-      },
-      {
-        ToolId: '5873c3dc3b7abe908ec29aae53e45a1a',
-        ToolName: 'PowerBI Workspace',
-        Category: 'Reporting/Visualization',
-        ToolTip: 'NA',
-        Recommended: false,
-      },
-    ],
-    users: [
-      { name: 'Bridgette', userID: 'bmiu', emailID: 'bmiu@alixpartners.com' },
-      { name: 'Brett', userID: 'bberger', emailID: 'bberger@alixpartners.com' },
-      { name: 'Brian', userID: 'bmaloney', emailID: 'bmaloney@alixpartners.com' },
-      { name: 'Brian', userID: 'blaforgia', emailID: 'blaforgia@alixpartners.com' },
-      { name: 'Elizabeth', userID: 'ehinchey', emailID: 'ehinchey@alixpartners.com' },
-      { name: 'Jan', userID: 'jkantowsky', emailID: 'jkantowsky@alixpartners.com' },
-      { name: 'James', userID: 'jwestcott', emailID: 'jwestcott@alixpartners.com' },
-      { name: 'Luca', userID: 'lramella', emailID: 'lramella@alixpartners.com' },
-      { name: 'Lizzie', userID: 'lizzie.prieto', emailID: 'lizzie.prieto@alixpartners.com' },
-      { name: 'Lorenzo', userID: 'lformiconi', emailID: 'lformiconi@alixpartners.com' },
-      { name: 'Lorie', userID: 'ldirks', emailID: 'ldirks@alixpartners.com' },
-      { name: 'Patrick', userID: 'palves', emailID: 'palves@alixpartners.com' },
-      {
-        name: 'Digvijay',
-        userID: 'digvijay.bhalsing',
-        emailID: 'digvijay.bhalsing@alixpartners.com',
-      },
-      { name: 'Eric', userID: 'epleitez', emailID: 'epleitez@alixpartners.com' },
-      { name: 'Masaki', userID: 'mshuto', emailID: 'mshuto@alixpartners.com' },
-      { name: 'Meka', userID: 'meka.pratimareddy', emailID: 'meka.pratimareddy@alixpartners.com' },
-      { name: 'Alasdair', userID: 'adonald', emailID: 'adonald@alixpartners.com' },
-      { name: 'Alessandro', userID: 'amissaglia', emailID: 'amissaglia@alixpartners.com' },
-      { name: 'Charles', userID: 'cspence', emailID: 'cspence@alixpartners.com' },
-      { name: 'Joe', userID: 'ckewish', emailID: 'ckewish@alixpartners.com' },
-    ],
-  },
-};
 const subscriptionKey = '9e16f4849c124245baf84a1d4f9bcc6e'; //ad8c056dfd0d424383d8c36700dbfaf2
 
 export async function fetchNonClientNewProject(token: string) {
@@ -253,6 +171,27 @@ export async function submitOffboardingRequest(payload: any, token: string) {
     return response.data;
   } catch (error: any) {
     console.error('Error posting offboarding data:', error?.response?.data || error?.message);
+    throw error;
+  }
+}
+
+
+export async function getDashboardDetails(userName: string, token: string | null) {
+  try {
+    // const response = await axios.post(
+    //   `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard/get_all/${userName}`,
+    //   {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //       'Ocp-Apim-Subscription-Key': subscriptionKey,
+    //       'Content-Type': 'application/json',
+    //     },
+    //   }
+    // );
+    // return response.data;
+     return dummy;
+  } catch (error: any) {
+    console.error('Error posting data:', error?.response?.data || error?.message);
     throw error;
   }
 }
