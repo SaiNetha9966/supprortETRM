@@ -2,7 +2,7 @@ import axios from 'axios';
 import { ApprovalUpdatePayload, mapFormDataToApiPayload } from '../components/Utils/UiUtilis';
 import { PublicClientApplication } from '@azure/msal-browser';
 import dummy from "./dummyData.json"
-
+import requestorDummy from "./requestorDummyData.json";
 const subscriptionKey = '9e16f4849c124245baf84a1d4f9bcc6e'; //ad8c056dfd0d424383d8c36700dbfaf2
 const BASE_URL = 'https://apim-alixdev.alixpartners.com/etrm/v1';
 export async function fetchNonClientNewProject(token: string) {
@@ -196,6 +196,25 @@ export async function getDashboardDetails(userName: string, token: string | null
   }
 }
 
+export async function getRequestorDashboardDetails(userName: string, token: string | null) {
+  try {
+      // const response = await axios.post(
+      //   `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard_requestor/get_all/{userName}`,
+      //   {
+      //     headers: {
+      //       Authorization: `Bearer ${token}`,
+      //       'Ocp-Apim-Subscription-Key': subscriptionKey,
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }
+      // );
+      // return response.data;
+     return requestorDummy;
+  } catch (error: any) {
+    console.error('Error posting data:', error?.response?.data || error?.message);
+    throw error;
+  }
+}
 
 export async function updateApprovalById(
   approvalID: string,

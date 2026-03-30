@@ -10,13 +10,14 @@ interface DashBoardApproverPageProps {
   setActiveTab: (tab: TabType) => void;
   onRequestDetailsView: (value: boolean , approvalID:string) => void;
   dashboardDetails: DashboardResponse;
+  requestorDashboardDetails:any;
 }
 
 export default function DashBoardApproverPage({
   activeTab,
   setActiveTab,
   onRequestDetailsView,
-  dashboardDetails
+  dashboardDetails,requestorDashboardDetails
 }: DashBoardApproverPageProps) {
   // Safely extract summary values with defaults
   const summary = dashboardDetails?.result?.summary ?? {};
@@ -27,10 +28,27 @@ export default function DashBoardApproverPage({
     // awaitingResponse = 0
   } = summary;
 
+
+const requestorSummary = requestorDashboardDetails?.result?.summary ?? null;
+
   return (
     <main className="w-full px-4 sm:px-6 lg:px-4 py-6 space-y-6 max-w-[1440px] mx-auto">
       <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
       
+      {
+        activeTab === 'requestor'&& (
+        <KPISection
+        draft={requestorSummary?.draft}
+       pendingApproval={requestorSummary?.pending}
+        awaitingResponse = {0} // need to update not getting response from API
+        approved={requestorSummary?.complete}
+        rejected={requestorSummary?.canceled}
+        activeTab={activeTab}
+      />
+        )
+      }
+      {
+        activeTab === 'approver' && (
       <KPISection
         pendingApproval={pending}
         awaitingResponse = {0} // need to update not getting response from API
@@ -38,11 +56,14 @@ export default function DashBoardApproverPage({
         rejected={rejected}
         activeTab={activeTab}
       />
+        )
+      }
 
       <ApprovalTable
         requests={dashboardDetails?.result?.all_records}
         onRequestDetailsView={onRequestDetailsView}
         dashBoardactiveTab={activeTab}
+       requestorDashboardDetails = {requestorDashboardDetails?.result?.all_records}
       />
     </main>
   );

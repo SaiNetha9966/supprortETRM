@@ -8,17 +8,18 @@ interface ApprovalTableProps {
   requests: DashBoardRecordItem[];
   onRequestDetailsView: (value: boolean,approvalID:string) => void;
   dashBoardactiveTab:string;
+  requestorDashboardDetails:any;
 }
 type SortField = keyof DashBoardRecordItem | null;
 type SortOrder = 'asc' | 'desc';
-export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveTab}: ApprovalTableProps) {
+export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveTab,requestorDashboardDetails}: ApprovalTableProps) {
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [activeTab, setActiveTab] = useState<'ALL' | 'ETRF' | 'ITRF'>('ALL');
   const [sortField, setSortField] = useState<SortField>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
-    const [currentPage, setCurrentPage] = useState(1);
-  const recordsPerPage = 10;
+ 
+  console.log("requestorDashboardDetails" ,requestorDashboardDetails);
 
   const handleSort = (field: keyof DashBoardRecordItem) => {
     if (sortField === field) {
@@ -34,41 +35,53 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
     return sortOrder === 'asc' ? ' ↑' : ' ↓';
   };
 
-  const filteredRequests = useMemo(() => {
-    const safeRequests = requests ?? [];
+const filteredRequests = useMemo(() => {
+  // Choose dataset based on active tab
+  const safeRequests =
+    dashBoardactiveTab === "requestor"
+      ? requestorDashboardDetails ?? []
+      : dashBoardactiveTab === "approver"
+      ? requests ?? []
+      : requests ?? [];
 
-    let filtered = safeRequests.filter((request) => {
-      const matchesSearch =
-        searchQuery === '' ||
-        Object.values(request).some((value) =>
-          String(value).toLowerCase().includes(searchQuery.toLowerCase())
-        );
+  let filtered = safeRequests.filter((request: any) => {
+    const matchesSearch =
+      searchQuery === "" ||
+      Object.values(request).some((value) =>
+        String(value).toLowerCase().includes(searchQuery.toLowerCase())
+      );
 
-      const matchesStatus =
-        filterStatus === 'all' || request.request_status === filterStatus;
+    const matchesStatus =
+      filterStatus === "all" || request.request_status === filterStatus;
 
-      return matchesSearch && matchesStatus;
+    return matchesSearch && matchesStatus;
+  });
+
+  if (sortField) {
+    filtered = [...filtered].sort((a, b) => {
+      const aValue = String(a[sortField] ?? "");
+      const bValue = String(b[sortField] ?? "");
+
+      return sortOrder === "asc"
+        ? aValue.localeCompare(bValue)
+        : bValue.localeCompare(aValue);
     });
+  }
 
-    if (sortField) {
-      filtered = [...filtered].sort((a, b) => {
-        const aValue = String(a[sortField] ?? '');
-        const bValue = String(b[sortField] ?? '');
+  return filtered;
+}, [
+  dashBoardactiveTab,
+  requestorDashboardDetails,
+  requests,
+  searchQuery,
+  filterStatus,
+  sortField,
+  sortOrder,
+]);
 
-        return sortOrder === 'asc'
-          ? aValue.localeCompare(bValue)
-          : bValue.localeCompare(aValue);
-      });
-    }
 
-    return filtered;
-  }, [requests, searchQuery, filterStatus, sortField, sortOrder]);
 
-    const totalPages = Math.ceil(filteredRequests.length / recordsPerPage);
-  const paginatedRequests = filteredRequests.slice(
-    (currentPage - 1) * recordsPerPage,
-    currentPage * recordsPerPage
-  );
+
 
 
   return (
@@ -264,49 +277,49 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
 
                 </tr>
               </thead>
-              
               <tbody>
-                {filteredRequests.map((request:DashBoardRecordItem, index:number) => (
+                {requestorDashboardDetails?.map((requestorDashboardDetail:any, index:number) => (
                   <tr
-                    key={request.approvalID}
+                    key={requestorDashboardDetail.technology_request_id}
                     className={`transition-colors  ${
                       index % 2 === 0 ? 'bg-[#f7f7f7]' : 'bg-white'
                     }`}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => onRequestDetailsView(true, request.approvalID)}
+                    onClick={() => onRequestDetailsView(true, requestorDashboardDetail.technology_request_id)}
                   >
                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] font-medium text-sm text-[#0369a3] underline whitespace-nowrap">
                       <span style={{ cursor: 'pointer' }} className="hover:text-[#024870]">
-                        {request.project_code}
+                        {requestorDashboardDetail.project_code}
                       </span>
                     </td>
                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.client_name}
+                      {requestorDashboardDetail.client_name}
                     </td>
                     <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.type_of_work}
+                      {requestorDashboardDetail.type_of_work}
                     </td>
 
                    <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {request.requestor}
+                      {requestorDashboardDetail.requestor}
                     </td>
+
                      <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
-                      {/* {request.submittedDate} */}
-                       {new Date(request.submitted_date).toLocaleDateString("en-US", {
+                       {new Date(requestorDashboardDetail.submitted_date).toLocaleDateString("en-US", {
                         month: "short",
                         day: "2-digit",
                         year: "numeric",
                       })}
 
                     </td>
+                    
                      <td className="px-4 py-2.5 font-['Roboto',sans-serif] text-sm text-[#181d1f] whitespace-nowrap">
                       <StatusBadge status="Online" />
                     </td>
                      <td className="px-4 py-2.5">
-                      <StatusBadge status={request.request_status} />
+                      <StatusBadge status={requestorDashboardDetail.request_status} />
                     </td>
                       <td className="px-4 py-2.5">
-                      <StatusBadge status="Destroy" />
+                      <StatusBadge status={requestorDashboardDetail?.state} />
                     </td>
                   </tr>
                 ))}

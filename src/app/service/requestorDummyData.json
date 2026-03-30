@@ -1,0 +1,1181 @@
+{
+  "result": {
+    "summary": {
+      "draft": 0,
+      "pending": 3,
+      "inprogress": 2,
+      "complete": 0,
+      "canceled": 0
+    },
+    "all_records": [
+      {
+        "technology_request_id": "TR0001885",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Online",
+        "request_status": null,
+        "approval_state": "Not Yet Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "",
+        "delegated_information_owner": "",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001886",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Offline - Requested",
+        "request_status": null,
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "",
+        "delegated_information_owner": "",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001884",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline - Requested",
+        "request_status": null,
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "",
+        "delegated_information_owner": "",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001905",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "123456789",
+        "radius_id": "Project Shared Folders / DFS,Managed Fil",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Offline - Requested",
+        "request_status": null,
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "Aaron Li",
+        "delegated_information_owner": "Aaron Riber",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001910",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "123456789",
+        "radius_id": "Project Shared Folders / DFS,Managed Fil",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Offline - Requested",
+        "request_status": null,
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "Aaron Li",
+        "delegated_information_owner": "Aaron Riber",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001920",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "123456789",
+        "radius_id": "Project Shared Folders / DFS,Managed Fil",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Offline - Requested",
+        "request_status": null,
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "Aaron Li",
+        "delegated_information_owner": "Aaron Riber",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001925",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "123456789",
+        "radius_id": "Project Shared Folders / DFS,Managed Fil",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Offline - Requested",
+        "request_status": null,
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "Aaron Li",
+        "delegated_information_owner": "Aaron Riber",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001950",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Online",
+        "request_status": null,
+        "approval_state": "Not Yet Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "",
+        "delegated_information_owner": "",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001958",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Online",
+        "request_status": "Onboarding - Pending Approval",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, Tool Builder, Team Site"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "Tool Builder, Email, Global Trade Optimizer (GTO)"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Deedi Platform"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082043",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:23:01"
+          },
+          {
+            "ritm_number": "RITM0082044",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:23:04"
+          },
+          {
+            "ritm_number": "RITM0082045",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:23:05"
+          },
+          {
+            "ritm_number": "RITM0082046",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:25:11"
+          },
+          {
+            "ritm_number": "RITM0082047",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:25:58"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001997",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Online",
+        "request_status": null,
+        "approval_state": "Not Yet Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "",
+        "delegated_information_owner": "",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001915",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "123456789",
+        "radius_id": "Project Shared Folders / DFS,Managed Fil",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": null,
+        "state": "Offline - Requested",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "Aaron Li",
+        "delegated_information_owner": "Aaron Riber",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0002021",
+        "project_code": "AlphaGreen",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "Internal",
+        "state": "Online",
+        "request_status": "Onboarding - Pending Approval",
+        "approval_state": "Requested",
+        "managing_director": "Abhinav Agrawal",
+        "secondary_managing_director": "Akshay Jaganade",
+        "information_owner": "Sandeep Chollangi",
+        "delegated_information_owner": "Sandeep Chollangi",
+        "project_manager": "Kalyan Velpula",
+        "approvers": "Raghavendra Kantharaju, Mitchell Pysz",
+        "namevalue": [
+          {
+            "name": "Anshul Gupta",
+            "value": "Container Utilization Optimizer, Tool Builder, Team Site"
+          },
+          {
+            "name": "Hichem Jouaber",
+            "value": "Container Utilization Optimizer, Tool Builder, Team Site"
+          }
+        ],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0002022",
+        "project_code": "AlphaGreen",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "Internal",
+        "state": "Online",
+        "request_status": "Onboarding - Pending Approval",
+        "approval_state": "Requested",
+        "managing_director": "Abhinav Agrawal",
+        "secondary_managing_director": "Himanshu Jha",
+        "information_owner": "Raghavendra Kantharaju",
+        "delegated_information_owner": "Anshul Gupta",
+        "project_manager": "Sandeep Chollangi",
+        "approvers": "Ghassan Bitar",
+        "namevalue": [
+          {
+            "name": "Anshul Gupta",
+            "value": "Container Utilization Optimizer, Tool Builder, Team Site"
+          }
+        ],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001953",
+        "project_code": "StackApplication",
+        "client_name": "Singapore entity",
+        "type_of_work": "",
+        "ironclad_id": "IC-1390",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "engagement",
+        "state": "Online",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Requested",
+        "managing_director": "Jake White",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Zubin George",
+            "value": "Deedi Platform, Team Site"
+          }
+        ],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001978",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Deedi Platform"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "Global Trade Optimizer (GTO)"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082054",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:33:16"
+          },
+          {
+            "ritm_number": "RITM0082055",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:33:20"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001981",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, GTO"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Email, Due Diligence Platform (Deedi)"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "GTO"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082059",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:20"
+          },
+          {
+            "ritm_number": "RITM0082060",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:21"
+          },
+          {
+            "ritm_number": "RITM0082062",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:23"
+          },
+          {
+            "ritm_number": "RITM0082061",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:22"
+          },
+          {
+            "ritm_number": "RITM0082063",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:24"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001979",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Online",
+        "request_status": "Onboarding - In Progress",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Deedi Platform"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "Global Trade Optimizer (GTO)"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082056",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:53:42"
+          },
+          {
+            "ritm_number": "RITM0082057",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:53:43"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001982",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, GTO"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Email, Due Diligence Platform (Deedi)"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "GTO"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082064",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:44"
+          },
+          {
+            "ritm_number": "RITM0082065",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:45"
+          },
+          {
+            "ritm_number": "RITM0082066",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:46"
+          },
+          {
+            "ritm_number": "RITM0082067",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:47"
+          },
+          {
+            "ritm_number": "RITM0082068",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:48"
+          },
+          {
+            "ritm_number": "RITM0082069",
+            "item_name": "Team Site",
+            "status": "",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:41:06"
+          },
+          {
+            "ritm_number": "RITM0082071",
+            "item_name": "GTO",
+            "status": "",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:41:09"
+          },
+          {
+            "ritm_number": "RITM0082070",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:41:08"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001983",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Online",
+        "request_status": "Onboarding - In Progress",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, GTO"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Email, Due Diligence Platform (Deedi)"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "GTO"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082072",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:08"
+          },
+          {
+            "ritm_number": "RITM0082073",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:09"
+          },
+          {
+            "ritm_number": "RITM0082074",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:10"
+          },
+          {
+            "ritm_number": "RITM0082075",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:11"
+          },
+          {
+            "ritm_number": "RITM0082076",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:12"
+          }
+        ]
+      }
+    ],
+    "itrf_records": [
+      {
+        "technology_request_id": "TR0001884",
+        "project_code": "",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline - Requested",
+        "request_status": null,
+        "approval_state": "Requested",
+        "managing_director": "",
+        "secondary_managing_director": "",
+        "information_owner": "",
+        "delegated_information_owner": "",
+        "project_manager": "",
+        "approvers": "",
+        "namevalue": [],
+        "associated_ritms": []
+      },
+      {
+        "technology_request_id": "TR0001958",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Online",
+        "request_status": "Onboarding - Pending Approval",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, Tool Builder, Team Site"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "Tool Builder, Email, Global Trade Optimizer (GTO)"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Deedi Platform"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082043",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:23:01"
+          },
+          {
+            "ritm_number": "RITM0082044",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:23:04"
+          },
+          {
+            "ritm_number": "RITM0082045",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:23:05"
+          },
+          {
+            "ritm_number": "RITM0082046",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:25:11"
+          },
+          {
+            "ritm_number": "RITM0082047",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-26 03:25:58"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001978",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Deedi Platform"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "Global Trade Optimizer (GTO)"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082054",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:33:16"
+          },
+          {
+            "ritm_number": "RITM0082055",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:33:20"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001981",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, GTO"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Email, Due Diligence Platform (Deedi)"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "GTO"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082059",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:20"
+          },
+          {
+            "ritm_number": "RITM0082060",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:21"
+          },
+          {
+            "ritm_number": "RITM0082062",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:23"
+          },
+          {
+            "ritm_number": "RITM0082061",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:22"
+          },
+          {
+            "ritm_number": "RITM0082063",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:09:24"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001979",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Online",
+        "request_status": "Onboarding - In Progress",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Deedi Platform"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "Global Trade Optimizer (GTO)"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082056",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:53:42"
+          },
+          {
+            "ritm_number": "RITM0082057",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 06:53:43"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001982",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Offline",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, GTO"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Email, Due Diligence Platform (Deedi)"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "GTO"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082064",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:44"
+          },
+          {
+            "ritm_number": "RITM0082065",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:45"
+          },
+          {
+            "ritm_number": "RITM0082066",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:46"
+          },
+          {
+            "ritm_number": "RITM0082067",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:47"
+          },
+          {
+            "ritm_number": "RITM0082068",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:35:48"
+          },
+          {
+            "ritm_number": "RITM0082069",
+            "item_name": "Team Site",
+            "status": "",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:41:06"
+          },
+          {
+            "ritm_number": "RITM0082071",
+            "item_name": "GTO",
+            "status": "",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:41:09"
+          },
+          {
+            "ritm_number": "RITM0082070",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:41:08"
+          }
+        ]
+      },
+      {
+        "technology_request_id": "TR0001983",
+        "project_code": "StackApplication",
+        "client_name": "",
+        "type_of_work": "",
+        "ironclad_id": "",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "internal",
+        "state": "Online",
+        "request_status": "Onboarding - In Progress",
+        "approval_state": "Approved",
+        "managing_director": "Afrid Mohammed",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Rajani Nagapatinam",
+            "value": "Tool Builder, Team Site, GTO"
+          },
+          {
+            "name": "Ralf Walker",
+            "value": "Email, Due Diligence Platform (Deedi)"
+          },
+          {
+            "name": "Ria D'Souza",
+            "value": "GTO"
+          }
+        ],
+        "associated_ritms": [
+          {
+            "ritm_number": "RITM0082072",
+            "item_name": "Tool Builder",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:08"
+          },
+          {
+            "ritm_number": "RITM0082073",
+            "item_name": "Team Site",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:09"
+          },
+          {
+            "ritm_number": "RITM0082074",
+            "item_name": "GTO",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:10"
+          },
+          {
+            "ritm_number": "RITM0082075",
+            "item_name": "Email",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:11"
+          },
+          {
+            "ritm_number": "RITM0082076",
+            "item_name": "Due Diligence Platform (Deedi)",
+            "status": "Open",
+            "assigned_to": "",
+            "opened": "2026-03-27 07:42:12"
+          }
+        ]
+      }
+    ],
+    "etrf_records": [
+      {
+        "technology_request_id": "TR0001953",
+        "project_code": "StackApplication",
+        "client_name": "Singapore entity",
+        "type_of_work": "",
+        "ironclad_id": "IC-1390",
+        "radius_id": "",
+        "sap_project_id": "SAP00001",
+        "requestor": "Sandeep Chollangi",
+        "request_type": "engagement",
+        "state": "Online",
+        "request_status": "Offboarding - Requested",
+        "approval_state": "Requested",
+        "managing_director": "Jake White",
+        "secondary_managing_director": "Asmaa Taha",
+        "information_owner": "Nikhitaa Sanjay",
+        "delegated_information_owner": "Luca Ramella",
+        "project_manager": "Derek Roberson",
+        "approvers": "Raghavendra Kantharaju, Sandeep Chollangi",
+        "namevalue": [
+          {
+            "name": "Zubin George",
+            "value": "Deedi Platform, Team Site"
+          }
+        ],
+        "associated_ritms": []
+      }
+    ]
+  }
+}

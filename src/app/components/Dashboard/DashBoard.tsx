@@ -14,7 +14,10 @@ interface DashBoardProps {
   setExistingProject: React.Dispatch<React.SetStateAction<string>>;
   setExistingProjectDetailsFormData: React.Dispatch<React.SetStateAction<any>>;
   dashboardDetails:DashboardResponse | null;
-  accessToken:string
+  accessToken:string;
+  activeTab:TabType;
+  setActiveTab:React.Dispatch<React.SetStateAction<TabType>>;
+  requestorDashboardDetails:any;
 }
 export default function DashBoard({
   setCurrentStep,
@@ -22,24 +25,56 @@ export default function DashBoard({
   setExistingProject,
   setExistingProjectDetailsFormData,
   dashboardDetails,
-  accessToken
+  accessToken,
+  activeTab,
+  setActiveTab,requestorDashboardDetails
 }: DashBoardProps) {
-  const [activeTab, setActiveTab] = useState<TabType>('approver');
+  // const [activeTab, setActiveTab] = useState<TabType>('approver');
   const [isRequestDetailsClicked, setIsRequestDetailsClicked] = useState<boolean>(false);
   const [approvalID,setApprovalID] = useState("")
     const [selectedRecord, setSelectedRecord] = useState<DashBoardRecordItem | null>(null);
     console.log("selectedRecord",selectedRecord);
   const statusCounts = useMemo(() => getStatusCounts(mockApprovalRequests), []);
 
-  const handleRequestDetailsView = (value: boolean,approvalID:string) => {
-    setApprovalID(approvalID);
-    setIsRequestDetailsClicked(value);
-        // Safe lookup
-    const record =
-      dashboardDetails?.result?.all_records?.find((r: DashBoardRecordItem) => r.approvalID === approvalID) ?? null;
+  // const handleRequestDetailsView = (value: boolean,approvalID:string) => {
+  //   setApprovalID(approvalID);
+  //   setIsRequestDetailsClicked(value);
+  //   const record =
+  //     dashboardDetails?.result?.all_records?.find((r: DashBoardRecordItem) => r.approvalID === approvalID) ?? null;
 
-    setSelectedRecord(record);
-  };
+  //   setSelectedRecord(record);
+  // };
+const handleRequestDetailsView = (value: boolean, approvalID: string) => {
+  setApprovalID(approvalID);
+  setIsRequestDetailsClicked(value);
+  const records =
+    activeTab === "requestor"
+      ? requestorDashboardDetails?.result?.all_records ?? []
+      : activeTab === "approver"
+      ? dashboardDetails?.result?.all_records ?? []
+      : dashboardDetails?.result?.all_records ?? [];
+
+  let record: DashBoardRecordItem | null = null;
+  try {
+    if (activeTab === "approver") {
+      record =
+        records.find((r: DashBoardRecordItem) => r.approvalID === approvalID) ??
+        null;
+    } else if (activeTab === "requestor") {
+      record =
+        records.find(
+          (r: DashBoardRecordItem) =>
+            r.technology_request_id === approvalID 
+        ) ?? null;
+    }
+  } catch (error) {
+    console.error("Error finding record:", error);
+  }
+
+  setSelectedRecord(record);
+};
+
+
   
   const handleUpdateRequest = () => {
     setExistingProject('yes');
@@ -80,6 +115,7 @@ export default function DashBoard({
           setActiveTab={setActiveTab}
           onRequestDetailsView={handleRequestDetailsView}
           dashboardDetails={dashboardDetails}
+          requestorDashboardDetails={requestorDashboardDetails}
         />
       )}
       {isRequestDetailsClicked && (
@@ -93,6 +129,7 @@ export default function DashBoard({
           approvalID={approvalID}
           selectedRecord={selectedRecord}
           accessToken={accessToken}
+          requestorDashboardDetails={requestorDashboardDetails}
         />
       )}
     </div>

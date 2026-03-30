@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { MainComponent } from './components/mainComponents';
-import { fetchNonClientNewProject, generateToken, getDashboardDetails, initializeMsalClient } from './service/api';
+import { fetchNonClientNewProject, generateToken, getDashboardDetails, getRequestorDashboardDetails, initializeMsalClient } from './service/api';
 import { DashboardResponse, ExistingProjectDetailsFormData, Loader, StepType } from './components/Utils/UiUtilis';
 import DashBoard from './components/Dashboard/DashBoard';
 import styles from '../app/App.module.css';
 import { Header } from './components/Header/Header';
+import { TabType } from './components/Dashboard/Types';
 
 export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
@@ -20,8 +21,11 @@ export default function App() {
       existingProject: null,
     });
 
-  // NEW: state to hold dashboard details
   const [dashboardDetails, setDashboardDetails] = useState<DashboardResponse|null>(null);
+  console.log("dashboardDetails",dashboardDetails)
+    const [activeTab, setActiveTab] = useState<TabType>('approver');
+    const [requestorDashboardDetails, setRequestorDashboardDetails] = useState<any>(null);
+  
   const handleVavigateDashBoard = (dashBoardType: string) => {
     setDashboardType(dashBoardType);
   };
@@ -48,15 +52,16 @@ export default function App() {
       }
     };
 
-    initializeApp();
+     initializeApp();
   }, []);
 
   // NEW: fetch dashboard details once accessToken is ready
   useEffect(() => {
     const fetchDashboard = async () => {
-      if (!accessToken) return;
+       if (!accessToken) return;
       try {
         const details = await getDashboardDetails('Jake White', accessToken); 
+        console.log("details",details)
         setDashboardDetails(details);
       } catch (error) {
         console.error('Error fetching dashboard details:', error);
@@ -65,6 +70,24 @@ export default function App() {
 
     fetchDashboard();
   }, [accessToken]);
+
+  useEffect(() => {
+  const fetchRequestorDashboard = async () => {
+     if (!accessToken || dashBoardType !== 'dashboard') return;
+
+    try {
+      if (activeTab === 'requestor') {
+        const details = await getRequestorDashboardDetails('Jake White', accessToken);
+        setRequestorDashboardDetails(details);
+      }
+    } catch (error) {
+      console.error('Error fetching requestor dashboard details:', error);
+    }
+  };
+
+  fetchRequestorDashboard();
+}, [ dashBoardType, activeTab]);
+
 
   if (!accessToken) {
     return <Loader />;
@@ -102,6 +125,9 @@ export default function App() {
           // pass dashboardDetails down if DashBoard needs it
           dashboardDetails={dashboardDetails}
           accessToken={accessToken}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+           requestorDashboardDetails={requestorDashboardDetails}
         />
       )}
     </div>

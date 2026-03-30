@@ -6,6 +6,7 @@ interface KPISectionProps {
   approved: number;
   rejected: number;
   activeTab: string;
+  draft?:number;
 }
 
 export function KPISection({
@@ -14,6 +15,7 @@ export function KPISection({
   approved,
   rejected,
   activeTab,
+  draft
 }: KPISectionProps) {
   return (
     <div className="bg-white rounded-lg p-6 w-full">
@@ -30,7 +32,7 @@ export function KPISection({
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
         {activeTab === 'requestor' && (
           <>
-            <KPICard title="Draft" value={pendingApproval} icon="draft" showInfo />
+            <KPICard title="Draft" value={draft?? 0} icon="draft" showInfo />
             <KPICard title="Pending Approval" value={pendingApproval} icon="clock" showInfo />
             <KPICard title="In Progress" value={awaitingResponse} icon="message" showInfo />
             <KPICard title="Complete" value={approved} icon="check" />

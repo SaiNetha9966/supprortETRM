@@ -22,6 +22,7 @@ interface RequestDetailProps {
   approvalID:string;
   selectedRecord:DashBoardRecordItem | null;
   accessToken:string;
+  requestorDashboardDetails:any;
 }
 
 export default function RequestDetail({
@@ -33,7 +34,8 @@ export default function RequestDetail({
   dashboardDetails,
   approvalID,
   selectedRecord,
-  accessToken
+  accessToken,
+  requestorDashboardDetails
 }: RequestDetailProps) {
   const [request, setRequest] = useState<DetailedRequest | null>(null);
   const [isApproveOpen, setApproveOpen] = useState(false);
