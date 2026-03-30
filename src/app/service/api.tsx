@@ -71,10 +71,10 @@ export async function fetchExistingProjectMetadata(idOrName: string, token: stri
 }
 
 const msalConfig = {
-  auth: {
-    clientId: '50e64727-57c1-436e-97c2-fb3bdab52afb',
+   auth: {
+    clientId: '6c01459f-9913-4473-b6af-6767c1274e4f',
     authority: 'https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142',
-    redirectUri: 'http://localhost:5173/',
+    redirectUri: window.location.origin,
   },
   cache: {
     cacheLocation: 'sessionStorage',
@@ -178,18 +178,18 @@ export async function submitOffboardingRequest(payload: any, token: string) {
 
 export async function getDashboardDetails(userName: string, token: string | null) {
   try {
-      // const response = await axios.post(
-      //   `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard/get_all/7f2aeaa6fb73c6508ad3fb4655efdc76`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //       'Ocp-Apim-Subscription-Key': subscriptionKey,
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
-      // return response.data;
-     return dummy;
+      const response = await axios.get(
+        `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard/get_all/Jake White`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Ocp-Apim-Subscription-Key': subscriptionKey,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      return response.data;
+   //  return dummy;
   } catch (error: any) {
     console.error('Error posting data:', error?.response?.data || error?.message);
     throw error;
@@ -197,19 +197,20 @@ export async function getDashboardDetails(userName: string, token: string | null
 }
 
 export async function getRequestorDashboardDetails(userName: string, token: string | null) {
+  console.log('testing the username',userName);
   try {
-      // const response = await axios.post(
-      //   `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard_requestor/get_all/{userName}`,
-      //   {
-      //     headers: {
-      //       Authorization: `Bearer ${token}`,
-      //       'Ocp-Apim-Subscription-Key': subscriptionKey,
-      //       'Content-Type': 'application/json',
-      //     },
-      //   }
-      // );
-      // return response.data;
-     return requestorDummy;
+      const response = await axios.get(
+        `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard_requestor/get_all/Sandeep Chollangi`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Ocp-Apim-Subscription-Key': subscriptionKey,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      return response.data;
+    // return requestorDummy;
   } catch (error: any) {
     console.error('Error posting data:', error?.response?.data || error?.message);
     throw error;
