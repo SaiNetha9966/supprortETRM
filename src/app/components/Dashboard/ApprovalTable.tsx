@@ -143,7 +143,7 @@ console.log("filteredRequests",filteredRequests)
               activeTab === 'ETRF' ? 'text-[#3f7b25] font-medium' : 'text-[#727272] font-normal'
             }`}
           >
-            ETRF ({   dashBoardactiveTab  === "requestor" ? `${requestorETRFDetails?.length}` :`${approverETRFDetails?.length}`})
+            ETRF ({   dashBoardactiveTab  === "requestor" ? requestorETRFDetails?.length>0 ?  `${requestorETRFDetails?.length}` : 0 : approverETRFDetails?.length> 0 ?`${approverETRFDetails?.length}` : 0})
           </button>
           <button
             onClick={() => setActiveTab("ITRF")}
@@ -151,7 +151,7 @@ console.log("filteredRequests",filteredRequests)
               activeTab === 'ITRF' ? 'text-[#3f7b25] font-medium' : 'text-[#727272] font-normal'
             }`}
           >
-            ITRF ({   dashBoardactiveTab  === "requestor" ? `${requestorITRFDetails?.length}` :`${approverITRFDetails?.length}` })
+            ITRF ({   dashBoardactiveTab  === "requestor" ? requestorITRFDetails?.length>0 ? `${requestorITRFDetails?.length}` : 0 : approverITRFDetails?.length>0 ? `${approverITRFDetails?.length}` : 0 })
           </button>
         </div>
 
