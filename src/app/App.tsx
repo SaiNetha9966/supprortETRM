@@ -61,7 +61,7 @@ export default function App() {
   // NEW: fetch dashboard details once accessToken is ready
   useEffect(() => {
     const fetchDashboard = async () => {
-      //  if (!accessToken) return;
+       if (!accessToken) return;
       try {
         const details = await getDashboardDetails('Jake White', accessToken); 
         console.log("details",details)
@@ -76,7 +76,7 @@ export default function App() {
 
   useEffect(() => {
   const fetchRequestorDashboard = async () => {
-    //  if (!accessToken || dashBoardType !== 'dashboard') return;
+     if (!accessToken || dashBoardType !== 'dashboard') return;
 
     try {
       if (activeTab === 'requestor') {

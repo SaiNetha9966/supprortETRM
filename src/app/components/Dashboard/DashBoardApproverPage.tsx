@@ -29,7 +29,6 @@ export default function DashBoardApproverPage({
     // awaitingResponse = 0
   } = summary;
 
-
 const requestorSummary = requestorDashboardDetails?.result?.summary ?? null;
 
   return (
@@ -65,6 +64,10 @@ const requestorSummary = requestorDashboardDetails?.result?.summary ?? null;
         onRequestDetailsView={onRequestDetailsView}
         dashBoardactiveTab={activeTab}
        requestorDashboardDetails = {requestorDashboardDetails?.result?.all_records}
+       requestorITRFDetails = {requestorDashboardDetails?.result?.itrf_records}
+       requestorETRFDetails = {requestorDashboardDetails?.result?.etrf_records}
+       approverETRFDetails= {dashboardDetails?.result?.etrf_records ?? []}
+       approverITRFDetails={dashboardDetails?.result?.itrf_records ?? []}
       />
     </main>
   );
