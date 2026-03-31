@@ -9,18 +9,24 @@ interface ApprovalTableProps {
   onRequestDetailsView: (value: boolean,approvalID:string) => void;
   dashBoardactiveTab:string;
   requestorDashboardDetails:any;
+  requestorITRFDetails:any;
+  requestorETRFDetails:any;
+  approverETRFDetails:any;
+  approverITRFDetails:any;
 }
 type SortField = keyof DashBoardRecordItem | null;
 type SortOrder = 'asc' | 'desc';
-export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveTab,requestorDashboardDetails}: ApprovalTableProps) {
+export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveTab,requestorDashboardDetails,requestorITRFDetails,requestorETRFDetails,approverETRFDetails,approverITRFDetails}: ApprovalTableProps) {
+
+
+  console.log("requestorITRFDetails" ,requestorITRFDetails);
+  console.log("requestorETRFDetails",requestorETRFDetails)
   const [searchQuery, setSearchQuery] = useState('');
   const [filterStatus, setFilterStatus] = useState<FilterStatus>('all');
   const [activeTab, setActiveTab] = useState<'ALL' | 'ETRF' | 'ITRF'>('ALL');
   const [sortField, setSortField] = useState<SortField>(null);
   const [sortOrder, setSortOrder] = useState<SortOrder>('asc');
  
-  console.log("requestorDashboardDetails" ,requestorDashboardDetails);
-
   const handleSort = (field: keyof DashBoardRecordItem) => {
     if (sortField === field) {
       setSortOrder(sortOrder === 'asc' ? 'desc' : 'asc');
@@ -35,14 +41,29 @@ export function ApprovalTable({ requests, onRequestDetailsView, dashBoardactiveT
     return sortOrder === 'asc' ? ' ↑' : ' ↓';
   };
 
+const getDataset = (dashBoardactiveTab: string, activeTab: string) => {
+  if (dashBoardactiveTab === "requestor") {
+    switch (activeTab) {
+      case "ALL": return requestorDashboardDetails ?? [];
+      case "ETRF": return requestorETRFDetails ?? [];
+      case "ITRF": return requestorITRFDetails ?? [];
+      default: return [];
+    }
+  }
+  if (dashBoardactiveTab === "approver") {
+    switch (activeTab) {
+      case "ALL": return requests ?? [];
+      case "ETRF": return approverETRFDetails ?? [];
+      case "ITRF": return approverITRFDetails ?? [];
+      default: return [];
+    }
+  }
+  return [];
+};
+
+
 const filteredRequests = useMemo(() => {
-  // Choose dataset based on active tab
-  const safeRequests =
-    dashBoardactiveTab === "requestor"
-      ? requestorDashboardDetails ?? []
-      : dashBoardactiveTab === "approver"
-      ? requests ?? []
-      : requests ?? [];
+  let safeRequests = getDataset(dashBoardactiveTab, activeTab);
 
   let filtered = safeRequests.filter((request: any) => {
     const matchesSearch =
@@ -61,7 +82,6 @@ const filteredRequests = useMemo(() => {
     filtered = [...filtered].sort((a, b) => {
       const aValue = String(a[sortField] ?? "");
       const bValue = String(b[sortField] ?? "");
-
       return sortOrder === "asc"
         ? aValue.localeCompare(bValue)
         : bValue.localeCompare(aValue);
@@ -71,13 +91,22 @@ const filteredRequests = useMemo(() => {
   return filtered;
 }, [
   dashBoardactiveTab,
+  activeTab,
   requestorDashboardDetails,
+  requestorETRFDetails,
+  requestorITRFDetails,
+  approverETRFDetails,
+  approverITRFDetails,
   requests,
   searchQuery,
   filterStatus,
   sortField,
   sortOrder,
 ]);
+
+
+console.log("filteredRequests",filteredRequests)
+
 
 
 
@@ -89,7 +118,10 @@ const filteredRequests = useMemo(() => {
       {/* Header */}
       <div className="mb-6">
         <h2 className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#4a4a4a] mb-4">
-          My Approvals
+          {
+             dashBoardactiveTab  === "requestor" ? "My Requests" : "My Approvals"
+          }
+        
         </h2>
 
         {/* Tabs */}
@@ -106,20 +138,20 @@ const filteredRequests = useMemo(() => {
             )}
           </button>
           <button
-            onClick={() => setActiveTab('ETRF')}
+            onClick={() => setActiveTab("ETRF")}
             className={`px-4 py-2 font-['Roboto',sans-serif] text-sm transition-colors ${
               activeTab === 'ETRF' ? 'text-[#3f7b25] font-medium' : 'text-[#727272] font-normal'
             }`}
           >
-            ETRF (5)
+            ETRF ({   dashBoardactiveTab  === "requestor" ? `${requestorETRFDetails?.length}` :`${approverETRFDetails?.length}`})
           </button>
           <button
-            onClick={() => setActiveTab('ITRF')}
+            onClick={() => setActiveTab("ITRF")}
             className={`px-4 py-2 font-['Roboto',sans-serif] text-sm transition-colors ${
               activeTab === 'ITRF' ? 'text-[#3f7b25] font-medium' : 'text-[#727272] font-normal'
             }`}
           >
-            ITRF (2)
+            ITRF ({   dashBoardactiveTab  === "requestor" ? `${requestorITRFDetails?.length}` :`${approverITRFDetails?.length}` })
           </button>
         </div>
 
@@ -278,7 +310,7 @@ const filteredRequests = useMemo(() => {
                 </tr>
               </thead>
               <tbody>
-                {requestorDashboardDetails?.map((requestorDashboardDetail:any, index:number) => (
+                {filteredRequests.map((requestorDashboardDetail: any, index: number) => (
                   <tr
                     key={requestorDashboardDetail.technology_request_id}
                     className={`transition-colors  ${
@@ -391,7 +423,7 @@ const filteredRequests = useMemo(() => {
               </thead>
               
               <tbody>
-                {filteredRequests.map((request, index) => (
+                {filteredRequests.map((request:any, index:number) => (
                   <tr
                     key={request.approvalID}
                     className={`transition-colors  ${
