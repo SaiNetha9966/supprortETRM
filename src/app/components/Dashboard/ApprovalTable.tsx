@@ -571,12 +571,6 @@ const filteredRequests = useMemo(() => {
         ))}
       </div>
 
-      {/* Results count */}
-      {filteredRequests.length === 0 && (
-        <div className="text-center py-8">
-          <p className="font-['Roboto',sans-serif] text-sm text-[#727272]">No results found</p>
-        </div>
-      )}
     </div>
   );
 }

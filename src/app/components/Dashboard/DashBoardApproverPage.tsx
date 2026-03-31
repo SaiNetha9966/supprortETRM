@@ -11,13 +11,14 @@ interface DashBoardApproverPageProps {
   onRequestDetailsView: (value: boolean , approvalID:string) => void;
   dashboardDetails: DashboardResponse;
   requestorDashboardDetails:any;
+  onCreateNewButtons:(option :string) => void;
 }
 
 export default function DashBoardApproverPage({
   activeTab,
   setActiveTab,
   onRequestDetailsView,
-  dashboardDetails,requestorDashboardDetails
+  dashboardDetails,requestorDashboardDetails,onCreateNewButtons
 }: DashBoardApproverPageProps) {
   // Safely extract summary values with defaults
   const summary = dashboardDetails?.result?.summary ?? {};
@@ -33,7 +34,7 @@ const requestorSummary = requestorDashboardDetails?.result?.summary ?? null;
 
   return (
     <main className="w-full px-4 sm:px-6 lg:px-4 py-6 space-y-6 max-w-[1440px] mx-auto">
-      <TabBar activeTab={activeTab} onTabChange={setActiveTab} />
+      <TabBar activeTab={activeTab} onTabChange={setActiveTab}onCreateNewButtons={onCreateNewButtons}  />
       
       {
         activeTab === 'requestor'&& (

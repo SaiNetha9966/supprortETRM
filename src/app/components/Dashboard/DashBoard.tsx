@@ -18,6 +18,7 @@ interface DashBoardProps {
   activeTab:TabType;
   setActiveTab:React.Dispatch<React.SetStateAction<TabType>>;
   requestorDashboardDetails:any;
+  onCreateNewButtons:(option:string)=> void;
 }
 export default function DashBoard({
   setCurrentStep,
@@ -27,7 +28,7 @@ export default function DashBoard({
   dashboardDetails,
   accessToken,
   activeTab,
-  setActiveTab,requestorDashboardDetails
+  setActiveTab,requestorDashboardDetails,onCreateNewButtons
 }: DashBoardProps) {
   // const [activeTab, setActiveTab] = useState<TabType>('approver');
   const [isRequestDetailsClicked, setIsRequestDetailsClicked] = useState<boolean>(false);
@@ -109,6 +110,7 @@ const handleRequestDetailsView = (value: boolean, approvalID: string) => {
   };
   return (
     <div className="min-h-screen bg-[#f7f7f7] flex flex-col" style={{ marginTop: '60px' }}>
+
       {!isRequestDetailsClicked && (
         <DashBoardApproverPage
           activeTab={activeTab}
@@ -116,8 +118,10 @@ const handleRequestDetailsView = (value: boolean, approvalID: string) => {
           onRequestDetailsView={handleRequestDetailsView}
           dashboardDetails={dashboardDetails}
           requestorDashboardDetails={requestorDashboardDetails}
+          onCreateNewButtons={onCreateNewButtons}
         />
       )}
+      
       {isRequestDetailsClicked && (
         <RequestDetail
           activeTab={activeTab}

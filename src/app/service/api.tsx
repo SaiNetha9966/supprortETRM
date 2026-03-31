@@ -71,10 +71,10 @@ export async function fetchExistingProjectMetadata(idOrName: string, token: stri
 }
 
 const msalConfig = {
-   auth: {
-    clientId: '6c01459f-9913-4473-b6af-6767c1274e4f',
+    auth: {
+    clientId: '50e64727-57c1-436e-97c2-fb3bdab52afb',
     authority: 'https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142',
-    redirectUri: window.location.origin,
+    redirectUri: 'http://localhost:5173/',
   },
   cache: {
     cacheLocation: 'sessionStorage',
@@ -114,6 +114,7 @@ export const generateToken = async () => {
       try {
         const loginResponse = await msalInstance.loginPopup(tokenRequest);
         account = loginResponse?.account;
+        console.log('acount',account);
       } catch (loginPopupError) {
         // Popup might be blocked. Fall back to redirect which is more reliable in restricted environments.
         console.warn(
@@ -197,7 +198,6 @@ export async function getDashboardDetails(userName: string, token: string | null
 }
 
 export async function getRequestorDashboardDetails(userName: string, token: string | null) {
-  console.log('testing the username',userName);
   try {
       const response = await axios.get(
         `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard_requestor/get_all/Sandeep Chollangi`,

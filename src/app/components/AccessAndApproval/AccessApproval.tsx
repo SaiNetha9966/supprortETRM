@@ -279,6 +279,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       role: 'Partner - Managing Director',
       informationKey: 'managing_director',
       isMultiple: false,
+      required: true,
     },
     {
       label: 'Secondary PMD/Partner',
@@ -286,6 +287,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       role: 'Secondary Partner Managing Director',
       informationKey: 'secondary_managing_director',
       isMultiple: false,
+      required: false,
     },
     {
       label: 'Information Owner',
@@ -293,6 +295,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       role: 'Information Owner',
       informationKey: 'md',
       isMultiple: false,
+      required: true,
     },
     {
       label: 'Delegate Information Owner',
@@ -300,6 +303,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       role: 'Delegate Information Owner',
       informationKey: 'delegated_information_owner',
       isMultiple: false,
+      required: false,
     },
     {
       label: 'Project Manager',
@@ -307,6 +311,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       role: 'Project Manager',
       informationKey: 'project_manager',
       isMultiple: false,
+      required: false,
     },
     {
       label: 'Approvers',
@@ -314,6 +319,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
       role: 'Approvers',
       informationKey: 'approvers',
       isMultiple: true,
+      required: false,
     },
   ];
 
@@ -631,30 +637,171 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
 
           {/* Approver Fields */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
-            {approverFields.map(({ label, field, role, informationKey, isMultiple }) => (
+            {approverFields.map(({ label, field, role, informationKey, isMultiple, required }) => (
               <div className="relative" key={field}>
-                <SearchInput
-                  label={label}
-                  required
-                  value={formData[field]}
-                  onChange={(val) => handleApproverInputChange(role, field, val, isMultiple)}
-                  tooltip={getTooltipText(informationKey)}
-                  disabled={existingProject === 'yes' && !isDraftProject}
-                />
-                {approverSuggestions[role]?.length > 0 && (
-                  <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg top-full">
-                    {approverSuggestions[role].map((email, idx) => (
-                      <li
-                        key={idx}
-                        className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
-                        onClick={() =>
-                          handleApproverSuggestionClick(role, field, email, isMultiple)
-                        }
+                {/* Multi-select for isMultiple fields */}
+                {isMultiple ? (
+                  <>
+                    <div className="relative">
+                      <label className={`flex items-center gap-1 font-['Roboto',sans-serif] font-medium text-sm relative group ${existingProject === 'yes' && !isDraftProject ? 'text-[#999] opacity-60' : 'text-[#4a4a4a]'}`}>{label}{' '}{required && <span className="text-[#cb282e] ml-1">*</span>}</label>
+                      <div
+                        className={`w-full h-8 px-2 pr-8 border rounded font-['Roboto',sans-serif] text-sm flex items-center flex-nowrap relative ${existingProject === 'yes' && !isDraftProject ? 'bg-[#f5f5f5] border-[#ccc] text-[#999] opacity-60 cursor-not-allowed overflow-hidden group' : 'border-[#ccc] text-[#4a4a4a] bg-white overflow-x-auto focus-within:ring-2 focus-within:ring-[#498e2b] focus-within:border-transparent'}`}
+                        style={{ minHeight: '2rem' }}
+                        tabIndex={0}
+                        onClick={e => {
+                          if (!(existingProject === 'yes' && !isDraftProject)) {
+                            // Focus the input when container is clicked
+                            const input = document.getElementById(`${field}-approver-multiselect-input`);
+                            if (input) (input as HTMLInputElement).focus();
+                          }
+                        }}
                       >
-                        {email}
-                      </li>
-                    ))}
-                  </ul>
+                        {/* Tooltip for disabled state */}
+                        {existingProject === 'yes' && !isDraftProject && (
+                          <span className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 hidden group-hover:block bg-black text-white text-xs rounded px-3 py-2 whitespace-normal max-w-sm w-max z-50">
+                            This field is disabled for existing projects.
+                          </span>
+                        )}
+                        {/* Show selected users as comma-separated, handling string or array */}
+                        {(Array.isArray(formData[field])
+                          ? formData[field]
+                          : typeof formData[field] === 'string'
+                            ? formData[field].split(',').map(s => s.trim()).filter(Boolean)
+                            : []
+                        ).map((val: string, idx: number, arr: string[]) => {
+                          const user = userList.find(
+                            (u: any) => u.name === val || u.emailID === val
+                          );
+                          const display = user && user.name && user.emailID
+                            ? `${user.name} (${user.emailID})`
+                            : val;
+                          return (
+                            <span key={val} className="inline-block whitespace-nowrap mr-1">
+                              {display}{idx < arr.length - 1 ? ', ' : ''}
+                            </span>
+                          );
+                        })}
+                        <input
+                          id={`${field}-approver-multiselect-input`}
+                          type="text"
+                          value={approverSearchInput[role] || ''}
+                          disabled={existingProject === 'yes' && !isDraftProject}
+                          onChange={e => handleApproverInputChange(role, field, e.target.value, isMultiple)}
+                          onKeyDown={e => {
+                            if (
+                              !(
+                                existingProject === 'yes' && !isDraftProject
+                              ) &&
+                              e.key === 'Backspace' &&
+                              !(approverSearchInput[role] || '').length
+                            ) {
+                              // Remove last user if input is empty
+                              const current = Array.isArray(formData[field])
+                                ? formData[field]
+                                : typeof formData[field] === 'string'
+                                ? formData[field].split(',').map(s => s.trim()).filter(Boolean)
+                                : [];
+                              if (current.length > 0) {
+                                handleChange(field, current.slice(0, -1));
+                              }
+                            }
+                          }}
+                          className="flex-1 min-w-[60px] outline-none border-none bg-transparent"
+                          style={{ minWidth: '60px' }}
+                        />
+                      </div>
+                      {/* Suggestions dropdown */}
+                      {approverSuggestions[role]?.length > 0 && (
+                        <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg top-full">
+                          {approverSuggestions[role].map((val, idx) => {
+                            // Try to find the user by name or email
+                            const user = userList.find(
+                              (u: any) => u.name === val || u.emailID === val
+                            );
+                            const display = user && user.name && user.emailID
+                              ? `${user.name} (${user.emailID})`
+                              : val;
+                            return (
+                              <li
+                                key={idx}
+                                className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                                onClick={() => {
+                                  const current = formData[field] || [];
+                                  if (!current.includes(val)) {
+                                    handleChange(field, [...current, val]);
+                                  }
+                                  setApproverSearchInput((prev) => ({ ...prev, [role]: '' }));
+                                  setApproverSuggestions((prev) => ({ ...prev, [role]: [] }));
+                                }}
+                              >
+                                {display}
+                              </li>
+                            );
+                          })}
+                        </ul>
+                      )}
+                    </div>
+                    {/* Suggestions dropdown */}
+                    {approverSuggestions[role]?.length > 0 && (
+                      <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg top-full">
+                        {approverSuggestions[role].map((email, idx) => (
+                          <li
+                            key={idx}
+                            className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                            onClick={() => {
+                              // Add to array if not already present
+                              const current = formData[field] || [];
+                              if (!current.includes(email)) {
+                                handleChange(field, [...current, email]);
+                              }
+                              // Clear search input and suggestions
+                              setApproverSearchInput((prev) => ({ ...prev, [role]: '' }));
+                              setApproverSuggestions((prev) => ({ ...prev, [role]: [] }));
+                            }}
+                          >
+                            {email}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
+                ) : (
+                  <>
+                    <SearchInput
+                      label={label}
+                      required={!!required}
+                      value={(() => {
+                        const val = formData[field];
+                        if (typeof val === 'string' && val) {
+                          const user = userList.find(
+                            (u: any) => u.name === val || u.emailID === val
+                          );
+                          if (user && user.name && user.emailID) {
+                            return `${user.name} (${user.emailID})`;
+                          }
+                        }
+                        return val;
+                      })()}
+                      onChange={(val) => handleApproverInputChange(role, field, val, isMultiple)}
+                      tooltip={getTooltipText(informationKey)}
+                      disabled={existingProject === 'yes' && !isDraftProject}
+                    />
+                    {approverSuggestions[role]?.length > 0 && (
+                      <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg top-full">
+                        {approverSuggestions[role].map((email, idx) => (
+                          <li
+                            key={idx}
+                            className="p-2 hover:bg-gray-100 cursor-pointer text-sm"
+                            onClick={() =>
+                              handleApproverSuggestionClick(role, field, email, isMultiple)
+                            }
+                          >
+                            {email}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </>
                 )}
               </div>
             ))}
@@ -666,7 +813,7 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
         <div className="p-4 md:p-6">
           <div className="flex flex-col gap-4">
             <h2 className="font-['Roboto',sans-serif] font-bold text-[#4a4a4a] text-base md:text-[17px]">
-              User Selection & Tool Access
+              {existingProject === 'yes' ? 'Existing Users' : 'User Access'}
             </h2>
             <p className="font-['Roboto',sans-serif] font-medium text-[#727272] text-sm md:text-[15px]">
               {existingProject === 'yes'
@@ -701,15 +848,21 @@ export const AccessApproval: React.FC<AccessApprovalProps> = ({
                   {/* Suggestions Dropdown */}
                   {userEmailSuggestions.length > 0 && (
                     <ul className="absolute bg-white border rounded mt-1 z-10 w-full shadow-lg">
-                      {userEmailSuggestions.map((email, idx) => (
-                        <li
-                          key={idx}
-                          className="p-2 hover:bg-gray-100 cursor-pointer"
-                          onClick={() => handleUserEmailSuggestionClick(email)}
-                        >
-                          {email}
-                        </li>
-                      ))}
+                      {userEmailSuggestions.map((email, idx) => {
+                        const user = userList.find((u: any) => u.emailID === email);
+                        const display = user && user.name && user.emailID
+                          ? `${user.name} (${user.emailID})`
+                          : email;
+                        return (
+                          <li
+                            key={idx}
+                            className="p-2 hover:bg-gray-100 cursor-pointer"
+                            onClick={() => handleUserEmailSuggestionClick(email)}
+                          >
+                            {display}
+                          </li>
+                        );
+                      })}
                     </ul>
                   )}
                 </div>

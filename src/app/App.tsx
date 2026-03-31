@@ -22,10 +22,13 @@ export default function App() {
     });
 
   const [dashboardDetails, setDashboardDetails] = useState<DashboardResponse|null>(null);
-  console.log("dashboardDetails",dashboardDetails)
+    const [selectedDropdown, setSelectedDropdown] = useState<string>('ETRF');
+  
+  console.log("selectedDropdown",selectedDropdown)
     const [activeTab, setActiveTab] = useState<TabType>('approver');
     const [requestorDashboardDetails, setRequestorDashboardDetails] = useState<any>(null);
-  
+      const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
+    
   const handleVavigateDashBoard = (dashBoardType: string) => {
     setDashboardType(dashBoardType);
   };
@@ -58,7 +61,7 @@ export default function App() {
   // NEW: fetch dashboard details once accessToken is ready
   useEffect(() => {
     const fetchDashboard = async () => {
-       if (!accessToken) return;
+      //  if (!accessToken) return;
       try {
         const details = await getDashboardDetails('Jake White', accessToken); 
         console.log("details",details)
@@ -73,7 +76,7 @@ export default function App() {
 
   useEffect(() => {
   const fetchRequestorDashboard = async () => {
-     if (!accessToken || dashBoardType !== 'dashboard') return;
+    //  if (!accessToken || dashBoardType !== 'dashboard') return;
 
     try {
       if (activeTab === 'requestor') {
@@ -93,12 +96,19 @@ export default function App() {
     return <Loader />;
   }
 
+  const handleCreateNewButtons = (option:string) => {
+    setDashboardType("newrequest")
+    setSelectedDropdown(option);
+    setRequestType(option);
+  }
   return (
     <div className={styles.app}>
       <Header
         onMenuToggle={toggleSidebar}
         onNavigateDashBoard={handleVavigateDashBoard}
         dashBoardType={dashBoardType}
+        selectedDropdown={selectedDropdown}
+        setSelectedDropdown={setSelectedDropdown}
       />
 
       {dashBoardType === 'newrequest' && (
@@ -113,6 +123,8 @@ export default function App() {
           setExistingProject={setExistingProject}
           existingProjectDetailsFormData={existingProjectDetailsFormData}
           setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
+          requestType={requestType}
+          setRequestType={setRequestType}
         />
       )}
 
@@ -128,6 +140,7 @@ export default function App() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
            requestorDashboardDetails={requestorDashboardDetails}
+           onCreateNewButtons={handleCreateNewButtons}
         />
       )}
     </div>

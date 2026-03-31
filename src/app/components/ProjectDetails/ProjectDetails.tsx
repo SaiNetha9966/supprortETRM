@@ -108,7 +108,7 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({
 
       <div className={styles.formRow}>
         <div className={styles.formGroup}>
-          <label className={styles.label}>Project Type</label>
+          <label className={styles.label}>Project Type<span className={styles.required}>*</span></label>
           <select
             className={styles.select}
             value={formData.projectType}
@@ -263,7 +263,7 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({
       </div>
 
       <div className={styles.formGroup}>
-        <label className={styles.label}>Project Description</label>
+        <label className={styles.label}>ITRF Description</label>
         <div className={styles.textareaWrapper}>
           <textarea
             className={styles.textarea}

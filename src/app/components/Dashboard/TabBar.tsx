@@ -5,9 +5,10 @@ import { TabType } from './Types/index';
 interface TabBarProps {
   activeTab: TabType;
   onTabChange: (tab: TabType) => void;
+  onCreateNewButtons:(option: string) => void;
 }
 
-export function TabBar({ activeTab, onTabChange }: TabBarProps) {
+export function TabBar({ activeTab, onTabChange,onCreateNewButtons }: TabBarProps) {
   const items = [
     { name: 'Aster', organization: 'Pacific Data Systems', status: 'Clarification Required' },
     { name: 'Poppy', organization: 'Global Technology Partners', status: 'Missing Identifier' },
@@ -63,13 +64,13 @@ export function TabBar({ activeTab, onTabChange }: TabBarProps) {
                 title="Engagement Technology Request Form (ETRF)"
                 description="This form should be used for all client projects requiring technology or internal projects requiring specialized tools maintained in client technology environments."
                 buttonText="+ Create New ETRF"
-                onClick={() => alert('ETRF form creation')}
+                onClick={() => onCreateNewButtons('ETRF')}
               />
               <RequestFormCard
                 title="Internal Technology Request Form (ITRF)"
                 description="This form should be used when work is internal, experimental or product focused and does not and will not contain client data."
                 buttonText="+ Create New ITRF"
-                onClick={() => alert('ITRF form creation')}
+                onClick={() => onCreateNewButtons('ITRF')}
               />
             </div>
           )}

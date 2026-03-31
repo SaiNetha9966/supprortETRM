@@ -12,6 +12,7 @@ interface Tool {
   ToolName: string;
   ToolTip: string;
   Recommended: boolean;
+  Questions?: any[];
 }
 
 interface ToolConfigurationProps {
@@ -88,12 +89,23 @@ export default function ToolConfiguration({
         });
       }
 
+      // --- Tool-based questionsinput logic ---
+      // Collect all answers for tool-based questions in the format [{key: [value]}]
+      let questionsinput = Array.isArray(prev.questionsinput) ? [...prev.questionsinput] : [];
+      // Remove any previous entry for this tool's question key
+      questionsinput = questionsinput.filter((entry: any) => !Object.keys(entry).includes(field));
+      // Add new entry if value is not empty/null/undefined
+      if (value !== undefined && value !== null && value !== "") {
+        questionsinput.push({ [field]: [value] });
+      }
+
       return {
         ...prev,
         selectedTools: prev.selectedTools.map((tool: any) =>
           tool.ToolId === toolId ? { ...tool, [field]: value } : tool
         ),
         toolsSpecifications: updatedSpecs,
+        questionsinput,
       };
     });
   };
@@ -236,17 +248,23 @@ export default function ToolConfiguration({
               </div>
             </div>
             <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-              {formData.selectedTools.map((tool: Tool) => (
-                <ToolConfigForm
-                  key={tool.ToolId}
-                  toolName={tool.ToolName}
-                  toolId={tool.ToolId}
-                  platform={tool.Category}
-                  onChange={(field: string, value: any) =>
-                    handleToolConfigChange(tool.ToolId, field, value)
-                  }
-                />
-              ))}
+              {formData.selectedTools.map((tool: any) => {
+              const fullTool = allTools.find((t: any) => t.ToolId === tool.ToolId);
+              const questions = fullTool?.Questions || [];
+              if (!questions.length) return null;
+              return (
+                  <ToolConfigForm
+                    key={tool.ToolId}
+                    toolName={tool.ToolName}
+                    toolId={tool.ToolId}
+                    platform={tool.Category}
+                  questions={questions}
+                    onChange={(field: string, value: any) =>
+                      handleToolConfigChange(tool.ToolId, field, value)
+                    }
+                  />
+                );
+            })}
             </div>
           </div>
         </div>

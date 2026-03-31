@@ -120,6 +120,7 @@ export const mapFormDataToApiPayload = (formData: any) => {
       trust_external_domain: tool.trustExternalDomain || '',
       external_domain_name: tool.externalDomainName || '',
     })),
+    questionsinput: Array.isArray(formData.questionsinput) ? formData.questionsinput : [],
     custom: formData.customToolRequest,
     managing_director: formData.primaryPmdPartner,
     secondary_managing_director: formData.secondoryPmdPartner,

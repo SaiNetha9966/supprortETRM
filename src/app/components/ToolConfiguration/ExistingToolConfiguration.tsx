@@ -11,6 +11,7 @@ interface Tool {
   ToolName: string;
   ToolTip?: string;
   Recommended?: boolean;
+  Questions?: any[];
 }
 
 export default function ExistingToolConfiguration({
@@ -78,7 +79,7 @@ export default function ExistingToolConfiguration({
           {
             Category: toolToAdd.Category,
             Recommended:
-              toolToAdd.Recommended || toolToAdd.recommended || toolToAdd.default || false,
+              toolToAdd.Recommended ?? false,
             ToolId: toolToAdd.ToolId,
             ToolName: toolToAdd.ToolName,
             ToolTip: toolToAdd.ToolTip || 'NA',
@@ -295,17 +296,46 @@ export default function ExistingToolConfiguration({
               </div>
             </div>
             <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-              {selectedTools.map((tool: Tool) => (
-                <ToolConfigForm
-                  key={tool.ToolId}
-                  toolName={tool.ToolName}
-                  toolId={tool.ToolId}
-                  platform={tool.Category}
-                  onChange={(field: string, value: any) =>
-                    handleToolConfigChange(tool.ToolId, field, value)
-                  }
-                />
-              ))}
+              {selectedTools.map((tool: any) => {
+                const fullTool = allToolsFromApi.find((t: any) => t.ToolId === tool.ToolId);
+                const questions = fullTool?.Questions || [];
+                const toolTip = fullTool?.ToolTip;
+                if (!questions.length) return null;
+                // ToolConfigForm already ensures Label is just a label, not a checkbox
+                return (
+                  <div key={tool.ToolId} className="relative">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a]">
+                        {tool.ToolName}
+                      </span>
+                      {toolTip && toolTip !== 'NA' && (
+                        <span className="group cursor-pointer">
+                          <svg
+                            className="inline size-4 align-middle text-[#498E2B]"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <circle cx="10" cy="10" r="9" stroke="#498E2B" strokeWidth="2" fill="#fff" />
+                            <text x="10" y="15" textAnchor="middle" fontSize="12" fill="#498E2B" fontFamily="Arial" fontWeight="bold">i</text>
+                          </svg>
+                          <span className="absolute z-10 left-1/2 -translate-x-1/2 mt-2 w-[320px] bg-[#222] text-white text-xs rounded px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-pre-line shadow-lg">
+                            {toolTip}
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                    <ToolConfigForm
+                      toolName={tool.ToolName}
+                      toolId={tool.ToolId}
+                      platform={tool.Category}
+                      questions={questions}
+                      onChange={(field: string, value: any) =>
+                        handleToolConfigChange(tool.ToolId, field, value)
+                      }
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

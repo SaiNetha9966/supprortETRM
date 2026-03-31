@@ -30,16 +30,20 @@ interface HeaderProps {
   onMenuToggle?: () => void;
   onNavigateDashBoard: (type: string) => void;
   dashBoardType: string;
+  selectedDropdown:string;
+  setSelectedDropdown: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Header: React.FC<HeaderProps> = ({
   onMenuToggle,
   onNavigateDashBoard,
   dashBoardType,
+  selectedDropdown,
+  setSelectedDropdown
 }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [selectedDropdown, setSelectedDropdown] = useState<string>('ETRF');
+  // const [selectedDropdown, setSelectedDropdown] = useState<string>('ETRF');
 
   const toggleMenu = () => {
     setMenuOpen(!menuOpen);
