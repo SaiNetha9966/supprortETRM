@@ -130,7 +130,7 @@ export async function fetchETRFClientProjectdata(token: string) {
 }
 
 const msalConfig = {
-   auth: {
+    auth: {
     clientId: '50e64727-57c1-436e-97c2-fb3bdab52afb',
     authority: 'https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142',
     redirectUri: 'http://localhost:5173/',
@@ -173,6 +173,7 @@ export const generateToken = async () => {
       try {
         const loginResponse = await msalInstance.loginPopup(tokenRequest);
         account = loginResponse?.account;
+        console.log('acount',account);
       } catch (loginPopupError) {
         // Popup might be blocked. Fall back to redirect which is more reliable in restricted environments.
         console.warn(
@@ -247,8 +248,8 @@ export async function getDashboardDetails(userName: string, token: string | null
           },
         }
       );
-      return response.data;
-   //  return dummy;
+     return response.data;
+    // return dummy;
   } catch (error: any) {
     console.error('Error posting data:', error?.response?.data || error?.message);
     throw error;
@@ -256,7 +257,6 @@ export async function getDashboardDetails(userName: string, token: string | null
 }
 
 export async function getRequestorDashboardDetails(userName: string, token: string | null) {
-  console.log('testing the username',userName);
   try {
       const response = await axios.get(
         `https://apim-alixdev.alixpartners.com/etrm/v1/etrm_dashboard_requestor/get_all/Sandeep Chollangi`,
@@ -269,7 +269,7 @@ export async function getRequestorDashboardDetails(userName: string, token: stri
         }
       );
       return response.data;
-    // return requestorDummy;
+    //  return requestorDummy;
   } catch (error: any) {
     console.error('Error posting data:', error?.response?.data || error?.message);
     throw error;

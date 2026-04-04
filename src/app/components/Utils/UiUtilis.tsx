@@ -167,7 +167,7 @@ export const mapFormDataToApiPayload = (formData: any) => {
       tool_id: tool.ToolId ?? tool.toolId ?? tool.id,
       trust_external_domain: tool.trustExternalDomain || '',
       external_domain_name: tool.externalDomainName || '',
-    })) || [],
+    })),
     questionsinput: Array.isArray(formData.questionsinput) ? formData.questionsinput : [],
     custom: formData.customToolRequest,
     managing_director: formData.primaryPmdPartner,

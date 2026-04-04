@@ -57,10 +57,8 @@ const getDataset = (dashBoardactiveTab: string, activeTab: string) => {
   return [];
 };
 
-
 const filteredRequests = useMemo(() => {
   let safeRequests = getDataset(dashBoardactiveTab, activeTab);
-
   let filtered = safeRequests.filter((request: any) => {
     const matchesSearch =
       searchQuery === "" ||
@@ -88,7 +86,12 @@ const filteredRequests = useMemo(() => {
 }, [
   dashBoardactiveTab,
   activeTab,
+  activeTab,
   requestorDashboardDetails,
+  requestorETRFDetails,
+  requestorITRFDetails,
+  approverETRFDetails,
+  approverITRFDetails,
   requestorETRFDetails,
   requestorITRFDetails,
   approverETRFDetails,
@@ -105,6 +108,10 @@ const filteredRequests = useMemo(() => {
       {/* Header */}
       <div className="mb-6">
         <h2 className="font-['Roboto',sans-serif] font-bold text-[19px] text-[#4a4a4a] mb-4">
+          {
+             dashBoardactiveTab  === "requestor" ? "My Requests" : "My Approvals"
+          }
+        
           {
              dashBoardactiveTab  === "requestor" ? "My Requests" : "My Approvals"
           }

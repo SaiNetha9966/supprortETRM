@@ -1,6 +1,13 @@
 import { useState, useEffect } from 'react';
 import svgPaths from '../../../imports/svg-7usnlwj5e7';
-import styles from './ToolConfigForm.module.css';
+// Removed import of ProjectDetails.module.css; using inline styles for date input/icon
+import svgIconPath from '../../../imports/svg-m590sprq1z';
+// Inline DateIcon for calendar, matching ProjectDetails
+const DateIcon: React.FC = () => (
+  <svg width="18" height="18" viewBox="0 0 18 18" fill="none" style={{ width: 18, height: 18, flexShrink: 0 }}>
+    <path d={svgIconPath.p24a05d00} fill="#4A4A4A" />
+  </svg>
+);
 
 interface Question {
   QuestionLabel: string;
@@ -27,20 +34,17 @@ export default function ToolConfigForm({
   onChange,
   questionsinput = [],
 }: ToolConfigFormProps) {
-  // Helper to get the latest value for a question from questionsinput
-  const getPersistedValue = (q: Question) => {
-    const entry = questionsinput.find((item: any) => Object.keys(item)[0] === q.QuestionValue);
-    if (!entry) return undefined;
-    const val = entry[q.QuestionValue];
-    if (Array.isArray(val)) return val[0];
-    return val;
-  };
+  // Store answers for checkboxes
+  const [checkboxAnswers, setCheckboxAnswers] = useState<{ [key: string]: boolean }>({});
+  const [inputAnswers, setInputAnswers] = useState<{ [key: string]: string }>({});
 
   const handleInputChange = (q: Question, value: string) => {
+    setInputAnswers((prev) => ({ ...prev, [q.QuestionValue]: value }));
     onChange(q.QuestionValue, value);
   };
 
   const handleCheckboxChange = (q: Question, checked: boolean) => {
+    setCheckboxAnswers((prev) => ({ ...prev, [q.QuestionValue]: checked }));
     onChange(q.QuestionValue, checked);
   };
 
@@ -70,7 +74,7 @@ export default function ToolConfigForm({
               const q = questions[i];
               if (q.DataType === 'Label') {
                 elements.push(
-                  <div key={q.QuestionValue} className={`flex flex-col gap-[6px] min-w-[180px] break-words ${styles.toolCheckbox}`}> 
+                  <div key={q.QuestionValue} className="flex flex-col gap-[6px] min-w-[180px] break-words">
                     <span className="font-semibold text-[14px] text-[#4a4a4a] mt-2 mb-1">
                       {q.QuestionLabel}
                     </span>
@@ -81,12 +85,12 @@ export default function ToolConfigForm({
               }
               if (q.DataType === 'CheckBox') {
                 elements.push(
-                  <div key={q.QuestionValue} className={`flex flex-col gap-[6px] min-w-[180px] break-words ${styles.toolCheckbox}`}>
+                  <div key={q.QuestionValue} className="flex flex-col gap-[6px] min-w-[180px] break-words">
                     <div className="flex items-center gap-2 ml-2">
                       <input
                         type="checkbox"
                         id={q.QuestionValue}
-                        checked={!!getPersistedValue(q)}
+                        checked={!!checkboxAnswers[q.QuestionValue]}
                         onChange={e => handleCheckboxChange(q, e.target.checked)}
                       />
                       <label htmlFor={q.QuestionValue} className="text-[13px] text-[#4a4a4a]">
@@ -111,7 +115,7 @@ export default function ToolConfigForm({
               }
               if (q.DataType === 'CheckBox') {
                 elements.push(
-                  <div key={q.QuestionValue} className={`flex flex-col min-w-[180px] break-words ${styles.toolCheckbox}`}> 
+                  <div key={q.QuestionValue} className="flex flex-col min-w-[180px] break-words">
                     <label className="flex items-center gap-2 text-[13px] text-[#4a4a4a] font-medium">
                       <input
                         type="checkbox"
@@ -135,7 +139,7 @@ export default function ToolConfigForm({
                     </label>
                     <div className="relative">
                       <select
-                        value={getPersistedValue(q) || ''}
+                        value={inputAnswers[q.QuestionValue] || ''}
                         onChange={e => handleInputChange(q, e.target.value)}
                         className="w-full h-[32px] bg-white border border-[#ccc] rounded px-2 text-[13px] text-[#878787] appearance-none pr-8 outline-none focus:border-[#498e2b] transition-colors"
                       >
@@ -159,15 +163,16 @@ export default function ToolConfigForm({
               }
               if (q.DataType === 'Date') {
                 elements.push(
-                  <div key={q.QuestionValue} className="flex flex-col gap-[6px] break-words">
+                  <div key={q.QuestionValue} className="flex flex-col gap-[6px] min-w-[180px] break-words">
                     <label className="text-[13px] text-[#4a4a4a] font-medium">
                       {q.QuestionLabel}
                       {q.Mandatory && <span className="text-[#cb282e] ml-1">*</span>}
                     </label>
-                    <div style={{ height: 32, background: 'white', border: '1px solid #ccc', borderRadius: 4, padding: '0 8px', display: 'flex', alignItems: 'center' }}>
+                    <div style={{ height: 32, background: 'white', border: '1px solid #ccc', borderRadius: 4, padding: '0 8px', display: 'flex', alignItems: 'center', gap: 6 }}>
+                      <DateIcon />
                       <input
                         type="date"
-                        value={getPersistedValue(q) || ''}
+                        value={inputAnswers[q.QuestionValue] || ''}
                         onChange={e => handleInputChange(q, e.target.value)}
                         style={{ border: 'none', background: 'transparent', color: '#282926', cursor: 'pointer', minWidth: 0, fontSize: 14, fontFamily: 'Roboto, sans-serif', height: 28 }}
                         aria-label={q.QuestionLabel}
@@ -187,8 +192,8 @@ export default function ToolConfigForm({
                     </label>
                     <input
                       type="text"
-                        value={getPersistedValue(q) || ''}
-                        onChange={e => handleInputChange(q, e.target.value)}
+                      value={inputAnswers[q.QuestionValue] || ''}
+                      onChange={e => handleInputChange(q, e.target.value)}
                       className="w-full h-[32px] bg-white border border-[#ccc] rounded px-2 text-[13px] text-[#878787] focus:outline-none focus:border-[#498e2b]"
                     />
                   </div>

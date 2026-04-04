@@ -11,6 +11,7 @@ interface DashBoardApproverPageProps {
   onRequestDetailsView: (value: boolean , approvalID:string) => void;
   dashboardDetails: DashboardResponse;
   requestorDashboardDetails:any;
+  // onCreateNewButtons:(option :string) => void;
   onCreateNewButtons:(option :string) => void;
 }
 
@@ -33,7 +34,7 @@ const requestorSummary = requestorDashboardDetails?.result?.summary ?? null;
 
   return (
     <main className="w-full px-4 sm:px-6 lg:px-4 py-6 space-y-6 max-w-[1440px] mx-auto">
-      <TabBar activeTab={activeTab} onTabChange={setActiveTab} onCreateNewButtons={onCreateNewButtons}  />
+      <TabBar activeTab={activeTab} onTabChange={setActiveTab}onCreateNewButtons={onCreateNewButtons} />
       
       {
         activeTab === 'requestor'&& (

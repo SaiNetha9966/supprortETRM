@@ -29,8 +29,7 @@ export default function App() {
   console.log("selectedDropdown",selectedDropdown)
     const [activeTab, setActiveTab] = useState<TabType>('approver');
     const [requestorDashboardDetails, setRequestorDashboardDetails] = useState<any>(null);
-      const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
-    
+    const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');    
   const handleVavigateDashBoard = (dashBoardType: string) => {
     setDashboardType(dashBoardType);
   };
@@ -109,6 +108,8 @@ export default function App() {
         onMenuToggle={toggleSidebar}
         onNavigateDashBoard={handleVavigateDashBoard}
         dashBoardType={dashBoardType}
+        selectedDropdown={selectedDropdown}
+        setSelectedDropdown={setSelectedDropdown}
         selectedDropdown={selectedDropdown}
         setSelectedDropdown={setSelectedDropdown}
       />

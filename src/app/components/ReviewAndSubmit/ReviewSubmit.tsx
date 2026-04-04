@@ -403,12 +403,142 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
 
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
+            <div className={styles.cardTitle}>
+              Tools Selection
+              {isExistingProject && (
+                <span>
+                  {' '}
+                  ({existingToolsFromMetadata.length} existing tools ·{' '}
+                  {newToolsFromExistingFlow.length} new tool
+                  {newToolsFromExistingFlow.length === 1 ? '' : 's'} added)
+                </span>
+              )}
+            </div>
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="tool-configuration"
+              tittle="Tool Configuration"
+              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
+            />
+          </div>
+          <div className={styles.toolsGrid}>
+            {toolsForDisplay.map((tool: any, index: number) => (
+              <div key={index}>
+                <div className={styles.label}>{tool.ToolName}</div>
+                <div className={styles.value}>{tool.Category}</div>
+                {isExistingProject && newToolSlugs.has(toSlug(tool.ToolName ?? '')) && (
+                  <span className={styles.newToolBadge}>New Tool</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
+          {/* Header */}
+          <div className={styles.cardHeader}>
+            <div className={styles.cardTitle}>Tool Specification</div>
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="tool-configuration"
+              tittle="Tool Configuration"
+              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
+            />
+          </div>
+
+          {/* Tools Grid */}
+          <div className={styles.toolsGrid}>
+            {toolSpecsForDisplay.map((tool: any, index: number) => (
+              <div key={index} className={styles.toolCard}>
+                <div className={styles.toolTitle}>{tool.toolName}</div>
+                <div className={styles.label}>Trust External Domain?:</div>
+                <div className={styles.value}>
+                  {isYesValue(tool.trustExternalDomain) ? 'Yes' : 'No'}
+                </div>
+                {isYesValue(tool.trustExternalDomain) && (
+                  <>
+                    <div className={styles.label}>External Domain Name?:</div>
+                    <div className={styles.value}>{tool.externalDomainName || 'N/A'}</div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
+          <div className={styles.cardHeader}>
+            <div className={styles.cardTitle}>
+              Tools Selection
+              {isExistingProject && (
+                <span>
+                  {' '}
+                  ({existingToolsFromMetadata.length} existing tools ·{' '}
+                  {newToolsFromExistingFlow.length} new tool
+                  {newToolsFromExistingFlow.length === 1 ? '' : 's'} added)
+                </span>
+              )}
+            </div>
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="tool-configuration"
+              tittle="Tool Configuration"
+              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
+            />
+          </div>
+          <div className={styles.toolsGrid}>
+            {toolsForDisplay.map((tool: any, index: number) => (
+              <div key={index}>
+                <div className={styles.label}>{tool.ToolName}</div>
+                <div className={styles.value}>{tool.Category}</div>
+                {isExistingProject && newToolSlugs.has(toSlug(tool.ToolName ?? '')) && (
+                  <span className={styles.newToolBadge}>New Tool</span>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
+          {/* Header */}
+          <div className={styles.cardHeader}>
+            <div className={styles.cardTitle}>Tool Specification</div>
+            <EditButton
+              handleEditButton={handleEditButton}
+              step="tool-configuration"
+              tittle="Tool Configuration"
+              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
+            />
+          </div>
+
+          {/* Tools Grid */}
+          <div className={styles.toolsGrid}>
+            {toolSpecsForDisplay.map((tool: any, index: number) => (
+              <div key={index} className={styles.toolCard}>
+                <div className={styles.toolTitle}>{tool.toolName}</div>
+                <div className={styles.label}>Trust External Domain?:</div>
+                <div className={styles.value}>
+                  {isYesValue(tool.trustExternalDomain) ? 'Yes' : 'No'}
+                </div>
+                {isYesValue(tool.trustExternalDomain) && (
+                  <>
+                    <div className={styles.label}>External Domain Name?:</div>
+                    <div className={styles.value}>{tool.externalDomainName || 'N/A'}</div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
+          <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>Approvers</div>
             <EditButton
               handleEditButton={handleEditButton}
               step="access-approval"
-              tittle="Approvers & Access"
-              desc="Choose approvers and assign user access. This may take a few minutes."
+              tittle="Approval & Access"
+              desc="Define approvers and assign user access for the selected tools. This step may take a few minutes."
             />
           </div>
           <div className={styles.approverGrid}>
@@ -457,6 +587,14 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>
               Tools
+              {isExistingProject && (
+                <span>
+                  {' '}
+                  ({existingToolsFromMetadata.length} existing tools ·{' '}
+                  {newToolsFromExistingFlow.length} new tool
+                  {newToolsFromExistingFlow.length === 1 ? '' : 's'} added)
+                </span>
+              )}
             </div>
             <EditButton handleEditButton={handleEditButton} step="tool-configuration" tittle="Tool Configuration" desc="Pick what you need from the catalog - or request a custom tool."/>
           </div>
@@ -473,10 +611,36 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
           </div>
         </div>
 
+        {/* commentizng this as per new UI */}
+        {/* <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
+          <div className={styles.cardHeader}>
+            <div className={styles.cardTitle}>Tool Specification</div>
+            <EditButton handleEditButton={handleEditButton}  step="tool-configuration"  tittle="Tool Configuration" desc="Pick what you need from the catalog - or request a custom tool." />
+          </div>
+
+          <div className={styles.toolsGrid}>
+            {toolSpecsForDisplay.map((tool: any, index: number) => (
+              <div key={index} className={styles.toolCard}>
+                <div className={styles.toolTitle}>{tool.toolName}</div>
+                <div className={styles.label}>Trust External Domain?:</div>
+                <div className={styles.value}>
+                  {isYesValue(tool.trustExternalDomain) ? 'Yes' : 'No'}
+                </div>
+                {isYesValue(tool.trustExternalDomain) && (
+                  <>
+                    <div className={styles.label}>External Domain Name?:</div>
+                    <div className={styles.value}>{tool.externalDomainName || 'N/A'}</div>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </div> */}
+
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>User Access</div>
-            <EditButton handleEditButton={handleEditButton} step="access-approval" tittle="Approvers & Access" desc="Choose approvers and assign user access. This may take a few minutes." />
+            <EditButton handleEditButton={handleEditButton} step="access-approval" tittle="Approval & Access" desc="Choose approvers and assign user access. This may take a few minutes." />
           </div>
 
           <div className={styles.accessList}>

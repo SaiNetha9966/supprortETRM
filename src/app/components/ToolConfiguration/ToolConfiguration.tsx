@@ -13,6 +13,7 @@ interface Tool {
   ToolTip: string;
   Recommended: boolean;
   Questions?: any[];
+  Questions?: any[];
 }
 
 interface ToolConfigurationProps {

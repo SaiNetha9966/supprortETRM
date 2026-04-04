@@ -95,6 +95,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({
   // const [existingProject, setExistingProject] = useState<string>('');
   const [isClientEngagement, setIsClientEngagement] = useState<boolean>(false);
   // const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
+  // const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
 
   // Expose setter globally for Header dropdown
   React.useEffect(() => {
