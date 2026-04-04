@@ -52,7 +52,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const menuItems: MenuItem[] = [
     {
       id: 'project-setup',
-      label: existingProject === 'yes' ? 'Project Details' : 'Project Setup',
+      label: existingProject === 'yes' ? 'ITRF Details' : 'ITRF Setup',
       icon: currentStep === 'project-details' ? <ProjectSetupIcon /> : <ReviewSubmitIcon />,
       active: currentStep === 'project-details',
       disabled: currentStep !== 'project-details',
@@ -66,7 +66,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
     },
     {
       id: 'access-approval',
-      label: 'Approval & Access',
+      label: 'Approvers & Access',
       icon: <AccessApprovalIcon />,
       disabled: currentStep !== 'access-approval',
       active: currentStep === 'access-approval',
@@ -85,7 +85,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
       <div className={`${styles.overlay} ${isOpen ? styles.show : ''}`} onClick={onClose} />
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
         <h2 className={styles.title}>
-          {existingProject === 'yes' ? 'Non Client Existing Project' : 'Non Client New Project'}
+          {existingProject === 'yes' ? 'Update Existing ITRF' : 'New ITRF'}
         </h2>
         <nav>
           {menuItems.map((item) => (

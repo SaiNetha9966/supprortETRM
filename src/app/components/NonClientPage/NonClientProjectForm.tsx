@@ -28,26 +28,18 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
       <header className="form-header">
         <h1>Internal Technology Request Form</h1>
         <p className="section-description">
-          Use this form to request tool access for a non-client project. Your selections determine
-          the approval and fulfilment workflow.
+          Managing Technology & User Access for Internal Projects
         </p>
       </header>
 
       <section className="form-section">
-        <h2>Request Classification</h2>
-        <p className="section-description">
-          Answer the questions below to route your request to the appropriate workflow.
-        </p>
+        <h2>Help us route your request to the appropriate workflow.</h2>
 
         {/* Existing Project */}
         {
           <>
             <div className="question-block">
-              <h3 className="question-label">1.Do you have an existing project?</h3>
-              <p className="question-description">
-                Select whether this request applies to an existing project or a new project.
-              </p>
-
+              <h3 className="question-label">1.Do you need technology or access for an existing internal project?</h3>
               <div className="radio-group">
                 <label className={`radio-card ${existingProject === 'yes' ? 'selected' : ''}`}>
                   <input
@@ -58,13 +50,13 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                     onChange={(e) => {
                       setExistingProject(e.target.value);
                       setPurpose('');
-                      setPageTittle('Project & Offboarding Scope');
+                      setPageTittle('ITRF Details');
                     }}
                   />
                   <div className="radio-content">
                     <div className="radio-title">Yes</div>
                     <div className="radio-description">
-                      This request applies to an existing project
+                      Select to manage technology & access for an existing internal project.
                     </div>
                   </div>
                 </label>
@@ -83,7 +75,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                   <div className="radio-content">
                     <div className="radio-title">No</div>
                     <div className="radio-description">
-                      Set up a new project and request tool and user access
+                      Select to request technology or access for a new internal project.
                     </div>
                   </div>
                 </label>
@@ -94,7 +86,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                   <AlertIcon />
                   <span>
                     {' '}
-                    This request will create a new project and initiate onboarding.{' '}
+                    You are requesting to create a new internal project. Click Continue to provide project details
                   </span>{' '}
                 </div>
               )}
@@ -118,7 +110,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                     />
                     <div className="radio-content">
                       <div className="radio-title">Onboarding</div>
-                      <div className="radio-description">Request new tool & user access</div>
+                      <div className="radio-description">Select to add tools, add new users, and manage existing users.</div>
                     </div>
                   </label>
 
@@ -132,7 +124,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                     />
                     <div className="radio-content">
                       <div className="radio-title">Offboarding</div>
-                      <div className="radio-description">Revoke tool, user, or project access</div>
+                      <div className="radio-description">Select to offboard all tools and user access, remove individual tools, or remove individual user access.</div>
                     </div>
                   </label>
                 </div>
@@ -141,8 +133,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                   <div className="info-alert">
                     <AlertIcon />
                     <span>
-                      This request will add new tools or user access to an existing project and
-                      follow the onboarding approval workflow.
+                      You are requesting to update existing ITRF. Click on continue to provide details.
                     </span>
                   </div>
                 )}
@@ -150,7 +141,7 @@ const NonClientProjectForm: React.FC<NonClientProjectFormProps> = ({
                   <div className="info-alert">
                     <AlertIcon />
                     <span className="info-alert-span">
-                      Click Continue to Form to provide offboarding scope.
+                      Click Continue to provide offboarding scope.
                     </span>
                   </div>
                 )}

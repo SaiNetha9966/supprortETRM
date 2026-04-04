@@ -106,7 +106,7 @@ export const UsersSummary: React.FC<UsersSummaryProps> = ({
                   handleEditButton(
                     'tool-configuration',
                     'Impact Access',
-                    'Add new tools to the existing project. Existing tools are shown for reference.'
+                    'Review the tools currently configured for this ITRF and add additional tools if needed.'
                   )
                 }
               >

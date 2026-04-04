@@ -46,6 +46,27 @@ export async function submitNonClientNewProject(formData: any, token: string) {
   }
 }
 
+export async function submitEtrfProject(formData: any, token: string) {
+  try {
+    const apiPayload = mapFormDataToApiPayload(formData);
+    const response = await axios.post(
+      'https://apim-alixdev.alixpartners.com/etrm/v1/engagement_interoperatibility/submit_request',
+      apiPayload,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Ocp-Apim-Subscription-Key': subscriptionKey,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error('Error posting data:', error?.response?.data || error?.message);
+    throw error;
+  }
+}
+
 export async function fetchExistingProjectMetadata(idOrName: string, token: string) {
   try {
     const response = await axios.get(
@@ -70,11 +91,49 @@ export async function fetchExistingProjectMetadata(idOrName: string, token: stri
   }
 }
 
+export async function fetchETRFdata(id: string, token: string) {
+  try {
+    const response = await axios.get(
+      `https://apim-alixdev.alixpartners.com/etrm/v1/ironclad_data/iroclad/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Ocp-Apim-Subscription-Key': subscriptionKey,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error('Error fetching ETRF data:', error?.response?.data || error?.message);
+    throw error;
+  }
+}
+
+export async function fetchETRFClientProjectdata(token: string) {
+  try {
+    const response = await axios.get(
+      'https://apim-alixdev.alixpartners.com/etrm/v1/etrf_client_project/clientproject',
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Ocp-Apim-Subscription-Key': subscriptionKey,
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return response.data;
+  } catch (error: any) {
+    console.error('Error fetching ETRF client project data:', error?.response?.data || error?.message);
+    throw error;
+  }
+}
+
 const msalConfig = {
    auth: {
-    clientId: '6c01459f-9913-4473-b6af-6767c1274e4f',
+    clientId: '50e64727-57c1-436e-97c2-fb3bdab52afb',
     authority: 'https://login.microsoftonline.com/46ab644d-6753-4f1a-8268-5e9c62f18142',
-    redirectUri: window.location.origin,
+    redirectUri: 'http://localhost:5173/',
   },
   cache: {
     cacheLocation: 'sessionStorage',

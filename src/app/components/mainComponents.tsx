@@ -1,4 +1,3 @@
-// Add custom property to window for request type setter
 declare global {
   interface Window {
     setRequestType?: (type: 'ETRF' | 'ITRF') => void;
@@ -61,6 +60,12 @@ interface MainComponentProps {
   setExistingProjectDetailsFormData: React.Dispatch<
     React.SetStateAction<ExistingProjectDetailsFormData>
   >;
+  requestType: 'ETRF' | 'ITRF';
+  setRequestType:React.Dispatch<React.SetStateAction<'ETRF' | 'ITRF'>>;
+  ironclacId :string
+  setIronclacId : React.Dispatch<React.SetStateAction<string>>;
+  clientExistingProject: string;
+  setClientExistingProject:React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const MainComponent: React.FC<MainComponentProps> = ({
@@ -74,6 +79,12 @@ export const MainComponent: React.FC<MainComponentProps> = ({
   setExistingProject,
   existingProjectDetailsFormData,
   setExistingProjectDetailsFormData,
+  requestType,
+  setRequestType,
+  ironclacId,
+  setIronclacId,
+  clientExistingProject,
+  setClientExistingProject
 }) => {
   // const [currentStep, setCurrentStep] = useState<StepType>('newclient-intro');
   const [purpose, setPurpose] = useState<string>('');
@@ -83,7 +94,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({
   );
   // const [existingProject, setExistingProject] = useState<string>('');
   const [isClientEngagement, setIsClientEngagement] = useState<boolean>(false);
-  const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
+  // const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
 
   // Expose setter globally for Header dropdown
   React.useEffect(() => {
@@ -592,11 +603,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({
 
   const disableAccessApprovalContinue = [
     formData?.primaryPmdPartner,
-    formData?.secondoryPmdPartner,
-    formData?.informationOwner,
-    formData?.delegateIformationOwner,
-    formData?.projectManager,
-    formData?.approvers,
+    formData?.informationOwner
   ].some(isEmptyValue);
 
   const handleEditButton = (step: StepType, tittle: string, desc: string) => {
@@ -666,6 +673,10 @@ export const MainComponent: React.FC<MainComponentProps> = ({
                     setPurpose={setPurpose}
                     onContinue={handleNonClientContinue}
                     setPageTittle={setPageTittle}
+                     ironclacId={ironclacId}
+                    setIronclacId={setIronclacId}
+                    existingProject={clientExistingProject}
+                    setExistingProject={setClientExistingProject}
                   />
                 ) : (
                   <NonClientProjectForm
@@ -722,14 +733,14 @@ export const MainComponent: React.FC<MainComponentProps> = ({
                       onContinue={handleContinue}
                       onSaveDraft={isProjectDetailsModified() ? handleSaveDraft : undefined}
                       saveDraftLoading={saveDraftLoading}
-                      disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
+                      disableSaveDraft={existingProject !== 'yes' && (!formData?.projectCodeName || !formData?.projectType)}
                       isContinueDisabled={true}
                       isBackButtinShoewn={true}
                       disableContinue={
                         existingProject === 'yes'
                           ? !existingProjectDetailsFormData?.selectedProjectKey
-                          : !formData?.projectCodeName
-                      }
+                          : (!formData?.projectCodeName
+                       || !formData?.projectType)}
                     />
                   </>
                 )}
@@ -822,7 +833,7 @@ export const MainComponent: React.FC<MainComponentProps> = ({
                   disableSaveDraft={existingProject !== 'yes' && !formData?.projectCodeName}
                   isBackButtinShoewn={true}
                   isContinueDisabled={true}
-                  //  disableContinue={disableAccessApprovalContinue}
+                  disableContinue={disableAccessApprovalContinue}
                 />
               </>
             )}

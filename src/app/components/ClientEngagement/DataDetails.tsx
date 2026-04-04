@@ -4,10 +4,16 @@ import styles from '../ProjectDetails/ProjectDetails.module.css';
 
 interface DataDetailsProps {
   formData: any;
+  clientProjectData : any;
   handleChange: (field: string, value: any) => void;
+  onSaveDraft?: () => void;
 }
 
-export default function DataDetails({ formData, handleChange }: DataDetailsProps) {
+export default function DataDetails({ formData, clientProjectData, handleChange, onSaveDraft }: DataDetailsProps) {
+  const countryList = Array.isArray(clientProjectData?.result?.country_of_origin)
+    ? [...clientProjectData.result.country_of_origin].sort((a, b) => a.localeCompare(b))
+    : [];
+
   return (
     <div className={styles.container}>
       <div className={styles.sectionHeader} style={{ marginTop: 0 }}>
@@ -20,18 +26,13 @@ export default function DataDetails({ formData, handleChange }: DataDetailsProps
           <label className={styles.label}>
             What data volume do you expect (in GB)? <span className={styles.required}>*</span>
           </label>
-          <select
-            className={styles.select}
+          <input
+            type="number"
+            min="0"
+            className={styles.input}
             value={formData.dataVolume || ''}
-            onChange={(e) => handleChange('dataVolume', e.target.value)}
-          >
-            <option value="" hidden></option>
-            <option value="<1">Less than 1 GB</option>
-            <option value="1-10">1 - 10 GB</option>
-            <option value="10-100">10 - 100 GB</option>
-            <option value="100-500">100 - 500 GB</option>
-            <option value="500+">500+ GB</option>
-          </select>
+            onChange={e => handleChange('dataVolume', e.target.value.replace(/[^0-9.]/g, ''))}
+          />
         </div>
 
         <div className={styles.formGroup}>
@@ -44,10 +45,9 @@ export default function DataDetails({ formData, handleChange }: DataDetailsProps
             onChange={(e) => handleChange('dataCountryOrigin', e.target.value)}
           >
             <option value="" hidden></option>
-            <option value="USA">United States</option>
-            <option value="UK">United Kingdom</option>
-            <option value="India">India</option>
-            <option value="Other">Other</option>
+            {countryList.map((country) => (
+              <option key={country} value={country}>{country}</option>
+            ))}
           </select>
         </div>
 

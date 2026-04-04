@@ -31,7 +31,7 @@ function ProgressBar1() {
         className="font-['Roboto:Regular',sans-serif] font-normal leading-none min-w-full relative shrink-0 text-[#727272] text-[15px] w-[min-content]"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
-        This process could take a few minutes
+        Review the approval chain and manage user access to tools for this ITRF.
       </p>
       <ProgressBar />
       <p
@@ -66,7 +66,7 @@ function DetailsInfo() {
         className="font-['Roboto:Bold',sans-serif] font-bold leading-[normal] relative shrink-0 text-[#4a4a4a] text-[17px] w-full"
         style={{ fontVariationSettings: "'wdth' 100" }}
       >
-        Project Details
+        ITRF Details
       </p>
       <p
         className="font-['Roboto:Medium',sans-serif] font-medium leading-[20px] relative shrink-0 text-[#727272] text-[15px] w-full"

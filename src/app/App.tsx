@@ -22,10 +22,15 @@ export default function App() {
     });
 
   const [dashboardDetails, setDashboardDetails] = useState<DashboardResponse|null>(null);
-  console.log("dashboardDetails",dashboardDetails)
+    const [selectedDropdown, setSelectedDropdown] = useState<string>('ETRF');
+    const [ironclacId, setIronclacId] = useState<string>('');
+      const [clientExistingProject, setClientExistingProject] = useState<string>('');
+    
+  console.log("selectedDropdown",selectedDropdown)
     const [activeTab, setActiveTab] = useState<TabType>('approver');
     const [requestorDashboardDetails, setRequestorDashboardDetails] = useState<any>(null);
-  
+      const [requestType, setRequestType] = useState<'ETRF' | 'ITRF'>('ETRF');
+    
   const handleVavigateDashBoard = (dashBoardType: string) => {
     setDashboardType(dashBoardType);
   };
@@ -93,12 +98,19 @@ export default function App() {
     return <Loader />;
   }
 
+  const handleCreateNewButtons = (option:string) => {
+    setDashboardType("newrequest")
+    setSelectedDropdown(option);
+    setRequestType(option);
+  }
   return (
     <div className={styles.app}>
       <Header
         onMenuToggle={toggleSidebar}
         onNavigateDashBoard={handleVavigateDashBoard}
         dashBoardType={dashBoardType}
+        selectedDropdown={selectedDropdown}
+        setSelectedDropdown={setSelectedDropdown}
       />
 
       {dashBoardType === 'newrequest' && (
@@ -113,6 +125,12 @@ export default function App() {
           setExistingProject={setExistingProject}
           existingProjectDetailsFormData={existingProjectDetailsFormData}
           setExistingProjectDetailsFormData={setExistingProjectDetailsFormData}
+          requestType={requestType}
+          setRequestType={setRequestType}
+          ironclacId={ironclacId}
+          setIronclacId={setIronclacId}
+          clientExistingProject={clientExistingProject}
+          setClientExistingProject={setClientExistingProject}
         />
       )}
 
@@ -128,6 +146,11 @@ export default function App() {
           activeTab={activeTab}
           setActiveTab={setActiveTab}
            requestorDashboardDetails={requestorDashboardDetails}
+           onCreateNewButtons={handleCreateNewButtons}
+           setRequestType={setRequestType}
+           setIronclacId={setIronclacId}
+            setClientExistingProject={setClientExistingProject}
+           
         />
       )}
     </div>

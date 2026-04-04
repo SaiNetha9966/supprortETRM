@@ -60,12 +60,6 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({
     purpose === 'offboarding' ? offBoardProgressBarData : progressFormData,
     purpose
   );
-  const stepTextMap: Record<string, string> = {
-    'Tool Configuration': 'Step 2 of 4',
-    'Access & Approval': 'Step 3 of 4',
-    'Review & Submit': 'Step 4 of 4',
-  };
-  const stepText = stepTextMap[pageTittle];
 
   return (
     <div className={styles.container}>
@@ -75,8 +69,6 @@ export const ProjectSetup: React.FC<ProjectSetupProps> = ({
         <div className={styles.progressFill} style={{ width: `${progressPercent}%` }} />
       </div>
       <p className={styles.progressText}>{progressPercent}% completed</p>
-
-      {stepText && <p className={styles.stepText}>{stepText}</p>}
     </div>
   );
 };

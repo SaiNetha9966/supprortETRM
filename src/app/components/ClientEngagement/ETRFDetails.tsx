@@ -1,10 +1,14 @@
 import React, { useEffect, useRef } from 'react';
 import styles from '../ProjectDetails/ProjectDetails.module.css';
+import { SearchInput } from '../../components/AccessAndApproval/SearchInput';
 import svgPaths from '../../../imports/svg-m590sprq1z';
 
 interface ETRFDetailsProps {
   formData: any;
+  clientProjectData: any;
   handleChange: (field: string, value: any) => void;
+  etrfClientProjectData?: any;
+  onSaveDraft?: () => void;
 }
 
 const DateIcon: React.FC = () => (
@@ -13,7 +17,77 @@ const DateIcon: React.FC = () => (
   </svg>
 );
 
-export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps) {
+export default function ETRFDetails({
+  formData,
+  clientProjectData,
+  handleChange,
+  onSaveDraft,
+}: ETRFDetailsProps) {
+  const projectCodeNames = Array.isArray(clientProjectData?.result?.project_code_names)
+    ? [...clientProjectData.result.project_code_names].sort((a, b) => a.localeCompare(b))
+    : [];
+
+
+  // Project Code Name search input state
+  const [projectCodeNameInput, setProjectCodeNameInput] = React.useState(formData.projectCodeName || '');
+  const [projectCodeNameSuggestions, setProjectCodeNameSuggestions] = React.useState<string[]>([]);
+  const [showProjectCodeSuggestions, setShowProjectCodeSuggestions] = React.useState(true);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // Client Name search input state
+  const [clientNameInput, setClientNameInput] = React.useState(formData.clientName || '');
+  const [clientNameSuggestions, setClientNameSuggestions] = React.useState<string[]>([]);
+  const [showClientNameSuggestions, setShowClientNameSuggestions] = React.useState(false);
+  const clientNameWrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // Suggestions logic
+  const getProjectCodeSuggestions = (input: string) => {
+    if (!input) return [];
+    return projectCodeNames.filter((name) =>
+      name.toLowerCase().includes(input.toLowerCase())
+    );
+  };
+  const getClientNameSuggestions = (input: string) => {
+    if (!input || !Array.isArray(formData.clientNameOptions)) return [];
+    return formData.clientNameOptions.filter((name: string) =>
+      name.toLowerCase().includes(input.toLowerCase())
+    );
+  };
+
+  useEffect(() => {
+    if (!showProjectCodeSuggestions) return;
+    setProjectCodeNameSuggestions(getProjectCodeSuggestions(projectCodeNameInput));
+  }, [projectCodeNameInput, projectCodeNames, showProjectCodeSuggestions]);
+
+  useEffect(() => {
+    setProjectCodeNameInput(formData.projectCodeName || '');
+  }, [formData.projectCodeName]);
+
+  useEffect(() => {
+    if (!showClientNameSuggestions) return;
+    setClientNameSuggestions(getClientNameSuggestions(clientNameInput));
+  }, [clientNameInput, formData.clientNameOptions, showClientNameSuggestions]);
+
+  useEffect(() => {
+    setClientNameInput(formData.clientName || '');
+  }, [formData.clientName]);
+
+  // Close dropdowns on outside click
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setProjectCodeNameSuggestions([]);
+        setShowProjectCodeSuggestions(false);
+      }
+      if (clientNameWrapperRef.current && !clientNameWrapperRef.current.contains(event.target as Node)) {
+        setClientNameSuggestions([]);
+        setShowClientNameSuggestions(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
   const startDateRef = useRef<HTMLInputElement | null>(null);
   const endDateRef = useRef<HTMLInputElement | null>(null);
 
@@ -24,13 +98,7 @@ export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps
     }
   }, [formData.etrfId]);
 
-  const isEndDateBeforeStart = (start?: string, end?: string) => {
-    if (!start || !end) return false;
-    return end < start;
-  };
-
   const openPicker = (ref: React.RefObject<HTMLInputElement | null>) => {
-    if (!ref) return;
     const el = ref.current;
     if (!el) return;
     // @ts-ignore
@@ -47,33 +115,70 @@ export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps
     <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>ETRF Details</h2>
-        <p className={styles.description}>Define project scope, timeline, and requirements</p>
+        <p className={styles.description}>
+          Define project scope, timeline, and requirements
+        </p>
       </div>
 
+      {/* Row 1 */}
       <div className={styles.formRow}>
-        <div className={styles.formGroup}>
+        <div className={styles.formGroup} style={{ flex: 1, minWidth: 0 }}>
           <label className={styles.label}>Ironclad ID</label>
           <input
             type="text"
             className={styles.input}
-            value={formData.ironcladId || ''}
-            onChange={(e) => handleChange('ironcladId', e.target.value)}
-            placeholder="IC - 45821"
+            value={`IC-${formData.ironcladId || ''}`}
+            onChange={(e) => handleChange('ironcladId', e.target.value.replace(/^IC-/, ''))}
+            disabled
           />
         </div>
 
-        <div className={styles.formGroup}>
-          <label className={styles.label}>Client Name</label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.clientName || ''}
-            onChange={(e) => handleChange('clientName', e.target.value)}
-            placeholder="TechCrop Industries"
+        <div ref={clientNameWrapperRef} className={styles.formGroup} style={{ flex: 1, minWidth: 0, position: 'relative' }}>
+          <SearchInput
+            label="Client Name"
+            value={clientNameInput}
+            required
+            placeholder="Select or type client name"
+            onChange={(val: string) => {
+              setClientNameInput(val);
+              handleChange('clientName', val);
+              setShowClientNameSuggestions(true);
+            }}
           />
+          {showClientNameSuggestions && clientNameSuggestions.length > 0 && (
+            <ul
+              style={{
+                position: 'absolute',
+                zIndex: 10,
+                background: 'white',
+                border: '1px solid #ccc',
+                borderRadius: 4,
+                marginTop: 2,
+                width: '100%',
+                maxHeight: 180,
+                overflowY: 'auto',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              }}
+            >
+              {clientNameSuggestions.map((name, idx) => (
+                <li
+                  key={name}
+                  style={{ padding: '8px', cursor: 'pointer' }}
+                  onClick={() => {
+                    setClientNameInput(name);
+                    handleChange('clientName', name);
+                    setClientNameSuggestions([]);
+                    setShowClientNameSuggestions(false);
+                  }}
+                >
+                  {name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.formGroup} style={{ flex: 1, minWidth: 0 }}>
           <label className={styles.label}>Type of Work</label>
           <select
             className={styles.select}
@@ -81,13 +186,15 @@ export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps
             onChange={(e) => handleChange('typeOfWork', e.target.value)}
           >
             <option value="" hidden></option>
-            <option value="Performance Improvement">Performance Improvement</option>
-            <option value="Transformational">Transformational</option>
-            <option value="Turnaround">Turnaround</option>
+            {Array.isArray(formData.typeOfWorkOptions) && formData.typeOfWorkOptions.length > 0 &&
+              formData.typeOfWorkOptions.map((option: string) => (
+                <option key={option} value={option}>{option}</option>
+              ))}
           </select>
         </div>
       </div>
 
+      {/* Row 2 */}
       <div className={styles.formRow}>
         <div className={styles.formGroup}>
           <label className={styles.label}>Radius ID</label>
@@ -101,9 +208,6 @@ export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps
             <option value="radius-2">Radius 2</option>
             <option value="radius-3">Radius 3</option>
           </select>
-          <p className={styles.additionalInfo}>
-            Recommended: You can skip if not available at the moment.
-          </p>
         </div>
 
         <div className={styles.formGroup}>
@@ -113,165 +217,110 @@ export default function ETRFDetails({ formData, handleChange }: ETRFDetailsProps
             className={styles.input}
             value={formData.sapProjectId || ''}
             onChange={(e) => handleChange('sapProjectId', e.target.value)}
-            placeholder="Enter SAP Project ID"
           />
-          <p className={styles.additionalInfo}>
-            Recommended: You can skip if not available at the moment.
-          </p>
         </div>
 
         <div className={styles.formGroup}>
           <label className={styles.label}>ETRF ID</label>
           <input type="text" className={styles.input} value={formData.etrfId || ''} disabled />
-          <p className={styles.additionalInfoGray}>Auto Generated by ServiceNow</p>
         </div>
       </div>
 
+      {/* Row 3 */}
       <div className={styles.formRow}>
-        <div className={styles.formGroup}>
-          <label className={styles.label}>
-            Project Code Name <span className={styles.required}>*</span>
-          </label>
-          <input
-            type="text"
-            className={styles.input}
-            value={formData.projectCodeName || ''}
-            onChange={(e) => handleChange('projectCodeName', e.target.value)}
+        <div ref={wrapperRef} className={styles.formGroup} style={{ position: 'relative' }}>
+          <SearchInput
+            label="Project Code Name"
+            value={projectCodeNameInput}
+            required
             placeholder="Select a name from the list, or add a new one."
+            onChange={(val: string) => {
+              setProjectCodeNameInput(val);
+              handleChange('projectCodeName', val);
+              setShowProjectCodeSuggestions(true);
+            }}
           />
-          <p className={styles.additionalInfo}>Select a name from the list, or add a new one.</p>
+
+          {showProjectCodeSuggestions && projectCodeNameSuggestions.length > 0 && (
+            <ul
+              style={{
+                position: 'absolute',
+                zIndex: 10,
+                background: 'white',
+                border: '1px solid #ccc',
+                borderRadius: 4,
+                marginTop: 2,
+                width: '100%',
+                maxHeight: 180,
+                overflowY: 'auto',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.08)',
+              }}
+            >
+              {projectCodeNameSuggestions.map((name, idx) => (
+                <li
+                  key={name}
+                  style={{ padding: '8px', cursor: 'pointer' }}
+                  onClick={() => {
+                    setProjectCodeNameInput(name);
+                    handleChange('projectCodeName', name);
+                    setProjectCodeNameSuggestions([]);
+                    setShowProjectCodeSuggestions(false); // 🔥 FIX
+                  }}
+                >
+                  {name}
+                </li>
+              ))}
+            </ul>
+          )}
         </div>
 
-        <div className={styles.formGroup}>
+        {/* Dates */}
+        <div className={styles.formGroup} style={{ minWidth: 220, flex: 1 }}>
           <label className={styles.label}>Expected Start Date</label>
-          <input
-            ref={startDateRef}
-            type="date"
-            value={formData.estimatedStartDate || ''}
-            onChange={(e) => {
-              const nextStart = e.target.value;
-              handleChange('estimatedStartDate', nextStart);
-              if (isEndDateBeforeStart(nextStart, formData.estimatedEndDate)) {
-                alert('Expected End Date should be on or after Expected Start Date.');
-                handleChange('estimatedEndDate', '');
-              }
-            }}
-            style={{
-              position: 'absolute',
-              width: '1px',
-              height: '1px',
-              padding: 0,
-              margin: '-1px',
-              overflow: 'hidden',
-              clip: 'rect(0 0 0 0)',
-              whiteSpace: 'nowrap',
-              border: 0,
-            }}
-            aria-hidden={false}
-          />
-          <div
-            className={styles.dateInput}
-            onClick={() => openPicker(startDateRef)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openPicker(startDateRef);
-              }
-            }}
-          >
-            <DateIcon />
-            <input
-              type="text"
-              readOnly
-              value={formData.estimatedStartDate || ''}
-              placeholder=""
-              className={styles.input}
-              style={{
-                border: 'none',
-                padding: 0,
-                margin: 0,
-                background: 'transparent',
-                color: '#282926',
-                cursor: 'pointer',
-              }}
-              aria-label="Expected start date"
-            />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div className={styles.dateInput} style={{ flex: 1, display: 'flex', alignItems: 'center', cursor: 'pointer', border: '1px solid #ccc', borderRadius: 4, padding: '0 8px', height: 36, background: '#fff' }}>
+              <DateIcon />
+              <input
+                ref={startDateRef}
+                type="date"
+                value={formData.estimatedStartDate || ''}
+                onChange={e => handleChange('estimatedStartDate', e.target.value)}
+                className={styles.input}
+                style={{ border: 'none', background: 'transparent', outline: 'none', flex: 1, marginLeft: 8, fontSize: 15, height: 32, padding: 0 }}
+              />
+            </div>
           </div>
         </div>
 
-        <div className={styles.formGroup}>
+        <div className={styles.formGroup} style={{ minWidth: 220, flex: 1 }}>
           <label className={styles.label}>Expected End Date</label>
-          <input
-            ref={endDateRef}
-            type="date"
-            value={formData.estimatedEndDate || ''}
-            min={formData.estimatedStartDate || undefined}
-            onChange={(e) => {
-              const nextEnd = e.target.value;
-              if (isEndDateBeforeStart(formData.estimatedStartDate, nextEnd)) {
-                alert('Expected End Date should be on or after Expected Start Date.');
-                return;
-              }
-              handleChange('estimatedEndDate', nextEnd);
-            }}
-            style={{
-              position: 'absolute',
-              width: '1px',
-              height: '1px',
-              padding: 0,
-              margin: '-1px',
-              overflow: 'hidden',
-              clip: 'rect(0 0 0 0)',
-              whiteSpace: 'nowrap',
-              border: 0,
-            }}
-            aria-hidden={false}
-          />
-          <div
-            className={styles.dateInput}
-            onClick={() => openPicker(endDateRef)}
-            role="button"
-            tabIndex={0}
-            onKeyDown={(e) => {
-              if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                openPicker(endDateRef);
-              }
-            }}
-          >
-            <DateIcon />
-            <input
-              type="text"
-              readOnly
-              value={formData.estimatedEndDate || ''}
-              placeholder=""
-              className={styles.input}
-              style={{
-                border: 'none',
-                padding: 0,
-                margin: 0,
-                background: 'transparent',
-                color: '#282926',
-                cursor: 'pointer',
-              }}
-              aria-label="Expected end date"
-            />
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div className={styles.dateInput} style={{ flex: 1, display: 'flex', alignItems: 'center', cursor: 'pointer', border: '1px solid #ccc', borderRadius: 4, padding: '0 8px', height: 36, background: '#fff' }}>
+              {/* <DateIcon /> */}
+              <input
+                ref={endDateRef}
+                type="date"
+                value={formData.estimatedEndDate || ''}
+                onChange={e => handleChange('estimatedEndDate', e.target.value)}
+                className={styles.input}
+                style={{ border: 'none', background: 'transparent', outline: 'none', flex: 1, marginLeft: 8, fontSize: 15, height: 32, padding: 0 }}
+              />
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Description */}
       <div className={styles.formGroup}>
         <label className={styles.label}>Project Description</label>
-        <div className={styles.textareaWrapper}>
-          <textarea
-            className={styles.textarea}
-            value={formData.description || ''}
-            onChange={(e) => handleChange('description', e.target.value)}
-            maxLength={80}
-          />
-          <div className={styles.wordCounter}>{(formData.description || '').length}/80</div>
+        <textarea
+          className={styles.textarea}
+          value={formData.description || ''}
+          onChange={(e) => handleChange('description', e.target.value)}
+          maxLength={80}
+        />
+        <div className={styles.wordCounter}>
+          {(formData.description || '').length}/80
         </div>
       </div>
     </div>

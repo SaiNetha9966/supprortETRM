@@ -41,7 +41,7 @@ export const DataHandling: React.FC<DataHandlingProps> = ({
                 handleEditButton(
                   'access-approval',
                   'Data Handling',
-                  'This process could take a few minutes'
+                  'Review the approval chain and manage user access to tools for this ITRF.'
                 )
               }
             >

@@ -1,0 +1,4 @@
+.toolCheckbox input[type="checkbox"] {
+  accent-color: #498e2b !important;
+  border-radius: 3px;
+}

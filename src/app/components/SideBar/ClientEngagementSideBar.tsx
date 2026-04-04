@@ -83,7 +83,7 @@ export const ClientEngagementSidebar: React.FC<ClientEngagementSidebarProps> = (
     <>
       <div className={`${styles.overlay} ${isOpen ? styles.show : ''}`} onClick={onClose} />
       <aside className={`${styles.sidebar} ${isOpen ? styles.open : ''}`}>
-        <h2 className={styles.title}>Client Engagement</h2>
+        <h2 className={styles.title}>New ETRF</h2>
         <nav>
           {menuItems.map((item) => (
             <div

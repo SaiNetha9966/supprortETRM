@@ -40,7 +40,7 @@ export const ProjectDetails: React.FC<ProjectDetailsProps> = ({
                 handleEditButton(
                   'project-details',
                   'Project & Offboarding Scope',
-                  'Add tools or user access to an existing non-client project'
+                  'Select an existing ITRF and add tools or user access.'
                 )
               }
             >

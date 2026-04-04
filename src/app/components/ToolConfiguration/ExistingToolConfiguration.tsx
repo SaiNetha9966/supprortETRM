@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import ToolCard from './ToolCard';
+import ExistingToolsTable from './ExistingToolsTable';
 import ToolConfigForm from './ToolConfigForm';
 import AddToolsModal from './AddToolsModal';
 import svgPaths from '../../../imports/svg-7usnlwj5e7';
@@ -11,6 +12,7 @@ interface Tool {
   ToolName: string;
   ToolTip?: string;
   Recommended?: boolean;
+  Questions?: any[];
 }
 
 export default function ExistingToolConfiguration({
@@ -78,7 +80,7 @@ export default function ExistingToolConfiguration({
           {
             Category: toolToAdd.Category,
             Recommended:
-              toolToAdd.Recommended || toolToAdd.recommended || toolToAdd.default || false,
+              toolToAdd.Recommended ?? false,
             ToolId: toolToAdd.ToolId,
             ToolName: toolToAdd.ToolName,
             ToolTip: toolToAdd.ToolTip || 'NA',
@@ -121,128 +123,16 @@ export default function ExistingToolConfiguration({
   return (
     <div className="flex min-h-screen items-start justify-center rounded-[8px]">
       <div className="flex w-full max-w-[960px] flex-col gap-3 sm:gap-4 md:gap-5">
-        {/* Main Content Card */}
-        <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6">
-          {/* Tools Selection */}
-          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8">
-            {/* Header */}
-            <div className="flex flex-col gap-3">
-              <h2 className="text-[17px] sm:text-[18px] md:text-[19px] font-bold text-[#28292c]">
-                Tools Selection
-              </h2>
-              <div className="flex flex-col gap-0">
-                <p className="text-[16px] font-normal leading-[22px] tracking-[0%] text-[#727272]">
-                  This step allows you to add new tools to the existing project.
-                </p>
-
-                <div className="info-alert">
-                  <svg
-                    className="alert-icon"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                  >
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
-                  </svg>
-                  <div className="flex flex-col">
-                    <span>
-                      {existingToolCards?.length} tools are already associated with this project.
-                    </span>
-                    <span>
-                      You may add additional tools. Existing tools cannot be removed in this
-                      request.
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Recommended Tools */}
-            <div className="rounded-lg">
-              <div className="flex flex-col gap-4 sm:gap-5">
-                <div className="flex flex-col gap-4 sm:gap-5">
-                  <div className="flex items-center justify-between gap-4">
-                    <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a]">
-                      Existing Tools (Read Only)
-                    </h3>
-                  </div>
-                </div>
-
-                {/* Tool Cards Grid - Responsive */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-                  {existingToolCards.map((tool) => (
-                    <ToolCard
-                      key={tool.ToolId ?? tool.ToolName}
-                      name={getToolName(tool)}
-                      category={getToolCategory(tool)}
-                      isRecommended={isToolRecommended(tool)}
-                      isSelected={true}
-                      onToggle={() => undefined}
-                      disabled={true}
-                    />
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* New Tools to Be Added */}
-            <div className="flex flex-col gap-4 sm:gap-5">
-              <div className="flex items-start justify-between gap-4">
-                <div className="flex-1">
-                  <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a] mb-2">
-                    New Tools to Be Added ({selectedTools.length})
-                  </h3>
-                  <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#727272]">
-                    Add tools that are not currently associated with this project. Existing tools
-                    are shown above for reference and cannot be modified in this request.
-                  </p>
-                </div>
-                <button
-                  onClick={() => setShowAddToolsModal(true)}
-                  className="flex items-center gap-1 px-4 py-2 border border-[#498E2B] text-[#498E2B] rounded-lg hover:bg-[#f1f6f0] transition-colors text-[12px] sm:text-[13px] md:text-[14px] font-medium whitespace-nowrap flex-shrink-0"
-                >
-                  <svg className="size-4" fill="none" viewBox="0 0 20 20">
-                    <path
-                      d="M10 3V17M3 10H17"
-                      stroke="#498E2B"
-                      strokeWidth="2"
-                      strokeLinecap="square"
-                    />
-                  </svg>
-                  Add Tools
-                </button>
-              </div>
-            </div>
-            {selectedTools.length > 0 && (
-              <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-5 md:gap-6">
-                {selectedTools.map((tool) => (
-                  <ToolCard
-                    key={tool.ToolId}
-                    name={getToolName(tool)}
-                    category={getToolCategory(tool)}
-                    isRecommended={isToolRecommended(tool)}
-                    isSelected={true}
-                    onToggle={() => toggleTool(tool.ToolId)}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        </div>
 
         <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6">
           <div className="flex flex-col gap-5 sm:gap-6 md:gap-8">
             <div className="flex flex-col gap-4 sm:gap-5">
               <div>
                 <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a] mb-2">
-                  Custom Tool Request
+                  Custom Tools
                 </h3>
                 <p className="text-[12px] sm:text-[13px] md:text-[16px] text-[#4a4a4a]">
-                  Use this section to request a tool which is not present in list of available tools
-                  below, if no custom tool is required you may skip the section.
+                  Please provide list of Tools and their specifications that you will require for this Internal Project. Team will reach out to you if more information is required.
                 </p>
               </div>
 
@@ -271,6 +161,123 @@ export default function ExistingToolConfiguration({
           </div>
         </div>
 
+        {/* Main Content Card */}
+        <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6">
+          {/* Tools Selection */}
+          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8">
+            {/* Header */}
+            <div className="flex flex-col gap-3">
+              <h2 className="text-[17px] sm:text-[18px] md:text-[19px] font-bold text-[#28292c]">
+                Existing Tools
+              </h2>
+              <div className="flex flex-col gap-0">
+                <p className="text-[16px] font-normal leading-[22px] tracking-[0%] text-[#727272]">
+                  These tools are already configured for this ITRF.
+                </p>
+
+                <div className="info-alert">
+                  <svg
+                    className="alert-icon"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                    <line x1="12" y1="8" x2="12.01" y2="8"></line>
+                  </svg>
+                  <div className="flex flex-col">
+                    <span>
+                      Existing tools cannot be removed on this page. To remove a tool, submit an offboarding request after this ITRF is active.
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Existing Tools Table - Figma style */}
+            <div className="rounded-lg">
+              <div className="flex flex-col gap-4 sm:gap-5">
+                <ExistingToolsTable tools={existingToolCards} getToolName={getToolName} getToolCategory={getToolCategory} />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6">
+          {/* Tools Selection */}
+          <div className="flex flex-col gap-5 sm:gap-6 md:gap-8">
+            <div className="flex flex-col gap-4 sm:gap-5">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex-1">
+                  <h3 className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a] mb-2">
+                    Selected Tools
+                  </h3>
+                  <p className="text-[12px] sm:text-[13px] md:text-[14px] text-[#727272]">
+                    Select additional tools to include in this request.
+                  </p>
+                </div>
+                <button
+                  onClick={() => setShowAddToolsModal(true)}
+                  className="flex items-center gap-1 px-4 py-1 border border-[#498E2B] text-[#498E2B] rounded-lg hover:bg-[#f1f6f0] transition-colors text-[12px] sm:text-[13px] md:text-[14px] font-medium whitespace-nowrap flex-shrink-0"
+                >
+                  <svg className="size-4" fill="none" viewBox="0 0 20 20">
+                    <path
+                      d="M10 3V17M3 10H17"
+                      stroke="#498E2B"
+                      strokeWidth="2"
+                      strokeLinecap="square"
+                    />
+                  </svg>
+                  Add Tools
+                </button>
+              </div>
+            </div>
+            {selectedTools.length > 0 && (
+              <div className="overflow-x-auto">
+                <table className="min-w-full border border-[#e0e0e0] rounded-lg">
+                  <thead className="bg-[#fafafa]">
+                    <tr>
+                      <th className="px-4 py-3 text-left text-[#222] font-bold text-[15px] border-b border-[#e0e0e0]">Tool Name</th>
+                      <th className="px-4 py-3 text-left text-[#222] font-bold text-[15px] border-b border-[#e0e0e0]">Category</th>
+                      <th className="px-4 py-3 text-left text-[#222] font-bold text-[15px] border-b border-[#e0e0e0]">Type</th>
+                      <th className="px-4 py-3 text-left text-[#222] font-bold text-[15px] border-b border-[#e0e0e0]">Status</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {selectedTools.map((tool, idx) => (
+                      <tr key={tool.ToolId} className={idx % 2 === 0 ? 'bg-[#f7f7f7]' : 'bg-white'}>
+                        <td className="px-4 py-3 border-b border-[#e0e0e0]">
+                          <label className="toolCheckbox">
+                            <input
+                              type="checkbox"
+                              checked={true}
+                              onChange={() => toggleTool(tool.ToolId)}
+                            />
+                            <span className="font-medium text-[14px] text-[#4a4a4a] flex items-center">
+                              {getToolName(tool)}
+                            </span>
+                          </label>
+                        </td>
+                        <td className="px-4 py-3 border-b border-[#e0e0e0] text-[14px] text-[#222]">{getToolCategory(tool)}</td>
+                        <td className="px-4 py-3 border-b border-[#e0e0e0]">
+                          {isToolRecommended(tool) && (
+                            <span className="inline-block bg-[#eaf6fb] border border-[#9bb5fd] text-[#006176] rounded-full px-3 py-1 text-[13px]">Recommended</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 border-b border-[#e0e0e0]">
+                          <span className="inline-block bg-[#fff7e6] border border-[#f9d250] text-[#b86a0f] rounded-full px-3 py-1 text-[13px]">Pending Specification</span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            )}
+          </div>
+        </div>
+
         {/* Tools Specification Card */}
         <div className="bg-white rounded-lg p-4 sm:p-5 md:p-6">
           <div className="flex flex-col gap-5 sm:gap-6 md:gap-8">
@@ -295,17 +302,46 @@ export default function ExistingToolConfiguration({
               </div>
             </div>
             <div className="flex flex-col gap-4 sm:gap-5 md:gap-6">
-              {selectedTools.map((tool: Tool) => (
-                <ToolConfigForm
-                  key={tool.ToolId}
-                  toolName={tool.ToolName}
-                  toolId={tool.ToolId}
-                  platform={tool.Category}
-                  onChange={(field: string, value: any) =>
-                    handleToolConfigChange(tool.ToolId, field, value)
-                  }
-                />
-              ))}
+              {selectedTools.map((tool: any) => {
+                const fullTool = allToolsFromApi.find((t: any) => t.ToolId === tool.ToolId);
+                const questions = fullTool?.Questions || [];
+                const toolTip = fullTool?.ToolTip;
+                if (!questions.length) return null;
+                // ToolConfigForm already ensures Label is just a label, not a checkbox
+                return (
+                  <div key={tool.ToolId} className="relative">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="text-[15px] sm:text-[16px] md:text-[17px] font-bold text-[#4a4a4a]">
+                        {tool.ToolName}
+                      </span>
+                      {toolTip && toolTip !== 'NA' && (
+                        <span className="group cursor-pointer">
+                          <svg
+                            className="inline size-4 align-middle text-[#498E2B]"
+                            fill="none"
+                            viewBox="0 0 20 20"
+                          >
+                            <circle cx="10" cy="10" r="9" stroke="#498E2B" strokeWidth="2" fill="#fff" />
+                            <text x="10" y="15" textAnchor="middle" fontSize="12" fill="#498E2B" fontFamily="Arial" fontWeight="bold">i</text>
+                          </svg>
+                          <span className="absolute z-10 left-1/2 -translate-x-1/2 mt-2 w-[320px] bg-[#222] text-white text-xs rounded px-3 py-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-pre-line shadow-lg">
+                            {toolTip}
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                    <ToolConfigForm
+                      toolName={tool.ToolName}
+                      toolId={tool.ToolId}
+                      platform={tool.Category}
+                      questions={questions}
+                      onChange={(field: string, value: any) =>
+                        handleToolConfigChange(tool.ToolId, field, value)
+                      }
+                    />
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>

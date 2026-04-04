@@ -95,15 +95,15 @@ export const ExistingProjectDetails: React.FC<{
     <div className={styles.container}>
       <div className={styles.header}>
         <h2 className={styles.title}>
-          Project Overview {selectOffboadingScope === 'tools' ? '(Read-Only)' : ''}
+          Find an Existing ITRF {selectOffboadingScope === 'tools' ? '(Read-Only)' : ''}
         </h2>
         <p className={styles.description}>
-          Search & select existing project. You can search by ETRM Project ID or Project Code Name.
+          Start by locating your existing internal project. You may search by Project Code Name.
         </p>
         {purpose !== 'offboarding' && (
           <div className={styles.infoAlertBlue}>
             <AlertIcon />
-            <span>Please confirm Project Details before proceeding with offboarding request.</span>
+            <span>Existing items cannot be removed. Use this request to add new tools or users to the ITRF</span>
           </div>
         )}
       </div>
@@ -162,16 +162,6 @@ export const ExistingProjectDetails: React.FC<{
       {hasMatch && (
         <div className={styles.detailsGrid}>
           <div className={styles.detailCard}>
-            <p className={styles.detailLabel}>ERTM Project ID</p>
-            <p className={styles.detailValue}>{selectedProjectKey}</p>
-          </div>
-          <div className={styles.detailCard}>
-            <p className={styles.detailLabel}>SAP Project ID</p>
-            <p className={styles.detailValue}>
-              {existingProject?.sap_project_id ?? existingProject?.sapProjectId ?? ''}
-            </p>
-          </div>
-          <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Project Code Name</p>
             <p className={styles.detailValue}>
               {existingProject?.project_code_name ??
@@ -181,9 +171,21 @@ export const ExistingProjectDetails: React.FC<{
             </p>
           </div>
           <div className={styles.detailCard}>
+            <p className={styles.detailLabel}>SAP Project ID</p>
+            <p className={styles.detailValue}>
+              {existingProject?.sap_project_id ?? existingProject?.sapProjectId ?? ''}
+            </p>
+          </div>
+          <div className={styles.detailCard}>
             <p className={styles.detailLabel}>Project Type</p>
             <p className={styles.detailValue}>
               <p className={styles.detailValue}>{existingProject?.what_type_of_project ?? ''}</p>
+            </p>
+          </div>
+          <div className={styles.detailCard}>
+            <p className={styles.detailLabel}>Primary PMD/Partner</p>
+            <p className={styles.detailValue}>
+              <p className={styles.detailValue}>{existingProject?.managing_director ?? ''}</p>
             </p>
           </div>
           <div className={styles.detailCard}>
@@ -211,7 +213,7 @@ export const ExistingProjectDetails: React.FC<{
             </p>
           </div>
           <div className={styles.detailCard}>
-            <p className={styles.detailLabel}>Describe your project and its goals</p>
+            <p className={styles.detailLabel}>ITRF Description</p>
             <p className={styles.detailValue}>
               {existingProject?.please_describe ?? existingProject?.description ?? ''}
             </p>

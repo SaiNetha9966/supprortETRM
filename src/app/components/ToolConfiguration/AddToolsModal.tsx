@@ -79,125 +79,100 @@ export default function AddToolsModal({
   // Portal ensures modal overlays entire app
   return ReactDOM.createPortal(
     <div className="fixed inset-0 z-10 flex items-center justify-center">
-      {/* Overlay */}
       <div className="absolute inset-0 bg-gray-300 bg-opacity-70" onClick={onClose} />
-
-      {/* Modal */}
-      <div className="relative w-full max-w-[920px] mx-auto px-4 md:px-6 lg:px-0 z-10">
-        <div className="bg-white rounded-lg shadow-xl overflow-hidden">
-          <div className="p-4 md:p-6">
+      <div className="relative w-full max-w-[960px] mx-auto px-4 z-10">
+        <div className="bg-white rounded-lg shadow-xl overflow-hidden" style={{height: '540px', maxHeight: '90vh', display: 'flex', flexDirection: 'column'}}>
+          {/* Close Button */}
+          <button
+            className="absolute top-4 right-4 text-[#727272] hover:text-[#28292c] transition-colors z-20"
+            aria-label="Close"
+            onClick={onClose}
+          >
+            <X size={24} />
+          </button>
+          <div className="p-6 flex-1 overflow-y-auto">
             {/* Header */}
-            <div className="flex items-start justify-between mb-3">
-              <div>
-                <h1 className="text-lg md:text-[19px] font-bold text-[#28292c] mb-2">Add Tools</h1>
-                <p className="text-sm md:text-[15px] font-medium text-[#727272]">
-                  Select one or more tools to add to this project.
-                </p>
-              </div>
-              <button
-                className="text-[#727272] hover:text-[#28292c] transition-colors ml-4"
-                aria-label="Close"
-                onClick={onClose}
-              >
-                <X size={24} />
-              </button>
+            <div className="flex flex-col gap-2 mb-6">
+              <h1 className="text-[19px] font-bold text-[#4a4a4a]">Add Tools</h1>
+              <p className="text-[16px] text-[#727272] leading-[22px]">
+                Select the tools you want to add to this request.
+              </p>
             </div>
-
-            {/* Selection Banner */}
-            {newlySelectedCount > 0 && (
-              <div className="bg-[#f1f6f0] border border-[#a5d192] rounded-lg p-3 mb-6">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 size={20} className="text-[#498E2B] shrink-0" />
-                  <span className="text-sm text-[#3f702a] font-normal">
-                    {newlySelectedCount} Tool
-                    {newlySelectedCount !== 1 ? 's' : ''} selected
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Tabs */}
-            <div className="border-b border-[#ccc] mb-5 overflow-x-auto">
-              <div className="flex gap-1 min-w-max">
-                {tabs.map((tab) => (
-                  <button
-                    key={tab}
-                    onClick={() => setActiveTab(tab)}
-                    className={`px-3 py-2.5 text-xs md:text-sm font-medium uppercase whitespace-nowrap transition-colors ${
-                      activeTab === tab
-                        ? 'text-[#498e2b] border-b-2 border-[#498e2b]'
-                        : 'text-[#4a4a4a] hover:text-[#498e2b]'
-                    }`}
-                  >
-                    {tab}
-                  </button>
-                ))}
-              </div>
+            <div className="flex items-center gap-2 mb-6">
+              <input
+                type="text"
+                placeholder="Search by tool name"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-[320px] h-8 px-3 pr-10 border border-[#ccc] rounded text-sm text-[#4a4a4a] placeholder:text-[#727272] focus:outline-none focus:border-[#498e2b]"
+              />
+              <span className="text-[15px] text-[#727272] ml-2">Filter by</span>
+              <select className="border border-[#ccc] rounded px-2 text-[15px] text-[#727272] h-8">
+                <option>Category</option>
+                {/* Add more filter options if needed */}
+              </select>
             </div>
-
-            {/* Search */}
-            <div className="mb-5">
-              <div className="relative">
-                <input
-                  type="text"
-                  placeholder="Search tools by name"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full h-8 px-3 pr-10 border border-[#ccc] rounded text-sm text-[#4a4a4a] placeholder:text-[#727272] focus:outline-none focus:border-[#498e2b]"
-                />
-                <Search
-                  size={20}
-                  className="absolute right-2 top-1/2 -translate-y-1/2 text-[#4a4a4a] pointer-events-none"
-                />
-              </div>
+            {/* Tool Groups */}
+            <div className="bg-[#fafafa] border border-[#e0e0e0] rounded-lg overflow-hidden mb-6 p-4">
+              {/* Group tools by category */}
+              {['Most Requested', 'AP Platform'].map((group) => {
+                const groupTools = filteredTools.filter((tool: any) => {
+                  if (group === 'Most Requested') return tool.Recommended || tool.recommended || tool.default;
+                  if (group === 'AP Platform') return !(tool.Recommended || tool.recommended || tool.default);
+                  return false;
+                });
+                if (groupTools.length === 0) return null;
+                return (
+                  <div key={group} className="mb-4">
+                    <div className="text-[14px] font-bold text-[#4a4a4a] mb-2">{group}</div>
+                    {groupTools.map((tool: any) => {
+                      const isExisting = existingToolSlugSet.has(toSlug(tool?.ToolName ?? ''));
+                      const isSelected =
+                        isExisting ||
+                        selectedTools.some((selectedTool: any) => {
+                          if (typeof selectedTool === 'string') {
+                            return selectedTool === tool?.ToolId || selectedTool === tool?.ToolName;
+                          }
+                          return selectedTool?.ToolId === tool?.ToolId;
+                        });
+                      return (
+                        <div key={tool.ToolId} className="flex items-center gap-2 mb-2">
+                          <input
+                            type="checkbox"
+                            checked={isSelected}
+                            onChange={() => onToggleTool(tool.ToolId)}
+                            disabled={isExisting}
+                            className="w-5 h-5 accent-[#498e2b]"
+                          />
+                          <span className="text-[15px] text-[#4a4a4a] flex items-center gap-1">
+                            {tool.ToolName}
+                            <Info size={16} className="text-[#4a4a4a] shrink-0" />
+                          </span>
+                          {(tool.Recommended || tool.recommended || tool.default) && (
+                            <span className="inline-block bg-[#eaf6fb] border border-[#9bb5fd] text-[#006176] rounded-full px-3 py-1 text-[13px]">Recommended</span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
             </div>
-
-            {/* Tool Cards */}
-            <div className="h-[235px] overflow-y-auto overflow-x-hidden mb-8 pr-2">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6">
-                {filteredTools.map((tool: any) => {
-                  const isExisting = existingToolSlugSet.has(toSlug(tool?.ToolName ?? ''));
-                  const isSelected =
-                    isExisting ||
-                    selectedTools.some((selectedTool: any) => {
-                      if (typeof selectedTool === 'string') {
-                        return selectedTool === tool?.ToolId || selectedTool === tool?.ToolName;
-                      }
-                      return selectedTool?.ToolId === tool?.ToolId;
-                    });
-
-                  return (
-                    <ToolCard
-                      key={tool.ToolId}
-                      tool={tool}
-                      isSelected={isSelected}
-                      onToggle={() => onToggleTool(tool.ToolId)}
-                      disabled={isExisting}
-                    />
-                  );
-                })}
-              </div>
-              {filteredTools.length === 0 && (
-                <div className="flex items-center justify-center h-full text-[#727272]">
-                  No tools found
-                </div>
-              )}
-            </div>
-
             {/* Footer */}
-            <div className="flex gap-4 md:gap-8 justify-end">
+            <div className="flex justify-end gap-4">
+              <span className="text-[15px] text-[#4a4a4a] mr-auto">{totalSelectedCount} tools selected</span>
               <button
                 onClick={onClose}
-                className="h-8 px-3 min-w-[94px] bg-[#878787] hover:bg-[#757575] text-white text-[15px] font-medium rounded transition-colors"
+                className="h-8 px-4 min-w-[94px] border border-[#498E2B] text-[#498E2B] bg-white rounded hover:bg-[#f1f6f0] transition-colors text-[15px] font-medium"
               >
                 Cancel
               </button>
               <button
-                className="h-8 px-3 min-w-[94px] bg-[#8dca7e] hover:bg-[#7ab96b] text-white text-[15px] font-medium rounded transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                className="h-8 px-4 min-w-[94px] bg-[#498E2B] text-white rounded hover:bg-[#3f702a] transition-colors text-[15px] font-medium disabled:opacity-50 disabled:cursor-not-allowed"
                 disabled={newlySelectedCount === 0}
                 onClick={onClose}
               >
-                Add Selected Tools
+                Add
               </button>
             </div>
           </div>

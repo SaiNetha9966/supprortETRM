@@ -9,7 +9,7 @@ interface RequestDetailHeaderProps {
   handleRequestClarificationModel:() => void;
   onRequestDetailsView: (value: boolean,approvalID:string) => void;
   activeTab: string;
-  onUpdateRequest: () => void;
+  onUpdateRequest: (ironClacId: string, approverId: string) => void;
   onAddToolButton: () => void;
   onAddUserButton: () => void;
   selectedRecord:DashBoardRecordItem | null;
@@ -27,6 +27,7 @@ export function RequestDetailHeader({
   onAddUserButton,
   selectedRecord
 }: RequestDetailHeaderProps) {
+  console.log("selectedRecord in header",selectedRecord)
   const getStatusColor = () => {
     if (request.requestStatus.includes('Approved')) {
       return { bg: '#dff0db', border: '#a5d192', text: '#3f7b25' };
@@ -173,7 +174,7 @@ export function RequestDetailHeader({
             {activeTab === 'requestor' && (
               <>
 <button
-  onClick={onUpdateRequest}
+  onClick={() => onUpdateRequest(selectedRecord?.ironclad_id || '', selectedRecord?.approvalID || '')}
   className="
     flex items-center justify-center
     gap-[4px]

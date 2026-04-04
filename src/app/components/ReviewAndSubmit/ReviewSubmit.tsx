@@ -249,9 +249,9 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
               <div className={styles.detailsGrid}>
                 <div className={styles.detailItem}>
                   <div className={styles.label}>Request Category</div>
-                  <div className={styles.value}>Non Client Project</div>
+                  <div className={styles.value}>{isExistingProject ? 'Update Existing ITRF' : 'New ITRF'}</div>
                 </div>
-                <div className={styles.detailItem}>
+                {/* <div className={styles.detailItem}>
                   <div className={styles.label}>Request Action</div>
                   <div className={styles.value}>
                     {isExistingProject ? 'Onboarding, Existing Project' : 'Onboarding, New Project'}
@@ -260,7 +260,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
                 <div className={styles.detailItem}>
                   <div className={styles.label}>Change Type</div>
                   <div className={styles.value}>Add Tools and Users</div>
-                </div>
+                </div> */}
               </div>
             )}
           </div>
@@ -269,13 +269,13 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
             <div className={styles.cardTitle}>
-              {isClientEngagement ? 'ETRF Details' : 'Project Details'}
+              {isClientEngagement ? 'ETRF Details' : 'ITRF Details'}
             </div>
             <EditButton
               handleEditButton={handleEditButton}
               step="project-details"
-              tittle="Project Details"
-              desc="Provide project details to initiate setup. This process may take a few minutes."
+              tittle="ITRF Details"
+              desc="Define the ITRF scope, timeline, and key requirements."
             />
           </div>
 
@@ -390,7 +390,7 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
                 </div>
               </div>
               <div className={styles.detailItem}>
-                <div className={styles.label}>Describe your project and its goals.</div>
+                <div className={styles.label}>ITRF Description</div>
                 <div className={styles.value}>
                   {isExistingProject
                     ? (existingRecord?.short_description ?? existingRecord?.description)
@@ -403,23 +403,62 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
 
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
           <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>
-              Tools Selection
-              {isExistingProject && (
-                <span>
-                  {' '}
-                  ({existingToolsFromMetadata.length} existing tools ·{' '}
-                  {newToolsFromExistingFlow.length} new tool
-                  {newToolsFromExistingFlow.length === 1 ? '' : 's'} added)
-                </span>
-              )}
-            </div>
+            <div className={styles.cardTitle}>Approvers</div>
             <EditButton
               handleEditButton={handleEditButton}
-              step="tool-configuration"
-              tittle="Tool Configuration"
-              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
+              step="access-approval"
+              tittle="Approvers & Access"
+              desc="Choose approvers and assign user access. This may take a few minutes."
             />
+          </div>
+          <div className={styles.approverGrid}>
+            {[
+              { label: 'Primary PMD/Partner', field: 'primaryPmdPartner' },
+              { label: 'Secondary PMD/Partner', field: 'secondoryPmdPartner' },
+              { label: 'Information Owner', field: 'informationOwner' },
+              { label: 'Delegate Information Owner', field: 'delegateIformationOwner' },
+              { label: 'Project Manager', field: 'projectManager' },
+              { label: 'Approvers', field: 'approvers' },
+            ].map(({ label, field }) => (
+              <div className={styles.approverItem} key={field}>
+                <div className={styles.approverTitle}>{label}</div>
+                <div className={styles.approverName}>
+                  {(() => {
+                    const val = formData[field];
+                    if (Array.isArray(val)) {
+                      return val
+                        .map((v: string) => {
+                          const user = usersList.find(
+                            (u: any) => u.name === v || u.emailID === v
+                          );
+                          return user && user.name && user.emailID
+                            ? `${user.name} (${user.emailID})`
+                            : v;
+                        })
+                        .join(', ');
+                    } else if (typeof val === 'string' && val) {
+                      const user = usersList.find(
+                        (u: any) => u.name === val || u.emailID === val
+                      );
+                      return user && user.name && user.emailID
+                        ? `${user.name} (${user.emailID})`
+                        : val;
+                    } else {
+                      return '';
+                    }
+                  })()}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
+          <div className={styles.cardHeader}>
+            <div className={styles.cardTitle}>
+              Tools
+            </div>
+            <EditButton handleEditButton={handleEditButton} step="tool-configuration" tittle="Tool Configuration" desc="Pick what you need from the catalog - or request a custom tool."/>
           </div>
           <div className={styles.toolsGrid}>
             {toolsForDisplay.map((tool: any, index: number) => (
@@ -435,96 +474,9 @@ export const ReviewSubmit: React.FC<ReviewSubmitProps> = ({
         </div>
 
         <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
-          {/* Header */}
           <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>Tool Specification</div>
-            <EditButton
-              handleEditButton={handleEditButton}
-              step="tool-configuration"
-              tittle="Tool Configuration"
-              desc="Select and configure the tools required for this project. You can request custom tools or choose from approved, recommended tools."
-            />
-          </div>
-
-          {/* Tools Grid */}
-          <div className={styles.toolsGrid}>
-            {toolSpecsForDisplay.map((tool: any, index: number) => (
-              <div key={index} className={styles.toolCard}>
-                <div className={styles.toolTitle}>{tool.toolName}</div>
-                <div className={styles.label}>Trust External Domain?:</div>
-                <div className={styles.value}>
-                  {isYesValue(tool.trustExternalDomain) ? 'Yes' : 'No'}
-                </div>
-                {isYesValue(tool.trustExternalDomain) && (
-                  <>
-                    <div className={styles.label}>External Domain Name?:</div>
-                    <div className={styles.value}>{tool.externalDomainName || 'N/A'}</div>
-                  </>
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
-          <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>Approvers</div>
-            <EditButton
-              handleEditButton={handleEditButton}
-              step="access-approval"
-              tittle="Approval & Access"
-              desc="Define approvers and assign user access for the selected tools. This step may take a few minutes."
-            />
-          </div>
-          <div className={styles.approverGrid}>
-            <div className={styles.approverItem}>
-              <div className={styles.approverTitle}>Primary PMD/Partner</div>
-              <div className={styles.approverName}>
-                {findNameByEmail(formData.primaryPmdPartner, usersList)}
-              </div>
-            </div>
-            <div className={styles.approverItem}>
-              <div className={styles.approverTitle}>Secondary PMD/Partner</div>
-              <div className={styles.approverName}>
-                {findNameByEmail(formData.secondoryPmdPartner, usersList)}
-              </div>
-            </div>
-            <div className={styles.approverItem}>
-              <div className={styles.approverTitle}>Information Owner</div>
-              <div className={styles.approverName}>
-                {findNameByEmail(formData.informationOwner, usersList)}
-              </div>
-            </div>
-            <div className={styles.approverItem}>
-              <div className={styles.approverTitle}>Delegate Information Owner</div>
-              <div className={styles.approverName}>
-                {findNameByEmail(formData.delegateIformationOwner, usersList)}
-              </div>
-            </div>
-            <div className={styles.approverItem}>
-              <div className={styles.approverTitle}>Project Manager</div>
-              <div className={styles.approverName}>
-                {findNameByEmail(formData.projectManager, usersList)}
-              </div>
-            </div>
-            <div className={styles.approverItem}>
-              <div className={styles.approverTitle}>Approvers</div>
-              <div className={styles.approverName}>
-                {findNameByEmail(formData.approvers, usersList)}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={styles.card} style={{ gridColumn: '1 / -1' }}>
-          <div className={styles.cardHeader}>
-            <div className={styles.cardTitle}>User Selection & Tool Access</div>
-            <EditButton
-              handleEditButton={handleEditButton}
-              step="access-approval"
-              tittle="Approval & Access"
-              desc="Define approvers and assign user access for the selected tools. This step may take a few minutes."
-            />
+            <div className={styles.cardTitle}>User Access</div>
+            <EditButton handleEditButton={handleEditButton} step="access-approval" tittle="Approvers & Access" desc="Choose approvers and assign user access. This may take a few minutes." />
           </div>
 
           <div className={styles.accessList}>

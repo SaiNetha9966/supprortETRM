@@ -86,13 +86,8 @@ export const Header: React.FC<HeaderProps> = ({
             Dashboard
           </div>
           <div
-            className={
-              dashBoardType === 'newrequest' ? `${styles.navItem} ${styles.active}` : styles.navItem
-            }
-            onClick={() => {
-              onNavigateDashBoard('newrequest');
-              handleDropdownToggle();
-            }}
+            className={styles.navItem}
+            onClick={handleDropdownToggle}
             style={{ position: 'relative' }}
             tabIndex={0}
             onBlur={handleDropdownClose}
@@ -128,7 +123,10 @@ export const Header: React.FC<HeaderProps> = ({
                     background: selectedDropdown === 'ETRF' ? '#eaf7e6' : 'white',
                     cursor: 'pointer',
                   }}
-                  onClick={() => handleDropdownSelect('ETRF')}
+                  onClick={() => {
+                    handleDropdownSelect('ETRF');
+                    onNavigateDashBoard('newrequest');
+                  }}
                   onMouseDown={(e) => e.preventDefault()}
                 >
                   <span
@@ -154,7 +152,10 @@ export const Header: React.FC<HeaderProps> = ({
                     background: selectedDropdown === 'ITRF' ? '#eaf7e6' : 'white',
                     cursor: 'pointer',
                   }}
-                  onClick={() => handleDropdownSelect('ITRF')}
+                  onClick={() => {
+                    handleDropdownSelect('ITRF');
+                    onNavigateDashBoard('newrequest');
+                  }}
                   onMouseDown={(e) => e.preventDefault()}
                 >
                   <span

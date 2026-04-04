@@ -1,0 +1,35 @@
+.toolCheckbox {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #1a1a1a;
+  cursor: pointer;
+}
+
+.toolCheckbox input[type="checkbox"] {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid #4caf50;
+  border-radius: 4px;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+}
+
+.toolCheckbox input[type="checkbox"]:checked {
+  background-color: #4caf50;
+}
+
+.toolCheckbox input[type="checkbox"]:checked::after {
+  content: "✔";
+  color: #fff;
+  font-size: 14px;
+}
+
+.toolCheckbox span {
+  font-size: 14px;
+  color: #1a1a1a;
+}

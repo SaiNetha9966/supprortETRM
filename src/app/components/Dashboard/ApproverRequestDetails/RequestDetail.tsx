@@ -15,7 +15,7 @@ import { updateApprovalById } from '../../../service/api';
 interface RequestDetailProps {
   onRequestDetailsView: (value: boolean, approvalID:string) => void;
   activeTab: string;
-  onUpdateRequest: () => void;
+  onUpdateRequest: (ironClacId: string, approverId: string) => void;
   onAddToolButton: () => void;
   onAddUserButton: () => void;
   dashboardDetails : DashboardResponse;
